@@ -63,16 +63,17 @@
 
 package org.apache.catalina.authenticator;
 
-import java.io.IOException;
-import java.security.Principal;
-import java.security.cert.X509Certificate;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.Globals;
 import org.apache.catalina.HttpRequest;
 import org.apache.catalina.HttpResponse;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.deploy.LoginConfig;
+
+import java.io.IOException;
+import java.security.Principal;
+import java.security.cert.X509Certificate;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * An <b>Authenticator</b> and <b>Valve</b> implementation of authentication

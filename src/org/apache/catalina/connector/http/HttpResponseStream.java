@@ -63,10 +63,11 @@
 
 package org.apache.catalina.connector.http;
 
+import org.apache.catalina.connector.ResponseStream;
+
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.connector.ResponseStream;
 
 /**
  * Response stream for the HTTP/1.1 connector. This stream will automatically

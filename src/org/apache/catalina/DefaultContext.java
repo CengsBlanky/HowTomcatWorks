@@ -62,8 +62,6 @@
 
 package org.apache.catalina;
 
-import java.beans.PropertyChangeListener;
-import javax.naming.directory.DirContext;
 import org.apache.catalina.deploy.ApplicationParameter;
 import org.apache.catalina.deploy.ContextEjb;
 import org.apache.catalina.deploy.ContextEnvironment;
@@ -71,6 +69,9 @@ import org.apache.catalina.deploy.ContextResource;
 import org.apache.catalina.deploy.ContextResourceLink;
 import org.apache.catalina.deploy.NamingResources;
 import org.apache.catalina.deploy.ResourceParams;
+
+import java.beans.PropertyChangeListener;
+import javax.naming.directory.DirContext;
 
 /**
  * Used to store the default configuration a Host will use

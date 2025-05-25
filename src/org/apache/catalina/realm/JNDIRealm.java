@@ -61,6 +61,8 @@
 
 package org.apache.catalina.realm;
 
+import org.apache.catalina.LifecycleException;
+
 import java.security.Principal;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -79,7 +81,6 @@ import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
-import org.apache.catalina.LifecycleException;
 
 /**
  * <p>Implementation of <strong>Realm</strong> that works with a directory

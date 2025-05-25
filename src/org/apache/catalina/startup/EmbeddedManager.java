@@ -62,6 +62,13 @@
 
 package org.apache.catalina.startup;
 
+import org.apache.catalina.Connector;
+import org.apache.catalina.Context;
+import org.apache.catalina.Engine;
+import org.apache.catalina.Host;
+import org.apache.catalina.Logger;
+import org.apache.catalina.Realm;
+
 import java.net.InetAddress;
 import javax.management.AttributeChangeNotification;
 import javax.management.MBeanRegistration;
@@ -69,12 +76,6 @@ import javax.management.MBeanServer;
 import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
 import javax.management.ObjectName;
-import org.apache.catalina.Connector;
-import org.apache.catalina.Context;
-import org.apache.catalina.Engine;
-import org.apache.catalina.Host;
-import org.apache.catalina.Logger;
-import org.apache.catalina.Realm;
 
 /**
  * Implementation of the Catalina JMX MBean as a wrapper of the Catalina class.

@@ -62,12 +62,13 @@
 
 package org.apache.catalina.core;
 
+import org.apache.catalina.util.StringManager;
+
 import java.io.IOException;
 import java.util.Locale;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Wrapper around a <code>javax.servlet.http.HttpServletResponse</code>

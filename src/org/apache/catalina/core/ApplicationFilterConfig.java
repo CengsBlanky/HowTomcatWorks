@@ -62,6 +62,10 @@
 
 package org.apache.catalina.core;
 
+import org.apache.catalina.Context;
+import org.apache.catalina.deploy.FilterDef;
+import org.apache.catalina.util.Enumerator;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Map;
@@ -69,9 +73,6 @@ import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import org.apache.catalina.Context;
-import org.apache.catalina.deploy.FilterDef;
-import org.apache.catalina.util.Enumerator;
 
 /**
  * Implementation of a <code>javax.servlet.FilterConfig</code> useful in

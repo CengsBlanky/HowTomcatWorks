@@ -62,12 +62,6 @@
 
 package org.apache.catalina.mbeans;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import javax.management.MBeanException;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.management.RuntimeOperationsException;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Container;
 import org.apache.catalina.Context;
@@ -104,6 +98,13 @@ import org.apache.catalina.valves.ValveBase;
 import org.apache.commons.modeler.BaseModelMBean;
 import org.apache.commons.modeler.ManagedBean;
 import org.apache.commons.modeler.Registry;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import javax.management.MBeanException;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.management.RuntimeOperationsException;
 
 /**
  * <p>A <strong>ModelMBean</strong> implementation for the

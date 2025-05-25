@@ -62,6 +62,8 @@
 
 package org.apache.catalina.connector;
 
+import org.apache.catalina.Request;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -70,7 +72,6 @@ import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
-import org.apache.catalina.Request;
 
 /**
  * Facade class that wraps a Catalina-internal <b>Request</b>

@@ -1,9 +1,10 @@
 package org.apache.catalina.connector;
 
+import org.apache.catalina.HttpResponse;
+
 import java.io.IOException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.HttpResponse;
 
 /**
  * Facade class that wraps a Catalina-internal <b>HttpResponse</b>

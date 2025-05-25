@@ -62,14 +62,6 @@
 
 package org.apache.catalina.valves;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.security.cert.CertificateFactory;
-import javax.net.ssl.SSLPeerUnverifiedException;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocket;
-import javax.security.cert.X509Certificate;
-import javax.servlet.ServletException;
 import org.apache.catalina.Context;
 import org.apache.catalina.Globals;
 import org.apache.catalina.Lifecycle;
@@ -83,6 +75,15 @@ import org.apache.catalina.connector.RequestWrapper;
 import org.apache.catalina.deploy.LoginConfig;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.security.cert.CertificateFactory;
+import javax.net.ssl.SSLPeerUnverifiedException;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.security.cert.X509Certificate;
+import javax.servlet.ServletException;
 
 /**
  * <p>Implementation of a Valve that deals with SSL client certificates, as

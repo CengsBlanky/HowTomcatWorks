@@ -61,6 +61,9 @@
 
 package org.apache.catalina.realm;
 
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.util.StringManager;
+
 import java.security.Principal;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -69,8 +72,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.util.StringManager;
 
 /**
  *

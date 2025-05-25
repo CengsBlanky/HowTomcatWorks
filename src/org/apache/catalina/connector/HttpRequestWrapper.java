@@ -62,10 +62,11 @@
 
 package org.apache.catalina.connector;
 
+import org.apache.catalina.HttpRequest;
+
 import java.security.Principal;
 import java.util.Locale;
 import javax.servlet.http.Cookie;
-import org.apache.catalina.HttpRequest;
 
 /**
  * Abstract convenience class that wraps a Catalina-internal <b>HttpRequest</b>

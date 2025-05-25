@@ -62,6 +62,18 @@
 
 package org.apache.catalina.startup;
 
+import org.apache.catalina.Context;
+import org.apache.catalina.Deployer;
+import org.apache.catalina.Host;
+import org.apache.catalina.Lifecycle;
+import org.apache.catalina.LifecycleEvent;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.LifecycleListener;
+import org.apache.catalina.Logger;
+import org.apache.catalina.core.StandardHost;
+import org.apache.catalina.util.StringManager;
+import org.apache.naming.resources.ResourceAttributes;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -76,17 +88,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
-import org.apache.catalina.Context;
-import org.apache.catalina.Deployer;
-import org.apache.catalina.Host;
-import org.apache.catalina.Lifecycle;
-import org.apache.catalina.LifecycleEvent;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.LifecycleListener;
-import org.apache.catalina.Logger;
-import org.apache.catalina.core.StandardHost;
-import org.apache.catalina.util.StringManager;
-import org.apache.naming.resources.ResourceAttributes;
 
 /**
  * Startup event listener for a <b>Host</b> that configures the properties

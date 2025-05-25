@@ -62,6 +62,17 @@
 
 package org.apache.catalina.session;
 
+import org.apache.catalina.Container;
+import org.apache.catalina.Context;
+import org.apache.catalina.Globals;
+import org.apache.catalina.Lifecycle;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.LifecycleListener;
+import org.apache.catalina.Loader;
+import org.apache.catalina.Session;
+import org.apache.catalina.util.CustomObjectInputStream;
+import org.apache.catalina.util.LifecycleSupport;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.BufferedInputStream;
@@ -76,16 +87,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.servlet.ServletContext;
-import org.apache.catalina.Container;
-import org.apache.catalina.Context;
-import org.apache.catalina.Globals;
-import org.apache.catalina.Lifecycle;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.LifecycleListener;
-import org.apache.catalina.Loader;
-import org.apache.catalina.Session;
-import org.apache.catalina.util.CustomObjectInputStream;
-import org.apache.catalina.util.LifecycleSupport;
 
 /**
  * Standard implementation of the <b>Manager</b> interface that provides

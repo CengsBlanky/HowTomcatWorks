@@ -1,12 +1,13 @@
 package org.apache.catalina.core;
 
+import org.apache.catalina.Globals;
+import org.apache.catalina.util.Enumerator;
+import org.apache.catalina.util.StringManager;
+
 import java.util.Enumeration;
 import java.util.HashMap;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletRequestWrapper;
-import org.apache.catalina.Globals;
-import org.apache.catalina.util.Enumerator;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Wrapper around a <code>javax.servlet.ServletRequest</code>

@@ -1,7 +1,8 @@
 package test;
 
-import javax.servlet.http.Cookie;
 import org.apache.catalina.util.RequestUtil;
+
+import javax.servlet.http.Cookie;
 
 public class UseRequestUtilExample {
     public static void main(String[] args) {

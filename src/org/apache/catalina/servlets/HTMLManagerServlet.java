@@ -62,6 +62,9 @@
 
 package org.apache.catalina.servlets;
 
+import org.apache.catalina.Context;
+import org.apache.catalina.util.ServerInfo;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -73,8 +76,6 @@ import java.util.TreeMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.Context;
-import org.apache.catalina.util.ServerInfo;
 
 /**
  * Servlet that enables remote management of the web applications installed

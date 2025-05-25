@@ -61,6 +61,10 @@
 
 package org.apache.catalina.realm;
 
+import org.apache.catalina.Container;
+import org.apache.catalina.Realm;
+import org.apache.commons.digester.Digester;
+
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
@@ -78,9 +82,6 @@ import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.FailedLoginException;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
-import org.apache.catalina.Container;
-import org.apache.catalina.Realm;
-import org.apache.commons.digester.Digester;
 
 /**
  * <p>Implementation of the JAAS <strong>LoginModule</strong> interface,

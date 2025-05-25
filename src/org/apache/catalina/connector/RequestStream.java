@@ -62,11 +62,12 @@
 
 package org.apache.catalina.connector;
 
+import org.apache.catalina.Request;
+import org.apache.catalina.util.StringManager;
+
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.ServletInputStream;
-import org.apache.catalina.Request;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Convenience implementation of <b>ServletInputStream</b> that works with

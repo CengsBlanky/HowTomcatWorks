@@ -62,17 +62,6 @@
 
 package org.apache.catalina.core;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.io.IOException;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
-import javax.naming.directory.DirContext;
-import javax.servlet.ServletException;
 import org.apache.catalina.Cluster;
 import org.apache.catalina.Container;
 import org.apache.catalina.ContainerEvent;
@@ -92,6 +81,18 @@ import org.apache.catalina.Valve;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
 import org.apache.naming.resources.ProxyDirContext;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Iterator;
+import javax.naming.directory.DirContext;
+import javax.servlet.ServletException;
 
 /**
  * Abstract implementation of the <b>Container</b> interface, providing common

@@ -62,6 +62,13 @@
 
 package org.apache.catalina.loader;
 
+import org.apache.catalina.Lifecycle;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.LifecycleListener;
+import org.apache.naming.JndiPermission;
+import org.apache.naming.resources.Resource;
+import org.apache.naming.resources.ResourceAttributes;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FilePermission;
@@ -91,12 +98,6 @@ import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
-import org.apache.catalina.Lifecycle;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.LifecycleListener;
-import org.apache.naming.JndiPermission;
-import org.apache.naming.resources.Resource;
-import org.apache.naming.resources.ResourceAttributes;
 
 /**
  * Specialized web application class loader.

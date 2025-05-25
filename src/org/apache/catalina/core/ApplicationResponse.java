@@ -62,9 +62,10 @@
 
 package org.apache.catalina.core;
 
+import org.apache.catalina.util.StringManager;
+
 import javax.servlet.ServletResponse;
 import javax.servlet.ServletResponseWrapper;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Wrapper around a <code>javax.servlet.ServletResponse</code>

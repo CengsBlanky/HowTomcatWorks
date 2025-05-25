@@ -63,6 +63,13 @@
 
 package org.apache.catalina.session;
 
+import org.apache.catalina.Container;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.Loader;
+import org.apache.catalina.Session;
+import org.apache.catalina.Store;
+import org.apache.catalina.util.CustomObjectInputStream;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -76,12 +83,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.catalina.Container;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.Loader;
-import org.apache.catalina.Session;
-import org.apache.catalina.Store;
-import org.apache.catalina.util.CustomObjectInputStream;
 
 /**
  * Implementation of the <code>Store</code> interface that stores

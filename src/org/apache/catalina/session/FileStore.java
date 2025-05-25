@@ -62,6 +62,14 @@
 
 package org.apache.catalina.session;
 
+import org.apache.catalina.Container;
+import org.apache.catalina.Context;
+import org.apache.catalina.Globals;
+import org.apache.catalina.Loader;
+import org.apache.catalina.Session;
+import org.apache.catalina.Store;
+import org.apache.catalina.util.CustomObjectInputStream;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -73,13 +81,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.servlet.ServletContext;
-import org.apache.catalina.Container;
-import org.apache.catalina.Context;
-import org.apache.catalina.Globals;
-import org.apache.catalina.Loader;
-import org.apache.catalina.Session;
-import org.apache.catalina.Store;
-import org.apache.catalina.util.CustomObjectInputStream;
 
 /**
  * Concrete implementation of the <b>Store</b> interface that utilizes

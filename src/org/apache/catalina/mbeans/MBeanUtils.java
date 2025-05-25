@@ -62,14 +62,6 @@
 
 package org.apache.catalina.mbeans;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLEncoder;
-import javax.management.MBeanException;
-import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
-import javax.management.modelmbean.ModelMBean;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Contained;
 import org.apache.catalina.Container;
@@ -97,6 +89,15 @@ import org.apache.catalina.valves.ValveBase;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.modeler.ManagedBean;
 import org.apache.commons.modeler.Registry;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLEncoder;
+import javax.management.MBeanException;
+import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+import javax.management.modelmbean.ModelMBean;
 
 /**
  * Public utility methods in support of the server side MBeans implementation.

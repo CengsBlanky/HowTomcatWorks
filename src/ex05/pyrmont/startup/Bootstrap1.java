@@ -1,14 +1,15 @@
 package ex05.pyrmont.startup;
 
-import ex05.pyrmont.core.SimpleLoader;
-import ex05.pyrmont.core.SimpleWrapper;
-import ex05.pyrmont.valves.ClientIPLoggerValve;
-import ex05.pyrmont.valves.HeaderLoggerValve;
 import org.apache.catalina.Loader;
 import org.apache.catalina.Pipeline;
 import org.apache.catalina.Valve;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.connector.http.HttpConnector;
+
+import ex05.pyrmont.core.SimpleLoader;
+import ex05.pyrmont.core.SimpleWrapper;
+import ex05.pyrmont.valves.ClientIPLoggerValve;
+import ex05.pyrmont.valves.HeaderLoggerValve;
 
 public final class Bootstrap1 {
     public static void main(String[] args) {

@@ -1,6 +1,5 @@
 package ex14.pyrmont.startup;
 
-import ex14.pyrmont.core.SimpleContextConfig;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Context;
 import org.apache.catalina.Engine;
@@ -20,6 +19,8 @@ import org.apache.catalina.core.StandardServer;
 import org.apache.catalina.core.StandardService;
 import org.apache.catalina.core.StandardWrapper;
 import org.apache.catalina.loader.WebappLoader;
+
+import ex14.pyrmont.core.SimpleContextConfig;
 
 public final class Bootstrap {
     public static void main(String[] args) {

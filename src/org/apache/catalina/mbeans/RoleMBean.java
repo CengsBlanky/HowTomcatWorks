@@ -62,12 +62,13 @@
 
 package org.apache.catalina.mbeans;
 
-import javax.management.MBeanException;
-import javax.management.MBeanServer;
-import javax.management.RuntimeOperationsException;
 import org.apache.commons.modeler.BaseModelMBean;
 import org.apache.commons.modeler.ManagedBean;
 import org.apache.commons.modeler.Registry;
+
+import javax.management.MBeanException;
+import javax.management.MBeanServer;
+import javax.management.RuntimeOperationsException;
 
 /**
  * <p>A <strong>ModelMBean</strong> implementation for the

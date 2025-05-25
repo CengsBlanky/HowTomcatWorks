@@ -62,6 +62,11 @@
 
 package org.apache.catalina.mbeans;
 
+import org.apache.catalina.deploy.ContextResource;
+import org.apache.catalina.deploy.NamingResources;
+import org.apache.catalina.deploy.ResourceParams;
+import org.apache.commons.modeler.BaseModelMBean;
+
 import javax.management.Attribute;
 import javax.management.AttributeNotFoundException;
 import javax.management.InstanceNotFoundException;
@@ -69,10 +74,6 @@ import javax.management.MBeanException;
 import javax.management.ReflectionException;
 import javax.management.RuntimeOperationsException;
 import javax.management.modelmbean.InvalidTargetObjectTypeException;
-import org.apache.catalina.deploy.ContextResource;
-import org.apache.catalina.deploy.NamingResources;
-import org.apache.catalina.deploy.ResourceParams;
-import org.apache.commons.modeler.BaseModelMBean;
 
 /**
  * <p>A <strong>ModelMBean</strong> implementation for the

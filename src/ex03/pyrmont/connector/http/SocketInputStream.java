@@ -1,9 +1,10 @@
 package ex03.pyrmont.connector.http;
 
+import org.apache.catalina.util.StringManager;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Extends InputStream to be more efficient reading lines during HTTP

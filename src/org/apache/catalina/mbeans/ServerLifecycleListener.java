@@ -63,10 +63,6 @@
 
 package org.apache.catalina.mbeans;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.StringTokenizer;
-import javax.management.MBeanException;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Container;
 import org.apache.catalina.ContainerEvent;
@@ -96,6 +92,11 @@ import org.apache.catalina.deploy.ContextEnvironment;
 import org.apache.catalina.deploy.ContextResource;
 import org.apache.catalina.deploy.ContextResourceLink;
 import org.apache.catalina.deploy.NamingResources;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.StringTokenizer;
+import javax.management.MBeanException;
 
 /**
  * Implementation of <code>LifecycleListener</code> that

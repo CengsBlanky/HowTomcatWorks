@@ -62,6 +62,9 @@
 
 package org.apache.naming.resources;
 
+import org.apache.naming.NameParserImpl;
+import org.apache.naming.StringManager;
+
 import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.Name;
@@ -72,8 +75,6 @@ import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.ModificationItem;
 import javax.naming.directory.SearchControls;
-import org.apache.naming.NameParserImpl;
-import org.apache.naming.StringManager;
 
 /**
  * Directory Context implementation helper class.

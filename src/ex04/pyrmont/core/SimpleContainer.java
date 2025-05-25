@@ -1,5 +1,16 @@
 package ex04.pyrmont.core;
 
+import org.apache.catalina.Cluster;
+import org.apache.catalina.Container;
+import org.apache.catalina.ContainerListener;
+import org.apache.catalina.Loader;
+import org.apache.catalina.Logger;
+import org.apache.catalina.Manager;
+import org.apache.catalina.Mapper;
+import org.apache.catalina.Realm;
+import org.apache.catalina.Request;
+import org.apache.catalina.Response;
+
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
@@ -11,16 +22,6 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.Cluster;
-import org.apache.catalina.Container;
-import org.apache.catalina.ContainerListener;
-import org.apache.catalina.Loader;
-import org.apache.catalina.Logger;
-import org.apache.catalina.Manager;
-import org.apache.catalina.Mapper;
-import org.apache.catalina.Realm;
-import org.apache.catalina.Request;
-import org.apache.catalina.Response;
 
 public class SimpleContainer implements Container {
     public static final String WEB_ROOT = System.getProperty("user.dir") + File.separator + "webroot";

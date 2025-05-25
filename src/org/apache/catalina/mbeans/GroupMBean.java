@@ -62,6 +62,13 @@
 
 package org.apache.catalina.mbeans;
 
+import org.apache.catalina.Group;
+import org.apache.catalina.Role;
+import org.apache.catalina.User;
+import org.apache.commons.modeler.BaseModelMBean;
+import org.apache.commons.modeler.ManagedBean;
+import org.apache.commons.modeler.Registry;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.management.MBeanException;
@@ -69,12 +76,6 @@ import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.RuntimeOperationsException;
-import org.apache.catalina.Group;
-import org.apache.catalina.Role;
-import org.apache.catalina.User;
-import org.apache.commons.modeler.BaseModelMBean;
-import org.apache.commons.modeler.ManagedBean;
-import org.apache.commons.modeler.Registry;
 
 /**
  * <p>A <strong>ModelMBean</strong> implementation for the

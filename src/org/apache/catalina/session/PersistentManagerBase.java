@@ -62,9 +62,6 @@
 
 package org.apache.catalina.session;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import org.apache.catalina.Container;
 import org.apache.catalina.Context;
 import org.apache.catalina.Lifecycle;
@@ -73,6 +70,10 @@ import org.apache.catalina.LifecycleListener;
 import org.apache.catalina.Session;
 import org.apache.catalina.Store;
 import org.apache.catalina.util.LifecycleSupport;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 /**
  * Extends the <b>ManagerBase</b> class to implement most of the

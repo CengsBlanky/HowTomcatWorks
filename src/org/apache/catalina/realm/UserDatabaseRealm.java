@@ -62,10 +62,6 @@
 
 package org.apache.catalina.realm;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Iterator;
-import javax.naming.Context;
 import org.apache.catalina.Group;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Role;
@@ -74,6 +70,11 @@ import org.apache.catalina.User;
 import org.apache.catalina.UserDatabase;
 import org.apache.catalina.core.StandardServer;
 import org.apache.catalina.util.StringManager;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.naming.Context;
 
 /**
  * <p>Implementation of {@link Realm} that is based on an implementation of

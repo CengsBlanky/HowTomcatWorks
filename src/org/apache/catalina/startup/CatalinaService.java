@@ -62,11 +62,12 @@
 
 package org.apache.catalina.startup;
 
-import java.io.File;
-import java.security.Security;
 import org.apache.catalina.Lifecycle;
 import org.apache.catalina.LifecycleException;
 import org.apache.commons.digester.Digester;
+
+import java.io.File;
+import java.security.Security;
 
 /**
  * Startup/Shutdown shell program for Catalina.  The following command line

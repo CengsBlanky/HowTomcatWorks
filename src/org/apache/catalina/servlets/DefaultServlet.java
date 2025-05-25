@@ -62,6 +62,15 @@
 
 package org.apache.catalina.servlets;
 
+import org.apache.catalina.Globals;
+import org.apache.catalina.util.FastHttpDateFormat;
+import org.apache.catalina.util.MD5Encoder;
+import org.apache.catalina.util.ServerInfo;
+import org.apache.catalina.util.StringManager;
+import org.apache.catalina.util.URLEncoder;
+import org.apache.naming.resources.Resource;
+import org.apache.naming.resources.ResourceAttributes;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -96,14 +105,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.Globals;
-import org.apache.catalina.util.FastHttpDateFormat;
-import org.apache.catalina.util.MD5Encoder;
-import org.apache.catalina.util.ServerInfo;
-import org.apache.catalina.util.StringManager;
-import org.apache.catalina.util.URLEncoder;
-import org.apache.naming.resources.Resource;
-import org.apache.naming.resources.ResourceAttributes;
 
 /**
  * The default resource-serving servlet for most web applications,

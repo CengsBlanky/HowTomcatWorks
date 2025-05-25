@@ -62,10 +62,6 @@
 
 package org.apache.catalina.core;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Iterator;
 import org.apache.catalina.Container;
 import org.apache.catalina.ContainerEvent;
 import org.apache.catalina.ContainerListener;
@@ -78,6 +74,11 @@ import org.apache.catalina.Mapper;
 import org.apache.catalina.Request;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Implementation of <code>Mapper</code> for an <code>Engine</code>,

@@ -62,6 +62,14 @@
 
 package org.apache.catalina.session;
 
+import org.apache.catalina.Context;
+import org.apache.catalina.Manager;
+import org.apache.catalina.Session;
+import org.apache.catalina.SessionEvent;
+import org.apache.catalina.SessionListener;
+import org.apache.catalina.util.Enumerator;
+import org.apache.catalina.util.StringManager;
+
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.NotSerializableException;
@@ -83,13 +91,6 @@ import javax.servlet.http.HttpSessionBindingListener;
 import javax.servlet.http.HttpSessionContext;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-import org.apache.catalina.Context;
-import org.apache.catalina.Manager;
-import org.apache.catalina.Session;
-import org.apache.catalina.SessionEvent;
-import org.apache.catalina.SessionListener;
-import org.apache.catalina.util.Enumerator;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Standard implementation of the <b>Session</b> interface.  This object is

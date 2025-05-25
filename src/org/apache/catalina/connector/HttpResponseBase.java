@@ -1,5 +1,11 @@
 package org.apache.catalina.connector;
 
+import org.apache.catalina.Globals;
+import org.apache.catalina.HttpResponse;
+import org.apache.catalina.Logger;
+import org.apache.catalina.util.CookieTools;
+import org.apache.catalina.util.URL;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -22,11 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUtils;
-import org.apache.catalina.Globals;
-import org.apache.catalina.HttpResponse;
-import org.apache.catalina.Logger;
-import org.apache.catalina.util.CookieTools;
-import org.apache.catalina.util.URL;
 
 /**
  * Convenience base implementation of the <b>HttpResponse</b> interface, which

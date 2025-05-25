@@ -63,6 +63,8 @@
 
 package org.apache.catalina.net;
 
+import org.apache.catalina.net.ServerSocketFactory;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -71,7 +73,6 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
-import org.apache.catalina.net.ServerSocketFactory;
 
 /**
  * Default server socket factory, which returns unadorned server sockts.

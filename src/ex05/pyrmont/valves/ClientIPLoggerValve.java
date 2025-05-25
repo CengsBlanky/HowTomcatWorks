@@ -1,14 +1,15 @@
 package ex05.pyrmont.valves;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import org.apache.catalina.Contained;
 import org.apache.catalina.Container;
 import org.apache.catalina.Request;
 import org.apache.catalina.Response;
 import org.apache.catalina.Valve;
 import org.apache.catalina.ValveContext;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 
 public class ClientIPLoggerValve implements Valve, Contained {
     protected Container container;

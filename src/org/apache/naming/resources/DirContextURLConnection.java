@@ -63,6 +63,10 @@
 
 package org.apache.naming.resources;
 
+import org.apache.naming.JndiPermission;
+import org.apache.naming.resources.Resource;
+import org.apache.naming.resources.ResourceAttributes;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,9 +82,6 @@ import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
-import org.apache.naming.JndiPermission;
-import org.apache.naming.resources.Resource;
-import org.apache.naming.resources.ResourceAttributes;
 
 /**
  * Connection to a JNDI directory context.

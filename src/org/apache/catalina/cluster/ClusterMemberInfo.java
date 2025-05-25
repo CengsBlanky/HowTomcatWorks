@@ -62,8 +62,9 @@
 
 package org.apache.catalina.cluster;
 
-import java.io.Serializable;
 import org.apache.catalina.util.ServerInfo;
+
+import java.io.Serializable;
 
 /**
  * Class that represents a member in a Cluster, keeps information

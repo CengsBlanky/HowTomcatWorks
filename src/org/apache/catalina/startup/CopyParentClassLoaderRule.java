@@ -61,11 +61,12 @@
 
 package org.apache.catalina.startup;
 
-import java.lang.reflect.Method;
 import org.apache.catalina.Container;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rule;
 import org.xml.sax.Attributes;
+
+import java.lang.reflect.Method;
 
 /**
  * <p>Rule that copies the <code>parentClassLoader</code> property from the

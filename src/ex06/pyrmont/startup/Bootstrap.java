@@ -1,10 +1,5 @@
 package ex06.pyrmont.startup;
 
-import ex06.pyrmont.core.SimpleContext;
-import ex06.pyrmont.core.SimpleContextLifecycleListener;
-import ex06.pyrmont.core.SimpleContextMapper;
-import ex06.pyrmont.core.SimpleLoader;
-import ex06.pyrmont.core.SimpleWrapper;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Context;
 import org.apache.catalina.Lifecycle;
@@ -13,6 +8,12 @@ import org.apache.catalina.Loader;
 import org.apache.catalina.Mapper;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.connector.http.HttpConnector;
+
+import ex06.pyrmont.core.SimpleContext;
+import ex06.pyrmont.core.SimpleContextLifecycleListener;
+import ex06.pyrmont.core.SimpleContextMapper;
+import ex06.pyrmont.core.SimpleLoader;
+import ex06.pyrmont.core.SimpleWrapper;
 
 public final class Bootstrap {
     public static void main(String[] args) {

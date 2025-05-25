@@ -1,10 +1,5 @@
 package ex07.pyrmont.startup;
 
-import ex07.pyrmont.core.SimpleContext;
-import ex07.pyrmont.core.SimpleContextLifecycleListener;
-import ex07.pyrmont.core.SimpleContextMapper;
-import ex07.pyrmont.core.SimpleLoader;
-import ex07.pyrmont.core.SimpleWrapper;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Context;
 import org.apache.catalina.Lifecycle;
@@ -14,6 +9,12 @@ import org.apache.catalina.Mapper;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.connector.http.HttpConnector;
 import org.apache.catalina.logger.FileLogger;
+
+import ex07.pyrmont.core.SimpleContext;
+import ex07.pyrmont.core.SimpleContextLifecycleListener;
+import ex07.pyrmont.core.SimpleContextMapper;
+import ex07.pyrmont.core.SimpleLoader;
+import ex07.pyrmont.core.SimpleWrapper;
 
 public final class Bootstrap {
     public static void main(String[] args) {

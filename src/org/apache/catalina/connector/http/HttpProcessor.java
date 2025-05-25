@@ -1,5 +1,18 @@
 package org.apache.catalina.connector.http;
 
+import org.apache.catalina.Globals;
+import org.apache.catalina.HttpRequest;
+import org.apache.catalina.Lifecycle;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.LifecycleListener;
+import org.apache.catalina.Logger;
+import org.apache.catalina.util.FastHttpDateFormat;
+import org.apache.catalina.util.LifecycleSupport;
+import org.apache.catalina.util.RequestUtil;
+import org.apache.catalina.util.ServerInfo;
+import org.apache.catalina.util.StringManager;
+import org.apache.catalina.util.StringParser;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,18 +27,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.Globals;
-import org.apache.catalina.HttpRequest;
-import org.apache.catalina.Lifecycle;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.LifecycleListener;
-import org.apache.catalina.Logger;
-import org.apache.catalina.util.FastHttpDateFormat;
-import org.apache.catalina.util.LifecycleSupport;
-import org.apache.catalina.util.RequestUtil;
-import org.apache.catalina.util.ServerInfo;
-import org.apache.catalina.util.StringManager;
-import org.apache.catalina.util.StringParser;
 
 /**
  * Implementation of a request processor (and its associated thread) that may

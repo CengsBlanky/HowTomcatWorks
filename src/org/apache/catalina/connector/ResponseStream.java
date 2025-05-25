@@ -1,10 +1,11 @@
 package org.apache.catalina.connector;
 
+import org.apache.catalina.Response;
+import org.apache.catalina.util.StringManager;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import javax.servlet.ServletOutputStream;
-import org.apache.catalina.Response;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Convenience implementation of <b>ServletOutputStream</b> that works with

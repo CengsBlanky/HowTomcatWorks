@@ -1,11 +1,13 @@
 package ex03.pyrmont.connector;
 
-import ex03.pyrmont.connector.http.Constants;
-import ex03.pyrmont.connector.http.HttpRequest;
+import org.apache.catalina.util.StringManager;
+
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.ServletInputStream;
-import org.apache.catalina.util.StringManager;
+
+import ex03.pyrmont.connector.http.Constants;
+import ex03.pyrmont.connector.http.HttpRequest;
 
 /**
  * Convenience implementation of <b>ServletInputStream</b> that works with

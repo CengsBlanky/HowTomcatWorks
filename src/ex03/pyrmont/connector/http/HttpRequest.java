@@ -6,7 +6,10 @@ package ex03.pyrmont.connector.http;
  *  The HttpRequestImpl class employs a pool of HttpHeader objects for performance
  *  These two classes will be explained in Chapter 4.
  */
-import ex03.pyrmont.connector.RequestStream;
+import org.apache.catalina.util.Enumerator;
+import org.apache.catalina.util.ParameterMap;
+import org.apache.catalina.util.RequestUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,9 +31,8 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import org.apache.catalina.util.Enumerator;
-import org.apache.catalina.util.ParameterMap;
-import org.apache.catalina.util.RequestUtil;
+
+import ex03.pyrmont.connector.RequestStream;
 
 public class HttpRequest implements HttpServletRequest {
     private String contentType;

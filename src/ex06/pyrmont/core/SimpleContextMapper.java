@@ -1,11 +1,12 @@
 package ex06.pyrmont.core;
 
-import javax.servlet.http.HttpServletRequest;
 import org.apache.catalina.Container;
 import org.apache.catalina.HttpRequest;
 import org.apache.catalina.Mapper;
 import org.apache.catalina.Request;
 import org.apache.catalina.Wrapper;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class SimpleContextMapper implements Mapper {
     /**

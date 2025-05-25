@@ -1,7 +1,8 @@
 package org.apache.catalina.connector.http;
 
-import java.io.IOException;
 import org.apache.catalina.connector.RequestStream;
+
+import java.io.IOException;
 
 /**
  *

@@ -62,9 +62,10 @@
 
 package org.apache.catalina.servlets;
 
+import org.apache.catalina.util.StringManager;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Wrapper around a <code>javax.servlet.http.HttpServletRequest</code>

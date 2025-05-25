@@ -62,6 +62,22 @@
 
 package org.apache.catalina.servlets;
 
+import org.apache.catalina.ContainerServlet;
+import org.apache.catalina.Context;
+import org.apache.catalina.Deployer;
+import org.apache.catalina.Globals;
+import org.apache.catalina.Host;
+import org.apache.catalina.Role;
+import org.apache.catalina.Server;
+import org.apache.catalina.ServerFactory;
+import org.apache.catalina.Session;
+import org.apache.catalina.UserDatabase;
+import org.apache.catalina.Wrapper;
+import org.apache.catalina.core.StandardServer;
+import org.apache.catalina.util.StringManager;
+import org.apache.naming.resources.ProxyDirContext;
+import org.apache.naming.resources.WARDirContext;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -84,21 +100,6 @@ import javax.servlet.UnavailableException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.ContainerServlet;
-import org.apache.catalina.Context;
-import org.apache.catalina.Deployer;
-import org.apache.catalina.Globals;
-import org.apache.catalina.Host;
-import org.apache.catalina.Role;
-import org.apache.catalina.Server;
-import org.apache.catalina.ServerFactory;
-import org.apache.catalina.Session;
-import org.apache.catalina.UserDatabase;
-import org.apache.catalina.Wrapper;
-import org.apache.catalina.core.StandardServer;
-import org.apache.catalina.util.StringManager;
-import org.apache.naming.resources.ProxyDirContext;
-import org.apache.naming.resources.WARDirContext;
 
 /**
  * Servlet that enables remote management of the web applications installed

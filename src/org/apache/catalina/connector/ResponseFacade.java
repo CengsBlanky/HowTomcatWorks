@@ -62,12 +62,13 @@
 
 package org.apache.catalina.connector;
 
+import org.apache.catalina.Response;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Locale;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletResponse;
-import org.apache.catalina.Response;
 
 /**
  * Facade class that wraps a Catalina-internal <b>Response</b>

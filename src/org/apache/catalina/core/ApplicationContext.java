@@ -62,6 +62,19 @@
 
 package org.apache.catalina.core;
 
+import org.apache.catalina.Context;
+import org.apache.catalina.Host;
+import org.apache.catalina.HttpRequest;
+import org.apache.catalina.Logger;
+import org.apache.catalina.Wrapper;
+import org.apache.catalina.deploy.ApplicationParameter;
+import org.apache.catalina.util.Enumerator;
+import org.apache.catalina.util.ResourceSet;
+import org.apache.catalina.util.ServerInfo;
+import org.apache.catalina.util.StringManager;
+import org.apache.naming.resources.DirContextURLStreamHandler;
+import org.apache.naming.resources.Resource;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -84,18 +97,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.catalina.Context;
-import org.apache.catalina.Host;
-import org.apache.catalina.HttpRequest;
-import org.apache.catalina.Logger;
-import org.apache.catalina.Wrapper;
-import org.apache.catalina.deploy.ApplicationParameter;
-import org.apache.catalina.util.Enumerator;
-import org.apache.catalina.util.ResourceSet;
-import org.apache.catalina.util.ServerInfo;
-import org.apache.catalina.util.StringManager;
-import org.apache.naming.resources.DirContextURLStreamHandler;
-import org.apache.naming.resources.Resource;
 
 /**
  * Standard implementation of <code>ServletContext</code> that represents

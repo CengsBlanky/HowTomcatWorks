@@ -62,10 +62,11 @@
 
 package org.apache.catalina.startup;
 
+import org.apache.catalina.loader.StandardClassLoader;
+
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import org.apache.catalina.loader.StandardClassLoader;
 
 /**
  * <p>Utility class for building class loaders for Catalina.  The factory

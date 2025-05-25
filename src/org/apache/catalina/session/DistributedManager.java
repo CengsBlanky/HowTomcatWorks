@@ -62,12 +62,6 @@
 
 package org.apache.catalina.session;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import org.apache.catalina.Cluster;
 import org.apache.catalina.Container;
 import org.apache.catalina.LifecycleException;
@@ -77,6 +71,13 @@ import org.apache.catalina.cluster.ClusterReceiver;
 import org.apache.catalina.cluster.ClusterSender;
 import org.apache.catalina.cluster.ReplicationWrapper;
 import org.apache.catalina.util.CustomObjectInputStream;
+
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * This manager is responsible for in memory replication of

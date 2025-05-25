@@ -62,13 +62,14 @@
 
 package org.apache.catalina.util;
 
+import org.apache.catalina.InstanceEvent;
+import org.apache.catalina.InstanceListener;
+import org.apache.catalina.Wrapper;
+
 import javax.servlet.Filter;
 import javax.servlet.Servlet;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import org.apache.catalina.InstanceEvent;
-import org.apache.catalina.InstanceListener;
-import org.apache.catalina.Wrapper;
 
 /**
  * Support class to assist in firing InstanceEvent notifications to

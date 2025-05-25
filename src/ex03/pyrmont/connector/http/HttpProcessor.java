@@ -1,14 +1,16 @@
 package ex03.pyrmont.connector.http;
 
-import ex03.pyrmont.ServletProcessor;
-import ex03.pyrmont.StaticResourceProcessor;
+import org.apache.catalina.util.RequestUtil;
+import org.apache.catalina.util.StringManager;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
-import org.apache.catalina.util.RequestUtil;
-import org.apache.catalina.util.StringManager;
+
+import ex03.pyrmont.ServletProcessor;
+import ex03.pyrmont.StaticResourceProcessor;
 
 /* this class used to be called HttpServer */
 public class HttpProcessor {

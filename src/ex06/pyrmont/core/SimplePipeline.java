@@ -1,7 +1,5 @@
 package ex06.pyrmont.core;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
 import org.apache.catalina.Contained;
 import org.apache.catalina.Container;
 import org.apache.catalina.Lifecycle;
@@ -12,6 +10,9 @@ import org.apache.catalina.Request;
 import org.apache.catalina.Response;
 import org.apache.catalina.Valve;
 import org.apache.catalina.ValveContext;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
 
 public class SimplePipeline implements Pipeline, Lifecycle {
     public SimplePipeline(Container container) {

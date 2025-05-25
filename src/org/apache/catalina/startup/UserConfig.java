@@ -62,8 +62,6 @@
 
 package org.apache.catalina.startup;
 
-import java.io.File;
-import java.util.Enumeration;
 import org.apache.catalina.Context;
 import org.apache.catalina.Host;
 import org.apache.catalina.Lifecycle;
@@ -71,6 +69,9 @@ import org.apache.catalina.LifecycleEvent;
 import org.apache.catalina.LifecycleListener;
 import org.apache.catalina.Logger;
 import org.apache.catalina.util.StringManager;
+
+import java.io.File;
+import java.util.Enumeration;
 
 /**
  * Startup event listener for a <b>Host</b> that configures Contexts (web

@@ -62,25 +62,6 @@
 
 package org.apache.catalina.core;
 
-import java.beans.IndexedPropertyDescriptor;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.beans.PropertyDescriptor;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.security.AccessControlException;
-import java.sql.Timestamp;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Random;
-import javax.naming.directory.DirContext;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Container;
 import org.apache.catalina.Context;
@@ -117,6 +98,26 @@ import org.apache.catalina.session.StandardManager;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
 import org.apache.commons.beanutils.PropertyUtils;
+
+import java.beans.IndexedPropertyDescriptor;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.beans.PropertyDescriptor;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.security.AccessControlException;
+import java.sql.Timestamp;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Random;
+import javax.naming.directory.DirContext;
 
 /**
  * Standard implementation of the <b>Server</b> interface, available for use

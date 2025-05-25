@@ -63,8 +63,9 @@
 
 package org.apache.catalina.connector.http10;
 
-import java.net.InetAddress;
 import org.apache.catalina.connector.HttpRequestBase;
+
+import java.net.InetAddress;
 
 /**
  * Implementation of <b>HttpRequest</b> specific to the HTTP connector.

@@ -62,6 +62,10 @@
 
 package org.apache.catalina.core;
 
+import org.apache.catalina.InstanceEvent;
+import org.apache.catalina.util.InstanceSupport;
+import org.apache.catalina.util.StringManager;
+
 import java.io.IOException;
 import java.security.PrivilegedActionException;
 import java.util.ArrayList;
@@ -74,9 +78,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.InstanceEvent;
-import org.apache.catalina.util.InstanceSupport;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Implementation of <code>javax.servlet.FilterChain</code> used to manage

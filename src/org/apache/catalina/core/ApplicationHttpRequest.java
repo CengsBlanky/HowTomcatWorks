@@ -62,6 +62,11 @@
 
 package org.apache.catalina.core;
 
+import org.apache.catalina.Globals;
+import org.apache.catalina.util.Enumerator;
+import org.apache.catalina.util.RequestUtil;
+import org.apache.catalina.util.StringManager;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -69,10 +74,6 @@ import java.util.Iterator;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import org.apache.catalina.Globals;
-import org.apache.catalina.util.Enumerator;
-import org.apache.catalina.util.RequestUtil;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Wrapper around a <code>javax.servlet.http.HttpServletRequest</code>

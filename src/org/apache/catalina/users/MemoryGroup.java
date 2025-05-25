@@ -61,10 +61,11 @@
 
 package org.apache.catalina.users;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import org.apache.catalina.Role;
 import org.apache.catalina.UserDatabase;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * <p>Concrete implementation of {@link Group} for the

@@ -1,11 +1,5 @@
 package ex06.pyrmont.core;
 
-import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import javax.naming.directory.DirContext;
-import javax.servlet.Servlet;
-import javax.servlet.ServletException;
-import javax.servlet.UnavailableException;
 import org.apache.catalina.Cluster;
 import org.apache.catalina.Container;
 import org.apache.catalina.ContainerListener;
@@ -24,6 +18,13 @@ import org.apache.catalina.Response;
 import org.apache.catalina.Valve;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.util.LifecycleSupport;
+
+import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import javax.naming.directory.DirContext;
+import javax.servlet.Servlet;
+import javax.servlet.ServletException;
+import javax.servlet.UnavailableException;
 
 public class SimpleWrapper implements Wrapper, Pipeline, Lifecycle {
     public SimpleWrapper() {

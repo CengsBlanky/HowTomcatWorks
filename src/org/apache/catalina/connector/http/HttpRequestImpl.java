@@ -1,12 +1,13 @@
 package org.apache.catalina.connector.http;
 
+import org.apache.catalina.connector.HttpRequestBase;
+import org.apache.catalina.util.Enumerator;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.servlet.ServletInputStream;
-import org.apache.catalina.connector.HttpRequestBase;
-import org.apache.catalina.util.Enumerator;
 
 /**
  * Implementation of <b>HttpRequest</b> specific to the HTTP connector.

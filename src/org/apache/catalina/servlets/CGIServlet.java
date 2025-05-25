@@ -62,6 +62,8 @@
 
 package org.apache.catalina.servlets;
 
+import org.apache.catalina.Globals;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -88,7 +90,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.catalina.Globals;
 
 /**
  *  CGI-invoking servlet for web applications, used to execute scripts which
@@ -574,8 +575,8 @@ public class CGIServlet extends HttpServlet {
                 ServletOutputStream out = res.getOutputStream();
                 out.println("<HTML><HEAD><TITLE>$Name:  $</TITLE></HEAD>");
                 out.println("<BODY>$Header: "
-                            + "/home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/servlets/"
-                            + "CGIServlet.java,v 1.9 2002/09/05 21:46:54 amyroh Exp $<p>");
+                  + "/home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/servlets/"
+                  + "CGIServlet.java,v 1.9 2002/09/05 21:46:54 amyroh Exp $<p>");
 
                 if (cgiEnv.isValid()) {
                     out.println(cgiEnv.toString());

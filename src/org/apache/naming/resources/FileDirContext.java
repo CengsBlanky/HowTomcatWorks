@@ -62,6 +62,10 @@
 
 package org.apache.naming.resources;
 
+import org.apache.naming.NamingContextBindingsEnumeration;
+import org.apache.naming.NamingContextEnumeration;
+import org.apache.naming.NamingEntry;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -79,9 +83,6 @@ import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.ModificationItem;
 import javax.naming.directory.SearchControls;
-import org.apache.naming.NamingContextBindingsEnumeration;
-import org.apache.naming.NamingContextEnumeration;
-import org.apache.naming.NamingEntry;
 
 /**
  * Filesystem Directory Context implementation helper class.

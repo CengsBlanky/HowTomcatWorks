@@ -59,6 +59,16 @@
 
 package org.apache.catalina.valves;
 
+import org.apache.catalina.HttpResponse;
+import org.apache.catalina.Lifecycle;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.LifecycleListener;
+import org.apache.catalina.Request;
+import org.apache.catalina.Response;
+import org.apache.catalina.ValveContext;
+import org.apache.catalina.util.LifecycleSupport;
+import org.apache.catalina.util.StringManager;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -71,15 +81,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.HttpResponse;
-import org.apache.catalina.Lifecycle;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.LifecycleListener;
-import org.apache.catalina.Request;
-import org.apache.catalina.Response;
-import org.apache.catalina.ValveContext;
-import org.apache.catalina.util.LifecycleSupport;
-import org.apache.catalina.util.StringManager;
 
 /**
  * <p>Implementation of the <b>Valve</b> interface that generates a web server

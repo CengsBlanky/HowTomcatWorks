@@ -1,9 +1,10 @@
 package ex15.pyrmont.digestertest;
 
+import org.apache.commons.digester.Digester;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
-import org.apache.commons.digester.Digester;
 
 public class Test03 {
     public static void main(String[] args) {

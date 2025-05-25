@@ -62,12 +62,6 @@
 
 package org.apache.catalina.cluster;
 
-import java.beans.PropertyChangeSupport;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.UnknownHostException;
-import java.util.Vector;
 import org.apache.catalina.Cluster;
 import org.apache.catalina.Container;
 import org.apache.catalina.Lifecycle;
@@ -76,6 +70,13 @@ import org.apache.catalina.LifecycleListener;
 import org.apache.catalina.Logger;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
+
+import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.UnknownHostException;
+import java.util.Vector;
 
 /**
  * A <b>Cluster</b> implementation. Responsible for setting up

@@ -63,10 +63,11 @@
 
 package org.apache.catalina.authenticator;
 
-import java.io.IOException;
 import org.apache.catalina.HttpRequest;
 import org.apache.catalina.HttpResponse;
 import org.apache.catalina.deploy.LoginConfig;
+
+import java.io.IOException;
 
 /**
  * An <b>Authenticator</b> and <b>Valve</b> implementation that checks

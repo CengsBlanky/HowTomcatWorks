@@ -62,10 +62,11 @@
 
 package org.apache.catalina.startup;
 
-import java.io.File;
-import java.lang.reflect.Method;
 import org.apache.commons.daemon.Daemon;
 import org.apache.commons.daemon.DaemonContext;
+
+import java.io.File;
+import java.lang.reflect.Method;
 
 /**
  * Special version of the Catalina bootstrap, designed to be invoked with JNI,

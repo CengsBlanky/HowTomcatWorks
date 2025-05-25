@@ -1,8 +1,5 @@
 package ex10.pyrmont.startup;
 
-import ex10.pyrmont.core.SimpleContextConfig;
-import ex10.pyrmont.core.SimpleWrapper;
-import ex10.pyrmont.realm.SimpleUserDatabaseRealm;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Context;
 import org.apache.catalina.Lifecycle;
@@ -16,6 +13,10 @@ import org.apache.catalina.deploy.LoginConfig;
 import org.apache.catalina.deploy.SecurityCollection;
 import org.apache.catalina.deploy.SecurityConstraint;
 import org.apache.catalina.loader.WebappLoader;
+
+import ex10.pyrmont.core.SimpleContextConfig;
+import ex10.pyrmont.core.SimpleWrapper;
+import ex10.pyrmont.realm.SimpleUserDatabaseRealm;
 
 public final class Bootstrap2 {
     public static void main(String[] args) {

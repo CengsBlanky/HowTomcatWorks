@@ -1,8 +1,7 @@
 package ex03.pyrmont.connector.http;
 
-import ex03.pyrmont.connector.ResponseStream;
-import ex03.pyrmont.connector.ResponseWriter;
-import ex03.pyrmont.connector.http.Constants;
+import org.apache.catalina.util.CookieTools;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,7 +19,10 @@ import java.util.Locale;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.util.CookieTools;
+
+import ex03.pyrmont.connector.ResponseStream;
+import ex03.pyrmont.connector.ResponseWriter;
+import ex03.pyrmont.connector.http.Constants;
 
 public class HttpResponse implements HttpServletResponse {
     // the default buffer size

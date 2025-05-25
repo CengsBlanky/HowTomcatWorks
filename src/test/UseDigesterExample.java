@@ -1,9 +1,10 @@
 package test;
 
-import java.io.File;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rule;
 import org.xml.sax.Attributes;
+
+import java.io.File;
 
 public class UseDigesterExample {
     public void parse() {

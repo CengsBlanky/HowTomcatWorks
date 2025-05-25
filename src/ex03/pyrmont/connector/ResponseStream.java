@@ -1,9 +1,10 @@
 package ex03.pyrmont.connector;
 
-import ex03.pyrmont.connector.http.HttpResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import javax.servlet.ServletOutputStream;
+
+import ex03.pyrmont.connector.http.HttpResponse;
 
 /**
  * Convenience implementation of <b>ServletOutputStream</b> that works with

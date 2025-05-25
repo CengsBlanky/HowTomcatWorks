@@ -62,6 +62,14 @@
 
 package org.apache.catalina.session;
 
+import org.apache.catalina.Container;
+import org.apache.catalina.DefaultContext;
+import org.apache.catalina.Engine;
+import org.apache.catalina.Logger;
+import org.apache.catalina.Manager;
+import org.apache.catalina.Session;
+import org.apache.catalina.util.StringManager;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
@@ -70,13 +78,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import org.apache.catalina.Container;
-import org.apache.catalina.DefaultContext;
-import org.apache.catalina.Engine;
-import org.apache.catalina.Logger;
-import org.apache.catalina.Manager;
-import org.apache.catalina.Session;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Minimal implementation of the <b>Manager</b> interface that supports

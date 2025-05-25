@@ -62,6 +62,8 @@
 
 package org.apache.catalina.loader;
 
+import org.apache.naming.JndiPermission;
+
 import java.io.File;
 import java.io.FilePermission;
 import java.io.IOException;
@@ -85,7 +87,6 @@ import java.util.Iterator;
 import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
-import org.apache.naming.JndiPermission;
 
 /**
  * Subclass implementation of <b>java.net.URLClassLoader</b> that knows how

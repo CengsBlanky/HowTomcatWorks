@@ -62,8 +62,6 @@
 
 package org.apache.catalina.core;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
 import org.apache.catalina.Contained;
 import org.apache.catalina.Container;
 import org.apache.catalina.Lifecycle;
@@ -77,6 +75,9 @@ import org.apache.catalina.Valve;
 import org.apache.catalina.ValveContext;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
 
 /**
  * Standard implementation of a processing <b>Pipeline</b> that will invoke

@@ -62,27 +62,6 @@
 
 package org.apache.catalina.startup;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.JarURLConnection;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import javax.naming.NameClassPair;
-import javax.naming.NamingEnumeration;
-import javax.naming.NamingException;
-import javax.naming.directory.DirContext;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import org.apache.catalina.Authenticator;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Container;
@@ -109,6 +88,28 @@ import org.apache.catalina.util.StringManager;
 import org.apache.commons.digester.Digester;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.JarURLConnection;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import javax.naming.NameClassPair;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import javax.naming.directory.DirContext;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 /**
  * Startup event listener for a <b>Context</b> that configures the properties

@@ -62,6 +62,21 @@
 
 package org.apache.catalina.loader;
 
+import org.apache.catalina.Container;
+import org.apache.catalina.Context;
+import org.apache.catalina.DefaultContext;
+import org.apache.catalina.Globals;
+import org.apache.catalina.Lifecycle;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.LifecycleListener;
+import org.apache.catalina.Loader;
+import org.apache.catalina.Logger;
+import org.apache.catalina.util.LifecycleSupport;
+import org.apache.catalina.util.StringManager;
+import org.apache.naming.resources.DirContextURLStreamHandler;
+import org.apache.naming.resources.DirContextURLStreamHandlerFactory;
+import org.apache.naming.resources.Resource;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -83,20 +98,6 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.servlet.ServletContext;
-import org.apache.catalina.Container;
-import org.apache.catalina.Context;
-import org.apache.catalina.DefaultContext;
-import org.apache.catalina.Globals;
-import org.apache.catalina.Lifecycle;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.LifecycleListener;
-import org.apache.catalina.Loader;
-import org.apache.catalina.Logger;
-import org.apache.catalina.util.LifecycleSupport;
-import org.apache.catalina.util.StringManager;
-import org.apache.naming.resources.DirContextURLStreamHandler;
-import org.apache.naming.resources.DirContextURLStreamHandlerFactory;
-import org.apache.naming.resources.Resource;
 
 /**
  * Classloader implementation which is specialized for handling web

@@ -1,10 +1,11 @@
 package org.apache.catalina.connector.http;
 
+import org.apache.catalina.connector.HttpResponseBase;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.connector.HttpResponseBase;
 
 /**
  * Implementation of <b>HttpResponse</b> specific to the HTTP connector.

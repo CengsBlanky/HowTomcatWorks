@@ -62,6 +62,9 @@
 
 package org.apache.naming.resources;
 
+import org.apache.commons.collections.LRUMap;
+import org.apache.naming.StringManager;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,8 +80,6 @@ import javax.naming.directory.Attributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.ModificationItem;
 import javax.naming.directory.SearchControls;
-import org.apache.commons.collections.LRUMap;
-import org.apache.naming.StringManager;
 
 /**
  * Proxy Directory Context implementation.

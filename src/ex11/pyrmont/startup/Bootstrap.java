@@ -1,7 +1,6 @@
 package ex11.pyrmont.startup;
 
 // use StandardWrapper
-import ex11.pyrmont.core.SimpleContextConfig;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Context;
 import org.apache.catalina.Lifecycle;
@@ -12,6 +11,8 @@ import org.apache.catalina.connector.http.HttpConnector;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardWrapper;
 import org.apache.catalina.loader.WebappLoader;
+
+import ex11.pyrmont.core.SimpleContextConfig;
 
 public final class Bootstrap {
     public static void main(String[] args) {

@@ -62,6 +62,8 @@
  */
 package org.apache.catalina.ssi;
 
+import org.apache.catalina.util.IOTools;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
@@ -69,7 +71,6 @@ import java.io.StringWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.StringTokenizer;
-import org.apache.catalina.util.IOTools;
 
 /**
  * The entry point to SSI processing.  This class does the actual parsing, delegating to the SSIMediator, SSICommand,

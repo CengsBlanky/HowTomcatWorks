@@ -62,11 +62,6 @@
 
 package org.apache.catalina.core;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.HashMap;
-import java.util.Hashtable;
-import javax.naming.directory.DirContext;
 import org.apache.catalina.Container;
 import org.apache.catalina.Context;
 import org.apache.catalina.DefaultContext;
@@ -84,6 +79,12 @@ import org.apache.catalina.deploy.NamingResources;
 import org.apache.catalina.deploy.ResourceParams;
 import org.apache.catalina.util.StringManager;
 import org.apache.naming.ContextAccessController;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.HashMap;
+import java.util.Hashtable;
+import javax.naming.directory.DirContext;
 
 /**
  * Used to store the default configuration a Host will use

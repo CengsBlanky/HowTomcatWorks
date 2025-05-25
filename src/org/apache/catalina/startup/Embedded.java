@@ -62,9 +62,6 @@
 
 package org.apache.catalina.startup;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.net.InetAddress;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Container;
 import org.apache.catalina.Context;
@@ -87,6 +84,10 @@ import org.apache.catalina.realm.MemoryRealm;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
 import org.apache.tomcat.util.IntrospectionUtils;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.net.InetAddress;
 
 /**
  * Convenience class to embed a Catalina servlet container environment

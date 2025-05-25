@@ -62,12 +62,13 @@
 
 package org.apache.catalina.util;
 
-import java.io.*;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.io.*;
 
 /**
  * A sample DOM writer. This sample program illustrates how to

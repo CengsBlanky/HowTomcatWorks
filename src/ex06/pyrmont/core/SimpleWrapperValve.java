@@ -1,5 +1,12 @@
 package ex06.pyrmont.core;
 
+import org.apache.catalina.Contained;
+import org.apache.catalina.Container;
+import org.apache.catalina.Request;
+import org.apache.catalina.Response;
+import org.apache.catalina.Valve;
+import org.apache.catalina.ValveContext;
+
 import java.io.IOException;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -7,12 +14,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.Contained;
-import org.apache.catalina.Container;
-import org.apache.catalina.Request;
-import org.apache.catalina.Response;
-import org.apache.catalina.Valve;
-import org.apache.catalina.ValveContext;
 
 public class SimpleWrapperValve implements Valve, Contained {
     protected Container container;

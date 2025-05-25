@@ -62,6 +62,16 @@
 
 package org.apache.catalina.servlets;
 
+import org.apache.catalina.util.DOMWriter;
+import org.apache.catalina.util.RequestUtil;
+import org.apache.catalina.util.XMLWriter;
+import org.apache.naming.resources.Resource;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -83,15 +93,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import org.apache.catalina.util.DOMWriter;
-import org.apache.catalina.util.RequestUtil;
-import org.apache.catalina.util.XMLWriter;
-import org.apache.naming.resources.Resource;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 /**
  * Servlet which adds support for WebDAV level 2. All the basic HTTP requests

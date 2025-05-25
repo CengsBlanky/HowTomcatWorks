@@ -62,9 +62,6 @@
 
 package org.apache.catalina.core;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import org.apache.catalina.Container;
 import org.apache.catalina.Context;
 import org.apache.catalina.Deployer;
@@ -75,6 +72,10 @@ import org.apache.catalina.startup.ContextRuleSet;
 import org.apache.catalina.startup.NamingRuleSet;
 import org.apache.catalina.util.StringManager;
 import org.apache.commons.digester.Digester;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * <p>Implementation of <b>Deployer</b> that is delegated to by the

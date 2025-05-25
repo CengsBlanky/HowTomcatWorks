@@ -63,6 +63,17 @@
 
 package org.apache.catalina.connector.http10;
 
+import org.apache.catalina.Globals;
+import org.apache.catalina.HttpRequest;
+import org.apache.catalina.Lifecycle;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.LifecycleListener;
+import org.apache.catalina.Logger;
+import org.apache.catalina.util.LifecycleSupport;
+import org.apache.catalina.util.RequestUtil;
+import org.apache.catalina.util.ServerInfo;
+import org.apache.catalina.util.StringManager;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -78,16 +89,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.catalina.Globals;
-import org.apache.catalina.HttpRequest;
-import org.apache.catalina.Lifecycle;
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.LifecycleListener;
-import org.apache.catalina.Logger;
-import org.apache.catalina.util.LifecycleSupport;
-import org.apache.catalina.util.RequestUtil;
-import org.apache.catalina.util.ServerInfo;
-import org.apache.catalina.util.StringManager;
 
 /**
  * Implementation of a request processor (and its associated thread) that may

@@ -62,8 +62,6 @@
 
 package org.apache.catalina.core;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Container;
 import org.apache.catalina.Engine;
@@ -74,6 +72,9 @@ import org.apache.catalina.Server;
 import org.apache.catalina.Service;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 /**
  * Standard implementation of the <code>Service</code> interface.  The

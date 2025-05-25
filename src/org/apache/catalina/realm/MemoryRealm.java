@@ -62,14 +62,15 @@
 
 package org.apache.catalina.realm;
 
-import java.io.File;
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
 import org.apache.catalina.Container;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.util.StringManager;
 import org.apache.commons.digester.Digester;
+
+import java.io.File;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Simple implementation of <b>Realm</b> that reads an XML file to configure

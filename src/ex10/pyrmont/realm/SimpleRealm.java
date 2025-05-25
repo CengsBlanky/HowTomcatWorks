@@ -1,13 +1,14 @@
 package ex10.pyrmont.realm;
 
+import org.apache.catalina.Container;
+import org.apache.catalina.Realm;
+import org.apache.catalina.realm.GenericPrincipal;
+
 import java.beans.PropertyChangeListener;
 import java.security.Principal;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Iterator;
-import org.apache.catalina.Container;
-import org.apache.catalina.Realm;
-import org.apache.catalina.realm.GenericPrincipal;
 
 public class SimpleRealm implements Realm {
     public SimpleRealm() {

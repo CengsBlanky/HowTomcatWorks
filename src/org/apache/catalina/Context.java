@@ -62,7 +62,6 @@
 
 package org.apache.catalina;
 
-import javax.servlet.ServletContext;
 import org.apache.catalina.deploy.ApplicationParameter;
 import org.apache.catalina.deploy.ContextEjb;
 import org.apache.catalina.deploy.ContextEnvironment;
@@ -76,6 +75,8 @@ import org.apache.catalina.deploy.LoginConfig;
 import org.apache.catalina.deploy.NamingResources;
 import org.apache.catalina.deploy.SecurityConstraint;
 import org.apache.catalina.util.CharsetMapper;
+
+import javax.servlet.ServletContext;
 
 /**
  * A <b>Context</b> is a Container that represents a servlet context, and

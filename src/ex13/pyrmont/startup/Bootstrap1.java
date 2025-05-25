@@ -1,7 +1,6 @@
 package ex13.pyrmont.startup;
 
 // explain Host
-import ex13.pyrmont.core.SimpleContextConfig;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Context;
 import org.apache.catalina.Host;
@@ -14,6 +13,8 @@ import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardHost;
 import org.apache.catalina.core.StandardWrapper;
 import org.apache.catalina.loader.WebappLoader;
+
+import ex13.pyrmont.core.SimpleContextConfig;
 
 public final class Bootstrap1 {
     public static void main(String[] args) {

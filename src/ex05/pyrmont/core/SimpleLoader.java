@@ -1,14 +1,15 @@
 package ex05.pyrmont.core;
 
+import org.apache.catalina.Container;
+import org.apache.catalina.DefaultContext;
+import org.apache.catalina.Loader;
+
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.URLStreamHandler;
-import org.apache.catalina.Container;
-import org.apache.catalina.DefaultContext;
-import org.apache.catalina.Loader;
 
 public class SimpleLoader implements Loader {
     public static final String WEB_ROOT = System.getProperty("user.dir") + File.separator + "webroot";

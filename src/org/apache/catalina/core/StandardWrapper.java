@@ -62,16 +62,6 @@
 
 package org.apache.catalina.core;
 
-import java.io.PrintStream;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Stack;
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.SingleThreadModel;
-import javax.servlet.UnavailableException;
 import org.apache.catalina.Container;
 import org.apache.catalina.ContainerServlet;
 import org.apache.catalina.Context;
@@ -85,6 +75,17 @@ import org.apache.catalina.connector.HttpResponseBase;
 import org.apache.catalina.util.Enumerator;
 import org.apache.catalina.util.InstanceSupport;
 import org.apache.tomcat.util.log.SystemLogHandler;
+
+import java.io.PrintStream;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Stack;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.SingleThreadModel;
+import javax.servlet.UnavailableException;
 
 /**
  * Standard implementation of the <b>Wrapper</b> interface that represents

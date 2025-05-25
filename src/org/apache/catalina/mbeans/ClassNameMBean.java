@@ -62,9 +62,10 @@
 
 package org.apache.catalina.mbeans;
 
+import org.apache.commons.modeler.BaseModelMBean;
+
 import javax.management.MBeanException;
 import javax.management.RuntimeOperationsException;
-import org.apache.commons.modeler.BaseModelMBean;
 
 /**
  * <p>A convenience base class for <strong>ModelMBean</strong> implementations

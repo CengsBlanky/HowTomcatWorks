@@ -62,11 +62,12 @@
 
 package org.apache.catalina.valves;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
 import org.apache.catalina.Request;
 import org.apache.catalina.Response;
 import org.apache.catalina.ValveContext;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
 
 /**
  * Concrete implementation of <code>RequestFilterValve</code> that filters

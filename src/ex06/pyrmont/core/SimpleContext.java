@@ -1,11 +1,5 @@
 package ex06.pyrmont.core;
 
-import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.util.HashMap;
-import javax.naming.directory.DirContext;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import org.apache.catalina.Cluster;
 import org.apache.catalina.Container;
 import org.apache.catalina.ContainerListener;
@@ -37,6 +31,13 @@ import org.apache.catalina.deploy.NamingResources;
 import org.apache.catalina.deploy.SecurityConstraint;
 import org.apache.catalina.util.CharsetMapper;
 import org.apache.catalina.util.LifecycleSupport;
+
+import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.util.HashMap;
+import javax.naming.directory.DirContext;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 public class SimpleContext implements Context, Pipeline, Lifecycle {
     public SimpleContext() {
