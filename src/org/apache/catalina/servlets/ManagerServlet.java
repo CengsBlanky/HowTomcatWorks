@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/servlets/ManagerServlet.java,v 1.28 2002/09/18 14:00:44 remm Exp $
- * $Revision: 1.28 $
- * $Date: 2002/09/18 14:00:44 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/servlets/ManagerServlet.java,v 1.28
+ * 2002/09/18 14:00:44 remm Exp $ $Revision: 1.28 $ $Date: 2002/09/18 14:00:44 $
  *
  * ====================================================================
  *
@@ -61,15 +60,13 @@
  *
  */
 
-
 package org.apache.catalina.servlets;
-
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.Iterator;
@@ -102,7 +99,6 @@ import org.apache.catalina.core.StandardServer;
 import org.apache.catalina.util.StringManager;
 import org.apache.naming.resources.ProxyDirContext;
 import org.apache.naming.resources.WARDirContext;
-
 
 /**
  * Servlet that enables remote management of the web applications installed
@@ -200,24 +196,18 @@ import org.apache.naming.resources.WARDirContext;
  * @version $Revision: 1.28 $ $Date: 2002/09/18 14:00:44 $
  */
 
-public class ManagerServlet
-    extends HttpServlet implements ContainerServlet {
-
-
+public class ManagerServlet extends HttpServlet implements ContainerServlet {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The Context container associated with our web application.
      */
     protected Context context = null;
 
-
     /**
      * The debugging detail level for this servlet.
      */
     protected int debug = 1;
-
 
     /**
      * File object representing the directory into which the deploy() command
@@ -226,7 +216,6 @@ public class ManagerServlet
      */
     protected File deployed = null;
 
-
     /**
      * The Deployer container that contains our own web application's Context,
      * along with the associated Contexts for web applications that we
@@ -234,39 +223,30 @@ public class ManagerServlet
      */
     protected Deployer deployer = null;
 
-
     /**
      * The global JNDI <code>NamingContext</code> for this server,
      * if available.
      */
     protected javax.naming.Context global = null;
 
-
     /**
      * The string manager for this package.
      */
-    protected static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static StringManager sm = StringManager.getManager(Constants.Package);
 
     /**
      * The Wrapper container associated with this servlet.
      */
     protected Wrapper wrapper = null;
 
-
     // ----------------------------------------------- ContainerServlet Methods
-
 
     /**
      * Return the Wrapper with which we are associated.
      */
     public Wrapper getWrapper() {
-
         return (this.wrapper);
-
     }
-
 
     /**
      * Set the Wrapper with which we are associated.
@@ -274,7 +254,7 @@ public class ManagerServlet
      * @param wrapper The new wrapper
      */
     public void setWrapper(Wrapper wrapper) {
-System.out.println("setWrapper:" + wrapper.getName()    );
+        System.out.println("setWrapper:" + wrapper.getName());
         this.wrapper = wrapper;
         if (wrapper == null) {
             context = null;
@@ -283,22 +263,16 @@ System.out.println("setWrapper:" + wrapper.getName()    );
             context = (Context) wrapper.getParent();
             deployer = (Deployer) context.getParent();
         }
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Finalize this servlet.
      */
     public void destroy() {
-
-        ;       // No actions necessary
-
+        ; // No actions necessary
     }
-
 
     /**
      * Process a GET request for the specified resource.
@@ -309,14 +283,10 @@ System.out.println("setWrapper:" + wrapper.getName()    );
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet-specified error occurs
      */
-    public void doGet(HttpServletRequest request,
-                      HttpServletResponse response)
-        throws IOException, ServletException {
-
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Verify that we were not accessed using the invoker servlet
         if (request.getAttribute(Globals.INVOKED_ATTR) != null)
-            throw new UnavailableException
-                (sm.getString("managerServlet.cannotInvoke"));
+            throw new UnavailableException(sm.getString("managerServlet.cannotInvoke"));
 
         // Identify the request parameters that we need
         String command = request.getPathInfo();
@@ -357,16 +327,13 @@ System.out.println("setWrapper:" + wrapper.getName()    );
         } else if (command.equals("/undeploy")) {
             undeploy(writer, path);
         } else {
-            writer.println(sm.getString("managerServlet.unknownCommand",
-                                        command));
+            writer.println(sm.getString("managerServlet.unknownCommand", command));
         }
 
         // Finish up the response
         writer.flush();
         writer.close();
-
     }
-
 
     /**
      * Process a PUT request for the specified resource.
@@ -377,14 +344,10 @@ System.out.println("setWrapper:" + wrapper.getName()    );
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet-specified error occurs
      */
-    public void doPut(HttpServletRequest request,
-                      HttpServletResponse response)
-        throws IOException, ServletException {
-
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // Verify that we were not accessed using the invoker servlet
         if (request.getAttribute(Globals.INVOKED_ATTR) != null)
-            throw new UnavailableException
-                (sm.getString("managerServlet.cannotInvoke"));
+            throw new UnavailableException(sm.getString("managerServlet.cannotInvoke"));
 
         // Identify the request parameters that we need
         String command = request.getPathInfo();
@@ -404,8 +367,7 @@ System.out.println("setWrapper:" + wrapper.getName()    );
         } else if (command.equals("/deploy")) {
             deploy(writer, path, request);
         } else {
-            writer.println(sm.getString("managerServlet.unknownCommand",
-                                        command));
+            writer.println(sm.getString("managerServlet.unknownCommand", command));
         }
 
         // Saving configuration
@@ -414,36 +376,30 @@ System.out.println("setWrapper:" + wrapper.getName()    );
             try {
                 ((StandardServer) server).store();
             } catch (Exception e) {
-                writer.println(sm.getString("managerServlet.saveFail",
-                                            e.getMessage()));
+                writer.println(sm.getString("managerServlet.saveFail", e.getMessage()));
             }
         }
 
         // Finish up the response
         writer.flush();
         writer.close();
-
     }
-
 
     /**
      * Initialize this servlet.
      */
     public void init() throws ServletException {
-
-System.out.println("init");
+        System.out.println("init");
         // Ensure that our ContainerServlet properties have been set
         if ((wrapper == null) || (context == null))
-            throw new UnavailableException
-                (sm.getString("managerServlet.noWrapper"));
+            throw new UnavailableException(sm.getString("managerServlet.noWrapper"));
 
         // Verify that we were not accessed using the invoker servlet
         String servletName = getServletConfig().getServletName();
         if (servletName == null)
             servletName = "";
         if (servletName.startsWith("org.apache.catalina.INVOKER."))
-            throw new UnavailableException
-                (sm.getString("managerServlet.cannotInvoke"));
+            throw new UnavailableException(sm.getString("managerServlet.cannotInvoke"));
 
         // Set our properties from the initialization parameters
         String value = null;
@@ -461,24 +417,18 @@ System.out.println("init");
         }
 
         // Calculate the directory into which we will be deploying applications
-        deployed = (File) getServletContext().getAttribute
-            ("javax.servlet.context.tempdir");
+        deployed = (File) getServletContext().getAttribute("javax.servlet.context.tempdir");
 
         // Log debugging messages as necessary
         if (debug >= 1) {
-            log("init: Associated with Deployer '" +
-                deployer.getName() + "'");
+            log("init: Associated with Deployer '" + deployer.getName() + "'");
             if (global != null) {
                 log("init: Global resources are available");
             }
         }
-
     }
 
-
-
     // -------------------------------------------------------- Private Methods
-
 
     /**
      * Deploy a web application archive (included in the current request)
@@ -488,9 +438,7 @@ System.out.println("init");
      * @param path Context path of the application to be installed
      * @param request Servlet request we are processing
      */
-    protected synchronized void deploy(PrintWriter writer, String path,
-                                       HttpServletRequest request) {
-
+    protected synchronized void deploy(PrintWriter writer, String path, HttpServletRequest request) {
         if (debug >= 1) {
             log("deploy: Deploying web application at '" + path + "'");
         }
@@ -501,7 +449,7 @@ System.out.println("init");
             return;
         }
         String displayPath = path;
-        if( path.equals("/") )
+        if (path.equals("/"))
             path = "";
         String basename = null;
         if (path.equals("")) {
@@ -510,8 +458,7 @@ System.out.println("init");
             basename = path.substring(1);
         }
         if (deployer.findDeployedApp(path) != null) {
-            writer.println
-                (sm.getString("managerServlet.alreadyContext", displayPath));
+            writer.println(sm.getString("managerServlet.alreadyContext", displayPath));
             return;
         }
 
@@ -524,8 +471,7 @@ System.out.println("init");
             uploadWar(request, localWar);
         } catch (IOException e) {
             log("managerServlet.upload[" + displayPath + "]", e);
-            writer.println(sm.getString("managerServlet.exception",
-                                        e.toString()));
+            writer.println(sm.getString("managerServlet.exception", e.toString()));
             return;
         }
 
@@ -538,15 +484,13 @@ System.out.println("init");
             extractXml(localWar, localXml);
         } catch (IOException e) {
             log("managerServlet.extract[" + displayPath + "]", e);
-            writer.println(sm.getString("managerServlet.exception",
-                                        e.toString()));
+            writer.println(sm.getString("managerServlet.exception", e.toString()));
             return;
         }
 
         // Deploy this web application
         try {
-            URL warURL =
-                new URL("jar:file:" + localWar.getAbsolutePath() + "!/");
+            URL warURL = new URL("jar:file:" + localWar.getAbsolutePath() + "!/");
             URL xmlURL = null;
             if (localXml.exists()) {
                 xmlURL = new URL("file:" + localXml.getAbsolutePath());
@@ -558,19 +502,15 @@ System.out.println("init");
             }
         } catch (Throwable t) {
             log("ManagerServlet.deploy[" + displayPath + "]", t);
-            writer.println(sm.getString("managerServlet.exception",
-                                        t.toString()));
+            writer.println(sm.getString("managerServlet.exception", t.toString()));
             localWar.delete();
             localXml.delete();
             return;
         }
 
         // Acknowledge successful completion of this deploy command
-        writer.println(sm.getString("managerServlet.installed",
-                                    displayPath));
-
+        writer.println(sm.getString("managerServlet.installed", displayPath));
     }
-
 
     /**
      * Install an application for the specified path from the specified
@@ -581,28 +521,21 @@ System.out.println("init");
      * @param path Context path of the application to be installed
      * @param war URL of the web application archive to be installed
      */
-    protected void install(PrintWriter writer, String config,
-                           String path, String war) {
-
+    protected void install(PrintWriter writer, String config, String path, String war) {
         if (debug >= 1) {
             if (config != null) {
                 if (war != null) {
-                    log("install: Installing context configuration at '" +
-                        config + "' from '" + war + "'");
+                    log("install: Installing context configuration at '" + config + "' from '" + war + "'");
                 } else {
-                    log("install: Installing context configuration at '" +
-                        config + "'");
+                    log("install: Installing context configuration at '" + config + "'");
                 }
             } else {
-                log("install: Installing web application at '" + path +
-                    "' from '" + war + "'");
+                log("install: Installing web application at '" + path + "' from '" + war + "'");
             }
         }
 
         if (config != null) {
-
-            if ((war != null) &&
-                (!war.startsWith("file:") && !war.startsWith("jar:"))) {
+            if ((war != null) && (!war.startsWith("file:") && !war.startsWith("jar:"))) {
                 writer.println(sm.getString("managerServlet.invalidWar", war));
                 return;
             }
@@ -613,52 +546,40 @@ System.out.println("init");
                 } else {
                     deployer.install(new URL(config), new URL(war));
                 }
-                writer.println(sm.getString("managerServlet.configured",
-                                            config));
+                writer.println(sm.getString("managerServlet.configured", config));
             } catch (Throwable t) {
                 log("ManagerServlet.configure[" + config + "]", t);
-                writer.println(sm.getString("managerServlet.exception",
-                                            t.toString()));
+                writer.println(sm.getString("managerServlet.exception", t.toString()));
             }
 
         } else {
-
             if ((path == null) || (!path.startsWith("/") && path.equals(""))) {
-                writer.println(sm.getString("managerServlet.invalidPath",
-                                            path));
+                writer.println(sm.getString("managerServlet.invalidPath", path));
                 return;
             }
             String displayPath = path;
-            if("/".equals(path)) {
+            if ("/".equals(path)) {
                 path = "";
             }
-            if ((war == null) ||
-                (!war.startsWith("file:") && !war.startsWith("jar:"))) {
+            if ((war == null) || (!war.startsWith("file:") && !war.startsWith("jar:"))) {
                 writer.println(sm.getString("managerServlet.invalidWar", war));
                 return;
             }
 
             try {
-                Context context =  deployer.findDeployedApp(path);
+                Context context = deployer.findDeployedApp(path);
                 if (context != null) {
-                    writer.println
-                        (sm.getString("managerServlet.alreadyContext",
-                                      displayPath));
+                    writer.println(sm.getString("managerServlet.alreadyContext", displayPath));
                     return;
                 }
                 deployer.install(path, new URL(war));
-                writer.println(sm.getString("managerServlet.installed",
-                                            displayPath));
+                writer.println(sm.getString("managerServlet.installed", displayPath));
             } catch (Throwable t) {
                 log("ManagerServlet.install[" + displayPath + "]", t);
-                writer.println(sm.getString("managerServlet.exception",
-                                            t.toString()));
+                writer.println(sm.getString("managerServlet.exception", t.toString()));
             }
-
         }
-
     }
-
 
     /**
      * Render a list of the currently active Contexts in our virtual host.
@@ -666,37 +587,27 @@ System.out.println("init");
      * @param writer Writer to render to
      */
     protected void list(PrintWriter writer) {
-
         if (debug >= 1)
-            log("list: Listing contexts for virtual host '" +
-                deployer.getName() + "'");
+            log("list: Listing contexts for virtual host '" + deployer.getName() + "'");
 
-        writer.println(sm.getString("managerServlet.listed",
-                                    deployer.getName()));
+        writer.println(sm.getString("managerServlet.listed", deployer.getName()));
         String contextPaths[] = deployer.findDeployedApps();
         for (int i = 0; i < contextPaths.length; i++) {
             Context context = deployer.findDeployedApp(contextPaths[i]);
             String displayPath = contextPaths[i];
-            if( displayPath.equals("") )
+            if (displayPath.equals(""))
                 displayPath = "/";
-            if (context != null ) {
+            if (context != null) {
                 if (context.getAvailable()) {
-                    writer.println(sm.getString("managerServlet.listitem",
-                                                displayPath,
-                                                "running",
-                                      "" + context.getManager().findSessions().length,
-                                                context.getDocBase()));
+                    writer.println(sm.getString("managerServlet.listitem", displayPath, "running",
+                      "" + context.getManager().findSessions().length, context.getDocBase()));
                 } else {
-                    writer.println(sm.getString("managerServlet.listitem",
-                                                displayPath,
-                                                "stopped",
-                                                "0",
-                                                context.getDocBase()));
+                    writer.println(
+                      sm.getString("managerServlet.listitem", displayPath, "stopped", "0", context.getDocBase()));
                 }
             }
         }
     }
-
 
     /**
      * Reload the web application at the specified context path.
@@ -705,7 +616,6 @@ System.out.println("init");
      * @param path Context path of the application to be restarted
      */
     protected void reload(PrintWriter writer, String path) {
-
         if (debug >= 1)
             log("restart: Reloading web application at '" + path + "'");
 
@@ -714,14 +624,14 @@ System.out.println("init");
             return;
         }
         String displayPath = path;
-        if( path.equals("/") )
+        if (path.equals("/"))
             path = "";
 
         try {
             Context context = deployer.findDeployedApp(path);
             if (context == null) {
                 writer.println(sm.getString("managerServlet.noContext", displayPath));
-            return;
+                return;
             }
             DirContext resources = context.getResources();
             if (resources instanceof ProxyDirContext) {
@@ -740,12 +650,9 @@ System.out.println("init");
             writer.println(sm.getString("managerServlet.reloaded", displayPath));
         } catch (Throwable t) {
             log("ManagerServlet.reload[" + displayPath + "]", t);
-            writer.println(sm.getString("managerServlet.exception",
-                                        t.toString()));
+            writer.println(sm.getString("managerServlet.exception", t.toString()));
         }
-
     }
-
 
     /**
      * Remove the web application at the specified context path.
@@ -754,7 +661,6 @@ System.out.println("init");
      * @param path Context path of the application to be removed
      */
     protected void remove(PrintWriter writer, String path) {
-
         if (debug >= 1)
             log("remove: Removing web application at '" + path + "'");
 
@@ -763,7 +669,7 @@ System.out.println("init");
             return;
         }
         String displayPath = path;
-        if( path.equals("/") )
+        if (path.equals("/"))
             path = "";
 
         try {
@@ -781,12 +687,9 @@ System.out.println("init");
             writer.println(sm.getString("managerServlet.removed", displayPath));
         } catch (Throwable t) {
             log("ManagerServlet.remove[" + displayPath + "]", t);
-            writer.println(sm.getString("managerServlet.exception",
-                                        t.toString()));
+            writer.println(sm.getString("managerServlet.exception", t.toString()));
         }
-
     }
-
 
     /**
      * Render a list of available global JNDI resources.
@@ -795,7 +698,6 @@ System.out.println("init");
      *  or <code>null</code> to list resources of all types
      */
     protected void resources(PrintWriter writer, String type) {
-
         if (debug >= 1) {
             if (type != null) {
                 log("resources:  Listing resources of type " + type);
@@ -812,8 +714,7 @@ System.out.println("init");
 
         // Enumerate the global JNDI resources of the requested type
         if (type != null) {
-            writer.println(sm.getString("managerServlet.resourcesType",
-                                        type));
+            writer.println(sm.getString("managerServlet.resourcesType", type));
         } else {
             writer.println(sm.getString("managerServlet.resourcesAll"));
         }
@@ -825,34 +726,27 @@ System.out.println("init");
             }
         } catch (Throwable t) {
             log("ManagerServlet.resources[" + type + "]", t);
-            writer.println(sm.getString("managerServlet.exception",
-                                        t.toString()));
+            writer.println(sm.getString("managerServlet.exception", t.toString()));
             return;
         }
 
         printResources(writer, "", global, type, clazz);
-
     }
-
 
     /**
      * List the resources of the given context.
      */
-    protected void printResources(PrintWriter writer, String prefix,
-                                  javax.naming.Context namingContext,
-                                  String type, Class clazz) {
-
+    protected void printResources(
+      PrintWriter writer, String prefix, javax.naming.Context namingContext, String type, Class clazz) {
         try {
             NamingEnumeration items = namingContext.listBindings("");
             while (items.hasMore()) {
                 Binding item = (Binding) items.next();
                 if (item.getObject() instanceof javax.naming.Context) {
-                    printResources
-                        (writer, prefix + item.getName() + "/",
-                         (javax.naming.Context) item.getObject(), type, clazz);
+                    printResources(
+                      writer, prefix + item.getName() + "/", (javax.naming.Context) item.getObject(), type, clazz);
                 } else {
-                    if ((clazz != null) &&
-                        (!(clazz.isInstance(item.getObject())))) {
+                    if ((clazz != null) && (!(clazz.isInstance(item.getObject())))) {
                         continue;
                     }
                     writer.print(prefix + item.getName());
@@ -864,12 +758,9 @@ System.out.println("init");
             }
         } catch (Throwable t) {
             log("ManagerServlet.resources[" + type + "]", t);
-            writer.println(sm.getString("managerServlet.exception",
-                                        t.toString()));
+            writer.println(sm.getString("managerServlet.exception", t.toString()));
         }
-
     }
-
 
     /**
      * Render a list of security role names (and corresponding descriptions)
@@ -881,7 +772,6 @@ System.out.println("init");
      * @param writer Writer to render to
      */
     protected void roles(PrintWriter writer) {
-
         if (debug >= 1) {
             log("roles:  List security roles from user database");
         }
@@ -915,10 +805,7 @@ System.out.println("init");
                 writer.println();
             }
         }
-
-
     }
-
 
     /**
      * Session information for the web application at the specified context path.
@@ -929,7 +816,6 @@ System.out.println("init");
      * @param path Context path of the application to list session information for
      */
     protected void sessions(PrintWriter writer, String path) {
-
         if (debug >= 1)
             log("sessions: Session information for web application at '" + path + "'");
 
@@ -938,7 +824,7 @@ System.out.println("init");
             return;
         }
         String displayPath = path;
-        if( path.equals("/") )
+        if (path.equals("/"))
             path = "";
         try {
             Context context = deployer.findDeployedApp(path);
@@ -947,42 +833,36 @@ System.out.println("init");
                 return;
             }
             writer.println(sm.getString("managerServlet.sessions", displayPath));
-            writer.println(sm.getString("managerServlet.sessiondefaultmax",
-                                "" + context.getManager().getMaxInactiveInterval()/60));
-            Session [] sessions = context.getManager().findSessions();
-            int [] timeout = new int[60];
+            writer.println(sm.getString(
+              "managerServlet.sessiondefaultmax", "" + context.getManager().getMaxInactiveInterval() / 60));
+            Session[] sessions = context.getManager().findSessions();
+            int[] timeout = new int[60];
             int notimeout = 0;
             for (int i = 0; i < sessions.length; i++) {
-                int time = sessions[i].getMaxInactiveInterval()/(10*60);
+                int time = sessions[i].getMaxInactiveInterval() / (10 * 60);
                 if (time < 0)
                     notimeout++;
                 else if (time >= timeout.length)
-                    timeout[timeout.length-1]++;
+                    timeout[timeout.length - 1]++;
                 else
                     timeout[time]++;
             }
             if (timeout[0] > 0)
-                writer.println(sm.getString("managerServlet.sessiontimeout",
-                                            "<10" + timeout[0]));
-            for (int i = 1; i < timeout.length-1; i++) {
+                writer.println(sm.getString("managerServlet.sessiontimeout", "<10" + timeout[0]));
+            for (int i = 1; i < timeout.length - 1; i++) {
                 if (timeout[i] > 0)
-                    writer.println(sm.getString("managerServlet.sessiontimeout",
-                                     "" + (i)*10 + " - <" + (i+1)*10,
-                                                "" + timeout[i]));
+                    writer.println(sm.getString(
+                      "managerServlet.sessiontimeout", "" + (i) * 10 + " - <" + (i + 1) * 10, "" + timeout[i]));
             }
-            if (timeout[timeout.length-1] > 0)
-                writer.println(sm.getString("managerServlet.sessiontimeout",
-                                            ">=" + timeout.length*10,
-                                            "" + timeout[timeout.length-1]));
+            if (timeout[timeout.length - 1] > 0)
+                writer.println(sm.getString(
+                  "managerServlet.sessiontimeout", ">=" + timeout.length * 10, "" + timeout[timeout.length - 1]));
             if (notimeout > 0)
-                writer.println(sm.getString("managerServlet.sessiontimeout",
-                                            "unlimited","" + notimeout));
+                writer.println(sm.getString("managerServlet.sessiontimeout", "unlimited", "" + notimeout));
         } catch (Throwable t) {
             log("ManagerServlet.sessions[" + displayPath + "]", t);
-            writer.println(sm.getString("managerServlet.exception",
-                                        t.toString()));
+            writer.println(sm.getString("managerServlet.exception", t.toString()));
         }
-
     }
 
     /**
@@ -992,7 +872,6 @@ System.out.println("init");
      * @param path Context path of the application to be started
      */
     protected void start(PrintWriter writer, String path) {
-
         if (debug >= 1)
             log("start: Starting web application at '" + path + "'");
 
@@ -1001,7 +880,7 @@ System.out.println("init");
             return;
         }
         String displayPath = path;
-        if( path.equals("/") )
+        if (path.equals("/"))
             path = "";
 
         try {
@@ -1012,22 +891,15 @@ System.out.println("init");
             }
             deployer.start(path);
             if (context.getAvailable())
-                writer.println
-                    (sm.getString("managerServlet.started", displayPath));
+                writer.println(sm.getString("managerServlet.started", displayPath));
             else
-                writer.println
-                    (sm.getString("managerServlet.startFailed", displayPath));
+                writer.println(sm.getString("managerServlet.startFailed", displayPath));
         } catch (Throwable t) {
-            getServletContext().log
-                (sm.getString("managerServlet.startFailed", displayPath), t);
-            writer.println
-                (sm.getString("managerServlet.startFailed", displayPath));
-            writer.println(sm.getString("managerServlet.exception",
-                                        t.toString()));
+            getServletContext().log(sm.getString("managerServlet.startFailed", displayPath), t);
+            writer.println(sm.getString("managerServlet.startFailed", displayPath));
+            writer.println(sm.getString("managerServlet.exception", t.toString()));
         }
-
     }
-
 
     /**
      * Stop the web application at the specified context path.
@@ -1036,7 +908,6 @@ System.out.println("init");
      * @param path Context path of the application to be stopped
      */
     protected void stop(PrintWriter writer, String path) {
-
         if (debug >= 1)
             log("stop: Stopping web application at '" + path + "'");
 
@@ -1045,7 +916,7 @@ System.out.println("init");
             return;
         }
         String displayPath = path;
-        if( path.equals("/") )
+        if (path.equals("/"))
             path = "";
 
         try {
@@ -1063,12 +934,9 @@ System.out.println("init");
             writer.println(sm.getString("managerServlet.stopped", displayPath));
         } catch (Throwable t) {
             log("ManagerServlet.stop[" + displayPath + "]", t);
-            writer.println(sm.getString("managerServlet.exception",
-                                        t.toString()));
+            writer.println(sm.getString("managerServlet.exception", t.toString()));
         }
-
     }
-
 
     /**
      * Undeploy the web application at the specified context path.
@@ -1077,7 +945,6 @@ System.out.println("init");
      * @param path Context path of the application to be removed
      */
     protected void undeploy(PrintWriter writer, String path) {
-
         if (debug >= 1)
             log("undeploy: Undeploying web application at '" + path + "'");
 
@@ -1086,16 +953,14 @@ System.out.println("init");
             return;
         }
         String displayPath = path;
-        if( path.equals("/") )
+        if (path.equals("/"))
             path = "";
 
         try {
-
             // Validate the Context of the specified application
             Context context = deployer.findDeployedApp(path);
             if (context == null) {
-                writer.println(sm.getString("managerServlet.noContext",
-                                            displayPath));
+                writer.println(sm.getString("managerServlet.noContext", displayPath));
                 return;
             }
 
@@ -1107,8 +972,7 @@ System.out.println("init");
                 appBase = ((Host) context.getParent()).getAppBase();
                 appBaseDir = new File(appBase);
                 if (!appBaseDir.isAbsolute()) {
-                    appBaseDir = new File(System.getProperty("catalina.base"),
-                                          appBase);
+                    appBaseDir = new File(System.getProperty("catalina.base"), appBase);
                 }
                 appBasePath = appBaseDir.getCanonicalPath();
             }
@@ -1122,8 +986,7 @@ System.out.println("init");
             }
             String docBasePath = docBaseDir.getCanonicalPath();
             if (!docBasePath.startsWith(deployedPath)) {
-                writer.println(sm.getString("managerServlet.noDocBase",
-                                            displayPath));
+                writer.println(sm.getString("managerServlet.noDocBase", displayPath));
                 return;
             }
 
@@ -1140,19 +1003,16 @@ System.out.println("init");
             if (docBaseDir.isDirectory()) {
                 undeployDir(docBaseDir);
             } else {
-                docBaseDir.delete();  // Delete the WAR file
+                docBaseDir.delete(); // Delete the WAR file
             }
-            String docBaseXmlPath =
-                docBasePath.substring(0, docBasePath.length() - 4) + ".xml";
+            String docBaseXmlPath = docBasePath.substring(0, docBasePath.length() - 4) + ".xml";
             File docBaseXml = new File(docBaseXmlPath);
             docBaseXml.delete();
-            writer.println(sm.getString("managerServlet.undeployed",
-                                        displayPath));
+            writer.println(sm.getString("managerServlet.undeployed", displayPath));
 
         } catch (Throwable t) {
             log("ManagerServlet.undeploy[" + displayPath + "]", t);
-            writer.println(sm.getString("managerServlet.exception",
-                                        t.toString()));
+            writer.println(sm.getString("managerServlet.exception", t.toString()));
         }
 
         // Saving configuration
@@ -1161,16 +1021,12 @@ System.out.println("init");
             try {
                 ((StandardServer) server).store();
             } catch (Exception e) {
-                writer.println(sm.getString("managerServlet.saveFail",
-                                            e.getMessage()));
+                writer.println(sm.getString("managerServlet.saveFail", e.getMessage()));
             }
         }
-
     }
 
-
     // -------------------------------------------------------- Support Methods
-
 
     /**
      * Extract the context configuration file from the specified WAR,
@@ -1184,7 +1040,6 @@ System.out.println("init");
      * @exception IOException if an i/o error occurs
      */
     protected void extractXml(File war, File xml) throws IOException {
-
         xml.delete();
         JarFile jar = null;
         JarEntry entry = null;
@@ -1197,8 +1052,7 @@ System.out.println("init");
                 return;
             }
             istream = jar.getInputStream(entry);
-            ostream =
-                new BufferedOutputStream(new FileOutputStream(xml), 1024);
+            ostream = new BufferedOutputStream(new FileOutputStream(xml), 1024);
             byte buffer[] = new byte[1024];
             while (true) {
                 int n = istream.read(buffer);
@@ -1245,9 +1099,7 @@ System.out.println("init");
                 jar = null;
             }
         }
-
     }
-
 
     /**
      * Delete the specified directory, including all of its contents and
@@ -1256,7 +1108,6 @@ System.out.println("init");
      * @param dir File object representing the directory to be deleted
      */
     protected void undeployDir(File dir) {
-
         String files[] = dir.list();
         if (files == null) {
             files = new String[0];
@@ -1270,9 +1121,7 @@ System.out.println("init");
             }
         }
         dir.delete();
-
     }
-
 
     /**
      * Upload the WAR file included in this request, and store it at the
@@ -1283,16 +1132,13 @@ System.out.println("init");
      *
      * @exception IOException if an I/O error occurs during processing
      */
-    protected void uploadWar(HttpServletRequest request, File war)
-        throws IOException {
-
+    protected void uploadWar(HttpServletRequest request, File war) throws IOException {
         war.delete();
         ServletInputStream istream = null;
         BufferedOutputStream ostream = null;
         try {
             istream = request.getInputStream();
-            ostream =
-                new BufferedOutputStream(new FileOutputStream(war), 1024);
+            ostream = new BufferedOutputStream(new FileOutputStream(war), 1024);
             byte buffer[] = new byte[1024];
             while (true) {
                 int n = istream.read(buffer);
@@ -1327,8 +1173,5 @@ System.out.println("init");
                 istream = null;
             }
         }
-
     }
-
-
 }

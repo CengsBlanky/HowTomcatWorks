@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ServerFactory.java,v 1.1 2001/08/23 22:15:43 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2001/08/23 22:15:43 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ServerFactory.java,v 1.1 2001/08/23
+ * 22:15:43 craigmcc Exp $ $Revision: 1.1 $ $Date: 2001/08/23 22:15:43 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 /**
  * <p><strong>ServerFactory</strong> allows the registration of the
@@ -77,29 +74,21 @@ package org.apache.catalina;
  */
 
 public class ServerFactory {
-
-
     // ------------------------------------------------------- Static Variables
-
 
     /**
      * The singleton <code>Server</code> instance for this JVM.
      */
     private static Server server = null;
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return the singleton <code>Server</code> instance for this JVM.
      */
     public static Server getServer() {
-
         return (server);
-
     }
-
 
     /**
      * Set the singleton <code>Server</code> instance for this JVM.  This
@@ -110,11 +99,7 @@ public class ServerFactory {
      * @param theServer The new singleton instance
      */
     public static void setServer(Server theServer) {
-
         if (server == null)
             server = theServer;
-
     }
-
-
 }

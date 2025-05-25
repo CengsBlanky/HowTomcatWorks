@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/http10/HttpRequestImpl.java,v 1.5 2002/03/18 07:15:40 remm Exp $
- * $Revision: 1.5 $
- * $Date: 2002/03/18 07:15:40 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/http10/HttpRequestImpl.java,v 1.5
+ * 2002/03/18 07:15:40 remm Exp $ $Revision: 1.5 $ $Date: 2002/03/18 07:15:40 $
  *
  * ====================================================================
  *
@@ -61,13 +61,10 @@
  *
  */
 
-
 package org.apache.catalina.connector.http10;
-
 
 import java.net.InetAddress;
 import org.apache.catalina.connector.HttpRequestBase;
-
 
 /**
  * Implementation of <b>HttpRequest</b> specific to the HTTP connector.
@@ -77,39 +74,28 @@ import org.apache.catalina.connector.HttpRequestBase;
  * @deprecated
  */
 
-final class HttpRequestImpl
-    extends HttpRequestBase {
-
-
+final class HttpRequestImpl extends HttpRequestBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The InetAddress of the remote client of ths request.
      */
     protected InetAddress inet = null;
 
-
     /**
      * Descriptive information about this Request implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.connector.http10.HttpRequestImpl/1.0";
-
+    protected static final String info = "org.apache.catalina.connector.http10.HttpRequestImpl/1.0";
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * [Package Private] Return the InetAddress of the remote client of
      * this request.
      */
     InetAddress getInet() {
-
         return (inet);
-
     }
-
 
     /**
      * [Package Private] Set the InetAddress of the remote client of
@@ -118,11 +104,8 @@ final class HttpRequestImpl
      * @param inet The new InetAddress
      */
     void setInet(InetAddress inet) {
-
         this.inet = inet;
-
     }
-
 
     /**
      * Return descriptive information about this Request implementation and
@@ -130,56 +113,40 @@ final class HttpRequestImpl
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo() {
-
         return (info);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Release all object references, and initialize instance variables, in
      * preparation for reuse of this object.
      */
     public void recycle() {
-
         super.recycle();
         inet = null;
-
     }
 
-
     // ------------------------------------------------- ServletRequest Methods
-
 
     /**
      * Return the Internet Protocol (IP) address of the client that sent
      * this request.
      */
     public String getRemoteAddr() {
-
         return (inet.getHostAddress());
-
     }
-
 
     /**
      * Return the fully qualified name of the client that sent this request,
      * or the IP address of the client if the name cannot be determined.
      */
     public String getRemoteHost() {
-
         if (connector.getEnableLookups())
             return (inet.getHostName());
         else
             return (getRemoteAddr());
-
     }
 
-
     // --------------------------------------------- HttpServletRequest Methods
-
-
 }

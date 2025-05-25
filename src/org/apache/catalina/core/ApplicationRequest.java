@@ -1,6 +1,5 @@
 package org.apache.catalina.core;
 
-
 import java.util.Enumeration;
 import java.util.HashMap;
 import javax.servlet.ServletRequest;
@@ -8,7 +7,6 @@ import javax.servlet.ServletRequestWrapper;
 import org.apache.catalina.Globals;
 import org.apache.catalina.util.Enumerator;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * Wrapper around a <code>javax.servlet.ServletRequest</code>
@@ -27,22 +25,15 @@ import org.apache.catalina.util.StringManager;
  */
 
 class ApplicationRequest extends ServletRequestWrapper {
-
-
     // ------------------------------------------------------- Static Variables
-
 
     /**
      * The set of attribute names that are special for request dispatchers.
      */
-    protected static final String specials[] =
-    { Globals.REQUEST_URI_ATTR, Globals.CONTEXT_PATH_ATTR,
-      Globals.SERVLET_PATH_ATTR, Globals.PATH_INFO_ATTR,
-      Globals.QUERY_STRING_ATTR };
-
+    protected static final String specials[] = {Globals.REQUEST_URI_ATTR, Globals.CONTEXT_PATH_ATTR,
+      Globals.SERVLET_PATH_ATTR, Globals.PATH_INFO_ATTR, Globals.QUERY_STRING_ATTR};
 
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new wrapped request around the specified servlet request.
@@ -50,15 +41,11 @@ class ApplicationRequest extends ServletRequestWrapper {
      * @param request The servlet request being wrapped
      */
     public ApplicationRequest(ServletRequest request) {
-
         super(request);
         setRequest(request);
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The request attributes for this request.  This is initialized from the
@@ -66,16 +53,12 @@ class ApplicationRequest extends ServletRequestWrapper {
      */
     protected HashMap attributes = new HashMap();
 
-
     /**
      * The string manager for this package.
      */
-    protected static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static StringManager sm = StringManager.getManager(Constants.Package);
 
     // ------------------------------------------------- ServletRequest Methods
-
 
     /**
      * Override the <code>getAttribute()</code> method of the wrapped request.
@@ -83,26 +66,20 @@ class ApplicationRequest extends ServletRequestWrapper {
      * @param name Name of the attribute to retrieve
      */
     public Object getAttribute(String name) {
-
         synchronized (attributes) {
             return (attributes.get(name));
         }
-
     }
-
 
     /**
      * Override the <code>getAttributeNames()</code> method of the wrapped
      * request.
      */
     public Enumeration getAttributeNames() {
-
         synchronized (attributes) {
             return (new Enumerator(attributes.keySet()));
         }
-
     }
-
 
     /**
      * Override the <code>removeAttribute()</code> method of the
@@ -111,15 +88,12 @@ class ApplicationRequest extends ServletRequestWrapper {
      * @param name Name of the attribute to remove
      */
     public void removeAttribute(String name) {
-
         synchronized (attributes) {
             attributes.remove(name);
             if (!isSpecial(name))
                 getRequest().removeAttribute(name);
         }
-
     }
-
 
     /**
      * Override the <code>setAttribute()</code> method of the
@@ -129,18 +103,14 @@ class ApplicationRequest extends ServletRequestWrapper {
      * @param value Value of the attribute to set
      */
     public void setAttribute(String name, Object value) {
-
         synchronized (attributes) {
             attributes.put(name, value);
             if (!isSpecial(name))
                 getRequest().setAttribute(name, value);
         }
-
     }
 
-
     // ------------------------------------------ ServletRequestWrapper Methods
-
 
     /**
      * Set the request that we are wrapping.
@@ -148,7 +118,6 @@ class ApplicationRequest extends ServletRequestWrapper {
      * @param request The new wrapped request
      */
     public void setRequest(ServletRequest request) {
-
         super.setRequest(request);
 
         // Initialize the attributes for this request
@@ -161,12 +130,9 @@ class ApplicationRequest extends ServletRequestWrapper {
                 attributes.put(name, value);
             }
         }
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Is this attribute name one of the special ones that is added only for
@@ -175,14 +141,10 @@ class ApplicationRequest extends ServletRequestWrapper {
      * @param name Attribute name to be tested
      */
     protected boolean isSpecial(String name) {
-
         for (int i = 0; i < specials.length; i++) {
             if (specials[i].equals(name))
                 return (true);
         }
         return (false);
-
     }
-
-
 }

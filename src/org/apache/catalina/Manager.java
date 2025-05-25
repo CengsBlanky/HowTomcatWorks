@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Manager.java,v 1.6 2002/09/19 22:55:47 amyroh Exp $
- * $Revision: 1.6 $
- * $Date: 2002/09/19 22:55:47 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Manager.java,v 1.6 2002/09/19 22:55:47
+ * amyroh Exp $ $Revision: 1.6 $ $Date: 2002/09/19 22:55:47 $
  *
  * ====================================================================
  *
@@ -61,13 +60,10 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-
 
 /**
  * A <b>Manager</b> manages the pool of Sessions that are associated with a
@@ -90,16 +86,12 @@ import java.io.IOException;
  */
 
 public interface Manager {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Container with which this Manager is associated.
      */
     public Container getContainer();
-
 
     /**
      * Set the Container with which this Manager is associated.
@@ -108,12 +100,10 @@ public interface Manager {
      */
     public void setContainer(Container container);
 
-
     /**
      * Return the DefaultContext with which this Manager is associated.
      */
     public DefaultContext getDefaultContext();
-
 
     /**
      * Set the DefaultContext with which this Manager is associated.
@@ -122,14 +112,11 @@ public interface Manager {
      */
     public void setDefaultContext(DefaultContext defaultContext);
 
-
-
     /**
      * Return the distributable flag for the sessions supported by
      * this Manager.
      */
     public boolean getDistributable();
-
 
     /**
      * Set the distributable flag for the sessions supported by this
@@ -140,7 +127,6 @@ public interface Manager {
      */
     public void setDistributable(boolean distributable);
 
-
     /**
      * Return descriptive information about this Manager implementation and
      * the corresponding version number, in the format
@@ -148,13 +134,11 @@ public interface Manager {
      */
     public String getInfo();
 
-
     /**
      * Return the default maximum inactive interval (in seconds)
      * for Sessions created by this Manager.
      */
     public int getMaxInactiveInterval();
-
 
     /**
      * Set the default maximum inactive interval (in seconds)
@@ -164,9 +148,7 @@ public interface Manager {
      */
     public void setMaxInactiveInterval(int interval);
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add this Session to the set of active Sessions for this Manager.
@@ -175,14 +157,12 @@ public interface Manager {
      */
     public void add(Session session);
 
-
     /**
      * Add a property change listener to this component.
      *
      * @param listener The listener to add
      */
     public void addPropertyChangeListener(PropertyChangeListener listener);
-
 
     /**
      * Construct and return a new session object, based on the default
@@ -195,7 +175,6 @@ public interface Manager {
      *  instantiated for any reason
      */
     public Session createSession();
-
 
     /**
      * Return the active Session, associated with this Manager, with the
@@ -210,13 +189,11 @@ public interface Manager {
      */
     public Session findSession(String id) throws IOException;
 
-
     /**
      * Return the set of active Sessions associated with this Manager.
      * If this Manager has no active Sessions, a zero-length array is returned.
      */
     public Session[] findSessions();
-
 
     /**
      * Load any currently active sessions that were previously unloaded
@@ -229,7 +206,6 @@ public interface Manager {
      */
     public void load() throws ClassNotFoundException, IOException;
 
-
     /**
      * Remove this Session from the active Sessions for this Manager.
      *
@@ -237,14 +213,12 @@ public interface Manager {
      */
     public void remove(Session session);
 
-
     /**
      * Remove a property change listener from this component.
      *
      * @param listener The listener to remove
      */
     public void removePropertyChangeListener(PropertyChangeListener listener);
-
 
     /**
      * Save any currently active sessions in the appropriate persistence
@@ -254,6 +228,4 @@ public interface Manager {
      * @exception IOException if an input/output error occurs
      */
     public void unload() throws IOException;
-
-
 }

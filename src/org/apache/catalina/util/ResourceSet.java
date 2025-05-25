@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/ResourceSet.java,v 1.2 2001/04/25 20:30:37 craigmcc Exp $
- * $Revision: 1.2 $
- * $Date: 2001/04/25 20:30:37 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/ResourceSet.java,v 1.2 2001/04/25
+ * 20:30:37 craigmcc Exp $ $Revision: 1.2 $ $Date: 2001/04/25 20:30:37 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.util;
-
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -80,21 +77,15 @@ import java.util.HashSet;
  */
 
 public final class ResourceSet extends HashSet {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new, empty set with the default initial capacity and
      * load factor.
      */
     public ResourceSet() {
-
         super();
-
     }
-
 
     /**
      * Construct a new, empty set with the specified initial capacity and
@@ -103,11 +94,8 @@ public final class ResourceSet extends HashSet {
      * @param initialCapacity The initial capacity of this set
      */
     public ResourceSet(int initialCapacity) {
-
         super(initialCapacity);
-
     }
-
 
     /**
      * Construct a new, empty set with the specified initial capacity and
@@ -117,11 +105,8 @@ public final class ResourceSet extends HashSet {
      * @param loadFactor The load factor of this set
      */
     public ResourceSet(int initialCapacity, float loadFactor) {
-
         super(initialCapacity, loadFactor);
-
     }
-
 
     /**
      * Construct a new set with the same contents as the existing collection.
@@ -129,30 +114,22 @@ public final class ResourceSet extends HashSet {
      * @param coll The collection whose contents we should copy
      */
     public ResourceSet(Collection coll) {
-
         super(coll);
-
     }
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The current lock state of this parameter map.
      */
     private boolean locked = false;
 
-
     /**
      * Return the locked state of this parameter map.
      */
     public boolean isLocked() {
-
         return (this.locked);
-
     }
-
 
     /**
      * Set the locked state of this parameter map.
@@ -160,21 +137,15 @@ public final class ResourceSet extends HashSet {
      * @param locked The new locked state
      */
     public void setLocked(boolean locked) {
-
         this.locked = locked;
-
     }
-
 
     /**
      * The string manager for this package.
      */
-    private static final StringManager sm =
-        StringManager.getManager("org.apache.catalina.util");
-
+    private static final StringManager sm = StringManager.getManager("org.apache.catalina.util");
 
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add the specified element to this set if it is not already present.
@@ -185,14 +156,10 @@ public final class ResourceSet extends HashSet {
      * @exception IllegalStateException if this ResourceSet is locked
      */
     public boolean add(Object o) {
-
         if (locked)
-            throw new IllegalStateException
-              (sm.getString("resourceSet.locked"));
+            throw new IllegalStateException(sm.getString("resourceSet.locked"));
         return (super.add(o));
-
     }
-
 
     /**
      * Remove all of the elements from this set.
@@ -200,14 +167,10 @@ public final class ResourceSet extends HashSet {
      * @exception IllegalStateException if this ResourceSet is locked
      */
     public void clear() {
-
         if (locked)
-            throw new IllegalStateException
-              (sm.getString("resourceSet.locked"));
+            throw new IllegalStateException(sm.getString("resourceSet.locked"));
         super.clear();
-
     }
-
 
     /**
      * Remove the given element from this set if it is present.
@@ -218,13 +181,8 @@ public final class ResourceSet extends HashSet {
      * @exception IllegalStateException if this ResourceSet is locked
      */
     public boolean remove(Object o) {
-
         if (locked)
-            throw new IllegalStateException
-              (sm.getString("resourceSet.locked"));
+            throw new IllegalStateException(sm.getString("resourceSet.locked"));
         return (super.remove(o));
-
     }
-
-
 }

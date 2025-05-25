@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/EmbeddedManager.java,v 1.4 2001/09/26 18:55:40 remm Exp $
- * $Revision: 1.4 $
- * $Date: 2001/09/26 18:55:40 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/EmbeddedManager.java,v 1.4
+ * 2001/09/26 18:55:40 remm Exp $ $Revision: 1.4 $ $Date: 2001/09/26 18:55:40 $
  *
  * ====================================================================
  *
@@ -64,18 +63,18 @@
 package org.apache.catalina.startup;
 
 import java.net.InetAddress;
+import javax.management.AttributeChangeNotification;
+import javax.management.MBeanRegistration;
+import javax.management.MBeanServer;
+import javax.management.Notification;
+import javax.management.NotificationBroadcasterSupport;
+import javax.management.ObjectName;
 import org.apache.catalina.Connector;
 import org.apache.catalina.Context;
 import org.apache.catalina.Engine;
 import org.apache.catalina.Host;
 import org.apache.catalina.Logger;
 import org.apache.catalina.Realm;
-import javax.management.NotificationBroadcasterSupport;
-import javax.management.ObjectName;
-import javax.management.MBeanServer;
-import javax.management.MBeanRegistration;
-import javax.management.AttributeChangeNotification;
-import javax.management.Notification;
 
 /**
  * Implementation of the Catalina JMX MBean as a wrapper of the Catalina class.
@@ -85,58 +84,42 @@ import javax.management.Notification;
  */
 
 public final class EmbeddedManager
-    extends NotificationBroadcasterSupport
-    implements EmbeddedManagerMBean, MBeanRegistration {
-
-
+  extends NotificationBroadcasterSupport implements EmbeddedManagerMBean, MBeanRegistration {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Status of the Slide domain.
      */
     private int state = STOPPED;
 
-
     /**
      * Notification sequence number.
      */
     private long sequenceNumber = 0;
-
 
     /**
      * Embedded Catalina.
      */
     private Embedded embedded = new Embedded();
 
-
     // ---------------------------------------------- MBeanRegistration Methods
 
-
-    public ObjectName preRegister(MBeanServer server, ObjectName name)
-        throws Exception {
+    public ObjectName preRegister(MBeanServer server, ObjectName name) throws Exception {
         return new ObjectName(OBJECT_NAME);
     }
-
 
     public void postRegister(Boolean registrationDone) {
         if (!registrationDone.booleanValue())
             destroy();
     }
 
-
-    public void preDeregister()
-        throws Exception {
-    }
-
+    public void preDeregister() throws Exception {}
 
     public void postDeregister() {
         destroy();
     }
 
-
     // ----------------------------------------------------- SlideMBean Methods
-
 
     /**
      * Retruns the Catalina component name.
@@ -145,14 +128,12 @@ public final class EmbeddedManager
         return NAME;
     }
 
-
     /**
      * Returns the state.
      */
     public int getState() {
         return state;
     }
-
 
     /**
      * Returns a String representation of the state.
@@ -161,12 +142,10 @@ public final class EmbeddedManager
         return states[state];
     }
 
-
     /**
      * Start the servlet container.
      */
     public void start() {
-
         Notification notification = null;
 
         if (state != STOPPED)
@@ -176,40 +155,30 @@ public final class EmbeddedManager
 
         // Notifying the MBEan server that we're starting
 
-        notification = new AttributeChangeNotification
-            (this, sequenceNumber++, System.currentTimeMillis(),
-             "Starting " + NAME, "State", "java.lang.Integer",
-             new Integer(STOPPED), new Integer(STARTING));
+        notification = new AttributeChangeNotification(this, sequenceNumber++, System.currentTimeMillis(),
+          "Starting " + NAME, "State", "java.lang.Integer", new Integer(STOPPED), new Integer(STARTING));
         sendNotification(notification);
 
         try {
-
             embedded.start();
 
             state = STARTED;
-            notification = new AttributeChangeNotification
-                (this, sequenceNumber++, System.currentTimeMillis(),
-                 "Started " + NAME, "State", "java.lang.Integer",
-                 new Integer(STARTING), new Integer(STARTED));
+            notification = new AttributeChangeNotification(this, sequenceNumber++, System.currentTimeMillis(),
+              "Started " + NAME, "State", "java.lang.Integer", new Integer(STARTING), new Integer(STARTED));
             sendNotification(notification);
 
         } catch (Throwable t) {
             state = STOPPED;
-            notification = new AttributeChangeNotification
-                (this, sequenceNumber++, System.currentTimeMillis(),
-                 "Stopped " + NAME, "State", "java.lang.Integer",
-                 new Integer(STARTING), new Integer(STOPPED));
+            notification = new AttributeChangeNotification(this, sequenceNumber++, System.currentTimeMillis(),
+              "Stopped " + NAME, "State", "java.lang.Integer", new Integer(STARTING), new Integer(STOPPED));
             sendNotification(notification);
         }
-
     }
-
 
     /**
      * Stop the servlet container.
      */
     public void stop() {
-
         Notification notification = null;
 
         if (state != STARTED)
@@ -217,52 +186,39 @@ public final class EmbeddedManager
 
         state = STOPPING;
 
-        notification = new AttributeChangeNotification
-            (this, sequenceNumber++, System.currentTimeMillis(),
-             "Stopping " + NAME, "State", "java.lang.Integer",
-             new Integer(STARTED), new Integer(STOPPING));
+        notification = new AttributeChangeNotification(this, sequenceNumber++, System.currentTimeMillis(),
+          "Stopping " + NAME, "State", "java.lang.Integer", new Integer(STARTED), new Integer(STOPPING));
         sendNotification(notification);
 
         try {
-
             embedded.stop();
 
         } catch (Throwable t) {
-
             // FIXME
             t.printStackTrace();
-
         }
 
         state = STOPPED;
 
-        notification = new AttributeChangeNotification
-            (this, sequenceNumber++, System.currentTimeMillis(),
-             "Stopped " + NAME, "State", "java.lang.Integer",
-             new Integer(STOPPING), new Integer(STOPPED));
+        notification = new AttributeChangeNotification(this, sequenceNumber++, System.currentTimeMillis(),
+          "Stopped " + NAME, "State", "java.lang.Integer", new Integer(STOPPING), new Integer(STOPPED));
         sendNotification(notification);
-
     }
-
 
     /**
      * Destroy servlet container (if any is running).
      */
     public void destroy() {
-
         if (getState() != STOPPED)
             stop();
-
     }
 
-
-   /**
+    /**
      * Return the debugging detail level for this component.
      */
     public int getDebug() {
         return embedded.getDebug();
     }
-
 
     /**
      * Set the debugging detail level for this component.
@@ -273,14 +229,12 @@ public final class EmbeddedManager
         embedded.setDebug(debug);
     }
 
-
     /**
      * Return true if naming is enabled.
      */
     public boolean isUseNaming() {
         return embedded.isUseNaming();
     }
-
 
     /**
      * Enables or disables naming support.
@@ -291,14 +245,12 @@ public final class EmbeddedManager
         embedded.setUseNaming(useNaming);
     }
 
-
     /**
      * Return the Logger for this component.
      */
     public Logger getLogger() {
         return embedded.getLogger();
     }
-
 
     /**
      * Set the Logger for this component.
@@ -309,14 +261,12 @@ public final class EmbeddedManager
         embedded.setLogger(logger);
     }
 
-
     /**
      * Return the default Realm for our Containers.
      */
     public Realm getRealm() {
         return embedded.getRealm();
     }
-
 
     /**
      * Set the default Realm for our Containers.
@@ -327,14 +277,12 @@ public final class EmbeddedManager
         embedded.setRealm(realm);
     }
 
-
     /**
      * Return the secure socket factory class name.
      */
     public String getSocketFactory() {
         return embedded.getSocketFactory();
     }
-
 
     /**
      * Set the secure socket factory class name.
@@ -344,7 +292,6 @@ public final class EmbeddedManager
     public void setSocketFactory(String socketFactory) {
         embedded.setSocketFactory(socketFactory);
     }
-
 
     /**
      * Add a new Connector to the set of defined Connectors.  The newly
@@ -358,7 +305,6 @@ public final class EmbeddedManager
         embedded.addConnector(connector);
     }
 
-
     /**
      * Add a new Engine to the set of defined Engines.
      *
@@ -367,7 +313,6 @@ public final class EmbeddedManager
     public void addEngine(Engine engine) {
         embedded.addEngine(engine);
     }
-
 
     /**
      * Create, configure, and return a new TCP/IP socket connector
@@ -378,11 +323,9 @@ public final class EmbeddedManager
      * @param port Port number to listen to
      * @param secure Should this port be SSL-enabled?
      */
-    public Connector createConnector(InetAddress address, int port,
-                                     boolean secure) {
+    public Connector createConnector(InetAddress address, int port, boolean secure) {
         return embedded.createConnector(address, port, secure);
     }
-
 
     /**
      * Create, configure, and return a Context that will process all
@@ -411,7 +354,6 @@ public final class EmbeddedManager
         return embedded.createContext(path, docBase);
     }
 
-
     /**
      * Create, configure, and return an Engine that will process all
      * HTTP requests received from one of the associated Connectors,
@@ -420,7 +362,6 @@ public final class EmbeddedManager
     public Engine createEngine() {
         return embedded.createEngine();
     }
-
 
     /**
      * Create, configure, and return a Host that will process all
@@ -452,7 +393,6 @@ public final class EmbeddedManager
         return embedded.createHost(name, appBase);
     }
 
-
     /**
      * Return descriptive information about this Server implementation and
      * the corresponding version number, in the format
@@ -462,7 +402,6 @@ public final class EmbeddedManager
         return embedded.getInfo();
     }
 
-
     /**
      * Remove the specified Connector from the set of defined Connectors.
      *
@@ -471,7 +410,6 @@ public final class EmbeddedManager
     public void removeConnector(Connector connector) {
         embedded.removeConnector(connector);
     }
-
 
     /**
      * Remove the specified Context from the set of defined Contexts for its
@@ -484,7 +422,6 @@ public final class EmbeddedManager
         embedded.removeContext(context);
     }
 
-
     /**
      * Remove the specified Engine from the set of defined Engines, along with
      * all of its related Hosts and Contexts.  All associated Connectors are
@@ -496,7 +433,6 @@ public final class EmbeddedManager
         embedded.removeEngine(engine);
     }
 
-
     /**
      * Remove the specified Host, along with all of its related Contexts,
      * from the set of defined Hosts for its associated Engine.  If this is
@@ -507,6 +443,4 @@ public final class EmbeddedManager
     public void removeHost(Host host) {
         embedded.removeHost(host);
     }
-
-
 }

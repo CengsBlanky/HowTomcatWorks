@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/UserConfig.java,v 1.3 2001/09/05 00:31:50 craigmcc Exp $
- * $Revision: 1.3 $
- * $Date: 2001/09/05 00:31:50 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/UserConfig.java,v 1.3 2001/09/05
+ * 00:31:50 craigmcc Exp $ $Revision: 1.3 $ $Date: 2001/09/05 00:31:50 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.startup;
-
 
 import java.io.File;
 import java.util.Enumeration;
@@ -74,7 +71,6 @@ import org.apache.catalina.LifecycleEvent;
 import org.apache.catalina.LifecycleListener;
 import org.apache.catalina.Logger;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * Startup event listener for a <b>Host</b> that configures Contexts (web
@@ -87,75 +83,57 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.3 $ $Date: 2001/09/05 00:31:50 $
  */
 
-public final class UserConfig
-    implements LifecycleListener {
-
-
+public final class UserConfig implements LifecycleListener {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The Java class name of the Context configuration class we should use.
      */
     private String configClass = "org.apache.catalina.startup.ContextConfig";
 
-
     /**
      * The Java class name of the Context implementation we should use.
      */
     private String contextClass = "org.apache.catalina.core.StandardContext";
-
 
     /**
      * The debugging detail level for this component.
      */
     private int debug = 999;
 
-
     /**
      * The directory name to be searched for within each user home directory.
      */
     private String directoryName = "public_html";
-
 
     /**
      * The base directory containing user home directories.
      */
     private String homeBase = null;
 
-
     /**
      * The Host we are associated with.
      */
     private Host host = null;
 
-
     /**
      * The string resources for this package.
      */
-    private static final StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    private static final StringManager sm = StringManager.getManager(Constants.Package);
 
     /**
      * The Java class name of the user database class we should use.
      */
-    private String userClass =
-        "org.apache.catalina.startup.PasswdUserDatabase";
-
+    private String userClass = "org.apache.catalina.startup.PasswdUserDatabase";
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Context configuration class name.
      */
     public String getConfigClass() {
-
         return (this.configClass);
-
     }
-
 
     /**
      * Set the Context configuration class name.
@@ -163,21 +141,15 @@ public final class UserConfig
      * @param configClass The new Context configuration class name.
      */
     public void setConfigClass(String configClass) {
-
         this.configClass = configClass;
-
     }
-
 
     /**
      * Return the Context implementation class name.
      */
     public String getContextClass() {
-
         return (this.contextClass);
-
     }
-
 
     /**
      * Set the Context implementation class name.
@@ -185,21 +157,15 @@ public final class UserConfig
      * @param contextClass The new Context implementation class name.
      */
     public void setContextClass(String contextClass) {
-
         this.contextClass = contextClass;
-
     }
-
 
     /**
      * Return the debugging detail level for this component.
      */
     public int getDebug() {
-
         return (this.debug);
-
     }
-
 
     /**
      * Set the debugging detail level for this component.
@@ -207,21 +173,15 @@ public final class UserConfig
      * @param debug The new debugging detail level
      */
     public void setDebug(int debug) {
-
         this.debug = debug;
-
     }
-
 
     /**
      * Return the directory name for user web applications.
      */
     public String getDirectoryName() {
-
         return (this.directoryName);
-
     }
-
 
     /**
      * Set the directory name for user web applications.
@@ -229,21 +189,15 @@ public final class UserConfig
      * @param directoryName The new directory name
      */
     public void setDirectoryName(String directoryName) {
-
         this.directoryName = directoryName;
-
     }
-
 
     /**
      * Return the base directory containing user home directories.
      */
     public String getHomeBase() {
-
         return (this.homeBase);
-
     }
-
 
     /**
      * Set the base directory containing user home directories.
@@ -251,34 +205,24 @@ public final class UserConfig
      * @param homeBase The new base directory
      */
     public void setHomeBase(String homeBase) {
-
         this.homeBase = homeBase;
-
     }
-
 
     /**
      * Return the user database class name for this component.
      */
     public String getUserClass() {
-
         return (this.userClass);
-
     }
-
 
     /**
      * Set the user database class name for this component.
      */
     public void setUserClass(String userClass) {
-
         this.userClass = userClass;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Process the START event for an associated Host.
@@ -286,7 +230,6 @@ public final class UserConfig
      * @param event The lifecycle event that has occurred
      */
     public void lifecycleEvent(LifecycleEvent event) {
-
         // Identify the host we are associated with
         try {
             host = (Host) event.getLifecycle();
@@ -300,19 +243,15 @@ public final class UserConfig
             start();
         else if (event.getType().equals(Lifecycle.STOP_EVENT))
             stop();
-
     }
 
-
     // -------------------------------------------------------- Private Methods
-
 
     /**
      * Deploy a web application for any user who has a web application present
      * in a directory with a specified name within their home directory.
      */
     private void deploy() {
-
         if (debug >= 1)
             log(sm.getString("userConfig.deploying"));
 
@@ -334,9 +273,7 @@ public final class UserConfig
             String home = database.getHome(user);
             deploy(user, home);
         }
-
     }
-
 
     /**
      * Deploy a web application for the specified user if they have such an
@@ -346,7 +283,6 @@ public final class UserConfig
      * @param home Home directory of this user
      */
     private void deploy(String user, String home) {
-
         // Does this user have a web application to be deployed?
         String contextPath = "/~" + user;
         if (host.findChild(contextPath) != null)
@@ -364,23 +300,19 @@ public final class UserConfig
         // Deploy the web application for this user
         try {
             Class clazz = Class.forName(contextClass);
-            Context context =
-              (Context) clazz.newInstance();
+            Context context = (Context) clazz.newInstance();
             context.setPath(contextPath);
             context.setDocBase(app.toString());
             if (context instanceof Lifecycle) {
                 clazz = Class.forName(configClass);
-                LifecycleListener listener =
-                  (LifecycleListener) clazz.newInstance();
+                LifecycleListener listener = (LifecycleListener) clazz.newInstance();
                 ((Lifecycle) context).addLifecycleListener(listener);
             }
             host.addChild(context);
         } catch (Exception e) {
             log(sm.getString("userConfig.error", user), e);
         }
-
     }
-
 
     /**
      * Log a message on the Logger associated with our Host (if any)
@@ -388,18 +320,14 @@ public final class UserConfig
      * @param message Message to be logged
      */
     private void log(String message) {
-
         Logger logger = null;
         if (host != null)
             logger = host.getLogger();
         if (logger != null)
             logger.log("UserConfig[" + host.getName() + "]: " + message);
         else
-            System.out.println("UserConfig[" + host.getName() + "]: "
-                               + message);
-
+            System.out.println("UserConfig[" + host.getName() + "]: " + message);
     }
-
 
     /**
      * Log a message on the Logger associated with our Host (if any)
@@ -408,45 +336,33 @@ public final class UserConfig
      * @param throwable Associated exception
      */
     private void log(String message, Throwable throwable) {
-
         Logger logger = null;
         if (host != null)
             logger = host.getLogger();
         if (logger != null)
-            logger.log("UserConfig[" + host.getName() + "] "
-                       + message, throwable);
+            logger.log("UserConfig[" + host.getName() + "] " + message, throwable);
         else {
-            System.out.println("UserConfig[" + host.getName() + "]: "
-                               + message);
+            System.out.println("UserConfig[" + host.getName() + "]: " + message);
             System.out.println("" + throwable);
             throwable.printStackTrace(System.out);
         }
-
     }
-
 
     /**
      * Process a "start" event for this Host.
      */
     private void start() {
-
         if (debug > 0)
             log(sm.getString("userConfig.start"));
 
         deploy();
-
     }
-
 
     /**
      * Process a "stop" event for this Host.
      */
     private void stop() {
-
         if (debug > 0)
             log(sm.getString("userConfig.stop"));
-
     }
-
-
 }

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ApplicationParameter.java,v 1.3 2001/09/09 00:48:11 craigmcc Exp $
- * $Revision: 1.3 $
- * $Date: 2001/09/09 00:48:11 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ApplicationParameter.java,v 1.3
+ * 2001/09/09 00:48:11 craigmcc Exp $ $Revision: 1.3 $ $Date: 2001/09/09 00:48:11 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
-
 
 /**
  * Representation of a context initialization parameter that is configured
@@ -77,10 +74,7 @@ package org.apache.catalina.deploy;
  */
 
 public final class ApplicationParameter {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The description of this environment entry.
@@ -95,7 +89,6 @@ public final class ApplicationParameter {
         this.description = description;
     }
 
-
     /**
      * The name of this application parameter.
      */
@@ -108,7 +101,6 @@ public final class ApplicationParameter {
     public void setName(String name) {
         this.name = name;
     }
-
 
     /**
      * Does this application parameter allow overrides by the application
@@ -123,7 +115,6 @@ public final class ApplicationParameter {
     public void setOverride(boolean override) {
         this.override = override;
     }
-
 
     /**
      * The value of this application parameter.
@@ -140,12 +131,10 @@ public final class ApplicationParameter {
 
     // --------------------------------------------------------- Public Methods
 
-
     /**
      * Return a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("ApplicationParameter[");
         sb.append("name=");
         sb.append(name);
@@ -159,8 +148,5 @@ public final class ApplicationParameter {
         sb.append(override);
         sb.append("]");
         return (sb.toString());
-
     }
-
-
 }

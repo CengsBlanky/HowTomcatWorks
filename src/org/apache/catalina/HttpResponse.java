@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/HttpResponse.java,v 1.5 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.5 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/HttpResponse.java,v 1.5 2001/07/22
+ * 20:13:30 pier Exp $ $Revision: 1.5 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,12 +60,9 @@
  *
  */
 
-
 package org.apache.catalina;
 
-
 import javax.servlet.http.Cookie;
-
 
 /**
  * An <b>HttpResponse</b> is the Catalina-internal facade for an
@@ -77,19 +73,14 @@ import javax.servlet.http.Cookie;
  * @version $Revision: 1.5 $ $Date: 2001/07/22 20:13:30 $
  */
 
-public interface HttpResponse
-    extends Response {
-
-
+public interface HttpResponse extends Response {
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return an array of all cookies set for this response, or
      * a zero-length array if no cookies have been set.
      */
     public Cookie[] getCookies();
-
 
     /**
      * Return the value for the specified header, or <code>null</code> if this
@@ -101,13 +92,11 @@ public interface HttpResponse
      */
     public String getHeader(String name);
 
-
     /**
      * Return an array of all the header names set for this response, or
      * a zero-length array if no headers have been set.
      */
     public String[] getHeaderNames();
-
 
     /**
      * Return an array of all the header values associated with the
@@ -118,19 +107,16 @@ public interface HttpResponse
      */
     public String[] getHeaderValues(String name);
 
-
     /**
      * Return the error message that was set with <code>sendError()</code>
      * for this Response.
      */
     public String getMessage();
 
-
     /**
      * Return the HTTP status code associated with this Response.
      */
     public int getStatus();
-
 
     /**
      * Reset this response, and specify the values for the HTTP status code
@@ -140,6 +126,4 @@ public interface HttpResponse
      *  committed
      */
     public void reset(int status, String message);
-
-
 }

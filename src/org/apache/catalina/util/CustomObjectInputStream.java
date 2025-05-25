@@ -1,8 +1,7 @@
 /*
  * CustomObjectInputStream.java
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/CustomObjectInputStream.java,v 1.2 2001/07/22 20:25:13 pier Exp $
- * $Revision: 1.2 $
- * $Date: 2001/07/22 20:25:13 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/CustomObjectInputStream.java,v 1.2
+ * 2001/07/22 20:25:13 pier Exp $ $Revision: 1.2 $ $Date: 2001/07/22 20:25:13 $
  *
  * ====================================================================
  *
@@ -64,8 +63,8 @@
 
 package org.apache.catalina.util;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
 
@@ -79,10 +78,7 @@ import java.io.ObjectStreamClass;
  * @@version $Revision: 1.2 $, $Date: 2001/07/22 20:25:13 $
  */
 
-public final class CustomObjectInputStream
-    extends ObjectInputStream {
-
-
+public final class CustomObjectInputStream extends ObjectInputStream {
     /**
      * The class loader we will use to resolve classes.
      */
@@ -96,10 +92,7 @@ public final class CustomObjectInputStream
      *
      * @@exception IOException if an input/output error occurs
      */
-    public CustomObjectInputStream(InputStream stream,
-                                   ClassLoader classLoader)
-        throws IOException {
-
+    public CustomObjectInputStream(InputStream stream, ClassLoader classLoader) throws IOException {
         super(stream);
         this.classLoader = classLoader;
     }
@@ -113,9 +106,7 @@ public final class CustomObjectInputStream
      * @@exception ClassNotFoundException if this class cannot be found
      * @@exception IOException if an input/output error occurs
      */
-    public Class resolveClass(ObjectStreamClass classDesc)
-        throws ClassNotFoundException, IOException {
-
+    public Class resolveClass(ObjectStreamClass classDesc) throws ClassNotFoundException, IOException {
         return (classLoader.loadClass(classDesc.getName()));
     }
 }

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/HomesUserDatabase.java,v 1.2 2001/07/22 20:25:13 pier Exp $
- * $Revision: 1.2 $
- * $Date: 2001/07/22 20:25:13 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/HomesUserDatabase.java,v 1.2
+ * 2001/07/22 20:25:13 pier Exp $ $Revision: 1.2 $ $Date: 2001/07/22 20:25:13 $
  *
  * ====================================================================
  *
@@ -61,14 +60,11 @@
  *
  */
 
-
 package org.apache.catalina.startup;
 
-
 import java.io.File;
-import java.util.Hashtable;
 import java.util.Enumeration;
-
+import java.util.Hashtable;
 
 /**
  * Concrete implementation of the <strong>UserDatabase</code> interface
@@ -79,50 +75,36 @@ import java.util.Enumeration;
  * @version $Revision: 1.2 $ $Date: 2001/07/22 20:25:13 $
  */
 
-public final class HomesUserDatabase
-    implements UserDatabase {
-
-
+public final class HomesUserDatabase implements UserDatabase {
     // --------------------------------------------------------- Constructors
-
 
     /**
      * Initialize a new instance of this user database component.
      */
     public HomesUserDatabase() {
-
         super();
-
     }
 
-
     // --------------------------------------------------- Instance Variables
-
 
     /**
      * The set of home directories for all defined users, keyed by username.
      */
     private Hashtable homes = new Hashtable();
 
-
     /**
      * The UserConfig listener with which we are associated.
      */
     private UserConfig userConfig = null;
 
-
     // ----------------------------------------------------------- Properties
-
 
     /**
      * Return the UserConfig listener with which we are associated.
      */
     public UserConfig getUserConfig() {
-
         return (this.userConfig);
-
     }
-
 
     /**
      * Set the UserConfig listener with which we are associated.
@@ -130,15 +112,11 @@ public final class HomesUserDatabase
      * @param userConfig The new UserConfig listener
      */
     public void setUserConfig(UserConfig userConfig) {
-
         this.userConfig = userConfig;
         init();
-
     }
 
-
     // ------------------------------------------------------- Public Methods
-
 
     /**
      * Return an absolute pathname to the home directory for the specified user.
@@ -146,30 +124,22 @@ public final class HomesUserDatabase
      * @param user User for which a home directory should be retrieved
      */
     public String getHome(String user) {
-
         return ((String) homes.get(user));
-
     }
-
 
     /**
      * Return an enumeration of the usernames defined on this server.
      */
     public Enumeration getUsers() {
-
         return (homes.keys());
-
     }
 
-
     // ------------------------------------------------------ Private Methods
-
 
     /**
      * Initialize our set of users and home directories.
      */
     private void init() {
-
         String homeBase = userConfig.getHomeBase();
         File homeBaseDir = new File(homeBase);
         if (!homeBaseDir.exists() || !homeBaseDir.isDirectory())
@@ -182,9 +152,5 @@ public final class HomesUserDatabase
                 continue;
             homes.put(homeBaseFiles[i], homeDir.toString());
         }
-
-
     }
-
-
 }

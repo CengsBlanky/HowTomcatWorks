@@ -1,12 +1,10 @@
 package org.apache.catalina;
 
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletResponse;
-
 
 /**
  * A <b>Response</b> is the Catalina-internal facade for a
@@ -18,16 +16,12 @@ import javax.servlet.ServletResponse;
  */
 
 public interface Response {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Connector through which this Response is returned.
      */
     public Connector getConnector();
-
 
     /**
      * Set the Connector through which this Response is returned.
@@ -36,18 +30,15 @@ public interface Response {
      */
     public void setConnector(Connector connector);
 
-
     /**
      * Return the number of bytes actually written to the output stream.
      */
     public int getContentCount();
 
-
     /**
      * Return the Context with which this Response is associated.
      */
     public Context getContext();
-
 
     /**
      * Set the Context with which this Response is associated.  This should
@@ -57,7 +48,6 @@ public interface Response {
      */
     public void setContext(Context context);
 
-
     /**
      * Set the application commit flag.
      *
@@ -65,18 +55,15 @@ public interface Response {
      */
     public void setAppCommitted(boolean appCommitted);
 
-
     /**
      * Application commit flag accessor.
      */
     public boolean isAppCommitted();
 
-
     /**
      * Return the "processing inside an include" flag.
      */
     public boolean getIncluded();
-
 
     /**
      * Set the "processing inside an include" flag.
@@ -86,7 +73,6 @@ public interface Response {
      */
     public void setIncluded(boolean included);
 
-
     /**
      * Return descriptive information about this Response implementation and
      * the corresponding version number, in the format
@@ -94,12 +80,10 @@ public interface Response {
      */
     public String getInfo();
 
-
     /**
      * Return the Request with which this Response is associated.
      */
     public Request getRequest();
-
 
     /**
      * Set the Request with which this Response is associated.
@@ -108,19 +92,16 @@ public interface Response {
      */
     public void setRequest(Request request);
 
-
     /**
      * Return the <code>ServletResponse</code> for which this object
      * is the facade.
      */
     public ServletResponse getResponse();
 
-
     /**
      * Return the output stream associated with this Response.
      */
     public OutputStream getStream();
-
 
     /**
      * Set the output stream associated with this Response.
@@ -129,7 +110,6 @@ public interface Response {
      */
     public void setStream(OutputStream stream);
 
-
     /**
      * Set the suspended flag.
      *
@@ -137,27 +117,22 @@ public interface Response {
      */
     public void setSuspended(boolean suspended);
 
-
     /**
      * Suspended flag accessor.
      */
     public boolean isSuspended();
-
 
     /**
      * Set the error flag.
      */
     public void setError();
 
-
     /**
      * Error flag accessor.
      */
     public boolean isError();
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Create and return a ServletOutputStream to write the content
@@ -167,7 +142,6 @@ public interface Response {
      */
     public ServletOutputStream createOutputStream() throws IOException;
 
-
     /**
      * Perform whatever actions are required to flush and close the output
      * stream or writer, in a single operation.
@@ -176,19 +150,16 @@ public interface Response {
      */
     public void finishResponse() throws IOException;
 
-
     /**
      * Return the content length that was set or calculated for this Response.
      */
     public int getContentLength();
-
 
     /**
      * Return the content type that was set or calculated for this response,
      * or <code>null</code> if no content type was set.
      */
     public String getContentType();
-
 
     /**
      * Return a PrintWriter that can be used to render error messages,
@@ -202,27 +173,21 @@ public interface Response {
      */
     public PrintWriter getReporter();
 
-
     /**
      * Release all object references, and initialize instance variables, in
      * preparation for reuse of this object.
      */
     public void recycle();
 
-
     /**
      * Reset the data buffer but not any status or header information.
      */
     public void resetBuffer();
-
 
     /**
      * Send an acknowledgment of a request.
      *
      * @exception IOException if an input/output error occurs
      */
-    public void sendAcknowledgement()
-        throws IOException;
-
-
+    public void sendAcknowledgement() throws IOException;
 }

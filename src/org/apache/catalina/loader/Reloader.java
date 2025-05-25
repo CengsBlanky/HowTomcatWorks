@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/loader/Reloader.java,v 1.5 2001/07/22 20:25:10 pier Exp $
- * $Revision: 1.5 $
- * $Date: 2001/07/22 20:25:10 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/loader/Reloader.java,v 1.5 2001/07/22
+ * 20:25:10 pier Exp $ $Revision: 1.5 $ $Date: 2001/07/22 20:25:10 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.loader;
-
 
 /**
  * Internal interface that <code>ClassLoader</code> implementations may
@@ -75,8 +72,6 @@ package org.apache.catalina.loader;
  */
 
 public interface Reloader {
-
-
     /**
      * Add a new repository to the set of places this ClassLoader can look for
      * classes to be loaded.
@@ -89,7 +84,6 @@ public interface Reloader {
      */
     public void addRepository(String repository);
 
-
     /**
      * Return a String array of the current repositories for this class
      * loader.  If there are no repositories, a zero-length array is
@@ -97,12 +91,9 @@ public interface Reloader {
      */
     public String[] findRepositories();
 
-
     /**
      * Have one or more classes or resources been modified so that a reload
      * is appropriate?
      */
     public boolean modified();
-
-
 }

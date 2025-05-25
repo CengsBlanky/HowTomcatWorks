@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Cluster.java,v 1.5 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.5 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Cluster.java,v 1.5 2001/07/22 20:13:30
+ * pier Exp $ $Revision: 1.5 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -81,7 +80,6 @@ import org.apache.catalina.cluster.ClusterSender;
  */
 
 public interface Cluster {
-
     // ------------------------------------------------------------- Properties
 
     /**

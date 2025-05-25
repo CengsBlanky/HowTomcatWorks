@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/SSIServletRequestUtil.java,v 1.1 2002/05/24 04:38:58 billbarker Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/24 04:38:58 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/SSIServletRequestUtil.java,v 1.1
+ * 2002/05/24 04:38:58 billbarker Exp $ $Revision: 1.1 $ $Date: 2002/05/24 04:38:58 $
  *
  * ====================================================================
  *
@@ -75,14 +74,11 @@ public class SSIServletRequestUtil {
      * @param request The servlet request we are processing
      */
     public static String getRelativePath(HttpServletRequest request) {
-
         // Are we being processed by a RequestDispatcher.include()?
-        if (request.getAttribute("javax.servlet.include.request_uri")!=null) {
-            String result = (String)
-                request.getAttribute("javax.servlet.include.path_info");
+        if (request.getAttribute("javax.servlet.include.request_uri") != null) {
+            String result = (String) request.getAttribute("javax.servlet.include.path_info");
             if (result == null)
-                result = (String)
-                    request.getAttribute("javax.servlet.include.servlet_path");
+                result = (String) request.getAttribute("javax.servlet.include.servlet_path");
             if ((result == null) || (result.equals("")))
                 result = "/";
             return (result);
@@ -115,15 +111,15 @@ public class SSIServletRequestUtil {
         if (path == null)
             return null;
 
-	String normalized = path;
+        String normalized = path;
 
-	//Why doesn't RequestUtil do this??
+        // Why doesn't RequestUtil do this??
 
         // Normalize the slashes and add leading slash if necessary
-        if ( normalized.indexOf('\\') >= 0 )
-            normalized = normalized.replace( '\\', '/' );
+        if (normalized.indexOf('\\') >= 0)
+            normalized = normalized.replace('\\', '/');
 
-	normalized = RequestUtil.normalize( path );
-	return normalized;
+        normalized = RequestUtil.normalize(path);
+        return normalized;
     }
 }

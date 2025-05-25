@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/net/DefaultServerSocketFactory.java,v 1.6 2001/11/30 23:00:45 remm Exp $
- * $Revision: 1.6 $
- * $Date: 2001/11/30 23:00:45 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/net/DefaultServerSocketFactory.java,v 1.6
+ * 2001/11/30 23:00:45 remm Exp $ $Revision: 1.6 $ $Date: 2001/11/30 23:00:45 $
  *
  * ====================================================================
  *
@@ -61,20 +61,17 @@
  *
  */
 
-
 package org.apache.catalina.net;
-
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
-import java.security.KeyManagementException;
 import java.security.cert.CertificateException;
 import org.apache.catalina.net.ServerSocketFactory;
-
 
 /**
  * Default server socket factory, which returns unadorned server sockts.
@@ -85,10 +82,7 @@ import org.apache.catalina.net.ServerSocketFactory;
  */
 
 public final class DefaultServerSocketFactory implements ServerSocketFactory {
-
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Returns a server socket which uses all network interfaces on
@@ -109,15 +103,11 @@ public final class DefaultServerSocketFactory implements ServerSocketFactory {
      * @exception KeyManagementException     problem in the key management
      *                                       layer (SSL only)
      */
-    public ServerSocket createSocket (int port)
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException, UnrecoverableKeyException,
-           KeyManagementException {
-
+    public ServerSocket createSocket(int port) throws IOException, KeyStoreException, NoSuchAlgorithmException,
+                                                      CertificateException, UnrecoverableKeyException,
+                                                      KeyManagementException {
         return (new ServerSocket(port));
-
     }
-
 
     /**
      * Returns a server socket which uses all network interfaces on
@@ -139,15 +129,11 @@ public final class DefaultServerSocketFactory implements ServerSocketFactory {
      * @exception KeyManagementException     problem in the key management
      *                                       layer (SSL only)
      */
-    public ServerSocket createSocket (int port, int backlog)
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException, UnrecoverableKeyException,
-           KeyManagementException {
-
+    public ServerSocket createSocket(int port, int backlog) throws IOException, KeyStoreException,
+                                                                   NoSuchAlgorithmException, CertificateException,
+                                                                   UnrecoverableKeyException, KeyManagementException {
         return (new ServerSocket(port, backlog));
-
     }
-
 
     /**
      * Returns a server socket which uses only the specified network
@@ -170,15 +156,9 @@ public final class DefaultServerSocketFactory implements ServerSocketFactory {
      * @exception KeyManagementException     problem in the key management
      *                                       layer (SSL only)
      */
-    public ServerSocket createSocket (int port, int backlog,
-                                      InetAddress ifAddress)
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException, UnrecoverableKeyException,
-           KeyManagementException {
-
+    public ServerSocket createSocket(int port, int backlog, InetAddress ifAddress)
+      throws IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException,
+             KeyManagementException {
         return (new ServerSocket(port, backlog, ifAddress));
-
     }
-
-
 }

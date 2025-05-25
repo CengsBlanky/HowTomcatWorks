@@ -66,12 +66,9 @@
 
 package org.apache.catalina.util;
 
-
 import java.io.InputStream;
 import java.util.Locale;
 import java.util.Properties;
-
-
 
 /**
  * Utility class that attempts to map from a Locale to the corresponding
@@ -86,30 +83,21 @@ import java.util.Properties;
  */
 
 public class CharsetMapper {
-
-
     // ---------------------------------------------------- Manifest Constants
-
 
     /**
      * Default properties resource name.
      */
-    public static final String DEFAULT_RESOURCE =
-      "/org/apache/catalina/util/CharsetMapperDefault.properties";
-
+    public static final String DEFAULT_RESOURCE = "/org/apache/catalina/util/CharsetMapperDefault.properties";
 
     // ---------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new CharsetMapper using the default properties resource.
      */
     public CharsetMapper() {
-
         this(DEFAULT_RESOURCE);
-
     }
-
 
     /**
      * Construct a new CharsetMapper using the specified properties resource.
@@ -120,22 +108,16 @@ public class CharsetMapper {
      *  resource could not be loaded for any reason.
      */
     public CharsetMapper(String name) {
-
         try {
-            InputStream stream =
-              this.getClass().getResourceAsStream(name);
+            InputStream stream = this.getClass().getResourceAsStream(name);
             map.load(stream);
             stream.close();
         } catch (Throwable t) {
             throw new IllegalArgumentException(t.toString());
         }
-
-
     }
 
-
     // ---------------------------------------------------- Instance Variables
-
 
     /**
      * The mapping properties that have been initialized from the specified or
@@ -143,11 +125,7 @@ public class CharsetMapper {
      */
     private Properties map = new Properties();
 
-
-
-
     // ------------------------------------------------------- Public Methods
-
 
     /**
      * Calculate the name of a character set to be assumed, given the specified
@@ -157,7 +135,6 @@ public class CharsetMapper {
      * @param locale The locale for which to calculate a character set
      */
     public String getCharset(Locale locale) {
-
         String charset = null;
 
         // First, try a full name match (language and country)
@@ -168,8 +145,5 @@ public class CharsetMapper {
         // Second, try to match just the language
         charset = map.getProperty(locale.getLanguage());
         return (charset);
-
     }
-
-
 }

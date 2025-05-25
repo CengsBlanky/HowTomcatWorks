@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/valves/RequestFilterValve.java,v 1.4 2001/07/22 20:25:15 pier Exp $
- * $Revision: 1.4 $
- * $Date: 2001/07/22 20:25:15 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/valves/RequestFilterValve.java,v 1.4
+ * 2001/07/22 20:25:15 pier Exp $ $Revision: 1.4 $ $Date: 2001/07/22 20:25:15 $
  *
  * ====================================================================
  *
@@ -61,22 +60,19 @@
  *
  */
 
-
 package org.apache.catalina.valves;
-
 
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.regexp.RE;
-import org.apache.regexp.RESyntaxException;
 import org.apache.catalina.Request;
 import org.apache.catalina.Response;
 import org.apache.catalina.ValveContext;
 import org.apache.catalina.util.StringManager;
-
+import org.apache.regexp.RE;
+import org.apache.regexp.RESyntaxException;
 
 /**
  * Implementation of a Valve that performs filtering based on comparing the
@@ -112,64 +108,48 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.4 $ $Date: 2001/07/22 20:25:15 $
  */
 
-public abstract class RequestFilterValve
-    extends ValveBase {
-
-
+public abstract class RequestFilterValve extends ValveBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The comma-delimited set of <code>allow</code> expressions.
      */
     protected String allow = null;
 
-
     /**
      * The set of <code>allow</code> regular expressions we will evaluate.
      */
     protected RE allows[] = new RE[0];
-
 
     /**
      * The set of <code>deny</code> regular expressions we will evaluate.
      */
     protected RE denies[] = new RE[0];
 
-
     /**
      * The comma-delimited set of <code>deny</code> expressions.
      */
     protected String deny = null;
 
-
     /**
      * The descriptive information related to this implementation.
      */
-    private static final String info =
-        "org.apache.catalina.valves.RequestFilterValve/1.0";
-
+    private static final String info = "org.apache.catalina.valves.RequestFilterValve/1.0";
 
     /**
      * The StringManager for this package.
      */
-    protected static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static StringManager sm = StringManager.getManager(Constants.Package);
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return a comma-delimited set of the <code>allow</code> expressions
      * configured for this Valve, if any; otherwise, return <code>null</code>.
      */
     public String getAllow() {
-
         return (this.allow);
-
     }
-
 
     /**
      * Set the comma-delimited set of the <code>allow</code> expressions
@@ -178,23 +158,17 @@ public abstract class RequestFilterValve
      * @param allow The new set of allow expressions
      */
     public void setAllow(String allow) {
-
         this.allow = allow;
         allows = precalculate(allow);
-
     }
-
 
     /**
      * Return a comma-delimited set of the <code>deny</code> expressions
      * configured for this Valve, if any; otherwise, return <code>null</code>.
      */
     public String getDeny() {
-
         return (this.deny);
-
     }
-
 
     /**
      * Set the comma-delimited set of the <code>deny</code> expressions
@@ -203,25 +177,18 @@ public abstract class RequestFilterValve
      * @param deny The new set of deny expressions
      */
     public void setDeny(String deny) {
-
         this.deny = deny;
         denies = precalculate(deny);
-
     }
-
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo() {
-
         return (info);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Extract the desired request property, and pass it (along with the
@@ -237,13 +204,10 @@ public abstract class RequestFilterValve
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
-    public abstract void invoke(Request request, Response response,
-                                ValveContext context)
-        throws IOException, ServletException;
-
+    public abstract void invoke(Request request, Response response, ValveContext context)
+      throws IOException, ServletException;
 
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Return an array of regular expression objects initialized from the
@@ -256,7 +220,6 @@ public abstract class RequestFilterValve
      *  invalid syntax
      */
     protected RE[] precalculate(String list) {
-
         if (list == null)
             return (new RE[0]);
         list = list.trim();
@@ -273,17 +236,14 @@ public abstract class RequestFilterValve
             try {
                 reList.add(new RE(pattern));
             } catch (RESyntaxException e) {
-                throw new IllegalArgumentException
-                    (sm.getString("requestFilterValve.syntax", pattern));
+                throw new IllegalArgumentException(sm.getString("requestFilterValve.syntax", pattern));
             }
             list = list.substring(comma + 1);
         }
 
         RE reArray[] = new RE[reList.size()];
         return ((RE[]) reList.toArray(reArray));
-
     }
-
 
     /**
      * Perform the filtering that has been configured for this Valve, matching
@@ -298,11 +258,8 @@ public abstract class RequestFilterValve
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
-    protected void process(String property,
-                           Request request, Response response,
-                           ValveContext context)
-        throws IOException, ServletException {
-
+    protected void process(String property, Request request, Response response, ValveContext context)
+      throws IOException, ServletException {
         // Check the deny patterns, if any
         for (int i = 0; i < denies.length; i++) {
             if (denies[i].match(property)) {
@@ -336,8 +293,5 @@ public abstract class RequestFilterValve
             hres.sendError(HttpServletResponse.SC_FORBIDDEN);
             return;
         }
-
     }
-
-
 }

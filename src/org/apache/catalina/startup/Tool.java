@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/Tool.java,v 1.5 2002/04/01 19:51:31 patrickl Exp $
- * $Revision: 1.5 $
- * $Date: 2002/04/01 19:51:31 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/Tool.java,v 1.5 2002/04/01
+ * 19:51:31 patrickl Exp $ $Revision: 1.5 $ $Date: 2002/04/01 19:51:31 $
  *
  * ====================================================================
  *
@@ -61,14 +60,11 @@
  *
  */
 
-
 package org.apache.catalina.startup;
-
 
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
 
 /**
  * <p>General purpose wrapper for command line tools that should execute in an
@@ -115,49 +111,39 @@ import java.util.ArrayList;
  */
 
 public final class Tool {
-
-
     // ------------------------------------------------------- Static Variables
-
 
     /**
      * Set <code>ant.home</code> system property?
      */
     private static boolean ant = false;
 
-
     /**
      * The pathname of our installation base directory.
      */
     private static String catalinaHome = System.getProperty("catalina.home");
-
 
     /**
      * Include common classes in the repositories?
      */
     private static boolean common = false;
 
-
     /**
      * Enable debugging detail messages?
      */
     private static boolean debug = false;
-
 
     /**
      * Include server classes in the repositories?
      */
     private static boolean server = false;
 
-
     /**
      * Include shared classes in the repositories?
      */
     private static boolean shared = false;
 
-
     // ----------------------------------------------------------- Main Program
-
 
     /**
      * The main program for the bootstrap.
@@ -165,7 +151,6 @@ public final class Tool {
      * @param args Command line arguments to be processed
      */
     public static void main(String args[]) {
-
         // Verify that "catalina.home" was passed.
         if (catalinaHome == null) {
             log("Must set 'catalina.home' system property");
@@ -214,28 +199,19 @@ public final class Tool {
             unpacked.add(new File(catalinaHome, "classes"));
             packed.add(new File(catalinaHome, "lib"));
             if (common) {
-                unpacked.add(new File(catalinaHome,
-                                      "common" + File.separator + "classes"));
-                packed.add(new File(catalinaHome,
-                                    "common" + File.separator + "lib"));
+                unpacked.add(new File(catalinaHome, "common" + File.separator + "classes"));
+                packed.add(new File(catalinaHome, "common" + File.separator + "lib"));
             }
             if (server) {
-                unpacked.add(new File(catalinaHome,
-                                      "server" + File.separator + "classes"));
-                packed.add(new File(catalinaHome,
-                                    "server" + File.separator + "lib"));
+                unpacked.add(new File(catalinaHome, "server" + File.separator + "classes"));
+                packed.add(new File(catalinaHome, "server" + File.separator + "lib"));
             }
             if (shared) {
-                unpacked.add(new File(catalinaHome,
-                                      "shared" + File.separator + "classes"));
-                packed.add(new File(catalinaHome,
-                                    "shared" + File.separator + "lib"));
+                unpacked.add(new File(catalinaHome, "shared" + File.separator + "classes"));
+                packed.add(new File(catalinaHome, "shared" + File.separator + "lib"));
             }
-            classLoader =
-                ClassLoaderFactory.createClassLoader
-                ((File[]) unpacked.toArray(new File[0]),
-                 (File[]) packed.toArray(new File[0]),
-                 null);
+            classLoader = ClassLoaderFactory.createClassLoader(
+              (File[]) unpacked.toArray(new File[0]), (File[]) packed.toArray(new File[0]), null);
         } catch (Throwable t) {
             log("Class loader creation threw exception", t);
             System.exit(1);
@@ -281,9 +257,7 @@ public final class Tool {
             log("Exception calling main() method", t);
             System.exit(1);
         }
-
     }
-
 
     /**
      * Log a debugging detail message.
@@ -291,12 +265,9 @@ public final class Tool {
      * @param message The message to be logged
      */
     private static void log(String message) {
-
         System.out.print("Tool: ");
         System.out.println(message);
-
     }
-
 
     /**
      * Log a debugging detail message with an exception.
@@ -305,21 +276,14 @@ public final class Tool {
      * @param exception The exception to be logged
      */
     private static void log(String message, Throwable exception) {
-
         log(message);
         exception.printStackTrace(System.out);
-
     }
-
 
     /**
      * Display usage information about this tool.
      */
     private static void usage() {
-
         log("Usage:  java org.apache.catalina.startup.Tool [<options>] <class> [<arguments>]");
-
     }
-
-
 }

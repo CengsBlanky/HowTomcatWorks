@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/JAASRealm.java,v 1.4 2002/06/18 09:14:49 remm Exp $
- * $Revision: 1.4 $
- * $Date: 2002/06/18 09:14:49 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/JAASRealm.java,v 1.4 2002/06/18
+ * 09:14:49 remm Exp $ $Revision: 1.4 $ $Date: 2002/06/18 09:14:49 $
  *
  * ====================================================================
  * The Apache Software License, Version 1.1
@@ -60,9 +59,7 @@
  *
  */
 
-
 package org.apache.catalina.realm;
-
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -75,7 +72,6 @@ import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * <p>Implmentation of <b>Realm</b> that authenticates users via the <em>Java
@@ -132,12 +128,8 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.4 $ $Date: 2002/06/18 09:14:49 $
  */
 
-public class JAASRealm
-    extends RealmBase {
-
-
+public class JAASRealm extends RealmBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The application name passed to the JAAS <code>LoginContext</code>,
@@ -145,49 +137,40 @@ public class JAASRealm
      */
     protected String appName = "Tomcat";
 
-
     /**
      * Descriptive information about this Realm implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.realm.JAASRealm/1.0";
-
+    protected static final String info = "org.apache.catalina.realm.JAASRealm/1.0";
 
     /**
      * Descriptive information about this Realm implementation.
      */
     protected static final String name = "JAASRealm";
 
-
     /**
      * The list of role class names, split out for easy processing.
      */
     protected ArrayList roleClasses = new ArrayList();
 
-
     /**
      * The string manager for this package.
      */
-    protected static final StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static final StringManager sm = StringManager.getManager(Constants.Package);
 
     /**
      * The set of user class names, split out for easy processing.
      */
     protected ArrayList userClasses = new ArrayList();
 
-
     // ------------------------------------------------------------- Properties
 
-    
     /**
      * setter for the appName member variable
      */
     public void setAppName(String name) {
         appName = name;
     }
-    
+
     /**
      * getter for the appName member variable
      */
@@ -226,7 +209,6 @@ public class JAASRealm
         }
     }
 
-
     /**
      * Comma-delimited list of <code>javax.security.Principal</code> classes
      * that represent individual users.
@@ -258,9 +240,7 @@ public class JAASRealm
         }
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return the Principal associated with the specified username and
@@ -276,13 +256,10 @@ public class JAASRealm
      *  authenticating this username
      */
     public Principal authenticate(String username, String credentials) {
-
         // Establish a LoginContext to use for authentication
         LoginContext loginContext = null;
         try {
-            loginContext = new LoginContext
-                (appName, new JAASCallbackHandler(this, username,
-                                                  credentials));
+            loginContext = new LoginContext(appName, new JAASCallbackHandler(this, username, credentials));
         } catch (LoginException e) {
             log(sm.getString("jaasRealm.loginException", username), e);
             return (null);
@@ -325,45 +302,32 @@ public class JAASRealm
             log(sm.getString("jaasRealm.authenticateSuccess", username));
         }
         return (principal);
-
     }
-
 
     // -------------------------------------------------------- Package Methods
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Return a short name for this Realm implementation.
      */
     protected String getName() {
-
         return (this.name);
-
     }
-
 
     /**
      * Return the password associated with the given principal's user name.
      */
     protected String getPassword(String username) {
-
         return (null);
-
     }
-
 
     /**
      * Return the Principal associated with the given user name.
      */
     protected Principal getPrincipal(String username) {
-
         return (null);
-
     }
-
 
     /**
      * Construct and return a <code>java.security.Principal</code> instance
@@ -397,12 +361,9 @@ public class JAASRealm
         } else {
             return (null);
         }
-
     }
 
-
     // ------------------------------------------------------ Lifecycle Methods
-
 
     /**
      *
@@ -412,12 +373,9 @@ public class JAASRealm
      *  that prevents it from being started
      */
     public void start() throws LifecycleException {
-
         // Perform normal superclass initialization
         super.start();
-
     }
-
 
     /**
      * Gracefully shut down active use of the public methods of this Component.
@@ -426,11 +384,7 @@ public class JAASRealm
      *  that needs to be reported
      */
     public void stop() throws LifecycleException {
-
         // Perform normal superclass finalization
         super.stop();
-
     }
-
-
 }

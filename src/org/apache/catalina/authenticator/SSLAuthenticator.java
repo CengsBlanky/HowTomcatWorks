@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/SSLAuthenticator.java,v 1.13 2002/09/23 00:25:10 billbarker Exp $
- * $Revision: 1.13 $
- * $Date: 2002/09/23 00:25:10 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/SSLAuthenticator.java,v 1.13
+ * 2002/09/23 00:25:10 billbarker Exp $ $Revision: 1.13 $ $Date: 2002/09/23 00:25:10 $
  *
  * ====================================================================
  *
@@ -61,9 +61,7 @@
  *
  */
 
-
 package org.apache.catalina.authenticator;
-
 
 import java.io.IOException;
 import java.security.Principal;
@@ -76,8 +74,6 @@ import org.apache.catalina.HttpResponse;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.deploy.LoginConfig;
 
-
-
 /**
  * An <b>Authenticator</b> and <b>Valve</b> implementation of authentication
  * that utilizes SSL certificates to identify client users.
@@ -86,32 +82,22 @@ import org.apache.catalina.deploy.LoginConfig;
  * @version $Revision: 1.13 $ $Date: 2002/09/23 00:25:10 $
  */
 
-public class SSLAuthenticator
-    extends AuthenticatorBase {
-
-
+public class SSLAuthenticator extends AuthenticatorBase {
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Descriptive information about this implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.authenticator.SSLAuthenticator/1.0";
-
+    protected static final String info = "org.apache.catalina.authenticator.SSLAuthenticator/1.0";
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo() {
-
         return (this.info);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Authenticate the user by checking for the existence of a certificate
@@ -126,14 +112,9 @@ public class SSLAuthenticator
      *
      * @exception IOException if an input/output error occurs
      */
-    public boolean authenticate(HttpRequest request,
-                                HttpResponse response,
-                                LoginConfig config)
-        throws IOException {
-
+    public boolean authenticate(HttpRequest request, HttpResponse response, LoginConfig config) throws IOException {
         // Have we already authenticated someone?
-        Principal principal =
-            ((HttpServletRequest) request.getRequest()).getUserPrincipal();
+        Principal principal = ((HttpServletRequest) request.getRequest()).getUserPrincipal();
         if (principal != null) {
             if (debug >= 1)
                 log("Already authenticated '" + principal.getName() + "'");
@@ -141,21 +122,17 @@ public class SSLAuthenticator
         }
 
         // Retrieve the certificate chain for this client
-        HttpServletResponse hres =
-            (HttpServletResponse) response.getResponse();
+        HttpServletResponse hres = (HttpServletResponse) response.getResponse();
         if (debug >= 1)
             log(" Looking up certificates");
-        X509Certificate certs[] = (X509Certificate[])
-            request.getRequest().getAttribute(Globals.CERTIFICATES_ATTR);
+        X509Certificate certs[] = (X509Certificate[]) request.getRequest().getAttribute(Globals.CERTIFICATES_ATTR);
         if ((certs == null) || (certs.length < 1)) {
-            certs = (X509Certificate[])
-                request.getRequest().getAttribute(Globals.SSL_CERTIFICATE_ATTR);
+            certs = (X509Certificate[]) request.getRequest().getAttribute(Globals.SSL_CERTIFICATE_ATTR);
         }
         if ((certs == null) || (certs.length < 1)) {
             if (debug >= 1)
                 log("  No certificates included with this request");
-            hres.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                           sm.getString("authenticator.certificates"));
+            hres.sendError(HttpServletResponse.SC_BAD_REQUEST, sm.getString("authenticator.certificates"));
             return (false);
         }
 
@@ -164,21 +141,16 @@ public class SSLAuthenticator
         if (principal == null) {
             if (debug >= 1)
                 log("  Realm.authenticate() returned false");
-            hres.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-                           sm.getString("authenticator.unauthorized"));
+            hres.sendError(HttpServletResponse.SC_UNAUTHORIZED, sm.getString("authenticator.unauthorized"));
             return (false);
         }
 
         // Cache the principal (if requested) and record this authentication
-        register(request, response, principal, Constants.CERT_METHOD,
-                 null, null);
+        register(request, response, principal, Constants.CERT_METHOD, null, null);
         return (true);
-
     }
 
-
     // ------------------------------------------------------ Lifecycle Methods
-
 
     /**
      * Initialize the database we will be using for client verification
@@ -188,11 +160,8 @@ public class SSLAuthenticator
      *  that prevents this component from being used
      */
     public void start() throws LifecycleException {
-
         super.start();
-
     }
-
 
     /**
      * Finalize the database we used for client verification and
@@ -202,10 +171,6 @@ public class SSLAuthenticator
      *  that prevents this component from being used
      */
     public void stop() throws LifecycleException {
-
         super.stop();
-
     }
-
-
 }

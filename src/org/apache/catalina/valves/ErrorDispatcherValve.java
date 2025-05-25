@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/valves/ErrorDispatcherValve.java,v 1.9 2002/08/15 23:51:14 patrickl Exp $
- * $Revision: 1.9 $
- * $Date: 2002/08/15 23:51:14 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/valves/ErrorDispatcherValve.java,v 1.9
+ * 2002/08/15 23:51:14 patrickl Exp $ $Revision: 1.9 $ $Date: 2002/08/15 23:51:14 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.valves;
-
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -86,7 +83,6 @@ import org.apache.catalina.deploy.ErrorPage;
 import org.apache.catalina.util.RequestUtil;
 import org.apache.catalina.util.StringManager;
 
-
 /**
  * <p>Implementation of a Valve that handles the error dispatch (that is, will
  * forward to the appropriate error page if necessary).</p>
@@ -101,51 +97,37 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.9 $ $Date: 2002/08/15 23:51:14 $
  */
 
-public class ErrorDispatcherValve
-    extends ValveBase {
-
-
+public class ErrorDispatcherValve extends ValveBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The debugging detail level for this component.
      */
     protected int debug = 0;
 
-
     /**
      * The descriptive information related to this implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.valves.ErrorDispatcherValve/1.0";
-
+    protected static final String info = "org.apache.catalina.valves.ErrorDispatcherValve/1.0";
 
     /**
      * The StringManager for this package.
      */
-    protected static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static StringManager sm = StringManager.getManager(Constants.Package);
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo() {
-
         return (info);
-
     }
-
 
     // --------------------------------------------------------- Public Methods
 
-
     /**
-     * Invoke the next Valve in the sequence. When the invoke returns, check 
+     * Invoke the next Valve in the sequence. When the invoke returns, check
      * the response state, and output an error report is necessary.
      *
      * @param request The servlet request to be processed
@@ -156,10 +138,7 @@ public class ErrorDispatcherValve
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
-    public void invoke(Request request, Response response,
-                       ValveContext context)
-        throws IOException, ServletException {
-
+    public void invoke(Request request, Response response, ValveContext context) throws IOException, ServletException {
         // Perform the request
         context.invokeNext(request, response);
 
@@ -173,25 +152,19 @@ public class ErrorDispatcherValve
         } else {
             status(request, response);
         }
-
     }
-
 
     /**
      * Return a String rendering of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("ErrorDispatcherValve[");
         sb.append(container.getName());
         sb.append("]");
         return (sb.toString());
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Handle the specified Throwable encountered while processing
@@ -204,43 +177,35 @@ public class ErrorDispatcherValve
      * @param exception The exception that occurred (which possibly wraps
      *  a root cause exception
      */
-    protected void throwable(Request request, Response response,
-                             Throwable throwable) {
+    protected void throwable(Request request, Response response, Throwable throwable) {
         Context context = request.getContext();
         if (context == null)
             return;
-        
+
         Throwable realError = throwable;
-        
+
         if (realError instanceof ServletException) {
             realError = ((ServletException) realError).getRootCause();
             if (realError == null) {
                 realError = throwable;
             }
-        } 
-            
+        }
+
         ErrorPage errorPage = findErrorPage(context, realError);
 
         if (errorPage != null) {
             response.setAppCommitted(false);
             ServletRequest sreq = request.getRequest();
             ServletResponse sresp = response.getResponse();
-            sreq.setAttribute
-                (Globals.STATUS_CODE_ATTR,
-                 new Integer(HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
-            sreq.setAttribute(Globals.ERROR_MESSAGE_ATTR,
-                              throwable.getMessage());
-            sreq.setAttribute(Globals.EXCEPTION_ATTR,
-                              realError);
+            sreq.setAttribute(Globals.STATUS_CODE_ATTR, new Integer(HttpServletResponse.SC_INTERNAL_SERVER_ERROR));
+            sreq.setAttribute(Globals.ERROR_MESSAGE_ATTR, throwable.getMessage());
+            sreq.setAttribute(Globals.EXCEPTION_ATTR, realError);
             Wrapper wrapper = request.getWrapper();
             if (wrapper != null)
-                sreq.setAttribute(Globals.SERVLET_NAME_ATTR,
-                                  wrapper.getName());
+                sreq.setAttribute(Globals.SERVLET_NAME_ATTR, wrapper.getName());
             if (sreq instanceof HttpServletRequest)
-                sreq.setAttribute(Globals.EXCEPTION_PAGE_ATTR,
-                                  ((HttpServletRequest) sreq).getRequestURI());
-            sreq.setAttribute(Globals.EXCEPTION_TYPE_ATTR,
-                              realError.getClass());
+                sreq.setAttribute(Globals.EXCEPTION_PAGE_ATTR, ((HttpServletRequest) sreq).getRequestURI());
+            sreq.setAttribute(Globals.EXCEPTION_TYPE_ATTR, realError.getClass());
             if (custom(request, response, errorPage)) {
                 try {
                     sresp.flushBuffer();
@@ -249,9 +214,7 @@ public class ErrorDispatcherValve
                 }
             }
         }
-
     }
-
 
     /**
      * Handle the HTTP status code (and corresponding message) generated
@@ -263,7 +226,6 @@ public class ErrorDispatcherValve
      * @param response The response being generated
      */
     protected void status(Request request, Response response) {
-
         // Do nothing on non-HTTP responses
         if (!(response instanceof HttpResponse))
             return;
@@ -285,17 +247,13 @@ public class ErrorDispatcherValve
             response.setAppCommitted(false);
             ServletRequest sreq = request.getRequest();
             ServletResponse sresp = response.getResponse();
-            sreq.setAttribute(Globals.STATUS_CODE_ATTR,
-                              new Integer(statusCode));
-            sreq.setAttribute(Globals.ERROR_MESSAGE_ATTR,
-                              message);
+            sreq.setAttribute(Globals.STATUS_CODE_ATTR, new Integer(statusCode));
+            sreq.setAttribute(Globals.ERROR_MESSAGE_ATTR, message);
             Wrapper wrapper = request.getWrapper();
             if (wrapper != null)
-                sreq.setAttribute(Globals.SERVLET_NAME_ATTR,
-                                  wrapper.getName());
+                sreq.setAttribute(Globals.SERVLET_NAME_ATTR, wrapper.getName());
             if (sreq instanceof HttpServletRequest)
-                sreq.setAttribute(Globals.EXCEPTION_PAGE_ATTR,
-                                  ((HttpServletRequest) sreq).getRequestURI());
+                sreq.setAttribute(Globals.EXCEPTION_PAGE_ATTR, ((HttpServletRequest) sreq).getRequestURI());
             if (custom(request, response, errorPage)) {
                 try {
                     sresp.flushBuffer();
@@ -304,9 +262,7 @@ public class ErrorDispatcherValve
                 }
             }
         }
-
     }
-
 
     /**
      * Find and return the ErrorPage instance for the specified exception's
@@ -317,9 +273,7 @@ public class ErrorDispatcherValve
      * @param context The Context in which to search
      * @param exception The exception for which to find an ErrorPage
      */
-    protected static ErrorPage findErrorPage
-        (Context context, Throwable exception) {
-
+    protected static ErrorPage findErrorPage(Context context, Throwable exception) {
         if (exception == null)
             return (null);
         Class clazz = exception.getClass();
@@ -334,9 +288,7 @@ public class ErrorDispatcherValve
             name = clazz.getName();
         }
         return (null);
-
     }
-
 
     /**
      * Handle an HTTP status code or Java exception by forwarding control
@@ -350,9 +302,7 @@ public class ErrorDispatcherValve
      * @param response The response being generated
      * @param errorPage The errorPage directive we are obeying
      */
-    protected boolean custom(Request request, Response response,
-                             ErrorPage errorPage) {
-
+    protected boolean custom(Request request, Response response, ErrorPage errorPage) {
         if (debug >= 1)
             log("Processing " + errorPage);
 
@@ -360,28 +310,23 @@ public class ErrorDispatcherValve
         if (!(request instanceof HttpRequest)) {
             if (debug >= 1)
                 log(" Not processing an HTTP request --> default handling");
-            return (false);     // NOTE - Nothing we can do generically
+            return (false); // NOTE - Nothing we can do generically
         }
-        HttpServletRequest hreq =
-            (HttpServletRequest) request.getRequest();
+        HttpServletRequest hreq = (HttpServletRequest) request.getRequest();
         if (!(response instanceof HttpResponse)) {
             if (debug >= 1)
                 log("Not processing an HTTP response --> default handling");
-            return (false);     // NOTE - Nothing we can do generically
+            return (false); // NOTE - Nothing we can do generically
         }
-        HttpServletResponse hres =
-            (HttpServletResponse) response.getResponse();
+        HttpServletResponse hres = (HttpServletResponse) response.getResponse();
 
         try {
-
             // Reset the response if possible (else IllegalStateException)
             hres.reset();
 
             // Forward control to the specified location
-            ServletContext servletContext =
-                request.getContext().getServletContext();
-            RequestDispatcher rd =
-                servletContext.getRequestDispatcher(errorPage.getLocation());
+            ServletContext servletContext = request.getContext().getServletContext();
+            RequestDispatcher rd = servletContext.getRequestDispatcher(errorPage.getLocation());
             rd.forward(hreq, hres);
 
             // If we forward, the response is suspended again
@@ -391,15 +336,11 @@ public class ErrorDispatcherValve
             return (true);
 
         } catch (Throwable t) {
-
             // Report our failure to process this custom page
             log("Exception Processing " + errorPage, t);
             return (false);
-
         }
-
     }
-
 
     /**
      * Log a message on the Logger associated with our Container (if any).
@@ -407,15 +348,12 @@ public class ErrorDispatcherValve
      * @param message Message to be logged
      */
     protected void log(String message) {
-
         Logger logger = container.getLogger();
         if (logger != null)
             logger.log(this.toString() + ": " + message);
         else
             System.out.println(this.toString() + ": " + message);
-
     }
-
 
     /**
      * Log a message on the Logger associated with our Container (if any).
@@ -424,7 +362,6 @@ public class ErrorDispatcherValve
      * @param throwable Associated exception
      */
     protected void log(String message, Throwable throwable) {
-
         Logger logger = container.getLogger();
         if (logger != null)
             logger.log(this.toString() + ": " + message, throwable);
@@ -432,8 +369,5 @@ public class ErrorDispatcherValve
             System.out.println(this.toString() + ": " + message);
             throwable.printStackTrace(System.out);
         }
-
     }
-
-
 }

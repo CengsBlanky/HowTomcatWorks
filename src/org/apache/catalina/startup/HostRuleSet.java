@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/HostRuleSet.java,v 1.2 2001/11/11 19:58:35 remm Exp $
- * $Revision: 1.2 $
- * $Date: 2001/11/11 19:58:35 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/HostRuleSet.java,v 1.2
+ * 2001/11/11 19:58:35 remm Exp $ $Revision: 1.2 $ $Date: 2001/11/11 19:58:35 $
  *
  * ====================================================================
  *
@@ -59,7 +58,6 @@
  *
  */
 
-
 package org.apache.catalina.startup;
 
 import org.apache.commons.digester.Digester;
@@ -76,30 +74,22 @@ import org.apache.commons.digester.RuleSetBase;
  */
 
 public class HostRuleSet extends RuleSetBase {
-
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The matching pattern prefix to use for recognizing our elements.
      */
     protected String prefix = null;
 
-
     // ------------------------------------------------------------ Constructor
-
 
     /**
      * Construct an instance of this <code>RuleSet</code> with the default
      * matching pattern prefix.
      */
     public HostRuleSet() {
-
         this("");
-
     }
-
 
     /**
      * Construct an instance of this <code>RuleSet</code> with the specified
@@ -109,16 +99,12 @@ public class HostRuleSet extends RuleSetBase {
      *  trailing slash character)
      */
     public HostRuleSet(String prefix) {
-
         super();
         this.namespaceURI = null;
         this.prefix = prefix;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * <p>Add the set of Rule instances defined in this RuleSet to the
@@ -130,66 +116,43 @@ public class HostRuleSet extends RuleSetBase {
      *  should be added.
      */
     public void addRuleInstances(Digester digester) {
-
-        digester.addObjectCreate(prefix + "Host",
-                                 "org.apache.catalina.core.StandardHost",
-                                 "className");
+        digester.addObjectCreate(prefix + "Host", "org.apache.catalina.core.StandardHost", "className");
         digester.addSetProperties(prefix + "Host");
+        digester.addRule(prefix + "Host", new CopyParentClassLoaderRule(digester));
         digester.addRule(prefix + "Host",
-                         new CopyParentClassLoaderRule(digester));
-        digester.addRule(prefix + "Host",
-                         new LifecycleListenerRule
-                         (digester,
-                          "org.apache.catalina.startup.HostConfig",
-                          "hostConfigClass"));
-        digester.addSetNext(prefix + "Host",
-                            "addChild",
-                            "org.apache.catalina.Container");
+          new LifecycleListenerRule(digester, "org.apache.catalina.startup.HostConfig", "hostConfigClass"));
+        digester.addSetNext(prefix + "Host", "addChild", "org.apache.catalina.Container");
 
-        digester.addCallMethod(prefix + "Host/Alias",
-                               "addAlias", 0);
+        digester.addCallMethod(prefix + "Host/Alias", "addAlias", 0);
 
         digester.addObjectCreate(prefix + "Host/Cluster",
-                                 null, // MUST be specified in the element
-                                 "className");
+          null, // MUST be specified in the element
+          "className");
         digester.addSetProperties(prefix + "Host/Cluster");
-        digester.addSetNext(prefix + "Host/Cluster",
-                            "addCluster",
-                            "org.apache.catalina.Cluster");
+        digester.addSetNext(prefix + "Host/Cluster", "addCluster", "org.apache.catalina.Cluster");
 
         digester.addObjectCreate(prefix + "Host/Listener",
-                                 null, // MUST be specified in the element
-                                 "className");
+          null, // MUST be specified in the element
+          "className");
         digester.addSetProperties(prefix + "Host/Listener");
-        digester.addSetNext(prefix + "Host/Listener",
-                            "addLifecycleListener",
-                            "org.apache.catalina.LifecycleListener");
+        digester.addSetNext(prefix + "Host/Listener", "addLifecycleListener", "org.apache.catalina.LifecycleListener");
 
         digester.addObjectCreate(prefix + "Host/Logger",
-                                 null, // MUST be specified in the element
-                                 "className");
+          null, // MUST be specified in the element
+          "className");
         digester.addSetProperties(prefix + "Host/Logger");
-        digester.addSetNext(prefix + "Host/Logger",
-                            "setLogger",
-                            "org.apache.catalina.Logger");
+        digester.addSetNext(prefix + "Host/Logger", "setLogger", "org.apache.catalina.Logger");
 
         digester.addObjectCreate(prefix + "Host/Realm",
-                                 null, // MUST be specified in the element
-                                 "className");
+          null, // MUST be specified in the element
+          "className");
         digester.addSetProperties(prefix + "Host/Realm");
-        digester.addSetNext(prefix + "Host/Realm",
-                            "setRealm",
-                            "org.apache.catalina.Realm");
+        digester.addSetNext(prefix + "Host/Realm", "setRealm", "org.apache.catalina.Realm");
 
         digester.addObjectCreate(prefix + "Host/Valve",
-                                 null, // MUST be specified in the element
-                                 "className");
+          null, // MUST be specified in the element
+          "className");
         digester.addSetProperties(prefix + "Host/Valve");
-        digester.addSetNext(prefix + "Host/Valve",
-                            "addValve",
-                            "org.apache.catalina.Valve");
-
+        digester.addSetNext(prefix + "Host/Valve", "addValve", "org.apache.catalina.Valve");
     }
-
-
 }

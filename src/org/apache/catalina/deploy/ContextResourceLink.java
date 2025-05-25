@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ContextResourceLink.java,v 1.3 2002/06/08 07:24:59 remm Exp $
- * $Revision: 1.3 $
- * $Date: 2002/06/08 07:24:59 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ContextResourceLink.java,v 1.3
+ * 2002/06/08 07:24:59 remm Exp $ $Revision: 1.3 $ $Date: 2002/06/08 07:24:59 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
-
 
 /**
  * Representation of a resource link for a web application, as
@@ -75,10 +72,7 @@ package org.apache.catalina.deploy;
  */
 
 public final class ContextResourceLink {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The name of this resource.
@@ -93,7 +87,6 @@ public final class ContextResourceLink {
         this.name = name;
     }
 
-
     /**
      * The type of this resource.
      */
@@ -106,7 +99,6 @@ public final class ContextResourceLink {
     public void setType(String type) {
         this.type = type;
     }
-
 
     /**
      * The global name of this resource.
@@ -121,15 +113,12 @@ public final class ContextResourceLink {
         this.global = global;
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("ContextResourceLink[");
         sb.append("name=");
         sb.append(name);
@@ -143,12 +132,9 @@ public final class ContextResourceLink {
         }
         sb.append("]");
         return (sb.toString());
-
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * The NamingResources with which we are associated (if any).
@@ -162,6 +148,4 @@ public final class ContextResourceLink {
     void setNamingResources(NamingResources resources) {
         this.resources = resources;
     }
-
-
 }

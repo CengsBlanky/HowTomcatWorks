@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/FilterMap.java,v 1.3 2001/07/22 20:25:10 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:25:10 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/FilterMap.java,v 1.3 2001/07/22
+ * 20:25:10 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:25:10 $
  *
  * ====================================================================
  *
@@ -61,12 +60,9 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
 
-
 import org.apache.catalina.util.RequestUtil;
-
 
 /**
  * Representation of a filter mapping for a web application, as represented
@@ -79,10 +75,7 @@ import org.apache.catalina.util.RequestUtil;
  */
 
 public final class FilterMap {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The name of this filter to be executed when this mapping matches
@@ -98,7 +91,6 @@ public final class FilterMap {
         this.filterName = filterName;
     }
 
-
     /**
      * The servlet name this mapping matches.
      */
@@ -111,7 +103,6 @@ public final class FilterMap {
     public void setServletName(String servletName) {
         this.servletName = servletName;
     }
-
 
     /**
      * The URL pattern this mapping matches.
@@ -126,15 +117,12 @@ public final class FilterMap {
         this.urlPattern = RequestUtil.URLDecode(urlPattern);
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Render a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("FilterMap[");
         sb.append("filterName=");
         sb.append(this.filterName);
@@ -148,8 +136,5 @@ public final class FilterMap {
         }
         sb.append("]");
         return (sb.toString());
-
     }
-
-
 }

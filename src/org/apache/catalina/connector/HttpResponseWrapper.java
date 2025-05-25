@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/HttpResponseWrapper.java,v 1.4 2002/03/18 07:15:39 remm Exp $
- * $Revision: 1.4 $
- * $Date: 2002/03/18 07:15:39 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/HttpResponseWrapper.java,v 1.4
+ * 2002/03/18 07:15:39 remm Exp $ $Revision: 1.4 $ $Date: 2002/03/18 07:15:39 $
  *
  * ====================================================================
  *
@@ -61,12 +60,9 @@
  *
  */
 
-
 package org.apache.catalina.connector;
 
-
 import org.apache.catalina.HttpResponse;
-
 
 /**
  * Abstract convenience class that wraps a Catalina-internal <b>HttpResponse</b>
@@ -79,13 +75,8 @@ import org.apache.catalina.HttpResponse;
  * @deprecated
  */
 
-public abstract class HttpResponseWrapper
-    extends ResponseWrapper
-    implements HttpResponse {
-
-
+public abstract class HttpResponseWrapper extends ResponseWrapper implements HttpResponse {
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a wrapper for the specified response.
@@ -93,14 +84,10 @@ public abstract class HttpResponseWrapper
      * @param response The response to be wrapped
      */
     public HttpResponseWrapper(HttpResponse response) {
-
         super(response);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return the value for the specified header, or <code>null</code> if this
@@ -111,22 +98,16 @@ public abstract class HttpResponseWrapper
      * @param name Header name to look up
      */
     public String getHeader(String name) {
-
         return (((HttpResponse) response).getHeader(name));
-
     }
-
 
     /**
      * Return an array of all the header names set for this response, or
      * a zero-length array if no headers have been set.
      */
     public String[] getHeaderNames() {
-
         return (((HttpResponse) response).getHeaderNames());
-
     }
-
 
     /**
      * Return an array of all the header values associated with the
@@ -136,32 +117,23 @@ public abstract class HttpResponseWrapper
      * @param name Header name to look up
      */
     public String[] getHeaderValues(String name) {
-
         return (((HttpResponse) response).getHeaderValues(name));
-
     }
-
 
     /**
      * Return the error message that was set with <code>sendError()</code>
      * for this response.
      */
     public String getMessage() {
-
         return (((HttpResponse) response).getMessage());
-
     }
-
 
     /**
      * Return the HTTP status code associated with this Response.
      */
     public int getStatus() {
-
         return (((HttpResponse) response).getStatus());
-
     }
-
 
     /**
      * Reset this response, and specify the values for the HTTP status code
@@ -171,10 +143,6 @@ public abstract class HttpResponseWrapper
      *  committed
      */
     public void reset(int status, String message) {
-
         ((HttpResponse) response).reset(status, message);
-
     }
-
-
 }

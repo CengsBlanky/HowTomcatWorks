@@ -1,13 +1,12 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/naming/ResourceLinkRef.java,v 1.1 2001/11/08 19:30:50 remm Exp $
- * $Revision: 1.1 $
- * $Date: 2001/11/08 19:30:50 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/naming/ResourceLinkRef.java,v 1.1 2001/11/08
+ * 19:30:50 remm Exp $ $Revision: 1.1 $ $Date: 2001/11/08 19:30:50 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999 The Apache Software Foundation.  All rights 
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -15,7 +14,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -23,15 +22,15 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution, if
- *    any, must include the following acknowlegement:  
- *       "This product includes software developed by the 
+ *    any, must include the following acknowlegement:
+ *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
  * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written 
+ *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
@@ -59,13 +58,12 @@
  *
  * [Additional notices, if required by prior licensing conditions]
  *
- */ 
-
+ */
 
 package org.apache.naming;
 
-import javax.naming.Reference;
 import javax.naming.Context;
+import javax.naming.Reference;
 import javax.naming.StringRefAddr;
 
 /**
@@ -75,32 +73,24 @@ import javax.naming.StringRefAddr;
  * @version $Revision: 1.1 $ $Date: 2001/11/08 19:30:50 $
  */
 
-public class ResourceLinkRef
-    extends Reference {
-
-
+public class ResourceLinkRef extends Reference {
     // -------------------------------------------------------------- Constants
-
 
     /**
      * Default factory for this reference.
      */
-    public static final String DEFAULT_FACTORY = 
-        org.apache.naming.factory.Constants.DEFAULT_RESOURCE_LINK_FACTORY;
-
+    public static final String DEFAULT_FACTORY = org.apache.naming.factory.Constants.DEFAULT_RESOURCE_LINK_FACTORY;
 
     /**
      * Description address type.
      */
     public static final String GLOBALNAME = "globalName";
 
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * ResourceLink Reference.
-     * 
+     *
      * @param resourceClass Resource class
      * @param globalName Global name
      */
@@ -108,15 +98,13 @@ public class ResourceLinkRef
         this(resourceClass, globalName, null, null);
     }
 
-
     /**
      * ResourceLink Reference.
-     * 
+     *
      * @param resourceClass Resource class
      * @param globalName Global name
      */
-    public ResourceLinkRef(String resourceClass, String globalName, 
-                           String factory, String factoryLocation) {
+    public ResourceLinkRef(String resourceClass, String globalName, String factory, String factoryLocation) {
         super(resourceClass, factory, factoryLocation);
         StringRefAddr refAddr = null;
         if (globalName != null) {
@@ -125,15 +113,12 @@ public class ResourceLinkRef
         }
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     // ------------------------------------------------------ Reference Methods
 
-
     /**
-     * Retrieves the class name of the factory of the object to which this 
+     * Retrieves the class name of the factory of the object to which this
      * reference refers.
      */
     public String getFactoryClassName() {
@@ -150,8 +135,5 @@ public class ResourceLinkRef
         }
     }
 
-
     // ------------------------------------------------------------- Properties
-
-
 }

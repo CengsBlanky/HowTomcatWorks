@@ -1,8 +1,7 @@
 /*
  * ResponseIncludeWrapper.java
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/ResponseIncludeWrapper.java,v 1.1 2002/05/24 04:38:58 billbarker Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/24 04:38:58 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/ResponseIncludeWrapper.java,v 1.1
+ * 2002/05/24 04:38:58 billbarker Exp $ $Revision: 1.1 $ $Date: 2002/05/24 04:38:58 $
  *
  * ====================================================================
  *
@@ -77,7 +76,6 @@ import javax.servlet.http.HttpServletResponseWrapper;
  * @version $Revision: 1.1 $, $Date: 2002/05/24 04:38:58 $
  */
 public class ResponseIncludeWrapper extends HttpServletResponseWrapper {
-
     /**
      * Our ServletOutputStream
      */
@@ -92,8 +90,7 @@ public class ResponseIncludeWrapper extends HttpServletResponseWrapper {
      * @param res The HttpServletResponse to use
      * @param out The ServletOutputStream' to use
      */
-    public ResponseIncludeWrapper(HttpServletResponse res,
-                                  ServletOutputStream originalServletOutputStream) {
+    public ResponseIncludeWrapper(HttpServletResponse res, ServletOutputStream originalServletOutputStream) {
         super(res);
         this.originalServletOutputStream = originalServletOutputStream;
     }
@@ -105,12 +102,12 @@ public class ResponseIncludeWrapper extends HttpServletResponseWrapper {
      * the included servlet flushed its stream.
      */
     public void flushOutputStreamOrWriter() throws IOException {
-	if ( servletOutputStream != null ) {
-	    servletOutputStream.flush();
-	}
-	if ( printWriter != null ) {
-	    printWriter.flush();
-	}
+        if (servletOutputStream != null) {
+            servletOutputStream.flush();
+        }
+        if (printWriter != null) {
+            printWriter.flush();
+        }
     }
 
     /**
@@ -121,13 +118,13 @@ public class ResponseIncludeWrapper extends HttpServletResponseWrapper {
      * @exception java.io.IOException if the outputstream already been called
      */
     public PrintWriter getWriter() throws java.io.IOException {
-        if ( servletOutputStream == null ) {
-	    if ( printWriter == null ) {
-		printWriter = new PrintWriter( originalServletOutputStream );
-	    }
+        if (servletOutputStream == null) {
+            if (printWriter == null) {
+                printWriter = new PrintWriter(originalServletOutputStream);
+            }
             return printWriter;
-	}
-	throw new IllegalStateException();
+        }
+        throw new IllegalStateException();
     }
 
     /**
@@ -138,12 +135,12 @@ public class ResponseIncludeWrapper extends HttpServletResponseWrapper {
      * @exception java.io.IOException if the printwriter already been called
      */
     public ServletOutputStream getOutputStream() throws java.io.IOException {
-        if ( printWriter == null ) {
-	    if ( servletOutputStream == null ) {
-		servletOutputStream = originalServletOutputStream;
-	    }
-	    return servletOutputStream;
-	}
-	throw new IllegalStateException();
+        if (printWriter == null) {
+            if (servletOutputStream == null) {
+                servletOutputStream = originalServletOutputStream;
+            }
+            return servletOutputStream;
+        }
+        throw new IllegalStateException();
     }
 }

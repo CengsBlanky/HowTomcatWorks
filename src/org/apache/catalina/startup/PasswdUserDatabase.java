@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/PasswdUserDatabase.java,v 1.2 2001/07/22 20:25:13 pier Exp $
- * $Revision: 1.2 $
- * $Date: 2001/07/22 20:25:13 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/PasswdUserDatabase.java,v 1.2
+ * 2001/07/22 20:25:13 pier Exp $ $Revision: 1.2 $ $Date: 2001/07/22 20:25:13 $
  *
  * ====================================================================
  *
@@ -61,16 +60,13 @@
  *
  */
 
-
 package org.apache.catalina.startup;
-
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.Enumeration;
-
+import java.util.Hashtable;
 
 /**
  * Concrete implementation of the <strong>UserDatabase</code> interface
@@ -80,56 +76,41 @@ import java.util.Enumeration;
  * @version $Revision: 1.2 $ $Date: 2001/07/22 20:25:13 $
  */
 
-public final class PasswdUserDatabase
-    implements UserDatabase {
-
-
+public final class PasswdUserDatabase implements UserDatabase {
     // --------------------------------------------------------- Constructors
-
 
     /**
      * Initialize a new instance of this user database component.
      */
     public PasswdUserDatabase() {
-
         super();
-
     }
 
-
     // --------------------------------------------------- Instance Variables
-
 
     /**
      * The pathname of the Unix password file.
      */
     private static final String PASSWORD_FILE = "/etc/passwd";
 
-
     /**
      * The set of home directories for all defined users, keyed by username.
      */
     private Hashtable homes = new Hashtable();
-
 
     /**
      * The UserConfig listener with which we are associated.
      */
     private UserConfig userConfig = null;
 
-
     // ----------------------------------------------------------- Properties
-
 
     /**
      * Return the UserConfig listener with which we are associated.
      */
     public UserConfig getUserConfig() {
-
         return (this.userConfig);
-
     }
-
 
     /**
      * Set the UserConfig listener with which we are associated.
@@ -137,15 +118,11 @@ public final class PasswdUserDatabase
      * @param userConfig The new UserConfig listener
      */
     public void setUserConfig(UserConfig userConfig) {
-
         this.userConfig = userConfig;
         init();
-
     }
 
-
     // ------------------------------------------------------- Public Methods
-
 
     /**
      * Return an absolute pathname to the home directory for the specified user.
@@ -153,37 +130,27 @@ public final class PasswdUserDatabase
      * @param user User for which a home directory should be retrieved
      */
     public String getHome(String user) {
-
         return ((String) homes.get(user));
-
     }
-
 
     /**
      * Return an enumeration of the usernames defined on this server.
      */
     public Enumeration getUsers() {
-
         return (homes.keys());
-
     }
 
-
     // ------------------------------------------------------ Private Methods
-
 
     /**
      * Initialize our set of users and home directories.
      */
     private void init() {
-
         BufferedReader reader = null;
         try {
-
             reader = new BufferedReader(new FileReader(PASSWORD_FILE));
 
             while (true) {
-
                 // Accumulate the next line
                 StringBuffer buffer = new StringBuffer();
                 while (true) {
@@ -199,8 +166,7 @@ public final class PasswdUserDatabase
                 // Parse the line into constituent elements
                 int n = 0;
                 String tokens[] = new String[7];
-                for (int i = 0; i < tokens.length; i++)
-                    tokens[i] = null;
+                for (int i = 0; i < tokens.length; i++) tokens[i] = null;
                 while (n < tokens.length) {
                     String token = null;
                     int colon = line.indexOf(':');
@@ -217,7 +183,6 @@ public final class PasswdUserDatabase
                 // Add this user and corresponding directory
                 if ((tokens[0] != null) && (tokens[5] != null))
                     homes.put(tokens[0], tokens[5]);
-
             }
 
             reader.close();
@@ -233,8 +198,5 @@ public final class PasswdUserDatabase
                 reader = null;
             }
         }
-
     }
-
-
 }

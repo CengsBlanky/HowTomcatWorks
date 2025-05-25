@@ -1,8 +1,7 @@
 /*
  * SSIInclude.java
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/SSIInclude.java,v 1.1 2002/05/24 04:38:58 billbarker Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/24 04:38:58 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/SSIInclude.java,v 1.1 2002/05/24
+ * 04:38:58 billbarker Exp $ $Revision: 1.1 $ $Date: 2002/05/24 04:38:58 $
  *
  * ====================================================================
  *
@@ -78,32 +77,26 @@ public final class SSIInclude implements SSICommand {
     /**
      * @see SSICommand
      */
-    public void process(SSIMediator ssiMediator,
-			String[] paramNames,
-			String[] paramValues,
-			PrintWriter writer) {
+    public void process(SSIMediator ssiMediator, String[] paramNames, String[] paramValues, PrintWriter writer) {
+        String configErrMsg = ssiMediator.getConfigErrMsg();
 
-	String configErrMsg = ssiMediator.getConfigErrMsg();
+        for (int i = 0; i < paramNames.length; i++) {
+            String paramName = paramNames[i];
+            String paramValue = paramValues[i];
 
-	for ( int i=0; i < paramNames.length; i++ ) {
-	    String paramName = paramNames[i];
-	    String paramValue = paramValues[i];
-
-	    try {
-		if ( paramName.equalsIgnoreCase("file") ||
-		     paramName.equalsIgnoreCase("virtual") ) {
-		    boolean virtual = paramName.equalsIgnoreCase("virtual");
-		    String text = ssiMediator.getFileText( paramValue, virtual );
-		    writer.write( text );
-		} else {
-		    ssiMediator.log("#include--Invalid attribute: " + paramName );
-		    writer.write( configErrMsg );
-		}
-	    } catch ( IOException e ) {
-		ssiMediator.log("#include--Couldn't include file: " + paramValue, e );
-		writer.write( configErrMsg );
-	    }
-	}
+            try {
+                if (paramName.equalsIgnoreCase("file") || paramName.equalsIgnoreCase("virtual")) {
+                    boolean virtual = paramName.equalsIgnoreCase("virtual");
+                    String text = ssiMediator.getFileText(paramValue, virtual);
+                    writer.write(text);
+                } else {
+                    ssiMediator.log("#include--Invalid attribute: " + paramName);
+                    writer.write(configErrMsg);
+                }
+            } catch (IOException e) {
+                ssiMediator.log("#include--Couldn't include file: " + paramValue, e);
+                writer.write(configErrMsg);
+            }
+        }
     }
 }
-

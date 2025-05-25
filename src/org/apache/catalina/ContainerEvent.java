@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ContainerEvent.java,v 1.4 2001/10/26 02:03:28 craigmcc Exp $
- * $Revision: 1.4 $
- * $Date: 2001/10/26 02:03:28 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ContainerEvent.java,v 1.4 2001/10/26
+ * 02:03:28 craigmcc Exp $ $Revision: 1.4 $ $Date: 2001/10/26 02:03:28 $
  *
  * ====================================================================
  *
@@ -61,12 +60,9 @@
  *
  */
 
-
 package org.apache.catalina;
 
-
 import java.util.EventObject;
-
 
 /**
  * General event for notifying listeners of significant changes on a Container.
@@ -75,27 +71,21 @@ import java.util.EventObject;
  * @version $Revision: 1.4 $ $Date: 2001/10/26 02:03:28 $
  */
 
-public final class ContainerEvent
-    extends EventObject {
-
-
+public final class ContainerEvent extends EventObject {
     /**
      * The Container on which this event occurred.
      */
     private Container container = null;
-
 
     /**
      * The event data associated with this event.
      */
     private Object data = null;
 
-
     /**
      * The event type this instance represents.
      */
     private String type = null;
-
 
     /**
      * Construct a new ContainerEvent with the specified parameters.
@@ -105,54 +95,37 @@ public final class ContainerEvent
      * @param data Event data
      */
     public ContainerEvent(Container container, String type, Object data) {
-
         super(container);
         this.container = container;
         this.type = type;
         this.data = data;
-
     }
-
 
     /**
      * Return the event data of this event.
      */
     public Object getData() {
-
         return (this.data);
-
     }
-
 
     /**
      * Return the Container on which this event occurred.
      */
     public Container getContainer() {
-
         return (this.container);
-
     }
-
 
     /**
      * Return the event type of this event.
      */
     public String getType() {
-
         return (this.type);
-
     }
-
 
     /**
      * Return a string representation of this event.
      */
     public String toString() {
-
-        return ("ContainerEvent['" + getContainer() + "','" +
-                getType() + "','" + getData() + "']");
-
+        return ("ContainerEvent['" + getContainer() + "','" + getType() + "','" + getData() + "']");
     }
-
-
 }

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardHostDeployer.java,v 1.10 2002/08/01 01:41:43 amyroh Exp $
- * $Revision: 1.10 $
- * $Date: 2002/08/01 01:41:43 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardHostDeployer.java,v 1.10
+ * 2002/08/01 01:41:43 amyroh Exp $ $Revision: 1.10 $ $Date: 2002/08/01 01:41:43 $
  *
  * ====================================================================
  *
@@ -61,11 +60,10 @@
  *
  */
 
-
 package org.apache.catalina.core;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import org.apache.catalina.Container;
 import org.apache.catalina.Context;
@@ -78,7 +76,6 @@ import org.apache.catalina.startup.NamingRuleSet;
 import org.apache.catalina.util.StringManager;
 import org.apache.commons.digester.Digester;
 
-
 /**
  * <p>Implementation of <b>Deployer</b> that is delegated to by the
  * <code>StandardHost</code> implementation class.</p>
@@ -88,10 +85,7 @@ import org.apache.commons.digester.Digester;
  */
 
 public class StandardHostDeployer implements Deployer {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Create a new StandardHostDeployer associated with the specified
@@ -100,22 +94,17 @@ public class StandardHostDeployer implements Deployer {
      * @param host The StandardHost we are associated with
      */
     public StandardHostDeployer(StandardHost host) {
-
         super();
         this.host = host;
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The <code>Context</code> that was added via a call to
      * <code>addChild()</code> while parsing the configuration descriptor.
      */
     private Context context = null;
-
 
     /**
      * The <code>Digester</code> instance to use for deploying web applications
@@ -125,26 +114,22 @@ public class StandardHostDeployer implements Deployer {
      */
     private Digester digester = null;
 
-
     /**
      * The <code>ContextRuleSet</code> associated with our
      * <code>digester</code> instance.
      */
     private ContextRuleSet contextRuleSet = null;
 
-
     /**
      * The <code>StandardHost</code> instance we are associated with.
      */
     protected StandardHost host = null;
-
 
     /**
      * The <code>NamingRuleSet</code> associated with our
      * <code>digester</code> instance.
      */
     private NamingRuleSet namingRuleSet = null;
-
 
     /**
      * The document base which should replace the value specified in the
@@ -153,26 +138,19 @@ public class StandardHostDeployer implements Deployer {
      */
     private String overrideDocBase = null;
 
-
     /**
      * The string manager for this package.
      */
-    protected static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static StringManager sm = StringManager.getManager(Constants.Package);
 
     // -------------------------------------------------------- Depoyer Methods
-
 
     /**
      * Return the name of the Container with which this Deployer is associated.
      */
     public String getName() {
-
         return (host.getName());
-
     }
-
 
     /**
      * Install a new web application, whose web application archive is at the
@@ -201,26 +179,19 @@ public class StandardHostDeployer implements Deployer {
      * @exception IOException if an input/output error was encountered
      *  during installation
      */
-    public synchronized void install(String contextPath, URL war)
-        throws IOException {
-
+    public synchronized void install(String contextPath, URL war) throws IOException {
         // Validate the format and state of our arguments
         if (contextPath == null)
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathRequired"));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathRequired"));
         if (!contextPath.equals("") && !contextPath.startsWith("/"))
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathFormat", contextPath));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathFormat", contextPath));
         if (findDeployedApp(contextPath) != null)
-            throw new IllegalStateException
-                (sm.getString("standardHost.pathUsed", contextPath));
+            throw new IllegalStateException(sm.getString("standardHost.pathUsed", contextPath));
         if (war == null)
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.warRequired"));
+            throw new IllegalArgumentException(sm.getString("standardHost.warRequired"));
 
         // Calculate the document base for the new web application
-        host.log(sm.getString("standardHost.installing",
-                              contextPath, war.toString()));
+        host.log(sm.getString("standardHost.installing", contextPath, war.toString()));
         String url = war.toString();
         String docBase = null;
         if (url.startsWith("jar:")) {
@@ -231,33 +202,28 @@ public class StandardHostDeployer implements Deployer {
         else if (url.startsWith("file:"))
             docBase = url.substring(5);
         else
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.warURL", url));
+            throw new IllegalArgumentException(sm.getString("standardHost.warURL", url));
 
         // Install the new web application
         try {
             Class clazz = Class.forName(host.getContextClass());
             Context context = (Context) clazz.newInstance();
             context.setPath(contextPath);
-            
+
             context.setDocBase(docBase);
             if (context instanceof Lifecycle) {
                 clazz = Class.forName(host.getConfigClass());
-                LifecycleListener listener =
-                    (LifecycleListener) clazz.newInstance();
+                LifecycleListener listener = (LifecycleListener) clazz.newInstance();
                 ((Lifecycle) context).addLifecycleListener(listener);
             }
             host.fireContainerEvent(PRE_INSTALL_EVENT, context);
             host.addChild(context);
             host.fireContainerEvent(INSTALL_EVENT, context);
         } catch (Exception e) {
-            host.log(sm.getString("standardHost.installError", contextPath),
-                     e);
+            host.log(sm.getString("standardHost.installError", contextPath), e);
             throw new IOException(e.toString());
         }
-
     }
-
 
     /**
      * <p>Install a new web application, whose context configuration file
@@ -287,15 +253,12 @@ public class StandardHostDeployer implements Deployer {
      *  during installation
      */
     public synchronized void install(URL config, URL war) throws IOException {
-
         // Validate the format and state of our arguments
         if (config == null)
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.configRequired"));
+            throw new IllegalArgumentException(sm.getString("standardHost.configRequired"));
 
         if (!host.isDeployXML())
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.configNotAllowed"));
+            throw new IllegalArgumentException(sm.getString("standardHost.configNotAllowed"));
 
         // Calculate the document base for the new web application (if needed)
         String docBase = null; // Optional override for value in config file
@@ -311,9 +274,7 @@ public class StandardHostDeployer implements Deployer {
             else if (url.startsWith("file:"))
                 docBase = url.substring(5);
             else
-                throw new IllegalArgumentException
-                    (sm.getString("standardHost.warURL", url));
-
+                throw new IllegalArgumentException(sm.getString("standardHost.warURL", url));
         }
 
         // Install the new web application
@@ -330,8 +291,7 @@ public class StandardHostDeployer implements Deployer {
             stream.close();
             stream = null;
         } catch (Exception e) {
-            host.log
-                (sm.getString("standardHost.installError", docBase), e);
+            host.log(sm.getString("standardHost.installError", docBase), e);
             throw new IOException(e.toString());
         } finally {
             if (stream != null) {
@@ -342,9 +302,7 @@ public class StandardHostDeployer implements Deployer {
                 }
             }
         }
-
     }
-
 
     /**
      * Return the Context for the deployed application that is associated
@@ -354,11 +312,8 @@ public class StandardHostDeployer implements Deployer {
      * @param contextPath The context path of the requested web application
      */
     public Context findDeployedApp(String contextPath) {
-
         return ((Context) host.findChild(contextPath));
-
     }
-
 
     /**
      * Return the context paths of all deployed web applications in this
@@ -366,15 +321,11 @@ public class StandardHostDeployer implements Deployer {
      * array is returned.
      */
     public String[] findDeployedApps() {
-
         Container children[] = host.findChildren();
         String results[] = new String[children.length];
-        for (int i = 0; i < children.length; i++)
-            results[i] = children[i].getName();
+        for (int i = 0; i < children.length; i++) results[i] = children[i].getName();
         return (results);
-
     }
-
 
     /**
      * Remove an existing web application, attached to the specified context
@@ -393,20 +344,16 @@ public class StandardHostDeployer implements Deployer {
      *  removal
      */
     public void remove(String contextPath) throws IOException {
-
         // Validate the format and state of our arguments
         if (contextPath == null)
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathRequired"));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathRequired"));
         if (!contextPath.equals("") && !contextPath.startsWith("/"))
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathFormat", contextPath));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathFormat", contextPath));
 
         // Locate the context and associated work directory
         Context context = findDeployedApp(contextPath);
         if (context == null)
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathMissing", contextPath));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathMissing", contextPath));
 
         // Remove this web application
         host.log(sm.getString("standardHost.removing", contextPath));
@@ -417,9 +364,7 @@ public class StandardHostDeployer implements Deployer {
             host.log(sm.getString("standardHost.removeError", contextPath), e);
             throw new IOException(e.toString());
         }
-
     }
-
 
     /**
      * Start an existing web application, attached to the specified context
@@ -437,25 +382,20 @@ public class StandardHostDeployer implements Deployer {
     public void start(String contextPath) throws IOException {
         // Validate the format and state of our arguments
         if (contextPath == null)
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathRequired"));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathRequired"));
         if (!contextPath.equals("") && !contextPath.startsWith("/"))
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathFormat", contextPath));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathFormat", contextPath));
         Context context = findDeployedApp(contextPath);
         if (context == null)
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathMissing", contextPath));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathMissing", contextPath));
         host.log("standardHost.start " + contextPath);
         try {
             ((Lifecycle) context).start();
         } catch (LifecycleException e) {
             host.log("standardHost.start " + contextPath + ": ", e);
-            throw new IllegalStateException
-                ("standardHost.start " + contextPath + ": " + e);
+            throw new IllegalStateException("standardHost.start " + contextPath + ": " + e);
         }
     }
-
 
     /**
      * Stop an existing web application, attached to the specified context
@@ -471,32 +411,24 @@ public class StandardHostDeployer implements Deployer {
      *  the web application
      */
     public void stop(String contextPath) throws IOException {
-
         // Validate the format and state of our arguments
         if (contextPath == null)
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathRequired"));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathRequired"));
         if (!contextPath.equals("") && !contextPath.startsWith("/"))
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathFormat", contextPath));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathFormat", contextPath));
         Context context = findDeployedApp(contextPath);
         if (context == null)
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathMissing", contextPath));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathMissing", contextPath));
         host.log("standardHost.stop " + contextPath);
         try {
             ((Lifecycle) context).stop();
         } catch (LifecycleException e) {
             host.log("standardHost.stop " + contextPath + ": ", e);
-            throw new IllegalStateException
-                ("standardHost.stop " + contextPath + ": " + e);
+            throw new IllegalStateException("standardHost.stop " + contextPath + ": " + e);
         }
-
     }
 
-
     // ------------------------------------------------------ Delegated Methods
-
 
     /**
      * Delegate a request to add a child Context to our associated Host.
@@ -504,46 +436,35 @@ public class StandardHostDeployer implements Deployer {
      * @param child The child Context to be added
      */
     public void addChild(Container child) {
-
         context = (Context) child;
         String contextPath = context.getPath();
         if (contextPath == null)
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathRequired"));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathRequired"));
         else if (!contextPath.equals("") && !contextPath.startsWith("/"))
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.pathFormat", contextPath));
+            throw new IllegalArgumentException(sm.getString("standardHost.pathFormat", contextPath));
         if (host.findChild(contextPath) != null)
-            throw new IllegalStateException
-                (sm.getString("standardHost.pathUsed", contextPath));
+            throw new IllegalStateException(sm.getString("standardHost.pathUsed", contextPath));
         if (this.overrideDocBase != null)
             context.setDocBase(this.overrideDocBase);
         host.fireContainerEvent(PRE_INSTALL_EVENT, context);
         host.addChild(child);
         host.fireContainerEvent(INSTALL_EVENT, context);
-
     }
-
 
     /**
      * Delegate a request for the parent class loader to our associated Host.
      */
     public ClassLoader getParentClassLoader() {
-
         return (host.getParentClassLoader());
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Create (if necessary) and return a Digester configured to process the
      * context configuration descriptor for an application.
      */
     protected Digester createDigester() {
-
         if (digester == null) {
             digester = new Digester();
             if (host.getDebug() > 0)
@@ -555,8 +476,5 @@ public class StandardHostDeployer implements Deployer {
             digester.addRuleSet(namingRuleSet);
         }
         return (digester);
-
     }
-
-
 }

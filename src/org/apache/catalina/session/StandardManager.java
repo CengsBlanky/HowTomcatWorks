@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/session/StandardManager.java,v 1.19 2002/06/09 02:19:43 remm Exp $
- * $Revision: 1.19 $
- * $Date: 2002/06/09 02:19:43 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/session/StandardManager.java,v 1.19
+ * 2002/06/09 02:19:43 remm Exp $ $Revision: 1.19 $ $Date: 2002/06/09 02:19:43 $
  *
  * ====================================================================
  *
@@ -61,7 +60,6 @@
  *
  */
 
-
 package org.apache.catalina.session;
 
 import java.beans.PropertyChangeEvent;
@@ -89,7 +87,6 @@ import org.apache.catalina.Session;
 import org.apache.catalina.util.CustomObjectInputStream;
 import org.apache.catalina.util.LifecycleSupport;
 
-
 /**
  * Standard implementation of the <b>Manager</b> interface that provides
  * simple session persistence across restarts of this component (such as
@@ -104,43 +101,33 @@ import org.apache.catalina.util.LifecycleSupport;
  * @version $Revision: 1.19 $ $Date: 2002/06/09 02:19:43 $
  */
 
-public class StandardManager
-    extends ManagerBase
-    implements Lifecycle, PropertyChangeListener, Runnable {
-
-
+public class StandardManager extends ManagerBase implements Lifecycle, PropertyChangeListener, Runnable {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The interval (in seconds) between checks for expired sessions.
      */
     private int checkInterval = 60;
 
-
     /**
      * The descriptive information about this implementation.
      */
     private static final String info = "StandardManager/1.0";
-
 
     /**
      * The lifecycle event support for this component.
      */
     protected LifecycleSupport lifecycle = new LifecycleSupport(this);
 
-
     /**
      * The maximum number of active Sessions allowed, or -1 for no limit.
      */
     private int maxActiveSessions = -1;
 
-
     /**
      * The descriptive name of this Manager implementation (for logging).
      */
     protected static String name = "StandardManager";
-
 
     /**
      * Path name of the disk file in which active sessions are saved
@@ -152,43 +139,34 @@ public class StandardManager
      */
     private String pathname = "SESSIONS.ser";
 
-
     /**
      * Has this component been started yet?
      */
     private boolean started = false;
-
 
     /**
      * The background thread.
      */
     private Thread thread = null;
 
-
     /**
      * The background thread completion semaphore.
      */
     private boolean threadDone = false;
-
 
     /**
      * Name to register for the background thread.
      */
     private String threadName = "StandardManager";
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the check interval (in seconds) for this Manager.
      */
     public int getCheckInterval() {
-
         return (this.checkInterval);
-
     }
-
 
     /**
      * Set the check interval (in seconds) for this Manager.
@@ -196,15 +174,10 @@ public class StandardManager
      * @param checkInterval The new check interval
      */
     public void setCheckInterval(int checkInterval) {
-
         int oldCheckInterval = this.checkInterval;
         this.checkInterval = checkInterval;
-        support.firePropertyChange("checkInterval",
-                                   new Integer(oldCheckInterval),
-                                   new Integer(this.checkInterval));
-
+        support.firePropertyChange("checkInterval", new Integer(oldCheckInterval), new Integer(this.checkInterval));
     }
-
 
     /**
      * Set the Container with which this Manager has been associated.  If
@@ -214,7 +187,6 @@ public class StandardManager
      * @param container The associated Container
      */
     public void setContainer(Container container) {
-
         // De-register from the old Container (if any)
         if ((this.container != null) && (this.container instanceof Context))
             ((Context) this.container).removePropertyChangeListener(this);
@@ -224,13 +196,10 @@ public class StandardManager
 
         // Register with the new Container (if any)
         if ((this.container != null) && (this.container instanceof Context)) {
-            setMaxInactiveInterval
-                ( ((Context) this.container).getSessionTimeout()*60 );
+            setMaxInactiveInterval(((Context) this.container).getSessionTimeout() * 60);
             ((Context) this.container).addPropertyChangeListener(this);
         }
-
     }
-
 
     /**
      * Return descriptive information about this Manager implementation and
@@ -238,22 +207,16 @@ public class StandardManager
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo() {
-
         return (this.info);
-
     }
-
 
     /**
      * Return the maximum number of active Sessions allowed, or -1 for
      * no limit.
      */
     public int getMaxActiveSessions() {
-
         return (this.maxActiveSessions);
-
     }
-
 
     /**
      * Set the maximum number of actives Sessions allowed, or -1 for
@@ -262,35 +225,25 @@ public class StandardManager
      * @param max The new maximum number of sessions
      */
     public void setMaxActiveSessions(int max) {
-
         int oldMaxActiveSessions = this.maxActiveSessions;
         this.maxActiveSessions = max;
-        support.firePropertyChange("maxActiveSessions",
-                                   new Integer(oldMaxActiveSessions),
-                                   new Integer(this.maxActiveSessions));
-
+        support.firePropertyChange(
+          "maxActiveSessions", new Integer(oldMaxActiveSessions), new Integer(this.maxActiveSessions));
     }
-
 
     /**
      * Return the descriptive short name of this Manager implementation.
      */
     public String getName() {
-
         return (name);
-
     }
-
 
     /**
      * Return the session persistence pathname, if any.
      */
     public String getPathname() {
-
         return (this.pathname);
-
     }
-
 
     /**
      * Set the session persistence pathname to the specified value.  If no
@@ -299,16 +252,12 @@ public class StandardManager
      * @param pathname New session persistence pathname
      */
     public void setPathname(String pathname) {
-
         String oldPathname = this.pathname;
         this.pathname = pathname;
         support.firePropertyChange("pathname", oldPathname, this.pathname);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Construct and return a new session object, based on the default
@@ -321,16 +270,11 @@ public class StandardManager
      *  instantiated for any reason
      */
     public Session createSession() {
-
-        if ((maxActiveSessions >= 0) &&
-          (sessions.size() >= maxActiveSessions))
-            throw new IllegalStateException
-                (sm.getString("standardManager.createSession.ise"));
+        if ((maxActiveSessions >= 0) && (sessions.size() >= maxActiveSessions))
+            throw new IllegalStateException(sm.getString("standardManager.createSession.ise"));
 
         return (super.createSession());
-
     }
-
 
     /**
      * Load any currently active sessions that were previously unloaded
@@ -342,7 +286,6 @@ public class StandardManager
      * @exception IOException if an input/output error occurs
      */
     public void load() throws ClassNotFoundException, IOException {
-
         if (debug >= 1)
             log("Start: Loading persisted sessions");
 
@@ -369,8 +312,7 @@ public class StandardManager
                 classLoader = loader.getClassLoader();
             if (classLoader != null) {
                 if (debug >= 1)
-                    log("Creating custom object input stream for class loader "
-                        + classLoader);
+                    log("Creating custom object input stream for class loader " + classLoader);
                 ois = new CustomObjectInputStream(bis, classLoader);
             } else {
                 if (debug >= 1)
@@ -409,7 +351,7 @@ public class StandardManager
                     ((StandardSession) session).activate();
                 }
             } catch (ClassNotFoundException e) {
-              log(sm.getString("standardManager.loading.cnfe", e), e);
+                log(sm.getString("standardManager.loading.cnfe", e), e);
                 if (ois != null) {
                     try {
                         ois.close();
@@ -420,7 +362,7 @@ public class StandardManager
                 }
                 throw e;
             } catch (IOException e) {
-              log(sm.getString("standardManager.loading.ioe", e), e);
+                log(sm.getString("standardManager.loading.ioe", e), e);
                 if (ois != null) {
                     try {
                         ois.close();
@@ -440,7 +382,7 @@ public class StandardManager
                 }
 
                 // Delete the persistent storage file
-                if (file != null && file.exists() )
+                if (file != null && file.exists())
                     file.delete();
             }
         }
@@ -448,7 +390,6 @@ public class StandardManager
         if (debug >= 1)
             log("Finish: Loading persisted sessions");
     }
-
 
     /**
      * Save any currently active sessions in the appropriate persistence
@@ -458,7 +399,6 @@ public class StandardManager
      * @exception IOException if an input/output error occurs
      */
     public void unload() throws IOException {
-
         if (debug >= 1)
             log("Unloading persisted sessions");
 
@@ -495,8 +435,7 @@ public class StandardManager
                 oos.writeObject(new Integer(sessions.size()));
                 Iterator elements = sessions.values().iterator();
                 while (elements.hasNext()) {
-                    StandardSession session =
-                        (StandardSession) elements.next();
+                    StandardSession session = (StandardSession) elements.next();
                     list.add(session);
                     ((StandardSession) session).passivate();
                     session.writeObjectData(oos);
@@ -547,12 +486,9 @@ public class StandardManager
 
         if (debug >= 1)
             log("Unloading complete");
-
     }
 
-
     // ------------------------------------------------------ Lifecycle Methods
-
 
     /**
      * Add a lifecycle event listener to this component.
@@ -560,22 +496,16 @@ public class StandardManager
      * @param listener The listener to add
      */
     public void addLifecycleListener(LifecycleListener listener) {
-
         lifecycle.addLifecycleListener(listener);
-
     }
 
-
     /**
-     * Get the lifecycle listeners associated with this lifecycle. If this 
+     * Get the lifecycle listeners associated with this lifecycle. If this
      * Lifecycle has no listeners registered, a zero-length array is returned.
      */
     public LifecycleListener[] findLifecycleListeners() {
-
         return lifecycle.findLifecycleListeners();
-
     }
-
 
     /**
      * Remove a lifecycle event listener from this component.
@@ -583,11 +513,8 @@ public class StandardManager
      * @param listener The listener to remove
      */
     public void removeLifecycleListener(LifecycleListener listener) {
-
         lifecycle.removeLifecycleListener(listener);
-
     }
-
 
     /**
      * Prepare for the beginning of active use of the public methods of this
@@ -598,14 +525,12 @@ public class StandardManager
      *  that prevents this component from being used
      */
     public void start() throws LifecycleException {
-
         if (debug >= 1)
             log("Starting");
 
         // Validate and update our current component state
         if (started)
-            throw new LifecycleException
-                (sm.getString("standardManager.alreadyStarted"));
+            throw new LifecycleException(sm.getString("standardManager.alreadyStarted"));
         lifecycle.fireLifecycleEvent(START_EVENT, null);
         started = true;
 
@@ -625,9 +550,7 @@ public class StandardManager
 
         // Start the background reaper thread
         threadStart();
-
     }
-
 
     /**
      * Gracefully terminate the active use of the public methods of this
@@ -638,14 +561,12 @@ public class StandardManager
      *  that needs to be reported
      */
     public void stop() throws LifecycleException {
-
         if (debug >= 1)
             log("Stopping");
 
         // Validate and update our current component state
         if (!started)
-            throw new LifecycleException
-                (sm.getString("standardManager.notStarted"));
+            throw new LifecycleException(sm.getString("standardManager.notStarted"));
         lifecycle.fireLifecycleEvent(STOP_EVENT, null);
         started = false;
 
@@ -674,12 +595,9 @@ public class StandardManager
 
         // Require a new random number generator if we are restarted
         this.random = null;
-
     }
 
-
     // ----------------------------------------- PropertyChangeListener Methods
-
 
     /**
      * Process property change events from our associated Context.
@@ -687,7 +605,6 @@ public class StandardManager
      * @param event The property change event that has occurred
      */
     public void propertyChange(PropertyChangeEvent event) {
-
         // Validate the source of this event
         if (!(event.getSource() instanceof Context))
             return;
@@ -696,51 +613,40 @@ public class StandardManager
         // Process a relevant property change
         if (event.getPropertyName().equals("sessionTimeout")) {
             try {
-                setMaxInactiveInterval
-                    ( ((Integer) event.getNewValue()).intValue()*60 );
+                setMaxInactiveInterval(((Integer) event.getNewValue()).intValue() * 60);
             } catch (NumberFormatException e) {
-                log(sm.getString("standardManager.sessionTimeout",
-                                 event.getNewValue().toString()));
+                log(sm.getString("standardManager.sessionTimeout", event.getNewValue().toString()));
             }
         }
-
     }
 
-
     // -------------------------------------------------------- Private Methods
-
 
     /**
      * Return a File object representing the pathname to our
      * persistence file, if any.
      */
     private File file() {
-
         if (pathname == null)
             return (null);
         File file = new File(pathname);
         if (!file.isAbsolute()) {
             if (container instanceof Context) {
-                ServletContext servletContext =
-                    ((Context) container).getServletContext();
-                File tempdir = (File)
-                    servletContext.getAttribute(Globals.WORK_DIR_ATTR);
+                ServletContext servletContext = ((Context) container).getServletContext();
+                File tempdir = (File) servletContext.getAttribute(Globals.WORK_DIR_ATTR);
                 if (tempdir != null)
                     file = new File(tempdir, pathname);
             }
         }
-//        if (!file.isAbsolute())
-//            return (null);
+        //        if (!file.isAbsolute())
+        //            return (null);
         return (file);
-
     }
-
 
     /**
      * Invalidate all sessions that have expired.
      */
     private void processExpires() {
-
         long timeNow = System.currentTimeMillis();
         Session sessions[] = findSessions();
 
@@ -752,7 +658,7 @@ public class StandardManager
             if (maxInactiveInterval < 0)
                 continue;
             int timeIdle = // Truncate, do not round up
-                (int) ((timeNow - session.getLastAccessedTime()) / 1000L);
+              (int) ((timeNow - session.getLastAccessedTime()) / 1000L);
             if (timeIdle >= maxInactiveInterval) {
                 try {
                     session.expire();
@@ -761,31 +667,25 @@ public class StandardManager
                 }
             }
         }
-
     }
-
 
     /**
      * Sleep for the duration specified by the <code>checkInterval</code>
      * property.
      */
     private void threadSleep() {
-
         try {
             Thread.sleep(checkInterval * 1000L);
         } catch (InterruptedException e) {
             ;
         }
-
     }
-
 
     /**
      * Start the background thread that will periodically check for
      * session timeouts.
      */
     private void threadStart() {
-
         if (thread != null)
             return;
 
@@ -795,16 +695,13 @@ public class StandardManager
         thread.setDaemon(true);
         thread.setContextClassLoader(container.getLoader().getClassLoader());
         thread.start();
-
     }
-
 
     /**
      * Stop the background thread that is periodically checking for
      * session timeouts.
      */
     private void threadStop() {
-
         if (thread == null)
             return;
 
@@ -817,23 +714,18 @@ public class StandardManager
         }
 
         thread = null;
-
     }
 
-
     // ------------------------------------------------------ Background Thread
-
 
     /**
      * The background thread that checks for session timeouts and shutdown.
      */
     public void run() {
-
         // Loop until the termination semaphore is set
         while (!threadDone) {
             threadSleep();
             processExpires();
         }
-
     }
 }

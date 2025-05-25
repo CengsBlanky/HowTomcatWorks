@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/RequestWrapper.java,v 1.4 2002/03/18 07:15:39 remm Exp $
- * $Revision: 1.4 $
- * $Date: 2002/03/18 07:15:39 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/RequestWrapper.java,v 1.4
+ * 2002/03/18 07:15:39 remm Exp $ $Revision: 1.4 $ $Date: 2002/03/18 07:15:39 $
  *
  * ====================================================================
  *
@@ -61,12 +60,10 @@
  *
  */
 
-
 package org.apache.catalina.connector;
 
-
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
@@ -75,7 +72,6 @@ import org.apache.catalina.Context;
 import org.apache.catalina.Request;
 import org.apache.catalina.Response;
 import org.apache.catalina.Wrapper;
-
 
 /**
  * Abstract convenience class that wraps a Catalina-internal <b>Request</b>
@@ -89,10 +85,7 @@ import org.apache.catalina.Wrapper;
  */
 
 public abstract class RequestWrapper implements Request {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a wrapper for the specified request.
@@ -100,44 +93,32 @@ public abstract class RequestWrapper implements Request {
      * @param request The request to be wrapped
      */
     public RequestWrapper(Request request) {
-
         super();
         this.request = request;
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The wrapped request.
      */
     protected Request request = null;
 
-
     /**
      * Return the wrapped request.
      */
     public Request getWrappedRequest() {
-
         return (this.request);
-
     }
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the authorization credentials sent with this request.
      */
     public String getAuthorization() {
-
         return (request.getAuthorization());
-
     }
-
 
     /**
      * Set the authorization credentials sent with this request.
@@ -145,21 +126,15 @@ public abstract class RequestWrapper implements Request {
      * @param authorization The new authorization credentials
      */
     public void setAuthorization(String authorization) {
-
         request.setAuthorization(authorization);
-
     }
-
 
     /**
      * Return the Connector through which this Request was received.
      */
     public Connector getConnector() {
-
         return (request.getConnector());
-
     }
-
 
     /**
      * Set the Connector through which this Request was received.
@@ -167,21 +142,15 @@ public abstract class RequestWrapper implements Request {
      * @param connector The new connector
      */
     public void setConnector(Connector connector) {
-
         request.setConnector(connector);
-
     }
-
 
     /**
      * Return the Context within which this Request is being processed.
      */
     public Context getContext() {
-
         return (request.getContext());
-
     }
-
 
     /**
      * Set the Context within which this Request is being processed.  This
@@ -192,11 +161,8 @@ public abstract class RequestWrapper implements Request {
      * @param context The newly associated Context
      */
     public void setContext(Context context) {
-
         request.setContext(context);
-
     }
-
 
     /**
      * Return descriptive information about this Request implementation and
@@ -204,32 +170,23 @@ public abstract class RequestWrapper implements Request {
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo() {
-
         return (request.getInfo());
-
     }
-
 
     /**
      * Return the <code>ServletRequest</code> for which this object
      * is the facade.
      */
     public ServletRequest getRequest() {
-
         return (request.getRequest());
-
     }
-
 
     /**
      * Return the Response with which this Request is associated.
      */
     public Response getResponse() {
-
         return (request.getResponse());
-
     }
-
 
     /**
      * Set the Response with which this Request is associated.
@@ -237,11 +194,8 @@ public abstract class RequestWrapper implements Request {
      * @param response The new associated response
      */
     public void setResponse(Response response) {
-
         request.setResponse(response);
-
     }
-
 
     /**
      * Return the Socket (if any) through which this Request was received.
@@ -250,11 +204,8 @@ public abstract class RequestWrapper implements Request {
      * an SSLSocket.
      */
     public Socket getSocket() {
-
         return (request.getSocket());
-
     }
-
 
     /**
      * Set the Socket (if any) through which this Request was received.
@@ -262,21 +213,15 @@ public abstract class RequestWrapper implements Request {
      * @param socket The socket through which this request was received
      */
     public void setSocket(Socket socket) {
-
         request.setSocket(socket);
-
     }
-
 
     /**
      * Return the input stream associated with this Request.
      */
     public InputStream getStream() {
-
         return (request.getStream());
-
     }
-
 
     /**
      * Set the input stream associated with this Request.
@@ -284,21 +229,15 @@ public abstract class RequestWrapper implements Request {
      * @param stream The new input stream
      */
     public void setStream(InputStream stream) {
-
         request.setStream(stream);
-
     }
-
 
     /**
      * Return the Wrapper within which this Request is being processed.
      */
     public Wrapper getWrapper() {
-
         return (request.getWrapper());
-
     }
-
 
     /**
      * Set the Wrapper within which this Request is being processed.  This
@@ -308,14 +247,10 @@ public abstract class RequestWrapper implements Request {
      * @param wrapper The newly associated Wrapper
      */
     public void setWrapper(Wrapper wrapper) {
-
         request.setWrapper(wrapper);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Create and return a ServletInputStream to read the content
@@ -324,11 +259,8 @@ public abstract class RequestWrapper implements Request {
      * @exception IOException if an input/output error occurs
      */
     public ServletInputStream createInputStream() throws IOException {
-
         return (request.createInputStream());
-
     }
-
 
     /**
      * Perform whatever actions are required to flush and close the input
@@ -337,22 +269,16 @@ public abstract class RequestWrapper implements Request {
      * @exception IOException if an input/output error occurs
      */
     public void finishRequest() throws IOException {
-
         request.finishRequest();
-
     }
-
 
     /**
      * Release all object references, and initialize instance variables, in
      * preparation for reuse of this object.
      */
     public void recycle() {
-
         request.recycle();
-
     }
-
 
     /**
      * Set the content length associated with this Request.
@@ -360,11 +286,8 @@ public abstract class RequestWrapper implements Request {
      * @param length The new content length
      */
     public void setContentLength(int length) {
-
         request.setContentLength(length);
-
     }
-
 
     /**
      * Set the content type (and optionally the character encoding)
@@ -374,11 +297,8 @@ public abstract class RequestWrapper implements Request {
      * @param type The new content type
      */
     public void setContentType(String type) {
-
         request.setContentType(type);
-
     }
-
 
     /**
      * Set the protocol name and version associated with this Request.
@@ -386,11 +306,8 @@ public abstract class RequestWrapper implements Request {
      * @param protocol Protocol name and version
      */
     public void setProtocol(String protocol) {
-
         request.setProtocol(protocol);
-
     }
-
 
     /**
      * Set the remote IP address associated with this Request.  NOTE:  This
@@ -400,11 +317,8 @@ public abstract class RequestWrapper implements Request {
      * @param remote The remote IP address
      */
     public void setRemoteAddr(String remote) {
-
         request.setRemoteAddr(remote);
-
     }
-
 
     /**
      * Set the name of the scheme associated with this request.  Typical values
@@ -413,11 +327,8 @@ public abstract class RequestWrapper implements Request {
      * @param scheme The scheme
      */
     public void setScheme(String scheme) {
-
         request.setScheme(scheme);
-
     }
-
 
     /**
      * Set the value to be returned by <code>isSecure()</code>
@@ -426,11 +337,8 @@ public abstract class RequestWrapper implements Request {
      * @param secure The new isSecure value
      */
     public void setSecure(boolean secure) {
-
         request.setSecure(secure);
-
     }
-
 
     /**
      * Set the name of the server (virtual host) to process this request.
@@ -438,11 +346,8 @@ public abstract class RequestWrapper implements Request {
      * @param name The server name
      */
     public void setServerName(String name) {
-
         request.setServerName(name);
-
     }
-
 
     /**
      * Set the port number of the server to process this request.
@@ -450,10 +355,6 @@ public abstract class RequestWrapper implements Request {
      * @param port The server port
      */
     public void setServerPort(int port) {
-
         request.setServerPort(port);
-
     }
-
-
 }

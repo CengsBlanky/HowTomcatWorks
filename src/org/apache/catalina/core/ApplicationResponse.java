@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/ApplicationResponse.java,v 1.6 2001/07/22 20:25:08 pier Exp $
- * $Revision: 1.6 $
- * $Date: 2001/07/22 20:25:08 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/ApplicationResponse.java,v 1.6
+ * 2001/07/22 20:25:08 pier Exp $ $Revision: 1.6 $ $Date: 2001/07/22 20:25:08 $
  *
  * ====================================================================
  *
@@ -61,14 +60,11 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import javax.servlet.ServletResponse;
 import javax.servlet.ServletResponseWrapper;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * Wrapper around a <code>javax.servlet.ServletResponse</code>
@@ -87,10 +83,7 @@ import org.apache.catalina.util.StringManager;
  */
 
 class ApplicationResponse extends ServletResponseWrapper {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new wrapped response around the specified servlet response.
@@ -98,11 +91,8 @@ class ApplicationResponse extends ServletResponseWrapper {
      * @param response The servlet response being wrapped
      */
     public ApplicationResponse(ServletResponse response) {
-
         this(response, false);
-
     }
-
 
     /**
      * Construct a new wrapped response around the specified servlet response.
@@ -112,15 +102,11 @@ class ApplicationResponse extends ServletResponseWrapper {
      *  by a <code>RequestDispatcher.include()</code> call
      */
     public ApplicationResponse(ServletResponse response, boolean included) {
-
         super(response);
         setIncluded(included);
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Is this wrapped response the subject of an <code>include()</code>
@@ -128,16 +114,12 @@ class ApplicationResponse extends ServletResponseWrapper {
      */
     protected boolean included = false;
 
-
     /**
      * The string manager for this package.
      */
-    protected static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static StringManager sm = StringManager.getManager(Constants.Package);
 
     // ------------------------------------------------ ServletResponse Methods
-
 
     /**
      * Disallow <code>reset()</code> calls on a included response.
@@ -146,13 +128,10 @@ class ApplicationResponse extends ServletResponseWrapper {
      *  been committed
      */
     public void reset() {
-
         // If already committed, the wrapped response will throw ISE
         if (!included || getResponse().isCommitted())
             getResponse().reset();
-
     }
-
 
     /**
      * Disallow <code>setContentLength()</code> calls on an included response.
@@ -160,12 +139,9 @@ class ApplicationResponse extends ServletResponseWrapper {
      * @param len The new content length
      */
     public void setContentLength(int len) {
-
         if (!included)
             getResponse().setContentLength(len);
-
     }
-
 
     /**
      * Disallow <code>setContentType()</code> calls on an included response.
@@ -173,15 +149,11 @@ class ApplicationResponse extends ServletResponseWrapper {
      * @param type The new content type
      */
     public void setContentType(String type) {
-
         if (!included)
             getResponse().setContentType(type);
-
     }
 
-
     // ----------------------------------------- ServletResponseWrapper Methods
-
 
     /**
      * Set the response that we are wrapping.
@@ -189,24 +161,17 @@ class ApplicationResponse extends ServletResponseWrapper {
      * @param response The new wrapped response
      */
     public void setResponse(ServletResponse response) {
-
         super.setResponse(response);
-
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * Return the included flag for this response.
      */
     boolean isIncluded() {
-
         return (this.included);
-
     }
-
 
     /**
      * Set the included flag for this response.
@@ -214,10 +179,6 @@ class ApplicationResponse extends ServletResponseWrapper {
      * @param included The new included flag
      */
     void setIncluded(boolean included) {
-
         this.included = included;
-
     }
-
-
 }

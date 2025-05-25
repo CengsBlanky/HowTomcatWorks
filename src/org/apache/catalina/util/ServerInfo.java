@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/ServerInfo.java,v 1.1 2001/12/21 21:15:45 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2001/12/21 21:15:45 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/ServerInfo.java,v 1.1 2001/12/21
+ * 21:15:45 craigmcc Exp $ $Revision: 1.1 $ $Date: 2001/12/21 21:15:45 $
  *
  * ====================================================================
  *
@@ -61,13 +60,10 @@
  *
  */
 
-
 package org.apache.catalina.util;
-
 
 import java.io.InputStream;
 import java.util.Properties;
-
 
 /**
  * Simple utility module to make it easy to plug in the server identifier
@@ -78,10 +74,7 @@ import java.util.Properties;
  */
 
 public class ServerInfo {
-
-
     // ------------------------------------------------------- Static Variables
-
 
     /**
      * The server information String with which we identify ourselves.
@@ -89,10 +82,8 @@ public class ServerInfo {
     private static String serverInfo = null;
 
     static {
-
         try {
-            InputStream is = ServerInfo.class.getResourceAsStream
-                ("/org/apache/catalina/util/ServerInfo.properties");
+            InputStream is = ServerInfo.class.getResourceAsStream("/org/apache/catalina/util/ServerInfo.properties");
             Properties props = new Properties();
             props.load(is);
             is.close();
@@ -102,21 +93,14 @@ public class ServerInfo {
         }
         if (serverInfo == null)
             serverInfo = "Apache Tomcat";
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return the server identification for this version of Tomcat.
      */
     public static String getServerInfo() {
-
         return (serverInfo);
-
     }
-
-
 }

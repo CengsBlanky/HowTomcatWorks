@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ContextResource.java,v 1.6 2002/06/08 07:24:59 remm Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/08 07:24:59 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ContextResource.java,v 1.6
+ * 2002/06/08 07:24:59 remm Exp $ $Revision: 1.6 $ $Date: 2002/06/08 07:24:59 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
-
 
 /**
  * Representation of a resource reference for a web application, as
@@ -75,10 +72,7 @@ package org.apache.catalina.deploy;
  */
 
 public final class ContextResource {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The authorization requirement for this resource
@@ -94,7 +88,6 @@ public final class ContextResource {
         this.auth = auth;
     }
 
-
     /**
      * The description of this resource.
      */
@@ -108,7 +101,6 @@ public final class ContextResource {
         this.description = description;
     }
 
-
     /**
      * The name of this resource.
      */
@@ -121,7 +113,6 @@ public final class ContextResource {
     public void setName(String name) {
         this.name = name;
     }
-
 
     /**
      * The sharing scope of this resource factory (<code>Shareable</code>
@@ -137,7 +128,6 @@ public final class ContextResource {
         this.scope = scope;
     }
 
-
     /**
      * The type of this resource.
      */
@@ -151,15 +141,12 @@ public final class ContextResource {
         this.type = type;
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("ContextResource[");
         sb.append("name=");
         sb.append(name);
@@ -181,12 +168,9 @@ public final class ContextResource {
         }
         sb.append("]");
         return (sb.toString());
-
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * The NamingResources with which we are associated (if any).
@@ -200,6 +184,4 @@ public final class ContextResource {
     void setNamingResources(NamingResources resources) {
         this.resources = resources;
     }
-
-
 }

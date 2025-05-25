@@ -57,7 +57,6 @@
  *
  */
 
-
 package org.apache.catalina.logger;
 
 /**
@@ -68,7 +67,5 @@ package org.apache.catalina.logger;
  */
 
 public class Constants {
-
     public static final String Package = "org.apache.catalina.logger";
-
 }

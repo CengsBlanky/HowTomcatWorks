@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/SecurityClassLoad.java,v 1.1 2001/12/30 01:58:20 glenn Exp $
- * $Revision: 1.1 $
- * $Date: 2001/12/30 01:58:20 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/SecurityClassLoad.java,v 1.1
+ * 2001/12/30 01:58:20 glenn Exp $ $Revision: 1.1 $ $Date: 2001/12/30 01:58:20 $
  *
  * ====================================================================
  *
@@ -61,7 +60,6 @@
  *
  */
 
-
 package org.apache.catalina.startup;
 
 /**
@@ -74,59 +72,27 @@ package org.apache.catalina.startup;
  */
 
 public final class SecurityClassLoad {
-
-    static void securityClassLoad(ClassLoader loader)
-        throws Exception {
-
-        if( System.getSecurityManager() == null )
+    static void securityClassLoad(ClassLoader loader) throws Exception {
+        if (System.getSecurityManager() == null)
             return;
 
         String basePackage = "org.apache.catalina.";
-        loader.loadClass
-            (basePackage +
-             "core.ApplicationContext$PrivilegedGetRequestDispatcher");
-        loader.loadClass
-            (basePackage +
-             "core.ApplicationContext$PrivilegedGetResource");
-        loader.loadClass
-            (basePackage +
-             "core.ApplicationContext$PrivilegedGetResourcePaths");
-        loader.loadClass
-            (basePackage +
-             "core.ApplicationContext$PrivilegedLogMessage");
-        loader.loadClass
-            (basePackage +
-             "core.ApplicationContext$PrivilegedLogException");
-        loader.loadClass
-            (basePackage +
-             "core.ApplicationContext$PrivilegedLogThrowable");
-        loader.loadClass
-            (basePackage +
-             "core.ApplicationDispatcher$PrivilegedForward");
-        loader.loadClass
-            (basePackage +
-             "core.ApplicationDispatcher$PrivilegedInclude");
-        loader.loadClass
-            (basePackage +
-             "core.ContainerBase$PrivilegedAddChild");
-        loader.loadClass
-            (basePackage +
-             "connector.HttpRequestBase$PrivilegedGetSession");
-        loader.loadClass
-            (basePackage +
-             "connector.HttpResponseBase$PrivilegedFlushBuffer");
-        loader.loadClass
-            (basePackage +
-             "loader.WebappClassLoader$PrivilegedFindResource");
-        loader.loadClass
-            (basePackage + "session.StandardSession");
-        loader.loadClass
-            (basePackage + "util.CookieTools");
-        loader.loadClass
-            (basePackage + "util.URL");
+        loader.loadClass(basePackage + "core.ApplicationContext$PrivilegedGetRequestDispatcher");
+        loader.loadClass(basePackage + "core.ApplicationContext$PrivilegedGetResource");
+        loader.loadClass(basePackage + "core.ApplicationContext$PrivilegedGetResourcePaths");
+        loader.loadClass(basePackage + "core.ApplicationContext$PrivilegedLogMessage");
+        loader.loadClass(basePackage + "core.ApplicationContext$PrivilegedLogException");
+        loader.loadClass(basePackage + "core.ApplicationContext$PrivilegedLogThrowable");
+        loader.loadClass(basePackage + "core.ApplicationDispatcher$PrivilegedForward");
+        loader.loadClass(basePackage + "core.ApplicationDispatcher$PrivilegedInclude");
+        loader.loadClass(basePackage + "core.ContainerBase$PrivilegedAddChild");
+        loader.loadClass(basePackage + "connector.HttpRequestBase$PrivilegedGetSession");
+        loader.loadClass(basePackage + "connector.HttpResponseBase$PrivilegedFlushBuffer");
+        loader.loadClass(basePackage + "loader.WebappClassLoader$PrivilegedFindResource");
+        loader.loadClass(basePackage + "session.StandardSession");
+        loader.loadClass(basePackage + "util.CookieTools");
+        loader.loadClass(basePackage + "util.URL");
         loader.loadClass(basePackage + "util.Enumerator");
         loader.loadClass("javax.servlet.http.Cookie");
-
     }
 }
-

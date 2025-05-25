@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/http10/HttpResponseImpl.java,v 1.4 2002/03/18 07:15:40 remm Exp $
- * $Revision: 1.4 $
- * $Date: 2002/03/18 07:15:40 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/http10/HttpResponseImpl.java,v 1.4
+ * 2002/03/18 07:15:40 remm Exp $ $Revision: 1.4 $ $Date: 2002/03/18 07:15:40 $
  *
  * ====================================================================
  *
@@ -61,12 +61,9 @@
  *
  */
 
-
 package org.apache.catalina.connector.http10;
 
-
 import org.apache.catalina.connector.HttpResponseBase;
-
 
 /**
  * Implementation of <b>HttpResponse</b> specific to the HTTP connector.
@@ -76,22 +73,15 @@ import org.apache.catalina.connector.HttpResponseBase;
  * @deprecated
  */
 
-final class HttpResponseImpl
-    extends HttpResponseBase {
-
-
+final class HttpResponseImpl extends HttpResponseBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Descriptive information about this Response implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.connector.http10.HttpResponseImpl/1.0";
-
+    protected static final String info = "org.apache.catalina.connector.http10.HttpResponseImpl/1.0";
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Response implementation and
@@ -99,11 +89,8 @@ final class HttpResponseImpl
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo() {
-
         return (info);
-
     }
-
 
     // ------------------------------------------------------ Protected Methods
 
@@ -114,9 +101,8 @@ final class HttpResponseImpl
      * @return The &quot;HTTP/1.0&quot; string.
      */
     protected String getProtocol() {
-        return("HTTP/1.0");
+        return ("HTTP/1.0");
     }
-
 
     // --------------------------------------------------------- Public Methods
 
@@ -125,10 +111,6 @@ final class HttpResponseImpl
      * preparation for reuse of this object.
      */
     public void recycle() {
-
         super.recycle();
-
     }
-
-
 }

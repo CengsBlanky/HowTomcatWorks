@@ -58,23 +58,21 @@
  */
 package org.apache.catalina.net;
 
+import com.sun.net.ssl.KeyManagerFactory;
+import com.sun.net.ssl.SSLContext;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.KeyManagementException;
 import java.security.Security;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import javax.net.ssl.SSLServerSocket;
-
-import com.sun.net.ssl.KeyManagerFactory;
-import com.sun.net.ssl.SSLContext;
-
 
 /**
  * Socket factory for SSL sockets, using the Java Server Sockets Extension
@@ -104,41 +102,31 @@ import com.sun.net.ssl.SSLContext;
  * @author Craig McClanahan
  */
 
-public class SSLServerSocketFactory
-    implements org.apache.catalina.net.ServerSocketFactory {
-
-
+public class SSLServerSocketFactory implements org.apache.catalina.net.ServerSocketFactory {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The name of our protocol handler package for the "https:" protocol.
      */
-    private static final String PROTOCOL_HANDLER =
-        "com.sun.net.ssl.internal.www.protocol";
-
+    private static final String PROTOCOL_HANDLER = "com.sun.net.ssl.internal.www.protocol";
 
     /**
      * The name of the system property containing a "|" delimited list of
      * protocol handler packages.
      */
-    private static final String PROTOCOL_PACKAGES =
-        "java.protocol.handler.pkgs";
+    private static final String PROTOCOL_PACKAGES = "java.protocol.handler.pkgs";
 
     /**
      * The configured socket factory.
      */
     private javax.net.ssl.SSLServerSocketFactory sslProxy = null;
 
-
     /**
      * The trust manager factory used with JSSE 1.0.1.
      */
     //    TrustManagerFactory trustManagerFactory = null;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Certificate encoding algorithm to be used.
@@ -153,7 +141,6 @@ public class SSLServerSocketFactory
         this.algorithm = algorithm;
     }
 
-
     /**
      * Should we require client authentication?
      */
@@ -167,29 +154,23 @@ public class SSLServerSocketFactory
         this.clientAuth = clientAuth;
     }
 
-
     /**
      * The internal represenation of the key store file that contains
      * our server certificate.
      */
     private KeyStore keyStore = null;
 
-    public KeyStore getKeyStore()
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException,UnrecoverableKeyException,
-           KeyManagementException
-    {
+    public KeyStore getKeyStore() throws IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException,
+                                         UnrecoverableKeyException, KeyManagementException {
         if (sslProxy == null)
             initialize();
         return (this.keyStore);
     }
 
-
     /**
      * Pathname to the key store file to be used.
      */
-    private String keystoreFile =
-        System.getProperty("user.home") + File.separator + ".keystore";
+    private String keystoreFile = System.getProperty("user.home") + File.separator + ".keystore";
 
     public String getKeystoreFile() {
         return (this.keystoreFile);
@@ -198,11 +179,9 @@ public class SSLServerSocketFactory
     public void setKeystoreFile(String keystoreFile) {
         File file = new File(keystoreFile);
         if (!file.isAbsolute())
-            file = new File(System.getProperty("catalina.base"),
-                            keystoreFile);
+            file = new File(System.getProperty("catalina.base"), keystoreFile);
         this.keystoreFile = file.getAbsolutePath();
     }
-
 
     /**
      * Password for accessing the key store file.
@@ -212,7 +191,6 @@ public class SSLServerSocketFactory
     public void setKeystorePass(String keystorePass) {
         this.keystorePass = keystorePass;
     }
-
 
     /**
      * Storeage type of the key store file to be used.
@@ -227,7 +205,6 @@ public class SSLServerSocketFactory
         this.keystoreType = keystoreType;
     }
 
-
     /**
      * SSL protocol variant to use.
      */
@@ -241,9 +218,7 @@ public class SSLServerSocketFactory
         this.protocol = protocol;
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return a server socket that uses all network interfaces on the host,
@@ -263,21 +238,15 @@ public class SSLServerSocketFactory
      * @exception KeyManagementException     problem in the key management
      *                                       layer
      */
-    public ServerSocket createSocket(int port)
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException, UnrecoverableKeyException,
-           KeyManagementException
-    {
-
+    public ServerSocket createSocket(int port) throws IOException, KeyStoreException, NoSuchAlgorithmException,
+                                                      CertificateException, UnrecoverableKeyException,
+                                                      KeyManagementException {
         if (sslProxy == null)
             initialize();
-        ServerSocket socket =
-            sslProxy.createServerSocket(port);
+        ServerSocket socket = sslProxy.createServerSocket(port);
         initServerSocket(socket);
         return (socket);
-
     }
-
 
     /**
      * Return a server socket that uses all network interfaces on the host,
@@ -299,21 +268,15 @@ public class SSLServerSocketFactory
      * @exception KeyManagementException     problem in the key management
      *                                       layer
      */
-    public ServerSocket createSocket(int port, int backlog)
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException, UnrecoverableKeyException,
-           KeyManagementException
-    {
-
+    public ServerSocket createSocket(int port, int backlog) throws IOException, KeyStoreException,
+                                                                   NoSuchAlgorithmException, CertificateException,
+                                                                   UnrecoverableKeyException, KeyManagementException {
         if (sslProxy == null)
             initialize();
-        ServerSocket socket =
-            sslProxy.createServerSocket(port, backlog);
+        ServerSocket socket = sslProxy.createServerSocket(port, backlog);
         initServerSocket(socket);
         return (socket);
-
     }
-
 
     /**
      * Return a server socket that uses the specified interface on the host,
@@ -336,25 +299,17 @@ public class SSLServerSocketFactory
      * @exception KeyManagementException     problem in the key management
      *                                       layer
      */
-    public ServerSocket createSocket(int port, int backlog,
-                                     InetAddress ifAddress)
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException, UnrecoverableKeyException,
-           KeyManagementException
-    {
-
+    public ServerSocket createSocket(int port, int backlog, InetAddress ifAddress)
+      throws IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException,
+             KeyManagementException {
         if (sslProxy == null)
             initialize();
-        ServerSocket socket =
-            sslProxy.createServerSocket(port, backlog, ifAddress);
+        ServerSocket socket = sslProxy.createServerSocket(port, backlog, ifAddress);
         initServerSocket(socket);
         return (socket);
-
     }
 
-
     // -------------------------------------------------------- Private Methods
-
 
     /**
      * Initialize objects that will be required to create sockets.
@@ -370,33 +325,25 @@ public class SSLServerSocketFactory
      * @exception KeyManagementException     problem in the key management
      *                                       layer
      */
-    private synchronized void initialize()
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException, UnrecoverableKeyException,
-           KeyManagementException
-    {
-
+    private synchronized void initialize() throws IOException, KeyStoreException, NoSuchAlgorithmException,
+                                                  CertificateException, UnrecoverableKeyException,
+                                                  KeyManagementException {
         initHandler();
         initKeyStore();
         initProxy();
-
     }
-
 
     /**
      * Register our URLStreamHandler for the "https:" protocol.
      */
     private void initHandler() {
-
         String packages = System.getProperty(PROTOCOL_PACKAGES);
         if (packages == null)
             packages = PROTOCOL_HANDLER;
         else if (packages.indexOf(PROTOCOL_HANDLER) < 0)
             packages += "|" + PROTOCOL_HANDLER;
         System.setProperty(PROTOCOL_PACKAGES, packages);
-
     }
-
 
     /**
      * Initialize the internal representation of the key store file.
@@ -408,11 +355,7 @@ public class SSLServerSocketFactory
      *                                       by current provider
      * @exception CertificateException       general certificate error
      */
-    private void initKeyStore()
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException
-    {
-
+    private void initKeyStore() throws IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException {
         FileInputStream istream = null;
 
         try {
@@ -428,12 +371,10 @@ public class SSLServerSocketFactory
         } catch (CertificateException ce) {
             throw ce;
         } finally {
-            if ( istream != null )
+            if (istream != null)
                 istream.close();
         }
-
     }
-
 
     /**
      * Initialize the SSL socket factory.
@@ -448,14 +389,11 @@ public class SSLServerSocketFactory
      *                                       layer
      */
     private void initProxy()
-    throws KeyStoreException, NoSuchAlgorithmException,
-           UnrecoverableKeyException, KeyManagementException
-    {
-
+      throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException, KeyManagementException {
         // Register the JSSE security Provider (if it is not already there)
         try {
-            Security.addProvider((java.security.Provider)
-                Class.forName("com.sun.net.ssl.internal.ssl.Provider").newInstance());
+            Security.addProvider(
+              (java.security.Provider) Class.forName("com.sun.net.ssl.internal.ssl.Provider").newInstance());
         } catch (Throwable t) {
             ;
         }
@@ -464,8 +402,7 @@ public class SSLServerSocketFactory
         SSLContext context = SSLContext.getInstance(protocol);
 
         // Create the key manager factory used to extract the server key
-        KeyManagerFactory keyManagerFactory =
-            KeyManagerFactory.getInstance(algorithm);
+        KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(algorithm);
         keyManagerFactory.init(keyStore, keystorePass.toCharArray());
 
         // Create the trust manager factory used for checking certificates
@@ -475,14 +412,11 @@ public class SSLServerSocketFactory
         */
 
         // Initialize the context with the key managers
-        context.init(keyManagerFactory.getKeyManagers(), null,
-                     new java.security.SecureRandom());
+        context.init(keyManagerFactory.getKeyManagers(), null, new java.security.SecureRandom());
 
         // Create the proxy and return
         sslProxy = context.getServerSocketFactory();
-
     }
-
 
     /**
      * Set the requested properties for this server socket.
@@ -490,7 +424,6 @@ public class SSLServerSocketFactory
      * @param ssocket The server socket to be configured
      */
     private void initServerSocket(ServerSocket ssocket) {
-
         SSLServerSocket socket = (SSLServerSocket) ssocket;
 
         // Enable all available cipher suites when the socket is connected
@@ -499,8 +432,5 @@ public class SSLServerSocketFactory
 
         // Set client authentication if necessary
         socket.setNeedClientAuth(clientAuth);
-
     }
-
-
 }

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/MemoryRuleSet.java,v 1.2 2002/02/08 16:19:57 craigmcc Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/08 16:19:57 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/MemoryRuleSet.java,v 1.2
+ * 2002/02/08 16:19:57 craigmcc Exp $ $Revision: 1.2 $ $Date: 2002/02/08 16:19:57 $
  *
  * ====================================================================
  *
@@ -59,15 +58,12 @@
  *
  */
 
-
 package org.apache.catalina.realm;
-
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rule;
 import org.apache.commons.digester.RuleSetBase;
 import org.xml.sax.Attributes;
-
 
 /**
  * <p><strong>RuleSet</strong> for recognizing the users defined in the
@@ -78,30 +74,22 @@ import org.xml.sax.Attributes;
  */
 
 public class MemoryRuleSet extends RuleSetBase {
-
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The matching pattern prefix to use for recognizing our elements.
      */
     protected String prefix = null;
 
-
     // ------------------------------------------------------------ Constructor
-
 
     /**
      * Construct an instance of this <code>RuleSet</code> with the default
      * matching pattern prefix.
      */
     public MemoryRuleSet() {
-
         this("tomcat-users/");
-
     }
-
 
     /**
      * Construct an instance of this <code>RuleSet</code> with the specified
@@ -111,16 +99,12 @@ public class MemoryRuleSet extends RuleSetBase {
      *  trailing slash character)
      */
     public MemoryRuleSet(String prefix) {
-
         super();
         this.namespaceURI = null;
         this.prefix = prefix;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * <p>Add the set of Rule instances defined in this RuleSet to the
@@ -132,34 +116,22 @@ public class MemoryRuleSet extends RuleSetBase {
      *  should be added.
      */
     public void addRuleInstances(Digester digester) {
-
-        digester.addRule
-            (prefix + "user",
-             new MemoryUserRule(digester));
-
+        digester.addRule(prefix + "user", new MemoryUserRule(digester));
     }
-
-
 }
-
 
 /**
  * Private class used when parsing the XML database file.
  */
 final class MemoryUserRule extends Rule {
-
-
     /**
      * Construct a new instance of this <code>Rule</code>.
      *
      * @param digester The <code>Digester</code> we are associated with.
      */
     public MemoryUserRule(Digester digester) {
-
         super(digester);
-
     }
-
 
     /**
      * Process a <code>&lt;user&gt;</code> element from the XML database file.
@@ -167,7 +139,6 @@ final class MemoryUserRule extends Rule {
      * @param attributes The attribute list for this element
      */
     public void begin(Attributes attributes) throws Exception {
-
         String username = attributes.getValue("name");
         if (username == null) {
             username = attributes.getValue("username");
@@ -175,11 +146,7 @@ final class MemoryUserRule extends Rule {
         String password = attributes.getValue("password");
         String roles = attributes.getValue("roles");
 
-        MemoryRealm realm =
-            (MemoryRealm) digester.peek(digester.getCount() - 1);
+        MemoryRealm realm = (MemoryRealm) digester.peek(digester.getCount() - 1);
         realm.addUser(username, password, roles);
-
     }
-
-
 }

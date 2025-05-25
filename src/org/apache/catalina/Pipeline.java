@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Pipeline.java,v 1.4 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.4 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Pipeline.java,v 1.4 2001/07/22 20:13:30
+ * pier Exp $ $Revision: 1.4 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,13 +60,10 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 import java.io.IOException;
 import javax.servlet.ServletException;
-
 
 /**
  * <p>Interface describing a collection of Valves that should be executed
@@ -90,17 +86,13 @@ import javax.servlet.ServletException;
  */
 
 public interface Pipeline {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * <p>Return the Valve instance that has been distinguished as the basic
      * Valve for this Pipeline (if any).
      */
     public Valve getBasic();
-
 
     /**
      * <p>Set the Valve instance that has been distinguished as the basic
@@ -116,9 +108,7 @@ public interface Pipeline {
      */
     public void setBasic(Valve valve);
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * <p>Add a new Valve to the end of the pipeline associated with this
@@ -141,14 +131,12 @@ public interface Pipeline {
      */
     public void addValve(Valve valve);
 
-
     /**
      * Return the set of Valves in the pipeline associated with this
      * Container, including the basic Valve (if any).  If there are no
      * such Valves, a zero-length array is returned.
      */
     public Valve[] getValves();
-
 
     /**
      * Cause the specified request and response to be processed by the Valves
@@ -164,9 +152,7 @@ public interface Pipeline {
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet exception is thrown
      */
-    public void invoke(Request request, Response response)
-        throws IOException, ServletException;
-
+    public void invoke(Request request, Response response) throws IOException, ServletException;
 
     /**
      * Remove the specified Valve from the pipeline associated with this
@@ -177,6 +163,4 @@ public interface Pipeline {
      * @param valve Valve to be removed
      */
     public void removeValve(Valve valve);
-
-
 }

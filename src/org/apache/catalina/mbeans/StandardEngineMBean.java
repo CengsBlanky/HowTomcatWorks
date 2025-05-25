@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/StandardEngineMBean.java,v 1.8 2002/03/08 22:01:08 amyroh Exp $
- * $Revision: 1.8 $
- * $Date: 2002/03/08 22:01:08 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/StandardEngineMBean.java,v 1.8
+ * 2002/03/08 22:01:08 amyroh Exp $ $Revision: 1.8 $ $Date: 2002/03/08 22:01:08 $
  *
  * ====================================================================
  *
@@ -63,12 +62,10 @@
 
 package org.apache.catalina.mbeans;
 
-
 import javax.management.MBeanException;
 import javax.management.MBeanServer;
 import javax.management.RuntimeOperationsException;
 import org.apache.commons.modeler.BaseModelMBean;
-
 
 /**
  * <p>A <strong>ModelMBean</strong> implementation for the
@@ -79,14 +76,12 @@ import org.apache.commons.modeler.BaseModelMBean;
  */
 
 public class StandardEngineMBean extends BaseModelMBean {
-
     /**
      * The <code>MBeanServer</code> for this application.
      */
     private static MBeanServer mserver = MBeanUtils.createServer();
-    
-    // ----------------------------------------------------------- Constructors
 
+    // ----------------------------------------------------------- Constructors
 
     /**
      * Construct a <code>ModelMBean</code> with default
@@ -97,19 +92,11 @@ public class StandardEngineMBean extends BaseModelMBean {
      * @exception RuntimeOperationsException if an IllegalArgumentException
      *  occurs
      */
-    public StandardEngineMBean()
-        throws MBeanException, RuntimeOperationsException {
-
+    public StandardEngineMBean() throws MBeanException, RuntimeOperationsException {
         super();
-
     }
-
 
     // ------------------------------------------------------------- Attributes
 
-
-
     // ------------------------------------------------------------- Operations
-
-
 }

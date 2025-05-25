@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ContextEnvironment.java,v 1.7 2002/06/08 07:24:59 remm Exp $
- * $Revision: 1.7 $
- * $Date: 2002/06/08 07:24:59 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ContextEnvironment.java,v 1.7
+ * 2002/06/08 07:24:59 remm Exp $ $Revision: 1.7 $ $Date: 2002/06/08 07:24:59 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
-
 
 /**
  * Representation of an application environment entry, as represented in
@@ -74,10 +71,7 @@ package org.apache.catalina.deploy;
  */
 
 public final class ContextEnvironment {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The description of this environment entry.
@@ -92,7 +86,6 @@ public final class ContextEnvironment {
         this.description = description;
     }
 
-
     /**
      * The name of this environment entry.
      */
@@ -105,7 +98,6 @@ public final class ContextEnvironment {
     public void setName(String name) {
         this.name = name;
     }
-
 
     /**
      * Does this environment entry allow overrides by the application
@@ -121,7 +113,6 @@ public final class ContextEnvironment {
         this.override = override;
     }
 
-
     /**
      * The type of this environment entry.
      */
@@ -134,7 +125,6 @@ public final class ContextEnvironment {
     public void setType(String type) {
         this.type = type;
     }
-
 
     /**
      * The value of this environment entry.
@@ -151,12 +141,10 @@ public final class ContextEnvironment {
 
     // --------------------------------------------------------- Public Methods
 
-
     /**
      * Return a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("ContextEnvironment[");
         sb.append("name=");
         sb.append(name);
@@ -176,12 +164,9 @@ public final class ContextEnvironment {
         sb.append(override);
         sb.append("]");
         return (sb.toString());
-
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * The NamingResources with which we are associated (if any).
@@ -195,6 +180,4 @@ public final class ContextEnvironment {
     void setNamingResources(NamingResources resources) {
         this.resources = resources;
     }
-
-
 }

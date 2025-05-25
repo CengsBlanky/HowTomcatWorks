@@ -57,19 +57,16 @@
  *
  */
 
-
 package org.apache.catalina.net;
-
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 import java.security.UnrecoverableKeyException;
-import java.security.KeyManagementException;
-
+import java.security.cert.CertificateException;
 
 /**
  * Interface that describes the common characteristics of factory classes
@@ -82,10 +79,7 @@ import java.security.KeyManagementException;
  * @author Craig R. McClanahan
  */
 public interface ServerSocketFactory {
-
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Returns a server socket which uses all network interfaces on
@@ -106,11 +100,9 @@ public interface ServerSocketFactory {
      * @exception KeyManagementException     problem in the key management
      *                                       layer (SSL only)
      */
-    public ServerSocket createSocket (int port)
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException, UnrecoverableKeyException,
-           KeyManagementException;
-
+    public ServerSocket createSocket(int port) throws IOException, KeyStoreException, NoSuchAlgorithmException,
+                                                      CertificateException, UnrecoverableKeyException,
+                                                      KeyManagementException;
 
     /**
      * Returns a server socket which uses all network interfaces on
@@ -132,11 +124,9 @@ public interface ServerSocketFactory {
      * @exception KeyManagementException     problem in the key management
      *                                       layer (SSL only)
      */
-    public ServerSocket createSocket (int port, int backlog)
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException, UnrecoverableKeyException,
-           KeyManagementException;
-
+    public ServerSocket createSocket(int port, int backlog) throws IOException, KeyStoreException,
+                                                                   NoSuchAlgorithmException, CertificateException,
+                                                                   UnrecoverableKeyException, KeyManagementException;
 
     /**
      * Returns a server socket which uses only the specified network
@@ -159,11 +149,7 @@ public interface ServerSocketFactory {
      * @exception KeyManagementException     problem in the key management
      *                                       layer (SSL only)
      */
-    public ServerSocket createSocket (int port, int backlog,
-                                      InetAddress ifAddress)
-    throws IOException, KeyStoreException, NoSuchAlgorithmException,
-           CertificateException, UnrecoverableKeyException,
-           KeyManagementException;
-
-
+    public ServerSocket createSocket(int port, int backlog, InetAddress ifAddress)
+      throws IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException,
+             KeyManagementException;
 }

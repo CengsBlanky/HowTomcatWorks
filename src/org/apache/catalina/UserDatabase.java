@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/UserDatabase.java,v 1.3 2002/02/03 00:56:57 craigmcc Exp $
- * $Revision: 1.3 $
- * $Date: 2002/02/03 00:56:57 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/UserDatabase.java,v 1.3 2002/02/03
+ * 00:56:57 craigmcc Exp $ $Revision: 1.3 $ $Date: 2002/02/03 00:56:57 $
  *
  * ====================================================================
  * The Apache Software License, Version 1.1
@@ -60,12 +59,9 @@
  *
  */
 
-
 package org.apache.catalina;
 
-
 import java.util.Iterator;
-
 
 /**
  * <p>Abstract representation of a database of {@link User}s and
@@ -79,37 +75,29 @@ import java.util.Iterator;
  */
 
 public interface UserDatabase {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the set of {@link Group}s defined in this user database.
      */
     public Iterator getGroups();
 
-
     /**
      * Return the unique global identifier of this user database.
      */
     public String getId();
-
 
     /**
      * Return the set of {@link Role}s defined in this user database.
      */
     public Iterator getRoles();
 
-
     /**
      * Return the set of {@link User}s defined in this user database.
      */
     public Iterator getUsers();
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Finalize access to this user database.
@@ -117,7 +105,6 @@ public interface UserDatabase {
      * @exception Exception if any exception is thrown during closing
      */
     public void close() throws Exception;
-
 
     /**
      * Create and return a new {@link Group} defined in this user database.
@@ -127,7 +114,6 @@ public interface UserDatabase {
      */
     public Group createGroup(String groupname, String description);
 
-
     /**
      * Create and return a new {@link Role} defined in this user database.
      *
@@ -136,7 +122,6 @@ public interface UserDatabase {
      */
     public Role createRole(String rolename, String description);
 
-
     /**
      * Create and return a new {@link User} defined in this user database.
      *
@@ -144,9 +129,7 @@ public interface UserDatabase {
      * @param password The logon password of the new user
      * @param fullName The full name of the new user
      */
-    public User createUser(String username, String password,
-                           String fullName);
-
+    public User createUser(String username, String password, String fullName);
 
     /**
      * Return the {@link Group} with the specified group name, if any;
@@ -156,7 +139,6 @@ public interface UserDatabase {
      */
     public Group findGroup(String groupname);
 
-
     /**
      * Return the {@link Role} with the specified role name, if any;
      * otherwise return <code>null</code>.
@@ -164,7 +146,6 @@ public interface UserDatabase {
      * @param rolename Name of the role to return
      */
     public Role findRole(String rolename);
-
 
     /**
      * Return the {@link User} with the specified user name, if any;
@@ -174,14 +155,12 @@ public interface UserDatabase {
      */
     public User findUser(String username);
 
-
     /**
      * Initialize access to this user database.
      *
      * @exception Exception if any exception is thrown during opening
      */
     public void open() throws Exception;
-
 
     /**
      * Remove the specified {@link Group} from this user database.
@@ -190,14 +169,12 @@ public interface UserDatabase {
      */
     public void removeGroup(Group group);
 
-
     /**
      * Remove the specified {@link Role} from this user database.
      *
      * @param role The role to be removed
      */
     public void removeRole(Role role);
-
 
     /**
      * Remove the specified {@link User} from this user database.
@@ -206,7 +183,6 @@ public interface UserDatabase {
      */
     public void removeUser(User user);
 
-
     /**
      * Save any updated information to the persistent storage location for
      * this user database.
@@ -214,6 +190,4 @@ public interface UserDatabase {
      * @exception Exception if any exception is thrown during saving
      */
     public void save() throws Exception;
-
-
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/users/MemoryUserDatabaseFactory.java,v 1.4 2002/02/03 00:56:58 craigmcc Exp $
- * $Revision: 1.4 $
- * $Date: 2002/02/03 00:56:58 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/users/MemoryUserDatabaseFactory.java,v 1.4
+ * 2002/02/03 00:56:58 craigmcc Exp $ $Revision: 1.4 $ $Date: 2002/02/03 00:56:58 $
  *
  * ====================================================================
  * The Apache Software License, Version 1.1
@@ -60,17 +60,14 @@
  *
  */
 
-
 package org.apache.catalina.users;
 
-
 import java.util.Hashtable;
-import javax.naming.Name;
 import javax.naming.Context;
-import javax.naming.Reference;
+import javax.naming.Name;
 import javax.naming.RefAddr;
+import javax.naming.Reference;
 import javax.naming.spi.ObjectFactory;
-
 
 /**
  * <p>JNDI object creation factory for <code>MemoryUserDatabase</code>
@@ -94,10 +91,7 @@ import javax.naming.spi.ObjectFactory;
  */
 
 public class MemoryUserDatabaseFactory implements ObjectFactory {
-
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * <p>Create and return a new <code>MemoryUserDatabase</code> instance
@@ -114,10 +108,7 @@ public class MemoryUserDatabaseFactory implements ObjectFactory {
      * @param environment The possibly null environment that is used in
      *  creating this object
      */
-    public Object getObjectInstance(Object obj, Name name, Context nameCtx,
-                                    Hashtable environment)
-        throws Exception {
-
+    public Object getObjectInstance(Object obj, Name name, Context nameCtx, Hashtable environment) throws Exception {
         // We only know how to deal with <code>javax.naming.Reference</code>s
         // that specify a class name of "org.apache.catalina.UserDatabase"
         if ((obj == null) || !(obj instanceof Reference)) {
@@ -142,8 +133,5 @@ public class MemoryUserDatabaseFactory implements ObjectFactory {
         database.open();
         database.save();
         return (database);
-
     }
-
-
 }

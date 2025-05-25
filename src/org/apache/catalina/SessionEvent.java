@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/SessionEvent.java,v 1.1 2001/07/29 03:43:54 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2001/07/29 03:43:54 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/SessionEvent.java,v 1.1 2001/07/29
+ * 03:43:54 craigmcc Exp $ $Revision: 1.1 $ $Date: 2001/07/29 03:43:54 $
  *
  * ====================================================================
  *
@@ -61,12 +60,9 @@
  *
  */
 
-
 package org.apache.catalina;
 
-
 import java.util.EventObject;
-
 
 /**
  * General event for notifying listeners of significant changes on a Session.
@@ -75,27 +71,21 @@ import java.util.EventObject;
  * @version $Revision: 1.1 $ $Date: 2001/07/29 03:43:54 $
  */
 
-public final class SessionEvent
-    extends EventObject {
-
-
+public final class SessionEvent extends EventObject {
     /**
      * The event data associated with this event.
      */
     private Object data = null;
-
 
     /**
      * The Session on which this event occurred.
      */
     private Session session = null;
 
-
     /**
      * The event type this instance represents.
      */
     private String type = null;
-
 
     /**
      * Construct a new SessionEvent with the specified parameters.
@@ -105,54 +95,37 @@ public final class SessionEvent
      * @param data Event data
      */
     public SessionEvent(Session session, String type, Object data) {
-
         super(session);
         this.session = session;
         this.type = type;
         this.data = data;
-
     }
-
 
     /**
      * Return the event data of this event.
      */
     public Object getData() {
-
         return (this.data);
-
     }
-
 
     /**
      * Return the Session on which this event occurred.
      */
     public Session getSession() {
-
         return (this.session);
-
     }
-
 
     /**
      * Return the event type of this event.
      */
     public String getType() {
-
         return (this.type);
-
     }
-
 
     /**
      * Return a string representation of this event.
      */
     public String toString() {
-
-        return ("SessionEvent['" + getSession() + "','" +
-                getType() + "']");
-
+        return ("SessionEvent['" + getSession() + "','" + getType() + "']");
     }
-
-
 }

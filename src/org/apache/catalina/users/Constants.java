@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/users/Constants.java,v 1.1 2002/01/20 03:00:57 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2002/01/20 03:00:57 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/users/Constants.java,v 1.1 2002/01/20
+ * 03:00:57 craigmcc Exp $ $Revision: 1.1 $ $Date: 2002/01/20 03:00:57 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.users;
-
 
 /**
  * Manifest constants for this Java package.
@@ -75,7 +72,5 @@ package org.apache.catalina.users;
  */
 
 public final class Constants {
-
     public static final String Package = "org.apache.catalina.users";
-
 }

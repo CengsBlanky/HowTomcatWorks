@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/BootstrapServiceContext.java,v 1.1 2002/09/16 15:36:54 jfclere Exp $
- * $Revision: 1.1 $
- * $Date: 2002/09/16 15:36:54 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/BootstrapServiceContext.java,v 1.1
+ * 2002/09/16 15:36:54 jfclere Exp $ $Revision: 1.1 $ $Date: 2002/09/16 15:36:54 $
  *
  * ====================================================================
  *
@@ -61,13 +61,10 @@
  *
  */
 
-
 package org.apache.catalina.startup;
-
 
 import org.apache.commons.daemon.DaemonContext;
 import org.apache.commons.daemon.DaemonController;
-
 
 /**
  * Context for the BootstrapService.

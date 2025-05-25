@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardContextMapper.java,v 1.8 2002/03/14 20:58:24 remm Exp $
- * $Revision: 1.8 $
- * $Date: 2002/03/14 20:58:24 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardContextMapper.java,v 1.8
+ * 2002/03/14 20:58:24 remm Exp $ $Revision: 1.8 $ $Date: 2002/03/14 20:58:24 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import javax.servlet.http.HttpServletRequest;
 import org.apache.catalina.Container;
@@ -72,7 +69,6 @@ import org.apache.catalina.Mapper;
 import org.apache.catalina.Request;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * Implementation of <code>Mapper</code> for a <code>Context</code>,
@@ -86,44 +82,32 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.8 $ $Date: 2002/03/14 20:58:24 $
  */
 
-public final class StandardContextMapper
-    implements Mapper {
-
-
+public final class StandardContextMapper implements Mapper {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The Container with which this Mapper is associated.
      */
     private StandardContext context = null;
 
-
     /**
      * The protocol with which this Mapper is associated.
      */
     private String protocol = null;
 
-
     /**
      * The string manager for this package.
      */
-    private static final StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    private static final StringManager sm = StringManager.getManager(Constants.Package);
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Container with which this Mapper is associated.
      */
     public Container getContainer() {
-
         return (context);
-
     }
-
 
     /**
      * Set the Container with which this Mapper is associated.
@@ -134,24 +118,17 @@ public final class StandardContextMapper
      *  acceptable to this Mapper
      */
     public void setContainer(Container container) {
-
         if (!(container instanceof StandardContext))
-            throw new IllegalArgumentException
-                (sm.getString("httpContextMapper.container"));
+            throw new IllegalArgumentException(sm.getString("httpContextMapper.container"));
         context = (StandardContext) container;
-
     }
-
 
     /**
      * Return the protocol for which this Mapper is responsible.
      */
     public String getProtocol() {
-
         return (this.protocol);
-
     }
-
 
     /**
      * Set the protocol for which this Mapper is responsible.
@@ -159,14 +136,10 @@ public final class StandardContextMapper
      * @param protocol The newly associated protocol
      */
     public void setProtocol(String protocol) {
-
         this.protocol = protocol;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return the child Container that should be used to process this Request,
@@ -180,8 +153,6 @@ public final class StandardContextMapper
      *  path cannot be URL decoded
      */
     public Container map(Request request, boolean update) {
-
-
         int debug = context.getDebug();
 
         // Has this request already been mapped?
@@ -189,16 +160,13 @@ public final class StandardContextMapper
             return (request.getWrapper());
 
         // Identify the context-relative URI to be mapped
-        String contextPath =
-            ((HttpServletRequest) request.getRequest()).getContextPath();
+        String contextPath = ((HttpServletRequest) request.getRequest()).getContextPath();
         String requestURI = ((HttpRequest) request).getDecodedRequestURI();
         String relativeURI = requestURI.substring(contextPath.length());
 
-
         if (debug >= 1)
-            context.log("Mapping contextPath='" + contextPath +
-                        "' with requestURI='" + requestURI +
-                        "' and relativeURI='" + relativeURI + "'");
+            context.log("Mapping contextPath='" + contextPath + "' with requestURI='" + requestURI
+              + "' and relativeURI='" + relativeURI + "'");
 
         // Apply the standard request URI mapping rules from the specification
         Wrapper wrapper = null;
@@ -278,18 +246,13 @@ public final class StandardContextMapper
 
         // Update the Request (if requested) and return this Wrapper
         if ((debug >= 1) && (wrapper != null))
-            context.log(" Mapped to servlet '" + wrapper.getName() +
-                        "' with servlet path '" + servletPath +
-                        "' and path info '" + pathInfo +
-                        "' and update=" + update);
+            context.log(" Mapped to servlet '" + wrapper.getName() + "' with servlet path '" + servletPath
+              + "' and path info '" + pathInfo + "' and update=" + update);
         if (update) {
             request.setWrapper(wrapper);
             ((HttpRequest) request).setServletPath(servletPath);
             ((HttpRequest) request).setPathInfo(pathInfo);
         }
         return (wrapper);
-
     }
-
-
 }

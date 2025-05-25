@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/users/MemoryGroup.java,v 1.5 2002/02/10 08:06:20 craigmcc Exp $
- * $Revision: 1.5 $
- * $Date: 2002/02/10 08:06:20 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/users/MemoryGroup.java,v 1.5 2002/02/10
+ * 08:06:20 craigmcc Exp $ $Revision: 1.5 $ $Date: 2002/02/10 08:06:20 $
  *
  * ====================================================================
  * The Apache Software License, Version 1.1
@@ -60,15 +59,12 @@
  *
  */
 
-
 package org.apache.catalina.users;
-
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.apache.catalina.Role;
 import org.apache.catalina.UserDatabase;
-
 
 /**
  * <p>Concrete implementation of {@link Group} for the
@@ -80,10 +76,7 @@ import org.apache.catalina.UserDatabase;
  */
 
 public class MemoryGroup extends AbstractGroup {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Package-private constructor used by the factory method in
@@ -93,62 +86,47 @@ public class MemoryGroup extends AbstractGroup {
      * @param groupname Group name of this group
      * @param description Description of this group
      */
-    MemoryGroup(MemoryUserDatabase database,
-                String groupname, String description) {
-
+    MemoryGroup(MemoryUserDatabase database, String groupname, String description) {
         super();
         this.database = database;
         setGroupname(groupname);
         setDescription(description);
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The {@link MemoryUserDatabase} that owns this group.
      */
     protected MemoryUserDatabase database = null;
 
-
     /**
      * The set of {@link Role}s associated with this group.
      */
     protected ArrayList roles = new ArrayList();
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the set of {@link Role}s assigned specifically to this group.
      */
     public Iterator getRoles() {
-
         synchronized (roles) {
             return (roles.iterator());
         }
-
     }
-
 
     /**
      * Return the {@link UserDatabase} within which this Group is defined.
      */
     public UserDatabase getUserDatabase() {
-
         return (this.database);
-
     }
-
 
     /**
      * Return the set of {@link User}s that are members of this group.
      */
     public Iterator getUsers() {
-
         ArrayList results = new ArrayList();
         Iterator users = database.getUsers();
         while (users.hasNext()) {
@@ -158,12 +136,9 @@ public class MemoryGroup extends AbstractGroup {
             }
         }
         return (results.iterator());
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a new {@link Role} to those assigned specifically to this group.
@@ -171,15 +146,12 @@ public class MemoryGroup extends AbstractGroup {
      * @param role The new role
      */
     public void addRole(Role role) {
-
         synchronized (roles) {
             if (!roles.contains(role)) {
                 roles.add(role);
             }
         }
-
     }
-
 
     /**
      * Is this group specifically assigned the specified {@link Role}?
@@ -187,13 +159,10 @@ public class MemoryGroup extends AbstractGroup {
      * @param role The role to check
      */
     public boolean isInRole(Role role) {
-
         synchronized (roles) {
             return (roles.contains(role));
         }
-
     }
-
 
     /**
      * Remove a {@link Role} from those assigned to this group.
@@ -201,31 +170,24 @@ public class MemoryGroup extends AbstractGroup {
      * @param role The old role
      */
     public void removeRole(Role role) {
-
         synchronized (roles) {
             roles.remove(role);
         }
-
     }
-
 
     /**
      * Remove all {@link Role}s from those assigned to this group.
      */
     public void removeRoles() {
-
         synchronized (roles) {
             roles.clear();
         }
-
     }
-
 
     /**
      * <p>Return a String representation of this group in XML format.</p>
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("<group groupname=\"");
         sb.append(groupname);
         sb.append("\"");
@@ -251,8 +213,5 @@ public class MemoryGroup extends AbstractGroup {
         }
         sb.append("/>");
         return (sb.toString());
-
     }
-
-
 }

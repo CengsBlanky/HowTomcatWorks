@@ -84,8 +84,7 @@ public class Queue {
      * empty.
      */
     public synchronized Object pull() {
-        while (isEmpty())
-            try {
+        while (isEmpty()) try {
                 wait();
             } catch (InterruptedException ex) {
             }

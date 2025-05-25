@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Lifecycle.java,v 1.6 2002/06/09 02:10:50 remm Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/09 02:10:50 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Lifecycle.java,v 1.6 2002/06/09 02:10:50
+ * remm Exp $ $Revision: 1.6 $ $Date: 2002/06/09 02:10:50 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 /**
  * Common interface for component life cycle methods.  Catalina components
@@ -76,49 +73,39 @@ package org.apache.catalina;
  */
 
 public interface Lifecycle {
-
-
     // ----------------------------------------------------- Manifest Constants
-
 
     /**
      * The LifecycleEvent type for the "component start" event.
      */
     public static final String START_EVENT = "start";
 
-
     /**
      * The LifecycleEvent type for the "component before start" event.
      */
     public static final String BEFORE_START_EVENT = "before_start";
-
 
     /**
      * The LifecycleEvent type for the "component after start" event.
      */
     public static final String AFTER_START_EVENT = "after_start";
 
-
     /**
      * The LifecycleEvent type for the "component stop" event.
      */
     public static final String STOP_EVENT = "stop";
-
 
     /**
      * The LifecycleEvent type for the "component before stop" event.
      */
     public static final String BEFORE_STOP_EVENT = "before_stop";
 
-
     /**
      * The LifecycleEvent type for the "component after stop" event.
      */
     public static final String AFTER_STOP_EVENT = "after_stop";
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a LifecycleEvent listener to this component.
@@ -127,13 +114,11 @@ public interface Lifecycle {
      */
     public void addLifecycleListener(LifecycleListener listener);
 
-
     /**
-     * Get the lifecycle listeners associated with this lifecycle. If this 
+     * Get the lifecycle listeners associated with this lifecycle. If this
      * Lifecycle has no listeners registered, a zero-length array is returned.
      */
     public LifecycleListener[] findLifecycleListeners();
-
 
     /**
      * Remove a LifecycleEvent listener from this component.
@@ -141,7 +126,6 @@ public interface Lifecycle {
      * @param listener The listener to remove
      */
     public void removeLifecycleListener(LifecycleListener listener);
-
 
     /**
      * Prepare for the beginning of active use of the public methods of this
@@ -154,7 +138,6 @@ public interface Lifecycle {
      */
     public void start() throws LifecycleException;
 
-
     /**
      * Gracefully terminate the active use of the public methods of this
      * component.  This method should be the last one called on a given
@@ -165,6 +148,4 @@ public interface Lifecycle {
      *  that needs to be reported
      */
     public void stop() throws LifecycleException;
-
-
 }

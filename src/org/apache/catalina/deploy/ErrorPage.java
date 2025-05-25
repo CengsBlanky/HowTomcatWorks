@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ErrorPage.java,v 1.4 2001/07/22 20:25:10 pier Exp $
- * $Revision: 1.4 $
- * $Date: 2001/07/22 20:25:10 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ErrorPage.java,v 1.4 2001/07/22
+ * 20:25:10 pier Exp $ $Revision: 1.4 $ $Date: 2001/07/22 20:25:10 $
  *
  * ====================================================================
  *
@@ -61,12 +60,9 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
 
-
 import org.apache.catalina.util.RequestUtil;
-
 
 /**
  * Representation of an error page element for a web application,
@@ -78,41 +74,31 @@ import org.apache.catalina.util.RequestUtil;
  */
 
 public final class ErrorPage {
-
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The error (status) code for which this error page is active.
      */
     private int errorCode = 0;
 
-
     /**
      * The exception type for which this error page is active.
      */
     private String exceptionType = null;
-
 
     /**
      * The context-relative location to handle this error or exception.
      */
     private String location = null;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the error code.
      */
     public int getErrorCode() {
-
         return (this.errorCode);
-
     }
-
 
     /**
      * Set the error code.
@@ -120,11 +106,8 @@ public final class ErrorPage {
      * @param errorCode The new error code
      */
     public void setErrorCode(int errorCode) {
-
         this.errorCode = errorCode;
-
     }
-
 
     /**
      * Set the error code (hack for default XmlMapper data type).
@@ -132,25 +115,19 @@ public final class ErrorPage {
      * @param errorCode The new error code
      */
     public void setErrorCode(String errorCode) {
-
         try {
             this.errorCode = Integer.parseInt(errorCode);
         } catch (Throwable t) {
             this.errorCode = 0;
         }
-
     }
-
 
     /**
      * Return the exception type.
      */
     public String getExceptionType() {
-
         return (this.exceptionType);
-
     }
-
 
     /**
      * Set the exception type.
@@ -158,21 +135,15 @@ public final class ErrorPage {
      * @param exceptionType The new exception type
      */
     public void setExceptionType(String exceptionType) {
-
         this.exceptionType = exceptionType;
-
     }
-
 
     /**
      * Return the location.
      */
     public String getLocation() {
-
         return (this.location);
-
     }
-
 
     /**
      * Set the location.
@@ -180,23 +151,18 @@ public final class ErrorPage {
      * @param location The new location
      */
     public void setLocation(String location) {
-
         //        if ((location == null) || !location.startsWith("/"))
         //            throw new IllegalArgumentException
         //                ("Error Page Location must start with a '/'");
         this.location = RequestUtil.URLDecode(location);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Render a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("ErrorPage[");
         if (exceptionType == null) {
             sb.append("errorCode=");
@@ -209,8 +175,5 @@ public final class ErrorPage {
         sb.append(location);
         sb.append("]");
         return (sb.toString());
-
     }
-
-
 }

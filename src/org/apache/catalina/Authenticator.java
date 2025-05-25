@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Authenticator.java,v 1.3 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Authenticator.java,v 1.3 2001/07/22
+ * 20:13:30 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 /**
  * An <b>Authenticator</b> is a component (usually a Valve or Container) that
@@ -76,7 +73,4 @@ package org.apache.catalina;
  * @version $Revision: 1.3 $ $Date: 2001/07/22 20:13:30 $
  */
 
-public interface Authenticator {
-
-
-}
+public interface Authenticator {}

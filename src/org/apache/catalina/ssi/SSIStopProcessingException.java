@@ -1,8 +1,8 @@
 /*
  * SSIStopProcessingException.java
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/SSIStopProcessingException.java,v 1.1 2002/05/24 04:38:58 billbarker Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/24 04:38:58 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/SSIStopProcessingException.java,v 1.1
+ * 2002/05/24 04:38:58 billbarker Exp $ $Revision: 1.1 $ $Date: 2002/05/24 04:38:58 $
  *
  * ====================================================================
  *
@@ -70,5 +70,4 @@ package org.apache.catalina.ssi;
  * @author Dan Sandberg
  * @version $Revision: 1.1 $, $Date: 2002/05/24 04:38:58 $
  */
-public class SSIStopProcessingException extends Exception {
-}
+public class SSIStopProcessingException extends Exception {}

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/logger/SystemOutLogger.java,v 1.3 2002/04/26 21:09:06 craigmcc Exp $
- * $Revision: 1.3 $
- * $Date: 2002/04/26 21:09:06 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/logger/SystemOutLogger.java,v 1.3
+ * 2002/04/26 21:09:06 craigmcc Exp $ $Revision: 1.3 $ $Date: 2002/04/26 21:09:06 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.logger;
-
 
 /**
  * Simple implementation of <b>Logger</b> that writes to System.out.
@@ -74,22 +71,15 @@ package org.apache.catalina.logger;
  * @version $Revision: 1.3 $ $Date: 2002/04/26 21:09:06 $
  */
 
-public class SystemOutLogger
-    extends LoggerBase {
-
-
+public class SystemOutLogger extends LoggerBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The descriptive information about this implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.logger.SystemOutLogger/1.0";
-
+    protected static final String info = "org.apache.catalina.logger.SystemOutLogger/1.0";
 
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Writes the specified message to a servlet log file, usually an event
@@ -100,10 +90,6 @@ public class SystemOutLogger
      *  to the log file
      */
     public void log(String msg) {
-
         System.out.println(msg);
-
     }
-
-
 }

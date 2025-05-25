@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/RequestUtil.java,v 1.19 2002/02/21 22:51:55 remm Exp $
- * $Revision: 1.19 $
- * $Date: 2002/02/21 22:51:55 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/RequestUtil.java,v 1.19 2002/02/21
+ * 22:51:55 remm Exp $ $Revision: 1.19 $ $Date: 2002/02/21 22:51:55 $
  *
  * ====================================================================
  *
@@ -61,7 +60,6 @@
  *
  */
 
-
 package org.apache.catalina.util;
 
 import java.io.UnsupportedEncodingException;
@@ -70,7 +68,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TimeZone;
 import javax.servlet.http.Cookie;
-
 
 /**
  * General purpose request parsing and encoding utility methods.
@@ -81,18 +78,14 @@ import javax.servlet.http.Cookie;
  */
 
 public final class RequestUtil {
-
-
     /**
      * The DateFormat to use for generating readable dates in cookies.
      */
-    private static SimpleDateFormat format =
-        new SimpleDateFormat(" EEEE, dd-MMM-yy kk:mm:ss zz");
+    private static SimpleDateFormat format = new SimpleDateFormat(" EEEE, dd-MMM-yy kk:mm:ss zz");
 
     static {
         format.setTimeZone(TimeZone.getTimeZone("GMT"));
     }
-
 
     /**
      * Encode a cookie as per RFC 2109.  The resulting string can be used
@@ -102,8 +95,7 @@ public final class RequestUtil {
      * @return A string following RFC 2109.
      */
     public static String encodeCookie(Cookie cookie) {
-
-        StringBuffer buf = new StringBuffer( cookie.getName() );
+        StringBuffer buf = new StringBuffer(cookie.getName());
         buf.append("=");
         buf.append(cookie.getValue());
 
@@ -145,7 +137,6 @@ public final class RequestUtil {
         return (buf.toString());
     }
 
-
     /**
      * Filter the specified message string for characters that are sensitive
      * in HTML.  This avoids potential attacks caused by including JavaScript
@@ -154,7 +145,6 @@ public final class RequestUtil {
      * @param message The message string to be filtered
      */
     public static String filter(String message) {
-
         if (message == null)
             return (null);
 
@@ -163,26 +153,24 @@ public final class RequestUtil {
         StringBuffer result = new StringBuffer(content.length + 50);
         for (int i = 0; i < content.length; i++) {
             switch (content[i]) {
-            case '<':
-                result.append("&lt;");
-                break;
-            case '>':
-                result.append("&gt;");
-                break;
-            case '&':
-                result.append("&amp;");
-                break;
-            case '"':
-                result.append("&quot;");
-                break;
-            default:
-                result.append(content[i]);
+                case '<':
+                    result.append("&lt;");
+                    break;
+                case '>':
+                    result.append("&gt;");
+                    break;
+                case '&':
+                    result.append("&amp;");
+                    break;
+                case '"':
+                    result.append("&quot;");
+                    break;
+                default:
+                    result.append(content[i]);
             }
         }
         return (result.toString());
-
     }
-
 
     /**
      * Normalize a relative URI path that may have relative values ("/./",
@@ -193,7 +181,6 @@ public final class RequestUtil {
      * @param path Relative path to be normalized
      */
     public static String normalize(String path) {
-
         if (path == null)
             return null;
 
@@ -212,8 +199,7 @@ public final class RequestUtil {
             int index = normalized.indexOf("//");
             if (index < 0)
                 break;
-            normalized = normalized.substring(0, index) +
-                normalized.substring(index + 1);
+            normalized = normalized.substring(0, index) + normalized.substring(index + 1);
         }
 
         // Resolve occurrences of "/./" in the normalized path
@@ -221,8 +207,7 @@ public final class RequestUtil {
             int index = normalized.indexOf("/./");
             if (index < 0)
                 break;
-            normalized = normalized.substring(0, index) +
-                normalized.substring(index + 2);
+            normalized = normalized.substring(0, index) + normalized.substring(index + 2);
         }
 
         // Resolve occurrences of "/../" in the normalized path
@@ -231,17 +216,14 @@ public final class RequestUtil {
             if (index < 0)
                 break;
             if (index == 0)
-                return (null);  // Trying to go outside our context
+                return (null); // Trying to go outside our context
             int index2 = normalized.lastIndexOf('/', index - 1);
-            normalized = normalized.substring(0, index2) +
-                normalized.substring(index + 3);
+            normalized = normalized.substring(0, index2) + normalized.substring(index + 3);
         }
 
         // Return the normalized path that we have completed
         return (normalized);
-
     }
-
 
     /**
      * Parse the character encoding from the specified content type header.
@@ -251,7 +233,6 @@ public final class RequestUtil {
      * @param contentType a content type header
      */
     public static String parseCharacterEncoding(String contentType) {
-
         if (contentType == null)
             return (null);
         int start = contentType.indexOf("charset=");
@@ -262,13 +243,10 @@ public final class RequestUtil {
         if (end >= 0)
             encoding = encoding.substring(0, end);
         encoding = encoding.trim();
-        if ((encoding.length() > 2) && (encoding.startsWith("\""))
-            && (encoding.endsWith("\"")))
+        if ((encoding.length() > 2) && (encoding.startsWith("\"")) && (encoding.endsWith("\"")))
             encoding = encoding.substring(1, encoding.length() - 1);
         return (encoding.trim());
-
     }
-
 
     /**
      * Parse a cookie header into an array of cookies according to RFC 2109.
@@ -276,7 +254,6 @@ public final class RequestUtil {
      * @param header Value of an HTTP "Cookie" header
      */
     public static Cookie[] parseCookieHeader(String header) {
-
         if ((header == null) || (header.length() < 1))
             return (new Cookie[0]);
 
@@ -296,7 +273,7 @@ public final class RequestUtil {
                 int equals = token.indexOf('=');
                 if (equals > 0) {
                     String name = token.substring(0, equals).trim();
-                    String value = token.substring(equals+1).trim();
+                    String value = token.substring(equals + 1).trim();
                     cookies.add(new Cookie(name, value));
                 }
             } catch (Throwable e) {
@@ -305,9 +282,7 @@ public final class RequestUtil {
         }
 
         return ((Cookie[]) cookies.toArray(new Cookie[cookies.size()]));
-
     }
-
 
     /**
      * Append request parameters from the specified String to the specified
@@ -326,18 +301,14 @@ public final class RequestUtil {
      *
      * @exception IllegalArgumentException if the data is malformed
      */
-    public static void parseParameters(Map map, String data, String encoding)
-        throws UnsupportedEncodingException {
-
+    public static void parseParameters(Map map, String data, String encoding) throws UnsupportedEncodingException {
         if ((data != null) && (data.length() > 0)) {
             int len = data.length();
             byte[] bytes = new byte[len];
             data.getBytes(0, len, bytes, 0);
             parseParameters(map, bytes, encoding);
         }
-
     }
-
 
     /**
      * Decode and return the specified URL-encoded String.
@@ -351,11 +322,8 @@ public final class RequestUtil {
      * by a valid 2-digit hexadecimal number
      */
     public static String URLDecode(String str) {
-
         return URLDecode(str, null);
-
     }
-
 
     /**
      * Decode and return the specified URL-encoded String.
@@ -366,7 +334,6 @@ public final class RequestUtil {
      * by a valid 2-digit hexadecimal number
      */
     public static String URLDecode(String str, String enc) {
-
         if (str == null)
             return (null);
 
@@ -375,9 +342,7 @@ public final class RequestUtil {
         str.getBytes(0, len, bytes, 0);
 
         return URLDecode(bytes, enc);
-
     }
-
 
     /**
      * Decode and return the specified URL-encoded byte array.
@@ -390,7 +355,6 @@ public final class RequestUtil {
         return URLDecode(bytes, null);
     }
 
-
     /**
      * Decode and return the specified URL-encoded byte array.
      *
@@ -400,7 +364,6 @@ public final class RequestUtil {
      * by a valid 2-digit hexadecimal number
      */
     public static String URLDecode(byte[] bytes, String enc) {
-
         if (bytes == null)
             return (null);
 
@@ -408,12 +371,11 @@ public final class RequestUtil {
         int ix = 0;
         int ox = 0;
         while (ix < len) {
-            byte b = bytes[ix++];     // Get byte to test
+            byte b = bytes[ix++]; // Get byte to test
             if (b == '+') {
-                b = (byte)' ';
+                b = (byte) ' ';
             } else if (b == '%') {
-                b = (byte) ((convertHexDigit(bytes[ix++]) << 4)
-                            + convertHexDigit(bytes[ix++]));
+                b = (byte) ((convertHexDigit(bytes[ix++]) << 4) + convertHexDigit(bytes[ix++]));
             }
             bytes[ox++] = b;
         }
@@ -425,22 +387,22 @@ public final class RequestUtil {
             }
         }
         return new String(bytes, 0, ox);
-
     }
-
 
     /**
      * Convert a byte character value to hexidecimal digit value.
      *
      * @param b the character value byte
      */
-    private static byte convertHexDigit( byte b ) {
-        if ((b >= '0') && (b <= '9')) return (byte)(b - '0');
-        if ((b >= 'a') && (b <= 'f')) return (byte)(b - 'a' + 10);
-        if ((b >= 'A') && (b <= 'F')) return (byte)(b - 'A' + 10);
+    private static byte convertHexDigit(byte b) {
+        if ((b >= '0') && (b <= '9'))
+            return (byte) (b - '0');
+        if ((b >= 'a') && (b <= 'f'))
+            return (byte) (b - 'a' + 10);
+        if ((b >= 'A') && (b <= 'F'))
+            return (byte) (b - 'A' + 10);
         return 0;
     }
-
 
     /**
      * Put name value pair in map.
@@ -450,7 +412,7 @@ public final class RequestUtil {
      * Put name and value pair in map.  When name already exist, add value
      * to array of values.
      */
-    private static void putMapEntry( Map map, String name, String value) {
+    private static void putMapEntry(Map map, String name, String value) {
         String[] newValues = null;
         String[] oldValues = (String[]) map.get(name);
         if (oldValues == null) {
@@ -463,7 +425,6 @@ public final class RequestUtil {
         }
         map.put(name, newValues);
     }
-
 
     /**
      * Append request parameters from the specified String to the specified
@@ -484,51 +445,43 @@ public final class RequestUtil {
      *
      * @exception UnsupportedEncodingException if the data is malformed
      */
-    public static void parseParameters(Map map, byte[] data, String encoding)
-        throws UnsupportedEncodingException {
-
+    public static void parseParameters(Map map, byte[] data, String encoding) throws UnsupportedEncodingException {
         if (data != null && data.length > 0) {
-            int    pos = 0;
-            int    ix = 0;
-            int    ox = 0;
+            int pos = 0;
+            int ix = 0;
+            int ox = 0;
             String key = null;
             String value = null;
             while (ix < data.length) {
                 byte c = data[ix++];
                 switch ((char) c) {
-                case '&':
-                    value = new String(data, 0, ox, encoding);
-                    if (key != null) {
-                        putMapEntry(map, key, value);
-                        key = null;
-                    }
-                    ox = 0;
-                    break;
-                case '=':
-                    key = new String(data, 0, ox, encoding);
-                    ox = 0;
-                    break;
-                case '+':
-                    data[ox++] = (byte)' ';
-                    break;
-                case '%':
-                    data[ox++] = (byte)((convertHexDigit(data[ix++]) << 4)
-                                    + convertHexDigit(data[ix++]));
-                    break;
-                default:
-                    data[ox++] = c;
+                    case '&':
+                        value = new String(data, 0, ox, encoding);
+                        if (key != null) {
+                            putMapEntry(map, key, value);
+                            key = null;
+                        }
+                        ox = 0;
+                        break;
+                    case '=':
+                        key = new String(data, 0, ox, encoding);
+                        ox = 0;
+                        break;
+                    case '+':
+                        data[ox++] = (byte) ' ';
+                        break;
+                    case '%':
+                        data[ox++] = (byte) ((convertHexDigit(data[ix++]) << 4) + convertHexDigit(data[ix++]));
+                        break;
+                    default:
+                        data[ox++] = c;
                 }
             }
-            //The last value does not end in '&'.  So save it now.
+            // The last value does not end in '&'.  So save it now.
             if (key != null) {
                 value = new String(data, 0, ox, encoding);
                 putMapEntry(map, key, value);
             }
         }
-
     }
-
-
-
 }
-

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Session.java,v 1.5 2001/07/31 02:00:02 craigmcc Exp $
- * $Revision: 1.5 $
- * $Date: 2001/07/31 02:00:02 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Session.java,v 1.5 2001/07/31 02:00:02
+ * craigmcc Exp $ $Revision: 1.5 $ $Date: 2001/07/31 02:00:02 $
  *
  * ====================================================================
  *
@@ -61,14 +60,11 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 import java.security.Principal;
 import java.util.Iterator;
 import javax.servlet.http.HttpSession;
-
 
 /**
  * A <b>Session</b> is the Catalina-internal facade for an
@@ -80,32 +76,25 @@ import javax.servlet.http.HttpSession;
  */
 
 public interface Session {
-
-
     // ----------------------------------------------------- Manifest Constants
-
 
     /**
      * The SessionEvent event type when a session is created.
      */
     public static final String SESSION_CREATED_EVENT = "createSession";
 
-
     /**
      * The SessionEvent event type when a session is destroyed.
      */
     public static final String SESSION_DESTROYED_EVENT = "destroySession";
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the authentication type used to authenticate our cached
      * Principal, if any.
      */
     public String getAuthType();
-
 
     /**
      * Set the authentication type used to authenticate our cached
@@ -115,12 +104,10 @@ public interface Session {
      */
     public void setAuthType(String authType);
 
-
     /**
      * Return the creation time for this session.
      */
     public long getCreationTime();
-
 
     /**
      * Set the creation time for this session.  This method is called by the
@@ -130,12 +117,10 @@ public interface Session {
      */
     public void setCreationTime(long time);
 
-
     /**
      * Return the session identifier for this session.
      */
     public String getId();
-
 
     /**
      * Set the session identifier for this session.
@@ -144,14 +129,12 @@ public interface Session {
      */
     public void setId(String id);
 
-
     /**
      * Return descriptive information about this Session implementation and
      * the corresponding version number, in the format
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo();
-
 
     /**
      * Return the last time the client sent a request associated with this
@@ -161,12 +144,10 @@ public interface Session {
      */
     public long getLastAccessedTime();
 
-
     /**
      * Return the Manager within which this Session is valid.
      */
     public Manager getManager();
-
 
     /**
      * Set the Manager within which this Session is valid.
@@ -175,14 +156,12 @@ public interface Session {
      */
     public void setManager(Manager manager);
 
-
     /**
      * Return the maximum time interval, in seconds, between client requests
      * before the servlet container will invalidate the session.  A negative
      * time indicates that the session should never time out.
      */
     public int getMaxInactiveInterval();
-
 
     /**
      * Set the maximum time interval, in seconds, between client requests
@@ -193,14 +172,12 @@ public interface Session {
      */
     public void setMaxInactiveInterval(int interval);
 
-
     /**
      * Set the <code>isNew</code> flag for this session.
      *
      * @param isNew The new value for the <code>isNew</code> flag
      */
     public void setNew(boolean isNew);
-
 
     /**
      * Return the authenticated Principal that is associated with this Session.
@@ -210,7 +187,6 @@ public interface Session {
      * is no current associated Principal, return <code>null</code>.
      */
     public Principal getPrincipal();
-
 
     /**
      * Set the authenticated Principal that is associated with this Session.
@@ -222,13 +198,11 @@ public interface Session {
      */
     public void setPrincipal(Principal principal);
 
-
     /**
      * Return the <code>HttpSession</code> for which this object
      * is the facade.
      */
     public HttpSession getSession();
-
 
     /**
      * Set the <code>isValid</code> flag for this session.
@@ -237,15 +211,12 @@ public interface Session {
      */
     public void setValid(boolean isValid);
 
-
     /**
      * Return the <code>isValid</code> flag for this session.
      */
     public boolean isValid();
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Update the accessed time information for this session.  This method
@@ -254,19 +225,16 @@ public interface Session {
      */
     public void access();
 
-
     /**
      * Add a session event listener to this component.
      */
     public void addSessionListener(SessionListener listener);
-
 
     /**
      * Perform the internal processing required to invalidate this session,
      * without triggering an exception if the session has already expired.
      */
     public void expire();
-
 
     /**
      * Return the object bound with the specified name to the internal notes
@@ -276,20 +244,17 @@ public interface Session {
      */
     public Object getNote(String name);
 
-
     /**
      * Return an Iterator containing the String names of all notes bindings
      * that exist for this session.
      */
     public Iterator getNoteNames();
 
-
     /**
      * Release all object references, and initialize instance variables, in
      * preparation for reuse of this object.
      */
     public void recycle();
-
 
     /**
      * Remove any object bound to the specified name in the internal notes
@@ -299,12 +264,10 @@ public interface Session {
      */
     public void removeNote(String name);
 
-
     /**
      * Remove a session event listener from this component.
      */
     public void removeSessionListener(SessionListener listener);
-
 
     /**
      * Bind an object to a specified name in the internal notes associated
@@ -314,6 +277,4 @@ public interface Session {
      * @param value Object to be bound to the specified name
      */
     public void setNote(String name, Object value);
-
-
 }

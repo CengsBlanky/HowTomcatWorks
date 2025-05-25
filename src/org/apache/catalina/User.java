@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/User.java,v 1.5 2002/02/10 08:06:19 craigmcc Exp $
- * $Revision: 1.5 $
- * $Date: 2002/02/10 08:06:19 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/User.java,v 1.5 2002/02/10 08:06:19
+ * craigmcc Exp $ $Revision: 1.5 $ $Date: 2002/02/10 08:06:19 $
  *
  * ====================================================================
  * The Apache Software License, Version 1.1
@@ -60,13 +59,10 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 import java.security.Principal;
 import java.util.Iterator;
-
 
 /**
  * <p>Abstract representation of a user in a {@link UserDatabase}.  Each user
@@ -80,16 +76,12 @@ import java.util.Iterator;
  */
 
 public interface User extends Principal {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the full name of this user.
      */
     public String getFullName();
-
 
     /**
      * Set the full name of this user.
@@ -98,12 +90,10 @@ public interface User extends Principal {
      */
     public void setFullName(String fullName);
 
-
     /**
      * Return the set of {@link Group}s to which this user belongs.
      */
     public Iterator getGroups();
-
 
     /**
      * Return the logon password of this user, optionally prefixed with the
@@ -111,7 +101,6 @@ public interface User extends Principal {
      * <code>{md5}xxxxx</code>.
      */
     public String getPassword();
-
 
     /**
      * Set the logon password of this user, optionally prefixed with the
@@ -122,25 +111,21 @@ public interface User extends Principal {
      */
     public void setPassword(String password);
 
-
     /**
      * Return the set of {@link Role}s assigned specifically to this user.
      */
     public Iterator getRoles();
-
 
     /**
      * Return the {@link UserDatabase} within which this User is defined.
      */
     public UserDatabase getUserDatabase();
 
-
     /**
      * Return the logon username of this user, which must be unique
      * within the scope of a {@link UserDatabase}.
      */
     public String getUsername();
-
 
     /**
      * Set the logon username of this user, which must be unique within
@@ -150,9 +135,7 @@ public interface User extends Principal {
      */
     public void setUsername(String username);
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a new {@link Group} to those this user belongs to.
@@ -161,7 +144,6 @@ public interface User extends Principal {
      */
     public void addGroup(Group group);
 
-
     /**
      * Add a {@link Role} to those assigned specifically to this user.
      *
@@ -169,14 +151,12 @@ public interface User extends Principal {
      */
     public void addRole(Role role);
 
-
     /**
      * Is this user in the specified {@link Group}?
      *
      * @param group The group to check
      */
     public boolean isInGroup(Group group);
-
 
     /**
      * Is this user specifically assigned the specified {@link Role}?  This
@@ -187,7 +167,6 @@ public interface User extends Principal {
      */
     public boolean isInRole(Role role);
 
-
     /**
      * Remove a {@link Group} from those this user belongs to.
      *
@@ -195,12 +174,10 @@ public interface User extends Principal {
      */
     public void removeGroup(Group group);
 
-
     /**
      * Remove all {@link Group}s from those this user belongs to.
      */
     public void removeGroups();
-
 
     /**
      * Remove a {@link Role} from those assigned to this user.
@@ -209,11 +186,8 @@ public interface User extends Principal {
      */
     public void removeRole(Role role);
 
-
     /**
      * Remove all {@link Role}s from those assigned to this user.
      */
     public void removeRoles();
-
-
 }

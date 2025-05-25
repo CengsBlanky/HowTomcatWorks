@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/Constants.java,v 1.2 2001/07/22 20:25:11 pier Exp $
- * $Revision: 1.2 $
- * $Date: 2001/07/22 20:25:11 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/Constants.java,v 1.2 2001/07/22
+ * 20:25:11 pier Exp $ $Revision: 1.2 $ $Date: 2001/07/22 20:25:11 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.realm;
-
 
 /**
  * Manifest constants for this Java package.
@@ -74,7 +71,5 @@ package org.apache.catalina.realm;
  */
 
 public final class Constants {
-
     public static final String Package = "org.apache.catalina.realm";
-
 }

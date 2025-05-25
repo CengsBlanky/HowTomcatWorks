@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/LifecycleListenerRule.java,v 1.1 2001/10/17 00:44:02 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2001/10/17 00:44:02 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/LifecycleListenerRule.java,v 1.1
+ * 2001/10/17 00:44:02 craigmcc Exp $ $Revision: 1.1 $ $Date: 2001/10/17 00:44:02 $
  *
  * ====================================================================
  *
@@ -59,16 +58,13 @@
  *
  */
 
-
 package org.apache.catalina.startup;
-
 
 import org.apache.catalina.Lifecycle;
 import org.apache.catalina.LifecycleListener;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rule;
 import org.xml.sax.Attributes;
-
 
 /**
  * <p>Rule that creates a new <code>LifecycleListener</code> instance,
@@ -77,10 +73,7 @@ import org.xml.sax.Attributes;
  */
 
 public class LifecycleListenerRule extends Rule {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new instance of this Rule.
@@ -91,18 +84,13 @@ public class LifecycleListenerRule extends Rule {
      * @param attributeName Name of the attribute that optionally
      *  includes an override name of the LifecycleListener class
      */
-    public LifecycleListenerRule(Digester digester, String listenerClass,
-                                 String attributeName) {
-
+    public LifecycleListenerRule(Digester digester, String listenerClass, String attributeName) {
         super(digester);
         this.listenerClass = listenerClass;
         this.attributeName = attributeName;
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The attribute name of an attribute that can override the
@@ -110,15 +98,12 @@ public class LifecycleListenerRule extends Rule {
      */
     private String attributeName;
 
-
     /**
      * The name of the <code>LifecycleListener</code> implementation class.
      */
     private String listenerClass;
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Handle the beginning of an XML element.
@@ -128,7 +113,6 @@ public class LifecycleListenerRule extends Rule {
      * @exception Exception if a processing error occurs
      */
     public void begin(Attributes attributes) throws Exception {
-
         // Instantiate a new LifecyleListener implementation object
         String className = listenerClass;
         if (attributeName != null) {
@@ -137,14 +121,10 @@ public class LifecycleListenerRule extends Rule {
                 className = value;
         }
         Class clazz = Class.forName(className);
-        LifecycleListener listener =
-            (LifecycleListener) clazz.newInstance();
+        LifecycleListener listener = (LifecycleListener) clazz.newInstance();
 
         // Add this LifecycleListener to our associated component
         Lifecycle lifecycle = (Lifecycle) digester.peek();
         lifecycle.addLifecycleListener(listener);
-
     }
-
-
 }

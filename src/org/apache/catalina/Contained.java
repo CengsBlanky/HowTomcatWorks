@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Contained.java,v 1.3 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Contained.java,v 1.3 2001/07/22 20:13:30
+ * pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 /**
  * <p>Decoupling interface which specifies that an implementing class is
@@ -75,17 +72,13 @@ package org.apache.catalina;
  */
 
 public interface Contained {
-
-
     //-------------------------------------------------------------- Properties
-
 
     /**
      * Return the <code>Container</code> with which this instance is associated
      * (if any); otherwise return <code>null</code>.
      */
     public Container getContainer();
-
 
     /**
      * Set the <code>Container</code> with which this instance is associated.
@@ -95,6 +88,4 @@ public interface Contained {
      *  from any Container
      */
     public void setContainer(Container container);
-
-
 }

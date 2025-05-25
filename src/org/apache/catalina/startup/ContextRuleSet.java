@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/ContextRuleSet.java,v 1.3 2001/11/08 21:03:15 remm Exp $
- * $Revision: 1.3 $
- * $Date: 2001/11/08 21:03:15 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/ContextRuleSet.java,v 1.3
+ * 2001/11/08 21:03:15 remm Exp $ $Revision: 1.3 $ $Date: 2001/11/08 21:03:15 $
  *
  * ====================================================================
  *
@@ -59,7 +58,6 @@
  *
  */
 
-
 package org.apache.catalina.startup;
 
 import java.lang.reflect.Constructor;
@@ -69,7 +67,6 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.Rule;
 import org.apache.commons.digester.RuleSetBase;
 import org.xml.sax.Attributes;
-
 
 /**
  * <p><strong>RuleSet</strong> for processing the contents of a
@@ -81,30 +78,22 @@ import org.xml.sax.Attributes;
  */
 
 public class ContextRuleSet extends RuleSetBase {
-
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The matching pattern prefix to use for recognizing our elements.
      */
     protected String prefix = null;
 
-
     // ------------------------------------------------------------ Constructor
-
 
     /**
      * Construct an instance of this <code>RuleSet</code> with the default
      * matching pattern prefix.
      */
     public ContextRuleSet() {
-
         this("");
-
     }
-
 
     /**
      * Construct an instance of this <code>RuleSet</code> with the specified
@@ -114,16 +103,12 @@ public class ContextRuleSet extends RuleSetBase {
      *  trailing slash character)
      */
     public ContextRuleSet(String prefix) {
-
         super();
         this.namespaceURI = null;
         this.prefix = prefix;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * <p>Add the set of Rule instances defined in this RuleSet to the
@@ -135,144 +120,96 @@ public class ContextRuleSet extends RuleSetBase {
      *  should be added.
      */
     public void addRuleInstances(Digester digester) {
-
         if (!isDefaultContext()) {
-            digester.addObjectCreate(prefix + "Context",
-                                     "org.apache.catalina.core.StandardContext",
-                                     "className");
+            digester.addObjectCreate(prefix + "Context", "org.apache.catalina.core.StandardContext", "className");
         } else {
-            digester.addObjectCreate(prefix + "Context",
-                                     "org.apache.catalina.core.StandardDefaultContext",
-                                     "className");
+            digester.addObjectCreate(
+              prefix + "Context", "org.apache.catalina.core.StandardDefaultContext", "className");
         }
         digester.addSetProperties(prefix + "Context");
         if (!isDefaultContext()) {
+            digester.addRule(prefix + "Context", new CopyParentClassLoaderRule(digester));
             digester.addRule(prefix + "Context",
-                             new CopyParentClassLoaderRule(digester));
-            digester.addRule(prefix + "Context",
-                             new LifecycleListenerRule
-                                 (digester,
-                                  "org.apache.catalina.startup.ContextConfig",
-                                  "configClass"));
-            digester.addSetNext(prefix + "Context",
-                                "addChild",
-                                "org.apache.catalina.Container");
+              new LifecycleListenerRule(digester, "org.apache.catalina.startup.ContextConfig", "configClass"));
+            digester.addSetNext(prefix + "Context", "addChild", "org.apache.catalina.Container");
         } else {
-            digester.addSetNext(prefix + "Context",
-                                "addDefaultContext",
-                                "org.apache.catalina.DefaultContext");
+            digester.addSetNext(prefix + "Context", "addDefaultContext", "org.apache.catalina.DefaultContext");
         }
 
-        digester.addCallMethod(prefix + "Context/InstanceListener",
-                               "addInstanceListener", 0);
+        digester.addCallMethod(prefix + "Context/InstanceListener", "addInstanceListener", 0);
 
         digester.addObjectCreate(prefix + "Context/Listener",
-                                 null, // MUST be specified in the element
-                                 "className");
+          null, // MUST be specified in the element
+          "className");
         digester.addSetProperties(prefix + "Context/Listener");
-        digester.addSetNext(prefix + "Context/Listener",
-                            "addLifecycleListener",
-                            "org.apache.catalina.LifecycleListener");
+        digester.addSetNext(
+          prefix + "Context/Listener", "addLifecycleListener", "org.apache.catalina.LifecycleListener");
 
         digester.addRule(prefix + "Context/Loader",
-                         new CreateLoaderRule
-                             (digester,
-                              "org.apache.catalina.loader.WebappLoader",
-                              "className"));
+          new CreateLoaderRule(digester, "org.apache.catalina.loader.WebappLoader", "className"));
         digester.addSetProperties(prefix + "Context/Loader");
-        digester.addSetNext(prefix + "Context/Loader",
-                            "setLoader",
-                            "org.apache.catalina.Loader");
+        digester.addSetNext(prefix + "Context/Loader", "setLoader", "org.apache.catalina.Loader");
 
         digester.addObjectCreate(prefix + "Context/Logger",
-                                 null, // MUST be specified in the element
-                                 "className");
+          null, // MUST be specified in the element
+          "className");
         digester.addSetProperties(prefix + "Context/Logger");
-        digester.addSetNext(prefix + "Context/Logger",
-                            "setLogger",
-                            "org.apache.catalina.Logger");
+        digester.addSetNext(prefix + "Context/Logger", "setLogger", "org.apache.catalina.Logger");
 
-        digester.addObjectCreate(prefix + "Context/Manager",
-                                 "org.apache.catalina.session.StandardManager",
-                                 "className");
+        digester.addObjectCreate(
+          prefix + "Context/Manager", "org.apache.catalina.session.StandardManager", "className");
         digester.addSetProperties(prefix + "Context/Manager");
-        digester.addSetNext(prefix + "Context/Manager",
-                            "setManager",
-                            "org.apache.catalina.Manager");
+        digester.addSetNext(prefix + "Context/Manager", "setManager", "org.apache.catalina.Manager");
 
         digester.addObjectCreate(prefix + "Context/Manager/Store",
-                                 null, // MUST be specified in the element
-                                 "className");
+          null, // MUST be specified in the element
+          "className");
         digester.addSetProperties(prefix + "Context/Manager/Store");
-        digester.addSetNext(prefix + "Context/Manager/Store",
-                            "setStore",
-                            "org.apache.catalina.Store");
+        digester.addSetNext(prefix + "Context/Manager/Store", "setStore", "org.apache.catalina.Store");
 
-        digester.addObjectCreate(prefix + "Context/Parameter",
-                                 "org.apache.catalina.deploy.ApplicationParameter");
+        digester.addObjectCreate(prefix + "Context/Parameter", "org.apache.catalina.deploy.ApplicationParameter");
         digester.addSetProperties(prefix + "Context/Parameter");
-        digester.addSetNext(prefix + "Context/Parameter",
-                            "addApplicationParameter",
-                            "org.apache.catalina.deploy.ApplicationParameter");
+        digester.addSetNext(
+          prefix + "Context/Parameter", "addApplicationParameter", "org.apache.catalina.deploy.ApplicationParameter");
 
         digester.addObjectCreate(prefix + "Context/Realm",
-                                 null, // MUST be specified in the element
-                                 "className");
+          null, // MUST be specified in the element
+          "className");
         digester.addSetProperties(prefix + "Context/Realm");
-        digester.addSetNext(prefix + "Context/Realm",
-                            "setRealm",
-                            "org.apache.catalina.Realm");
+        digester.addSetNext(prefix + "Context/Realm", "setRealm", "org.apache.catalina.Realm");
 
-        digester.addObjectCreate(prefix + "Context/ResourceLink",
-                                 "org.apache.catalina.deploy.ContextResourceLink");
+        digester.addObjectCreate(prefix + "Context/ResourceLink", "org.apache.catalina.deploy.ContextResourceLink");
         digester.addSetProperties(prefix + "Context/ResourceLink");
-        digester.addSetNext(prefix + "Context/ResourceLink",
-                            "addResourceLink",
-                            "org.apache.catalina.deploy.ContextResourceLink");
+        digester.addSetNext(
+          prefix + "Context/ResourceLink", "addResourceLink", "org.apache.catalina.deploy.ContextResourceLink");
 
-        digester.addObjectCreate(prefix + "Context/Resources",
-                                 "org.apache.naming.resources.FileDirContext",
-                                 "className");
+        digester.addObjectCreate(
+          prefix + "Context/Resources", "org.apache.naming.resources.FileDirContext", "className");
         digester.addSetProperties(prefix + "Context/Resources");
-        digester.addSetNext(prefix + "Context/Resources",
-                            "setResources",
-                            "javax.naming.directory.DirContext");
+        digester.addSetNext(prefix + "Context/Resources", "setResources", "javax.naming.directory.DirContext");
 
         digester.addObjectCreate(prefix + "Context/Valve",
-                                 null, // MUST be specified in the element
-                                 "className");
+          null, // MUST be specified in the element
+          "className");
         digester.addSetProperties(prefix + "Context/Valve");
-        digester.addSetNext(prefix + "Context/Valve",
-                            "addValve",
-                            "org.apache.catalina.Valve");
+        digester.addSetNext(prefix + "Context/Valve", "addValve", "org.apache.catalina.Valve");
 
-        digester.addCallMethod(prefix + "Context/WrapperLifecycle",
-                               "addWrapperLifecycle", 0);
+        digester.addCallMethod(prefix + "Context/WrapperLifecycle", "addWrapperLifecycle", 0);
 
-        digester.addCallMethod(prefix + "Context/WrapperListener",
-                               "addWrapperListener", 0);
-
+        digester.addCallMethod(prefix + "Context/WrapperListener", "addWrapperListener", 0);
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Are we processing a DefaultContext element?
      */
     protected boolean isDefaultContext() {
-
         return (prefix.endsWith("/Default"));
-
     }
-
-
 }
 
-
 // ----------------------------------------------------------- Private Classes
-
 
 /**
  * Rule that creates a new <code>Loader</code> instance, with the parent
@@ -281,14 +218,10 @@ public class ContextRuleSet extends RuleSetBase {
  */
 
 final class CreateLoaderRule extends Rule {
-
-    public CreateLoaderRule(Digester digester, String loaderClass,
-                            String attributeName) {
-
+    public CreateLoaderRule(Digester digester, String loaderClass, String attributeName) {
         super(digester);
         this.loaderClass = loaderClass;
         this.attributeName = attributeName;
-
     }
 
     private String attributeName;
@@ -296,7 +229,6 @@ final class CreateLoaderRule extends Rule {
     private String loaderClass;
 
     public void begin(Attributes attributes) throws Exception {
-
         // Look up the required parent class loader
         Container container = (Container) digester.peek();
         ClassLoader parentClassLoader = container.getParentClassLoader();
@@ -309,8 +241,8 @@ final class CreateLoaderRule extends Rule {
                 className = value;
         }
         Class clazz = Class.forName(className);
-        Class types[] = { ClassLoader.class };
-        Object args[] = { parentClassLoader };
+        Class types[] = {ClassLoader.class};
+        Object args[] = {parentClassLoader};
         Constructor constructor = clazz.getDeclaredConstructor(types);
         Loader loader = (Loader) constructor.newInstance(args);
 
@@ -318,16 +250,11 @@ final class CreateLoaderRule extends Rule {
         digester.push(loader);
         if (digester.getDebug() >= 1)
             digester.log("new " + loader.getClass().getName());
-
     }
 
     public void end() throws Exception {
-
         Loader loader = (Loader) digester.pop();
         if (digester.getDebug() >= 1)
             digester.log("pop " + loader.getClass().getName());
-
     }
-
-
 }

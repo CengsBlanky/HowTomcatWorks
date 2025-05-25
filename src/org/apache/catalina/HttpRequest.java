@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/HttpRequest.java,v 1.5 2002/03/14 20:57:20 remm Exp $
- * $Revision: 1.5 $
- * $Date: 2002/03/14 20:57:20 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/HttpRequest.java,v 1.5 2002/03/14
+ * 20:57:20 remm Exp $ $Revision: 1.5 $ $Date: 2002/03/14 20:57:20 $
  *
  * ====================================================================
  *
@@ -61,14 +60,11 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 import java.security.Principal;
 import java.util.Locale;
 import javax.servlet.http.Cookie;
-
 
 /**
  * An <b>HttpRequest</b> is the Catalina internal facade for an
@@ -80,10 +76,7 @@ import javax.servlet.http.Cookie;
  */
 
 public interface HttpRequest extends Request {
-
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a Cookie to the set of Cookies associated with this Request.
@@ -91,7 +84,6 @@ public interface HttpRequest extends Request {
      * @param cookie The new cookie
      */
     public void addCookie(Cookie cookie);
-
 
     /**
      * Add a Header to the set of Headers associated with this Request.
@@ -101,7 +93,6 @@ public interface HttpRequest extends Request {
      */
     public void addHeader(String name, String value);
 
-
     /**
      * Add a Locale to the set of preferred Locales for this Request.  The
      * first added Locale will be the first one returned by getLocales().
@@ -109,7 +100,6 @@ public interface HttpRequest extends Request {
      * @param locale The new preferred Locale
      */
     public void addLocale(Locale locale);
-
 
     /**
      * Add a parameter name and corresponding set of values to this Request.
@@ -121,30 +111,25 @@ public interface HttpRequest extends Request {
      */
     public void addParameter(String name, String values[]);
 
-
     /**
      * Clear the collection of Cookies associated with this Request.
      */
     public void clearCookies();
-
 
     /**
      * Clear the collection of Headers associated with this Request.
      */
     public void clearHeaders();
 
-
     /**
      * Clear the collection of Locales associated with this Request.
      */
     public void clearLocales();
 
-
     /**
      * Clear the collection of parameters associated with this Request.
      */
     public void clearParameters();
-
 
     /**
      * Set the authentication type used for this request, if any; otherwise
@@ -155,7 +140,6 @@ public interface HttpRequest extends Request {
      */
     public void setAuthType(String type);
 
-
     /**
      * Set the context path for this Request.  This will normally be called
      * when the associated Context is mapping the Request to a particular
@@ -165,14 +149,12 @@ public interface HttpRequest extends Request {
      */
     public void setContextPath(String path);
 
-
     /**
      * Set the HTTP request method used for this Request.
      *
      * @param method The request method
      */
     public void setMethod(String method);
-
 
     /**
      * Set the query string for this Request.  This will normally be called
@@ -181,7 +163,6 @@ public interface HttpRequest extends Request {
      * @param query The query string
      */
     public void setQueryString(String query);
-
 
     /**
      * Set the path information for this Request.  This will normally be called
@@ -192,7 +173,6 @@ public interface HttpRequest extends Request {
      */
     public void setPathInfo(String path);
 
-
     /**
      * Set a flag indicating whether or not the requested session ID for this
      * request came in through a cookie.  This is normally called by the
@@ -202,7 +182,6 @@ public interface HttpRequest extends Request {
      */
     public void setRequestedSessionCookie(boolean flag);
 
-
     /**
      * Set the requested session ID for this request.  This is normally called
      * by the HTTP Connector, when it parses the request headers.
@@ -210,7 +189,6 @@ public interface HttpRequest extends Request {
      * @param id The new session id
      */
     public void setRequestedSessionId(String id);
-
 
     /**
      * Set a flag indicating whether or not the requested session ID for this
@@ -221,7 +199,6 @@ public interface HttpRequest extends Request {
      */
     public void setRequestedSessionURL(boolean flag);
 
-
     /**
      * Set the unparsed request URI for this Request.  This will normally be
      * called by the HTTP Connector, when it parses the request headers.
@@ -230,22 +207,19 @@ public interface HttpRequest extends Request {
      */
     public void setRequestURI(String uri);
 
-
     /**
      * Set the decoded request URI.
-     * 
+     *
      * @param uri The decoded request URI
      */
     public void setDecodedRequestURI(String uri);
 
-
     /**
      * Get the decoded request URI.
-     * 
+     *
      * @return the URL decoded request URI
      */
     public String getDecodedRequestURI();
-
 
     /**
      * Set the servlet path for this Request.  This will normally be called
@@ -256,7 +230,6 @@ public interface HttpRequest extends Request {
      */
     public void setServletPath(String path);
 
-
     /**
      * Set the Principal who has been authenticated for this Request.  This
      * value is also used to calculate the value to be returned by the
@@ -265,6 +238,4 @@ public interface HttpRequest extends Request {
      * @param principal The user Principal
      */
     public void setUserPrincipal(Principal principal);
-
-
 }

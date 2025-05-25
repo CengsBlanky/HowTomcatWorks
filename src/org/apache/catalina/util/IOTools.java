@@ -1,8 +1,7 @@
 /*
  * IOTools.java
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/IOTools.java,v 1.1 2002/05/11 05:06:25 billbarker Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/11 05:06:25 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/IOTools.java,v 1.1 2002/05/11
+ * 05:06:25 billbarker Exp $ $Revision: 1.1 $ $Date: 2002/05/11 05:06:25 $
  *
  * ====================================================================
  *
@@ -63,26 +62,24 @@
  */
 package org.apache.catalina.util;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 
-
 /**
- * Contains commonly needed I/O-related methods 
+ * Contains commonly needed I/O-related methods
  *
  * @author Dan Sandberg
  */
 public class IOTools {
-    protected final static int DEFAULT_BUFFER_SIZE=4*1024; //4k
+    protected final static int DEFAULT_BUFFER_SIZE = 4 * 1024; // 4k
 
-    //Ensure non-instantiability
-    private IOTools() {
-    }
+    // Ensure non-instantiability
+    private IOTools() {}
 
-     /**
+    /**
      * Read input from reader and write it to writer until there is no more
      * input from reader.
      *
@@ -90,10 +87,9 @@ public class IOTools {
      * @param writer the writer to write to.
      * @param buf the char array to use as a bufferx
      */
-    public static void flow( Reader reader, Writer writer, char[] buf ) 
-        throws IOException {
+    public static void flow(Reader reader, Writer writer, char[] buf) throws IOException {
         int numRead;
-        while ( (numRead = reader.read(buf) ) >= 0) {
+        while ((numRead = reader.read(buf)) >= 0) {
             writer.write(buf, 0, numRead);
         }
     }
@@ -101,34 +97,31 @@ public class IOTools {
     /**
      * @see flow( Reader, Writer, char[] )
      */
-    public static void flow( Reader reader, Writer writer ) 
-        throws IOException {
+    public static void flow(Reader reader, Writer writer) throws IOException {
         char[] buf = new char[DEFAULT_BUFFER_SIZE];
-        flow( reader, writer, buf );
+        flow(reader, writer, buf);
     }
 
     /**
-     * Read input from input stream and write it to output stream 
+     * Read input from input stream and write it to output stream
      * until there is no more input from input stream.
      *
      * @param input stream the input stream to read from.
      * @param output stream the output stream to write to.
      * @param buf the byte array to use as a buffer
      */
-    public static void flow( InputStream is, OutputStream os, byte[] buf ) 
-        throws IOException {
+    public static void flow(InputStream is, OutputStream os, byte[] buf) throws IOException {
         int numRead;
-        while ( (numRead = is.read(buf) ) >= 0) {
+        while ((numRead = is.read(buf)) >= 0) {
             os.write(buf, 0, numRead);
         }
-    }  
+    }
 
     /**
      * @see flow( Reader, Writer, byte[] )
-     */ 
-    public static void flow( InputStream is, OutputStream os ) 
-        throws IOException {
+     */
+    public static void flow(InputStream is, OutputStream os) throws IOException {
         byte[] buf = new byte[DEFAULT_BUFFER_SIZE];
-        flow( is, os, buf );
+        flow(is, os, buf);
     }
 }

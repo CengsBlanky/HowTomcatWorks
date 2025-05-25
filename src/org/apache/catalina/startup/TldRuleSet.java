@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/TldRuleSet.java,v 1.1 2001/10/17 00:44:02 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2001/10/17 00:44:02 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/TldRuleSet.java,v 1.1 2001/10/17
+ * 00:44:02 craigmcc Exp $ $Revision: 1.1 $ $Date: 2001/10/17 00:44:02 $
  *
  * ====================================================================
  *
@@ -59,13 +58,10 @@
  *
  */
 
-
 package org.apache.catalina.startup;
-
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.RuleSetBase;
-
 
 /**
  * <p><strong>RuleSet</strong> for processing the contents of a tag library
@@ -76,30 +72,22 @@ import org.apache.commons.digester.RuleSetBase;
  */
 
 public class TldRuleSet extends RuleSetBase {
-
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The matching pattern prefix to use for recognizing our elements.
      */
     protected String prefix = null;
 
-
     // ------------------------------------------------------------ Constructor
-
 
     /**
      * Construct an instance of this <code>RuleSet</code> with the default
      * matching pattern prefix.
      */
     public TldRuleSet() {
-
         this("");
-
     }
-
 
     /**
      * Construct an instance of this <code>RuleSet</code> with the specified
@@ -109,16 +97,12 @@ public class TldRuleSet extends RuleSetBase {
      *  trailing slash character)
      */
     public TldRuleSet(String prefix) {
-
         super();
         this.namespaceURI = null;
         this.prefix = prefix;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * <p>Add the set of Rule instances defined in this RuleSet to the
@@ -130,11 +114,6 @@ public class TldRuleSet extends RuleSetBase {
      *  should be added.
      */
     public void addRuleInstances(Digester digester) {
-
-        digester.addCallMethod(prefix + "taglib/listener/listener-class",
-                               "addApplicationListener", 0);
-
+        digester.addCallMethod(prefix + "taglib/listener/listener-class", "addApplicationListener", 0);
     }
-
-
 }

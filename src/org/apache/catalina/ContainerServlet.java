@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ContainerServlet.java,v 1.3 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ContainerServlet.java,v 1.3 2001/07/22
+ * 20:13:30 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 /**
  * A <b>ContainerServlet</b> is a servlet that has access to Catalina
@@ -77,16 +74,12 @@ package org.apache.catalina;
  */
 
 public interface ContainerServlet {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Wrapper with which this Servlet is associated.
      */
     public Wrapper getWrapper();
-
 
     /**
      * Set the Wrapper with which this Servlet is associated.
@@ -94,6 +87,4 @@ public interface ContainerServlet {
      * @param wrapper The new associated Wrapper
      */
     public void setWrapper(Wrapper wrapper);
-
-
 }

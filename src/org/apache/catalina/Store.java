@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Store.java,v 1.4 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.4 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Store.java,v 1.4 2001/07/22 20:13:30
+ * pier Exp $ $Revision: 1.4 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,13 +60,10 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-
 
 /**
  * A <b>Store</b> is the abstraction of a Catalina component that provides
@@ -81,10 +77,7 @@ import java.io.IOException;
  */
 
 public interface Store {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Store implementation and
@@ -93,12 +86,10 @@ public interface Store {
      */
     public String getInfo();
 
-
     /**
      * Return the Manager instance associated with this Store.
      */
     public Manager getManager();
-
 
     /**
      * Set the Manager associated with this Store.
@@ -107,7 +98,6 @@ public interface Store {
      */
     public void setManager(Manager manager);
 
-
     /**
      * Return the number of Sessions present in this Store.
      *
@@ -115,9 +105,7 @@ public interface Store {
      */
     public int getSize() throws IOException;
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a property change listener to this component.
@@ -125,7 +113,6 @@ public interface Store {
      * @param listener The listener to add
      */
     public void addPropertyChangeListener(PropertyChangeListener listener);
-
 
     /**
      * Return an array containing the session identifiers of all Sessions
@@ -135,7 +122,6 @@ public interface Store {
      * @exception IOException if an input/output error occurred
      */
     public String[] keys() throws IOException;
-
 
     /**
      * Load and return the Session associated with the specified session
@@ -147,9 +133,7 @@ public interface Store {
      * @exception ClassNotFoundException if a deserialization error occurs
      * @exception IOException if an input/output error occurs
      */
-    public Session load(String id)
-        throws ClassNotFoundException, IOException;
-
+    public Session load(String id) throws ClassNotFoundException, IOException;
 
     /**
      * Remove the Session with the specified session identifier from
@@ -162,12 +146,10 @@ public interface Store {
      */
     public void remove(String id) throws IOException;
 
-
     /**
      * Remove all Sessions from this Store.
      */
     public void clear() throws IOException;
-
 
     /**
      * Remove a property change listener from this component.
@@ -175,7 +157,6 @@ public interface Store {
      * @param listener The listener to remove
      */
     public void removePropertyChangeListener(PropertyChangeListener listener);
-
 
     /**
      * Save the specified Session into this Store.  Any previously saved
@@ -186,6 +167,4 @@ public interface Store {
      * @exception IOException if an input/output error occurs
      */
     public void save(Session session) throws IOException;
-
-
 }

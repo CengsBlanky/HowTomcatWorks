@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/loader/StandardClassLoader.java,v 1.28 2002/08/06 00:16:59 glenn Exp $
- * $Revision: 1.28 $
- * $Date: 2002/08/06 00:16:59 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/loader/StandardClassLoader.java,v 1.28
+ * 2002/08/06 00:16:59 glenn Exp $ $Revision: 1.28 $ $Date: 2002/08/06 00:16:59 $
  *
  * ====================================================================
  *
@@ -61,20 +60,19 @@
  *
  */
 
-
 package org.apache.catalina.loader;
 
 import java.io.File;
 import java.io.FilePermission;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.JarURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.URLConnection;
-import java.net.URLStreamHandlerFactory;
 import java.net.URLStreamHandler;
+import java.net.URLStreamHandlerFactory;
 import java.security.AccessControlException;
 import java.security.CodeSource;
 import java.security.Permission;
@@ -88,7 +86,6 @@ import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 import org.apache.naming.JndiPermission;
-
 
 /**
  * Subclass implementation of <b>java.net.URLClassLoader</b> that knows how
@@ -114,27 +111,19 @@ import org.apache.naming.JndiPermission;
  * @version $Revision: 1.28 $ $Date: 2002/08/06 00:16:59 $
  */
 
-public class StandardClassLoader
-    extends URLClassLoader
-    implements Reloader {
-
-
+public class StandardClassLoader extends URLClassLoader implements Reloader {
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new ClassLoader with no defined repositories and no
      * parent ClassLoader.
      */
     public StandardClassLoader() {
-
         super(new URL[0]);
         this.parent = getParent();
         this.system = getSystemClassLoader();
         securityManager = System.getSecurityManager();
-
     }
-
 
     /**
      * Construct a new ClassLoader with no defined repositories and no
@@ -143,12 +132,9 @@ public class StandardClassLoader
      * @param factory the URLStreamHandlerFactory to use when creating URLs
      */
     public StandardClassLoader(URLStreamHandlerFactory factory) {
-
         super(new URL[0], null, factory);
         this.factory = factory;
-
     }
-
 
     /**
      * Construct a new ClassLoader with no defined repositories and the
@@ -157,14 +143,11 @@ public class StandardClassLoader
      * @param parent The parent ClassLoader
      */
     public StandardClassLoader(ClassLoader parent) {
-
         super((new URL[0]), parent);
         this.parent = parent;
         this.system = getSystemClassLoader();
         securityManager = System.getSecurityManager();
-
     }
-
 
     /**
      * Construct a new ClassLoader with no defined repositories and the
@@ -173,14 +156,10 @@ public class StandardClassLoader
      * @param parent The parent ClassLoader
      * @param factory the URLStreamHandlerFactory to use when creating URLs
      */
-    public StandardClassLoader(ClassLoader parent,
-                               URLStreamHandlerFactory factory) {
-
+    public StandardClassLoader(ClassLoader parent, URLStreamHandlerFactory factory) {
         super((new URL[0]), parent, factory);
         this.factory = factory;
-
     }
-
 
     /**
      * Construct a new ClassLoader with the specified repositories and
@@ -189,18 +168,14 @@ public class StandardClassLoader
      * @param repositories The initial set of repositories
      */
     public StandardClassLoader(String repositories[]) {
-
         super(convert(repositories));
         this.parent = getParent();
         this.system = getSystemClassLoader();
         securityManager = System.getSecurityManager();
         if (repositories != null) {
-            for (int i = 0; i < repositories.length; i++)
-                addRepositoryInternal(repositories[i]);
+            for (int i = 0; i < repositories.length; i++) addRepositoryInternal(repositories[i]);
         }
-
     }
-
 
     /**
      * Construct a new ClassLoader with the specified repositories and
@@ -210,18 +185,14 @@ public class StandardClassLoader
      * @param parent The parent ClassLoader
      */
     public StandardClassLoader(String repositories[], ClassLoader parent) {
-
         super(convert(repositories), parent);
         this.parent = parent;
         this.system = getSystemClassLoader();
         securityManager = System.getSecurityManager();
         if (repositories != null) {
-            for (int i = 0; i < repositories.length; i++)
-                addRepositoryInternal(repositories[i]);
+            for (int i = 0; i < repositories.length; i++) addRepositoryInternal(repositories[i]);
         }
-
     }
-
 
     /**
      * Construct a new ClassLoader with the specified repositories and
@@ -231,21 +202,16 @@ public class StandardClassLoader
      * @param parent The parent ClassLoader
      */
     public StandardClassLoader(URL repositories[], ClassLoader parent) {
-
         super(repositories, parent);
         this.parent = parent;
         this.system = getSystemClassLoader();
         securityManager = System.getSecurityManager();
         if (repositories != null) {
-            for (int i = 0; i < repositories.length; i++)
-                addRepositoryInternal(repositories[i].toString());
+            for (int i = 0; i < repositories.length; i++) addRepositoryInternal(repositories[i].toString());
         }
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The set of optional packages (formerly standard extensions) that
@@ -255,12 +221,10 @@ public class StandardClassLoader
      */
     protected ArrayList available = new ArrayList();
 
-
     /**
      * The debugging detail level of this component.
      */
     protected int debug = 0;
-
 
     /**
      * Should this class loader delegate to the parent class loader
@@ -272,13 +236,11 @@ public class StandardClassLoader
      */
     protected boolean delegate = false;
 
-
     /**
      * The list of local repositories, in the order they should be searched
      * for locally loaded classes or resources.
      */
     protected String repositories[] = new String[0];
-
 
     /**
      * The set of optional packages (formerly standard extensions) that
@@ -288,13 +250,11 @@ public class StandardClassLoader
      */
     protected ArrayList required = new ArrayList();
 
-
     /**
      * A list of read File and Jndi Permission's required if this loader
      * is for a web application context.
      */
     private ArrayList permissionList = new ArrayList();
-
 
     /**
      * The PermissionCollection for each CodeSource for a web
@@ -302,12 +262,10 @@ public class StandardClassLoader
      */
     private HashMap loaderPC = new HashMap();
 
-
     /**
      * Instance of the SecurityManager installed.
      */
     private SecurityManager securityManager = null;
-
 
     /**
      * Flag that the security policy has been refreshed from file.
@@ -319,31 +277,24 @@ public class StandardClassLoader
      */
     private ClassLoader parent = null;
 
-
     /**
      * The system class loader.
      */
     private ClassLoader system = null;
-
 
     /**
      * URL stream handler for additional protocols.
      */
     protected URLStreamHandlerFactory factory = null;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the debugging detail level for this component.
      */
     public int getDebug() {
-
         return (this.debug);
-
     }
-
 
     /**
      * Set the debugging detail level for this component.
@@ -351,21 +302,15 @@ public class StandardClassLoader
      * @param debug The new debugging detail level
      */
     public void setDebug(int debug) {
-
         this.debug = debug;
-
     }
-
 
     /**
      * Return the "delegate first" flag for this class loader.
      */
     public boolean getDelegate() {
-
         return (this.delegate);
-
     }
-
 
     /**
      * Set the "delegate first" flag for this class loader.
@@ -373,11 +318,8 @@ public class StandardClassLoader
      * @param delegate The new "delegate first" flag
      */
     public void setDelegate(boolean delegate) {
-
         this.delegate = delegate;
-
     }
-
 
     /**
      * If there is a Java SecurityManager create a read FilePermission
@@ -386,15 +328,14 @@ public class StandardClassLoader
      * @param path file directory path
      */
     public void setPermissions(String path) {
-        if( securityManager != null ) {
-            if( path.startsWith("jndi:") || path.startsWith("jar:jndi:") ) {
+        if (securityManager != null) {
+            if (path.startsWith("jndi:") || path.startsWith("jar:jndi:")) {
                 permissionList.add(new JndiPermission(path + "*"));
             } else {
-                permissionList.add(new FilePermission(path + "-","read"));
+                permissionList.add(new FilePermission(path + "-", "read"));
             }
         }
     }
-
 
     /**
      * If there is a Java SecurityManager add a read FilePermission
@@ -406,9 +347,7 @@ public class StandardClassLoader
         setPermissions(url.toString());
     }
 
-
     // ------------------------------------------------------- Reloader Methods
-
 
     /**
      * Add a new repository to the set of places this ClassLoader can look for
@@ -421,7 +360,6 @@ public class StandardClassLoader
      *  invalid or does not exist
      */
     public void addRepository(String repository) {
-
         if (debug >= 1)
             log("addRepository(" + repository + ")");
 
@@ -439,9 +377,7 @@ public class StandardClassLoader
 
         // Add this repository to our internal list
         addRepositoryInternal(repository);
-
     }
-
 
     /**
      * Return a list of "optional packages" (formerly "standard extensions")
@@ -450,12 +386,10 @@ public class StandardClassLoader
      * the same class.
      */
     public Extension[] findAvailable() {
-
         // Initialize the results with our local available extensions
         ArrayList results = new ArrayList();
         Iterator available = this.available.iterator();
-        while (available.hasNext())
-            results.add(available.next());
+        while (available.hasNext()) results.add(available.next());
 
         // Trace our parentage tree and add declared extensions when possible
         ClassLoader loader = this;
@@ -465,18 +399,14 @@ public class StandardClassLoader
                 break;
             if (!(loader instanceof StandardClassLoader))
                 continue;
-            Extension extensions[] =
-                ((StandardClassLoader) loader).findAvailable();
-            for (int i = 0; i < extensions.length; i++)
-                results.add(extensions[i]);
+            Extension extensions[] = ((StandardClassLoader) loader).findAvailable();
+            for (int i = 0; i < extensions.length; i++) results.add(extensions[i]);
         }
 
         // Return the results as an array
         Extension extensions[] = new Extension[results.size()];
         return ((Extension[]) results.toArray(extensions));
-
     }
-
 
     /**
      * Return a String array of the current repositories for this class
@@ -484,11 +414,8 @@ public class StandardClassLoader
      * returned.
      */
     public String[] findRepositories() {
-
         return (repositories);
-
     }
-
 
     /**
      * Return a list of "optional packages" (formerly "standard extensions")
@@ -497,12 +424,10 @@ public class StandardClassLoader
      * the same class.
      */
     public Extension[] findRequired() {
-
         // Initialize the results with our local required extensions
         ArrayList results = new ArrayList();
         Iterator required = this.required.iterator();
-        while (required.hasNext())
-            results.add(required.next());
+        while (required.hasNext()) results.add(required.next());
 
         // Trace our parentage tree and add declared extensions when possible
         ClassLoader loader = this;
@@ -512,34 +437,26 @@ public class StandardClassLoader
                 break;
             if (!(loader instanceof StandardClassLoader))
                 continue;
-            Extension extensions[] =
-                ((StandardClassLoader) loader).findRequired();
-            for (int i = 0; i < extensions.length; i++)
-                results.add(extensions[i]);
+            Extension extensions[] = ((StandardClassLoader) loader).findRequired();
+            for (int i = 0; i < extensions.length; i++) results.add(extensions[i]);
         }
 
         // Return the results as an array
         Extension extensions[] = new Extension[results.size()];
         return ((Extension[]) results.toArray(extensions));
-
     }
-
 
     /**
      * This class loader doesn't check for reloading.
      */
     public boolean modified() {
-
         return (false);
-
     }
-
 
     /**
      * Render a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("StandardClassLoader\r\n");
         sb.append("  available:\r\n");
         Iterator available = this.available.iterator();
@@ -570,12 +487,9 @@ public class StandardClassLoader
             sb.append("\r\n");
         }
         return (sb.toString());
-
     }
 
-
     // ---------------------------------------------------- ClassLoader Methods
-
 
     /**
      * Find the specified class in our local repositories, if possible.  If
@@ -586,7 +500,6 @@ public class StandardClassLoader
      * @exception ClassNotFoundException if the class was not found
      */
     public Class findClass(String name) throws ClassNotFoundException {
-
         if (debug >= 3)
             log("    findClass(" + name + ")");
 
@@ -597,7 +510,7 @@ public class StandardClassLoader
                 try {
                     if (debug >= 4)
                         log("      securityManager.checkPackageDefinition");
-                    securityManager.checkPackageDefinition(name.substring(0,i));
+                    securityManager.checkPackageDefinition(name.substring(0, i));
                 } catch (Exception se) {
                     if (debug >= 4)
                         log("      -->Exception-->ClassNotFoundException", se);
@@ -619,7 +532,7 @@ public class StandardClassLoader
                         return clazz;
                     clazz = super.findClass(name);
                 }
-            } catch(AccessControlException ace) {
+            } catch (AccessControlException ace) {
                 throw new ClassNotFoundException(name);
             } catch (RuntimeException e) {
                 if (debug >= 4)
@@ -643,9 +556,7 @@ public class StandardClassLoader
         if ((debug >= 4) && (clazz != null))
             log("      Loaded by " + clazz.getClassLoader());
         return (clazz);
-
     }
-
 
     /**
      * Find the specified resource in our local repository, and return a
@@ -655,7 +566,6 @@ public class StandardClassLoader
      * @param name Name of the resource to be found
      */
     public URL findResource(String name) {
-
         if (debug >= 3)
             log("    findResource(" + name + ")");
 
@@ -667,9 +577,7 @@ public class StandardClassLoader
                 log("    --> Resource not found, returning null");
         }
         return (url);
-
     }
-
 
     /**
      * Return an enumeration of <code>URLs</code> representing all of the
@@ -681,13 +589,10 @@ public class StandardClassLoader
      * @exception IOException if an input/output error occurs
      */
     public Enumeration findResources(String name) throws IOException {
-
         if (debug >= 3)
             log("    findResources(" + name + ")");
         return (super.findResources(name));
-
     }
-
 
     /**
      * Find the resource with the given name.  A resource is some data
@@ -712,7 +617,6 @@ public class StandardClassLoader
      * @param name Name of the resource to return a URL for
      */
     public URL getResource(String name) {
-
         if (debug >= 2)
             log("getResource(" + name + ")");
         URL url = null;
@@ -743,7 +647,7 @@ public class StandardClassLoader
         }
 
         // (3) Delegate to parent unconditionally if not already attempted
-        if( !delegate ) {
+        if (!delegate) {
             ClassLoader loader = parent;
             if (loader == null)
                 loader = system;
@@ -759,9 +663,7 @@ public class StandardClassLoader
         if (debug >= 2)
             log("  --> Resource not found, returning null");
         return (null);
-
     }
-
 
     /**
      * Find the resource with the given name, and return an input stream
@@ -773,7 +675,6 @@ public class StandardClassLoader
      * @param name Name of the resource to return an input stream for
      */
     public InputStream getResourceAsStream(String name) {
-
         if (debug >= 2)
             log("getResourceAsStream(" + name + ")");
         InputStream stream = null;
@@ -811,10 +712,10 @@ public class StandardClassLoader
             if (debug >= 2)
                 log("  --> Returning stream from local");
             try {
-               return (url.openStream());
+                return (url.openStream());
             } catch (IOException e) {
-               log("url.openStream(" + url.toString() + ")", e);
-               return (null);
+                log("url.openStream(" + url.toString() + ")", e);
+                return (null);
             }
         }
 
@@ -838,9 +739,7 @@ public class StandardClassLoader
         if (debug >= 2)
             log("  --> Resource not found, returning null");
         return (null);
-
     }
-
 
     /**
      * Load the class with the specified name.  This method searches for
@@ -852,11 +751,8 @@ public class StandardClassLoader
      * @exception ClassNotFoundException if the class was not found
      */
     public Class loadClass(String name) throws ClassNotFoundException {
-
         return (loadClass(name, false));
-
     }
-
 
     /**
      * Load the class with the specified name, searching using the following
@@ -883,9 +779,7 @@ public class StandardClassLoader
      *
      * @exception ClassNotFoundException if the class was not found
      */
-    public Class loadClass(String name, boolean resolve)
-        throws ClassNotFoundException {
-
+    public Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
         if (debug >= 2)
             log("loadClass(" + name + ", " + resolve + ")");
         Class clazz = null;
@@ -901,7 +795,7 @@ public class StandardClassLoader
         }
 
         // If a system class, use system class loader
-        if( name.startsWith("java.") ) {
+        if (name.startsWith("java.")) {
             ClassLoader loader = system;
             clazz = loader.loadClass(name);
             if (clazz != null) {
@@ -917,10 +811,10 @@ public class StandardClassLoader
             int i = name.lastIndexOf('.');
             if (i >= 0) {
                 try {
-                    securityManager.checkPackageAccess(name.substring(0,i));
+                    securityManager.checkPackageAccess(name.substring(0, i));
                 } catch (SecurityException se) {
-                    String error = "Security Violation, attempt to use " +
-                        "Restricted Class: " + name;
+                    String error = "Security Violation, attempt to use "
+                      + "Restricted Class: " + name;
                     System.out.println(error);
                     se.printStackTrace();
                     log(error);
@@ -989,9 +883,7 @@ public class StandardClassLoader
 
         // This class was not found
         throw new ClassNotFoundException(name);
-
     }
-
 
     /**
      * Get the Permissions for a CodeSource.  If this instance
@@ -1011,24 +903,21 @@ public class StandardClassLoader
         }
         String codeUrl = codeSource.getLocation().toString();
         PermissionCollection pc;
-        if ((pc = (PermissionCollection)loaderPC.get(codeUrl)) == null) {
+        if ((pc = (PermissionCollection) loaderPC.get(codeUrl)) == null) {
             pc = super.getPermissions(codeSource);
             if (pc != null) {
                 Iterator perms = permissionList.iterator();
                 while (perms.hasNext()) {
-                    Permission p = (Permission)perms.next();
+                    Permission p = (Permission) perms.next();
                     pc.add(p);
                 }
-                loaderPC.put(codeUrl,pc);
+                loaderPC.put(codeUrl, pc);
             }
         }
         return (pc);
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Parse URL protocol.
@@ -1044,7 +933,6 @@ public class StandardClassLoader
         return spec.substring(0, pos).trim();
     }
 
-
     /**
      * Add a repository to our internal array only.
      *
@@ -1054,22 +942,19 @@ public class StandardClassLoader
      *  cannot be processed correctly
      */
     protected void addRepositoryInternal(String repository) {
-
         URLStreamHandler streamHandler = null;
         String protocol = parseProtocol(repository);
         if (factory != null)
             streamHandler = factory.createURLStreamHandler(protocol);
 
         // Validate the manifest of a JAR file repository
-        if (!repository.endsWith(File.separator) &&
-            !repository.endsWith("/")) {
+        if (!repository.endsWith(File.separator) && !repository.endsWith("/")) {
             JarFile jarFile = null;
             try {
                 Manifest manifest = null;
                 if (repository.startsWith("jar:")) {
                     URL url = new URL(null, repository, streamHandler);
-                    JarURLConnection conn =
-                        (JarURLConnection) url.openConnection();
+                    JarURLConnection conn = (JarURLConnection) url.openConnection();
                     conn.setAllowUserInteraction(false);
                     conn.setDoInput(true);
                     conn.setDoOutput(false);
@@ -1082,37 +967,30 @@ public class StandardClassLoader
                 } else if (repository.endsWith(".jar")) {
                     URL url = new URL(null, repository, streamHandler);
                     URLConnection conn = url.openConnection();
-                    JarInputStream jis =
-                        new JarInputStream(conn.getInputStream());
+                    JarInputStream jis = new JarInputStream(conn.getInputStream());
                     manifest = jis.getManifest();
                 } else {
-                    throw new IllegalArgumentException
-                        ("addRepositoryInternal:  Invalid URL '" +
-                         repository + "'");
+                    throw new IllegalArgumentException("addRepositoryInternal:  Invalid URL '" + repository + "'");
                 }
                 if (!((manifest == null) && (jarFile == null))) {
                     if ((manifest == null) && (jarFile != null))
                         manifest = jarFile.getManifest();
                     if (manifest != null) {
-                        Iterator extensions =
-                            Extension.getAvailable(manifest).iterator();
-                        while (extensions.hasNext())
-                            available.add(extensions.next());
-                        extensions =
-                            Extension.getRequired(manifest).iterator();
-                        while (extensions.hasNext())
-                            required.add(extensions.next());
+                        Iterator extensions = Extension.getAvailable(manifest).iterator();
+                        while (extensions.hasNext()) available.add(extensions.next());
+                        extensions = Extension.getRequired(manifest).iterator();
+                        while (extensions.hasNext()) required.add(extensions.next());
                     }
                 }
             } catch (Throwable t) {
                 t.printStackTrace();
-                throw new IllegalArgumentException
-                    ("addRepositoryInternal: " + t);
+                throw new IllegalArgumentException("addRepositoryInternal: " + t);
             } finally {
                 if (jarFile != null) {
                     try {
                         jarFile.close();
-                    } catch (Throwable t) {}
+                    } catch (Throwable t) {
+                    }
                 }
             }
         }
@@ -1124,9 +1002,7 @@ public class StandardClassLoader
             results[repositories.length] = repository;
             repositories = results;
         }
-
     }
-
 
     /**
      * Convert an array of String to an array of URL and return it.
@@ -1137,16 +1013,13 @@ public class StandardClassLoader
         return convert(input, null);
     }
 
-
     /**
      * Convert an array of String to an array of URL and return it.
      *
      * @param input The array of String to be converted
      * @param factory Handler factory to use to generate the URLs
      */
-    protected static URL[] convert(String input[],
-                                   URLStreamHandlerFactory factory) {
-
+    protected static URL[] convert(String input[], URLStreamHandlerFactory factory) {
         URLStreamHandler streamHandler = null;
 
         URL url[] = new URL[input.length];
@@ -1163,9 +1036,7 @@ public class StandardClassLoader
             }
         }
         return (url);
-
     }
-
 
     /**
      * Finds the resource with the given name if it has previously been
@@ -1176,11 +1047,8 @@ public class StandardClassLoader
      * @param name Name of the resource to return
      */
     protected InputStream findLoadedResource(String name) {
-
-        return (null);  // FIXME - findLoadedResource()
-
+        return (null); // FIXME - findLoadedResource()
     }
-
 
     /**
      * Log a debugging output message.
@@ -1188,11 +1056,8 @@ public class StandardClassLoader
      * @param message Message to be logged
      */
     private void log(String message) {
-
         System.out.println("StandardClassLoader: " + message);
-
     }
-
 
     /**
      * Log a debugging output message with an exception.
@@ -1201,12 +1066,7 @@ public class StandardClassLoader
      * @param throwable Exception to be logged
      */
     private void log(String message, Throwable throwable) {
-
         System.out.println("StandardClassLoader: " + message);
         throwable.printStackTrace(System.out);
-
     }
-
-
 }
-

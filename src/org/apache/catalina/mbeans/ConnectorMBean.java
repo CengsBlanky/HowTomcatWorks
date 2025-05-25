@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/ConnectorMBean.java,v 1.4 2002/05/02 02:03:15 amyroh Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/02 02:03:15 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/ConnectorMBean.java,v 1.4
+ * 2002/05/02 02:03:15 amyroh Exp $ $Revision: 1.4 $ $Date: 2002/05/02 02:03:15 $
  *
  * ====================================================================
  *
@@ -67,7 +66,6 @@ import java.lang.reflect.Method;
 import javax.management.MBeanException;
 import javax.management.RuntimeOperationsException;
 
-
 /**
  * <p>A <strong>ModelMBean</strong> implementation for the
  * <code>org.apache.coyote.tomcat4.CoyoteConnector</code> component.</p>
@@ -77,10 +75,7 @@ import javax.management.RuntimeOperationsException;
  */
 
 public class ConnectorMBean extends ClassNameMBean {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a <code>ModelMBean</code> with default
@@ -91,29 +86,20 @@ public class ConnectorMBean extends ClassNameMBean {
      * @exception RuntimeOperationsException if an IllegalArgumentException
      *  occurs
      */
-    public ConnectorMBean()
-        throws MBeanException, RuntimeOperationsException {
-
+    public ConnectorMBean() throws MBeanException, RuntimeOperationsException {
         super();
-
     }
-
 
     // ------------------------------------------------------------- Attributes
 
-
-
     // ------------------------------------------------------------- Operations
 
-    
     /**
      * Return Client authentication info
      *
      * @exception Exception if an MBean cannot be created or registered
      */
-    public boolean getClientAuth()
-        throws Exception {
-            
+    public boolean getClientAuth() throws Exception {
         Object clientAuthObj = null;
         Class coyoteConnectorCls = Class.forName("org.apache.coyote.tomcat4.CoyoteConnector");
         if (coyoteConnectorCls.isInstance(this.resource)) {
@@ -126,23 +112,19 @@ public class ConnectorMBean extends ClassNameMBean {
                 Method meth2 = coyoteServerSocketFactoryCls.getMethod("getClientAuth", null);
                 clientAuthObj = meth2.invoke(factory, null);
             }
-           
-        }    
+        }
         if (clientAuthObj instanceof Boolean) {
-            return ((Boolean)clientAuthObj).booleanValue();
-        } else return false;
-        
+            return ((Boolean) clientAuthObj).booleanValue();
+        } else
+            return false;
     }
-    
-    
+
     /**
      * Set Client authentication info
      *
      * @exception Exception if an MBean cannot be created or registered
      */
-    public void setClientAuth(boolean clientAuth)
-        throws Exception {
-            
+    public void setClientAuth(boolean clientAuth) throws Exception {
         Class coyoteConnectorCls = Class.forName("org.apache.coyote.tomcat4.CoyoteConnector");
         if (coyoteConnectorCls.isInstance(this.resource)) {
             // get factory
@@ -151,26 +133,22 @@ public class ConnectorMBean extends ClassNameMBean {
             Class coyoteServerSocketFactoryCls = Class.forName("org.apache.coyote.tomcat4.CoyoteServerSocketFactory");
             if (coyoteServerSocketFactoryCls.isInstance(factory)) {
                 // set clientAuth
-                Class partypes2 [] = new Class[1];
+                Class partypes2[] = new Class[1];
                 partypes2[0] = Boolean.TYPE;
                 Method meth2 = coyoteServerSocketFactoryCls.getMethod("setClientAuth", partypes2);
                 Object arglist2[] = new Object[1];
                 arglist2[0] = new Boolean(clientAuth);
                 meth2.invoke(factory, arglist2);
-            } 
-        } 
-        
+            }
+        }
     }
 
-    
     /**
      * Return keystoreFile
      *
      * @exception Exception if an MBean cannot be created or registered
      */
-    public String getKeystoreFile()
-        throws Exception {
-            
+    public String getKeystoreFile() throws Exception {
         Object keystoreFileObj = null;
         Class coyoteConnectorCls = Class.forName("org.apache.coyote.tomcat4.CoyoteConnector");
         if (coyoteConnectorCls.isInstance(this.resource)) {
@@ -182,26 +160,22 @@ public class ConnectorMBean extends ClassNameMBean {
                 // get keystoreFile
                 Method meth2 = coyoteServerSocketFactoryCls.getMethod("getKeystoreFile", null);
                 keystoreFileObj = meth2.invoke(factory, null);
-            } 
-        }    
-        
+            }
+        }
+
         if (keystoreFileObj == null) {
             return null;
         } else {
             return keystoreFileObj.toString();
         }
-        
     }
-    
-    
+
     /**
      * Set keystoreFile
      *
      * @exception Exception if an MBean cannot be created or registered
      */
-    public void setKeystoreFile(String keystoreFile)
-        throws Exception {
-        
+    public void setKeystoreFile(String keystoreFile) throws Exception {
         if (keystoreFile == null) {
             keystoreFile = "";
         }
@@ -213,7 +187,7 @@ public class ConnectorMBean extends ClassNameMBean {
             Class coyoteServerSocketFactoryCls = Class.forName("org.apache.coyote.tomcat4.CoyoteServerSocketFactory");
             if (coyoteServerSocketFactoryCls.isInstance(factory)) {
                 // set keystoreFile
-                Class partypes2 [] = new Class[1];
+                Class partypes2[] = new Class[1];
                 String str = new String();
                 partypes2[0] = str.getClass();
                 Method meth2 = coyoteServerSocketFactoryCls.getMethod("setKeystoreFile", partypes2);
@@ -221,19 +195,15 @@ public class ConnectorMBean extends ClassNameMBean {
                 arglist2[0] = keystoreFile;
                 meth2.invoke(factory, arglist2);
             }
-           
-        }    
+        }
     }
-    
-    
+
     /**
      * Return keystorePass
      *
      * @exception Exception if an MBean cannot be created or registered
      */
-    public String getKeystorePass()
-        throws Exception {
-            
+    public String getKeystorePass() throws Exception {
         Object keystorePassObj = null;
         Class coyoteConnectorCls = Class.forName("org.apache.coyote.tomcat4.CoyoteConnector");
         if (coyoteConnectorCls.isInstance(this.resource)) {
@@ -246,26 +216,21 @@ public class ConnectorMBean extends ClassNameMBean {
                 Method meth2 = coyoteServerSocketFactoryCls.getMethod("getKeystorePass", null);
                 keystorePassObj = meth2.invoke(factory, null);
             }
-           
-        }    
-        
+        }
+
         if (keystorePassObj == null) {
             return null;
         } else {
             return keystorePassObj.toString();
-        } 
-        
+        }
     }
-    
-    
+
     /**
      * Set keystorePass
      *
      * @exception Exception if an MBean cannot be created or registered
      */
-    public void setKeystorePass(String keystorePass)
-        throws Exception {
-            
+    public void setKeystorePass(String keystorePass) throws Exception {
         if (keystorePass == null) {
             keystorePass = "";
         }
@@ -277,7 +242,7 @@ public class ConnectorMBean extends ClassNameMBean {
             Class coyoteServerSocketFactoryCls = Class.forName("org.apache.coyote.tomcat4.CoyoteServerSocketFactory");
             if (coyoteServerSocketFactoryCls.isInstance(factory)) {
                 // set keystorePass
-                Class partypes2 [] = new Class[1];
+                Class partypes2[] = new Class[1];
                 String str = new String();
                 partypes2[0] = str.getClass();
                 Method meth2 = coyoteServerSocketFactoryCls.getMethod("setKeystorePass", partypes2);
@@ -285,8 +250,6 @@ public class ConnectorMBean extends ClassNameMBean {
                 arglist2[0] = keystorePass;
                 meth2.invoke(factory, arglist2);
             }
-        }    
+        }
     }
-    
-    
 }

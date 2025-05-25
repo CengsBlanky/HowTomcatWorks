@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/Enumerator.java,v 1.2 2001/07/22 20:25:13 pier Exp $
- * $Revision: 1.2 $
- * $Date: 2001/07/22 20:25:13 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/Enumerator.java,v 1.2 2001/07/22
+ * 20:25:13 pier Exp $ $Revision: 1.2 $ $Date: 2001/07/22 20:25:13 $
  *
  * ====================================================================
  *
@@ -61,16 +60,13 @@
  *
  */
 
-
 package org.apache.catalina.util;
-
 
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
-
 
 /**
  * Adapter class that wraps an <code>Enumeration</code> around a Java2
@@ -83,10 +79,7 @@ import java.util.NoSuchElementException;
  */
 
 public final class Enumerator implements Enumeration {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Return an Enumeration over the values of the specified Collection.
@@ -94,11 +87,8 @@ public final class Enumerator implements Enumeration {
      * @param collection Collection whose values should be enumerated
      */
     public Enumerator(Collection collection) {
-
         this(collection.iterator());
-
     }
-
 
     /**
      * Return an Enumeration over the values returned by the
@@ -107,12 +97,9 @@ public final class Enumerator implements Enumeration {
      * @param iterator Iterator to be wrapped
      */
     public Enumerator(Iterator iterator) {
-
         super();
         this.iterator = iterator;
-
     }
-
 
     /**
      * Return an Enumeration over the values of the specified Map.
@@ -120,14 +107,10 @@ public final class Enumerator implements Enumeration {
      * @param map Map whose values should be enumerated
      */
     public Enumerator(Map map) {
-
         this(map.values().iterator());
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The <code>Iterator</code> over which the <code>Enumeration</code>
@@ -135,9 +118,7 @@ public final class Enumerator implements Enumeration {
      */
     private Iterator iterator = null;
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Tests if this enumeration contains more elements.
@@ -147,11 +128,8 @@ public final class Enumerator implements Enumeration {
      *  otherwise
      */
     public boolean hasMoreElements() {
-
         return (iterator.hasNext());
-
     }
-
 
     /**
      * Returns the next element of this enumeration if this enumeration
@@ -162,10 +140,6 @@ public final class Enumerator implements Enumeration {
      * @exception NoSuchElementException if no more elements exist
      */
     public Object nextElement() throws NoSuchElementException {
-
         return (iterator.next());
-
     }
-
-
 }

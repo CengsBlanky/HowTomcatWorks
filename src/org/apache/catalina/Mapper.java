@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Mapper.java,v 1.3 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Mapper.java,v 1.3 2001/07/22 20:13:30
+ * pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 /**
  * Interface defining methods that a parent Container may implement to select
@@ -79,16 +76,12 @@ package org.apache.catalina;
  */
 
 public interface Mapper {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Container with which this Mapper is associated.
      */
     public Container getContainer();
-
 
     /**
      * Set the Container with which this Mapper is associated.
@@ -100,12 +93,10 @@ public interface Mapper {
      */
     public void setContainer(Container container);
 
-
     /**
      * Return the protocol for which this Mapper is responsible.
      */
     public String getProtocol();
-
 
     /**
      * Set the protocol for which this Mapper is responsible.
@@ -114,9 +105,7 @@ public interface Mapper {
      */
     public void setProtocol(String protocol);
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return the child Container that should be used to process this Request,
@@ -127,6 +116,4 @@ public interface Mapper {
      * @param update Update the Request to reflect the mapping selection?
      */
     public Container map(Request request, boolean update);
-
-
 }

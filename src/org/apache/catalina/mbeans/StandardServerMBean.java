@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/StandardServerMBean.java,v 1.23 2002/05/21 01:36:36 remm Exp $
- * $Revision: 1.23 $
- * $Date: 2002/05/21 01:36:36 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/StandardServerMBean.java,v 1.23
+ * 2002/05/21 01:36:36 remm Exp $ $Revision: 1.23 $ $Date: 2002/05/21 01:36:36 $
  *
  * ====================================================================
  *
@@ -63,7 +62,6 @@
 
 package org.apache.catalina.mbeans;
 
-
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanException;
 import javax.management.MBeanServer;
@@ -72,7 +70,6 @@ import org.apache.catalina.Server;
 import org.apache.catalina.ServerFactory;
 import org.apache.catalina.core.StandardServer;
 import org.apache.commons.modeler.BaseModelMBean;
-
 
 /**
  * <p>A <strong>ModelMBean</strong> implementation for the
@@ -83,19 +80,14 @@ import org.apache.commons.modeler.BaseModelMBean;
  */
 
 public class StandardServerMBean extends BaseModelMBean {
-
-
     // ------------------------------------------------------- Static Variables
-
 
     /**
      * The <code>MBeanServer</code> for this application.
      */
     private static MBeanServer mserver = MBeanUtils.createServer();
 
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a <code>ModelMBean</code> with default
@@ -106,19 +98,13 @@ public class StandardServerMBean extends BaseModelMBean {
      * @exception RuntimeOperationsException if an IllegalArgumentException
      *  occurs
      */
-    public StandardServerMBean()
-        throws MBeanException, RuntimeOperationsException {
-
+    public StandardServerMBean() throws MBeanException, RuntimeOperationsException {
         super();
-
     }
-
 
     // ------------------------------------------------------------- Attributes
 
-
     // ------------------------------------------------------------- Operations
-
 
     /**
      * Write the configuration information for this entire <code>Server</code>
@@ -131,9 +117,7 @@ public class StandardServerMBean extends BaseModelMBean {
      * @exception RuntimeOperationsException if an exception is reported
      *  by the persistence mechanism
      */
-    public synchronized void store() throws InstanceNotFoundException,
-        MBeanException, RuntimeOperationsException {
-
+    public synchronized void store() throws InstanceNotFoundException, MBeanException, RuntimeOperationsException {
         Server server = ServerFactory.getServer();
         if (server instanceof StandardServer) {
             try {
@@ -142,8 +126,5 @@ public class StandardServerMBean extends BaseModelMBean {
                 throw new MBeanException(e, "Error updating conf/server.xml");
             }
         }
-
     }
-
-
 }

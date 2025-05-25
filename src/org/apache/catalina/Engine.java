@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Engine.java,v 1.9 2002/09/09 23:39:03 amyroh Exp $
- * $Revision: 1.9 $
- * $Date: 2002/09/09 23:39:03 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Engine.java,v 1.9 2002/09/09 23:39:03
+ * amyroh Exp $ $Revision: 1.9 $ $Date: 2002/09/09 23:39:03 $
  *
  * ====================================================================
  *
@@ -61,7 +60,6 @@
  *
  */
 
-
 package org.apache.catalina;
 
 /**
@@ -91,16 +89,12 @@ package org.apache.catalina;
  */
 
 public interface Engine extends Container {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the default hostname for this Engine.
      */
     public String getDefaultHost();
-
 
     /**
      * Set the default hostname for this Engine.
@@ -109,12 +103,10 @@ public interface Engine extends Container {
      */
     public void setDefaultHost(String defaultHost);
 
-
     /**
      * Retrieve the JvmRouteId for this engine.
      */
     public String getJvmRoute();
-
 
     /**
      * Set the JvmRouteId for this engine.
@@ -124,12 +116,10 @@ public interface Engine extends Container {
      */
     public void setJvmRoute(String jvmRouteId);
 
-
     /**
      * Return the <code>Service</code> with which we are associated (if any).
      */
     public Service getService();
-
 
     /**
      * Set the <code>Service</code> with which we are associated (if any).
@@ -137,7 +127,6 @@ public interface Engine extends Container {
      * @param service The service that owns this Engine
      */
     public void setService(Service service);
-
 
     /**
      * Set the DefaultContext
@@ -147,15 +136,12 @@ public interface Engine extends Container {
      */
     public void addDefaultContext(DefaultContext defaultContext);
 
-
     /**
      * Retrieve the DefaultContext for new web applications.
      */
     public DefaultContext getDefaultContext();
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Import the DefaultContext config into a web application context.
@@ -163,6 +149,4 @@ public interface Engine extends Container {
      * @param context web application context to import default context
      */
     public void importDefaultContext(Context context);
-
-
 }

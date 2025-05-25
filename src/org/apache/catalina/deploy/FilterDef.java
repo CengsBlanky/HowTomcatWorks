@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/FilterDef.java,v 1.2 2001/07/22 20:25:10 pier Exp $
- * $Revision: 1.2 $
- * $Date: 2001/07/22 20:25:10 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/FilterDef.java,v 1.2 2001/07/22
+ * 20:25:10 pier Exp $ $Revision: 1.2 $ $Date: 2001/07/22 20:25:10 $
  *
  * ====================================================================
  *
@@ -61,13 +60,10 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
-
 
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  * Representation of a filter definition for a web application, as represented
@@ -78,10 +74,7 @@ import java.util.Map;
  */
 
 public final class FilterDef {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The description of this filter.
@@ -96,7 +89,6 @@ public final class FilterDef {
         this.description = description;
     }
 
-
     /**
      * The display name of this filter.
      */
@@ -110,7 +102,6 @@ public final class FilterDef {
         this.displayName = displayName;
     }
 
-
     /**
      * The fully qualified name of the Java class that implements this filter.
      */
@@ -123,7 +114,6 @@ public final class FilterDef {
     public void setFilterClass(String filterClass) {
         this.filterClass = filterClass;
     }
-
 
     /**
      * The name of this filter, which must be unique among the filters
@@ -139,7 +129,6 @@ public final class FilterDef {
         this.filterName = filterName;
     }
 
-
     /**
      * The large icon associated with this filter.
      */
@@ -153,7 +142,6 @@ public final class FilterDef {
         this.largeIcon = largeIcon;
     }
 
-
     /**
      * The set of initialization parameters for this filter, keyed by
      * parameter name.
@@ -161,11 +149,8 @@ public final class FilterDef {
     private Map parameters = new HashMap();
 
     public Map getParameterMap() {
-
         return (this.parameters);
-
     }
-
 
     /**
      * The small icon associated with this filter.
@@ -180,9 +165,7 @@ public final class FilterDef {
         this.smallIcon = smallIcon;
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add an initialization parameter to the set of parameters associated
@@ -192,17 +175,13 @@ public final class FilterDef {
      * @param value The initialization parameter value
      */
     public void addInitParameter(String name, String value) {
-
         parameters.put(name, value);
-
     }
-
 
     /**
      * Render a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("FilterDef[");
         sb.append("filterName=");
         sb.append(this.filterName);
@@ -210,8 +189,5 @@ public final class FilterDef {
         sb.append(this.filterClass);
         sb.append("]");
         return (sb.toString());
-
     }
-
-
 }

@@ -1,8 +1,8 @@
 /*
  * ByteArrayServletOutputStream.java
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/ByteArrayServletOutputStream.java,v 1.1 2002/05/24 04:38:58 billbarker Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/24 04:38:58 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/ByteArrayServletOutputStream.java,v 1.1
+ * 2002/05/24 04:38:58 billbarker Exp $ $Revision: 1.1 $ $Date: 2002/05/24 04:38:58 $
  *
  * ====================================================================
  *

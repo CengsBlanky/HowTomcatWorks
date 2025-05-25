@@ -1,9 +1,7 @@
 package org.apache.catalina.connector;
 
-
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-
 
 /**
  * Wrapper around the standard <code>java.io.PrintWriter</code> that keeps
@@ -19,10 +17,7 @@ import java.io.PrintWriter;
  */
 
 public class ResponseWriter extends PrintWriter {
-
-
     // ------------------------------------------------------------ Constructor
-
 
     /**
      * Construct a new ResponseWriter, wrapping the specified writer and
@@ -32,37 +27,28 @@ public class ResponseWriter extends PrintWriter {
      * @param stream ResponseStream to which we are attached
      */
     public ResponseWriter(OutputStreamWriter writer, ResponseStream stream) {
-
         super(writer);
         this.stream = stream;
         this.stream.setCommit(false);
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The response stream to which we are attached.
      */
     protected ResponseStream stream = null;
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Flush this stream, and cause the response to be committed.
      */
     public void flush() {
-
         stream.setCommit(true);
         super.flush();
         stream.setCommit(false);
-
     }
-
 
     /**
      * Print a boolean value.
@@ -70,12 +56,9 @@ public class ResponseWriter extends PrintWriter {
      * @param b The value to be printed
      */
     public void print(boolean b) {
-
         super.print(b);
         super.flush();
-
     }
-
 
     /**
      * Print a character value.
@@ -83,12 +66,9 @@ public class ResponseWriter extends PrintWriter {
      * @param c The value to be printed
      */
     public void print(char c) {
-
         super.print(c);
         super.flush();
-
     }
-
 
     /**
      * Print a character array value.
@@ -96,12 +76,9 @@ public class ResponseWriter extends PrintWriter {
      * @param ca The value to be printed
      */
     public void print(char ca[]) {
-
         super.print(ca);
         super.flush();
-
     }
-
 
     /**
      * Print a double value.
@@ -109,12 +86,9 @@ public class ResponseWriter extends PrintWriter {
      * @param d The value to be printed
      */
     public void print(double d) {
-
         super.print(d);
         super.flush();
-
     }
-
 
     /**
      * Print a float value.
@@ -122,12 +96,9 @@ public class ResponseWriter extends PrintWriter {
      * @param f The value to be printed
      */
     public void print(float f) {
-
         super.print(f);
         super.flush();
-
     }
-
 
     /**
      * Print an integer value.
@@ -135,13 +106,9 @@ public class ResponseWriter extends PrintWriter {
      * @param i The value to be printed.
      */
     public void print(int i) {
-
         super.print(i);
         super.flush();
-
     }
-
-
 
     /**
      * Print a long value.
@@ -149,12 +116,9 @@ public class ResponseWriter extends PrintWriter {
      * @param l The value to be printed
      */
     public void print(long l) {
-
         super.print(l);
         super.flush();
-
     }
-
 
     /**
      * Print an object value.
@@ -162,12 +126,9 @@ public class ResponseWriter extends PrintWriter {
      * @param o The value to be printed
      */
     public void print(Object o) {
-
         super.print(o);
         super.flush();
-
     }
-
 
     /**
      * Print a String value.
@@ -175,23 +136,17 @@ public class ResponseWriter extends PrintWriter {
      * @param s The value to be printed
      */
     public void print(String s) {
-
         super.print(s);
         super.flush();
-
     }
-
 
     /**
      * Terminate the current line by writing the line separator string.
      */
     public void println() {
-
         super.println();
         super.flush();
-
     }
-
 
     /**
      * Print a boolean value and terminate the current line.
@@ -199,12 +154,9 @@ public class ResponseWriter extends PrintWriter {
      * @param b The value to be printed
      */
     public void println(boolean b) {
-
         super.println(b);
         super.flush();
-
     }
-
 
     /**
      * Print a character value and terminate the current line.
@@ -212,12 +164,9 @@ public class ResponseWriter extends PrintWriter {
      * @param c The value to be printed
      */
     public void println(char c) {
-
         super.println(c);
         super.flush();
-
     }
-
 
     /**
      * Print a character array value and terminate the current line.
@@ -225,12 +174,9 @@ public class ResponseWriter extends PrintWriter {
      * @param ca The value to be printed
      */
     public void println(char ca[]) {
-
         super.println(ca);
         super.flush();
-
     }
-
 
     /**
      * Print a double value and terminate the current line.
@@ -238,12 +184,9 @@ public class ResponseWriter extends PrintWriter {
      * @param d The value to be printed
      */
     public void println(double d) {
-
         super.println(d);
         super.flush();
-
     }
-
 
     /**
      * Print a float value and terminate the current line.
@@ -251,12 +194,9 @@ public class ResponseWriter extends PrintWriter {
      * @param f The value to be printed
      */
     public void println(float f) {
-
         super.println(f);
         super.flush();
-
     }
-
 
     /**
      * Print an integer value and terminate the current line.
@@ -264,13 +204,9 @@ public class ResponseWriter extends PrintWriter {
      * @param i The value to be printed.
      */
     public void println(int i) {
-
         super.println(i);
         super.flush();
-
     }
-
-
 
     /**
      * Print a long value and terminate the current line.
@@ -278,12 +214,9 @@ public class ResponseWriter extends PrintWriter {
      * @param l The value to be printed
      */
     public void println(long l) {
-
         super.println(l);
         super.flush();
-
     }
-
 
     /**
      * Print an object value and terminate the current line.
@@ -291,12 +224,9 @@ public class ResponseWriter extends PrintWriter {
      * @param o The value to be printed
      */
     public void println(Object o) {
-
         super.println(o);
         super.flush();
-
     }
-
 
     /**
      * Print a String value and terminate the current line.
@@ -304,12 +234,9 @@ public class ResponseWriter extends PrintWriter {
      * @param s The value to be printed
      */
     public void println(String s) {
-
         super.println(s);
         super.flush();
-
     }
-
 
     /**
      * Write a single character.
@@ -317,12 +244,9 @@ public class ResponseWriter extends PrintWriter {
      * @param c The value to be written
      */
     public void write(char c) {
-
         super.write(c);
         super.flush();
-
     }
-
 
     /**
      * Write an array of characters.
@@ -330,12 +254,9 @@ public class ResponseWriter extends PrintWriter {
      * @param ca The value to be written
      */
     public void write(char ca[]) {
-
         super.write(ca);
         super.flush();
-
     }
-
 
     /**
      * Write a portion of an array of characters.
@@ -345,12 +266,9 @@ public class ResponseWriter extends PrintWriter {
      * @param len Number of characters to write
      */
     public void write(char ca[], int off, int len) {
-
         super.write(ca, off, len);
         super.flush();
-
     }
-
 
     /**
      * Write a String.
@@ -358,12 +276,9 @@ public class ResponseWriter extends PrintWriter {
      * @param s The value to be written
      */
     public void write(String s) {
-
         super.write(s);
         super.flush();
-
     }
-
 
     /**
      * Write a portion of a String.
@@ -373,11 +288,7 @@ public class ResponseWriter extends PrintWriter {
      * @param len Number of characters to write
      */
     public void write(String s, int off, int len) {
-
         super.write(s, off, len);
         super.flush();
-
     }
-
-
 }

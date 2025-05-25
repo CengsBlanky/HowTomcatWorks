@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/ContextResourceLinkMBean.java,v 1.1 2002/06/24 21:11:42 amyroh Exp $
- * $Revision: 1.1 $
- * $Date: 2002/06/24 21:11:42 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/ContextResourceLinkMBean.java,v 1.1
+ * 2002/06/24 21:11:42 amyroh Exp $ $Revision: 1.1 $ $Date: 2002/06/24 21:11:42 $
  *
  * ====================================================================
  *
@@ -63,7 +63,6 @@
 
 package org.apache.catalina.mbeans;
 
-
 import javax.management.Attribute;
 import javax.management.AttributeNotFoundException;
 import javax.management.InstanceNotFoundException;
@@ -75,7 +74,6 @@ import org.apache.catalina.deploy.ContextResourceLink;
 import org.apache.catalina.deploy.NamingResources;
 import org.apache.commons.modeler.BaseModelMBean;
 
-
 /**
  * <p>A <strong>ModelMBean</strong> implementation for the
  * <code>org.apache.catalina.deploy.ContextResourceLink</code> component.</p>
@@ -85,10 +83,7 @@ import org.apache.commons.modeler.BaseModelMBean;
  */
 
 public class ContextResourceLinkMBean extends BaseModelMBean {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a <code>ModelMBean</code> with default
@@ -99,20 +94,14 @@ public class ContextResourceLinkMBean extends BaseModelMBean {
      * @exception RuntimeOperationsException if an IllegalArgumentException
      *  occurs
      */
-    public ContextResourceLinkMBean()
-        throws MBeanException, RuntimeOperationsException {
-
+    public ContextResourceLinkMBean() throws MBeanException, RuntimeOperationsException {
         super();
-
     }
-
 
     // ----------------------------------------------------- Instance Variables
 
-
     // ------------------------------------------------------------- Attributes
 
-    
     /**
      * Set the value of a specific attribute of this MBean.
      *
@@ -126,26 +115,23 @@ public class ContextResourceLinkMBean extends BaseModelMBean {
      * @exception ReflectionException if a Java reflection exception
      *  occurs when invoking the getter
      */
-     public void setAttribute(Attribute attribute)
-        throws AttributeNotFoundException, MBeanException,
-        ReflectionException {
-
+    public void setAttribute(Attribute attribute)
+      throws AttributeNotFoundException, MBeanException, ReflectionException {
         super.setAttribute(attribute);
-        
+
         ContextResourceLink crl = null;
         try {
             crl = (ContextResourceLink) getManagedResource();
         } catch (InstanceNotFoundException e) {
             throw new MBeanException(e);
         } catch (InvalidTargetObjectTypeException e) {
-             throw new MBeanException(e);
+            throw new MBeanException(e);
         }
-        
-        // cannot use side-efects.  It's removed and added back each time 
+
+        // cannot use side-efects.  It's removed and added back each time
         // there is a modification in a resource.
         NamingResources nr = crl.getNamingResources();
         nr.removeResourceLink(crl.getName());
         nr.addResourceLink(crl);
     }
-    
 }

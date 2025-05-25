@@ -1,6 +1,5 @@
 package org.apache.catalina.connector;
 
-
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -8,8 +7,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 // import java.net.URL;
 import java.security.AccessController;
-import java.security.PrivilegedExceptionAction;
 import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,12 +22,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUtils;
-import org.apache.catalina.HttpResponse;
 import org.apache.catalina.Globals;
+import org.apache.catalina.HttpResponse;
 import org.apache.catalina.Logger;
 import org.apache.catalina.util.CookieTools;
 import org.apache.catalina.util.URL;
-
 
 /**
  * Convenience base implementation of the <b>HttpResponse</b> interface, which
@@ -42,16 +40,9 @@ import org.apache.catalina.util.URL;
  * @deprecated
  */
 
-public class HttpResponseBase
-    extends ResponseBase
-    implements HttpResponse, HttpServletResponse {
-
-
-    protected class PrivilegedFlushBuffer
-        implements PrivilegedExceptionAction {
-
-        PrivilegedFlushBuffer() {
-        }
+public class HttpResponseBase extends ResponseBase implements HttpResponse, HttpServletResponse {
+    protected class PrivilegedFlushBuffer implements PrivilegedExceptionAction {
+        PrivilegedFlushBuffer() {}
 
         public Object run() throws Exception {
             doFlushBuffer();
@@ -59,38 +50,28 @@ public class HttpResponseBase
         }
     }
 
-
     // ----------------------------------------------------------- Constructors
 
-
     public HttpResponseBase() {
-
         format.setTimeZone(TimeZone.getTimeZone("GMT"));
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The set of Cookies associated with this Response.
      */
     protected ArrayList cookies = new ArrayList();
 
-
     /**
      * The date format we will use for creating date headers.
      */
-    protected final SimpleDateFormat format =
-        new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz",Locale.US);
-
+    protected final SimpleDateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
 
     /**
      * The facade associated with this response.
      */
     protected HttpResponseFacade facade = new HttpResponseFacade(this);
-
 
     /**
      * The HTTP headers explicitly added via addHeader(), but not including
@@ -100,48 +81,37 @@ public class HttpResponseBase
      */
     protected HashMap headers = new HashMap();
 
-
     /**
      * Descriptive information about this HttpResponse implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.connector.HttpResponseBase/1.0";
-
+    protected static final String info = "org.apache.catalina.connector.HttpResponseBase/1.0";
 
     /**
      * The error message set by <code>sendError()</code>.
      */
     protected String message = getStatusMessage(HttpServletResponse.SC_OK);
 
-
     /**
      * The HTTP status code associated with this Response.
      */
     protected int status = HttpServletResponse.SC_OK;
-
 
     /**
      * The time zone with which to construct date headers.
      */
     protected static final TimeZone zone = TimeZone.getTimeZone("GMT");
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the <code>ServletResponse</code> for which this object
      * is the facade.
      */
     public ServletResponse getResponse() {
-
         return (facade);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Perform whatever actions are required to flush and close the output
@@ -150,14 +120,10 @@ public class HttpResponseBase
      * @exception IOException if an input/output error occurs
      */
     public void finishResponse() throws IOException {
-
         // If an HTTP error >= 400 has been created with no content,
         // attempt to create a simple error message
-        if (!isCommitted() &&
-            (stream == null) && (writer == null) &&
-            (status >= HttpServletResponse.SC_BAD_REQUEST) &&
-            (contentType == null) &&
-            (contentCount == 0)) {
+        if (!isCommitted() && (stream == null) && (writer == null) && (status >= HttpServletResponse.SC_BAD_REQUEST)
+          && (contentType == null) && (contentCount == 0)) {
             try {
                 setContentType("text/html");
                 PrintWriter writer = getWriter();
@@ -178,29 +144,24 @@ public class HttpResponseBase
             } catch (IOException e) {
                 throw e;
             } catch (Throwable e) {
-                ;       // Just eat it
+                ; // Just eat it
             }
         }
 
         // Flush the headers and finish this response
         sendHeaders();
         super.finishResponse();
-
     }
-
 
     /**
      * Return an array of all cookies set for this response, or
      * a zero-length array if no cookies have been set.
      */
     public Cookie[] getCookies() {
-
         synchronized (cookies) {
             return ((Cookie[]) cookies.toArray(new Cookie[cookies.size()]));
         }
-
     }
-
 
     /**
      * Return the value for the specified header, or <code>null</code> if this
@@ -211,7 +172,6 @@ public class HttpResponseBase
      * @param name Header name to look up
      */
     public String getHeader(String name) {
-
         ArrayList values = null;
         synchronized (headers) {
             values = (ArrayList) headers.get(name);
@@ -220,23 +180,18 @@ public class HttpResponseBase
             return ((String) values.get(0));
         else
             return (null);
-
     }
-
 
     /**
      * Return an array of all the header names set for this response, or
      * a zero-length array if no headers have been set.
      */
     public String[] getHeaderNames() {
-
         synchronized (headers) {
             String results[] = new String[headers.size()];
             return ((String[]) headers.keySet().toArray(results));
         }
-
     }
-
 
     /**
      * Return an array of all the header values associated with the
@@ -246,7 +201,6 @@ public class HttpResponseBase
      * @param name Header name to look up
      */
     public String[] getHeaderValues(String name) {
-
         ArrayList values = null;
         synchronized (headers) {
             values = (ArrayList) headers.get(name);
@@ -255,45 +209,34 @@ public class HttpResponseBase
             return (new String[0]);
         String results[] = new String[values.size()];
         return ((String[]) values.toArray(results));
-
     }
-
 
     /**
      * Return the error message that was set with <code>sendError()</code>
      * for this Response.
      */
     public String getMessage() {
-
         return (this.message);
-
     }
-
 
     /**
      * Return the HTTP status code associated with this Response.
      */
     public int getStatus() {
-
         return (this.status);
-
     }
-
 
     /**
      * Release all object references, and initialize instance variables, in
      * preparation for reuse of this object.
      */
     public void recycle() {
-
         super.recycle();
         cookies.clear();
         headers.clear();
         message = getStatusMessage(HttpServletResponse.SC_OK);
         status = HttpServletResponse.SC_OK;
-
     }
-
 
     /**
      * Reset this response, and specify the values for the HTTP status code
@@ -303,15 +246,11 @@ public class HttpResponseBase
      *  committed
      */
     public void reset(int status, String message) {
-
         reset();
         setStatus(status, message);
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Returns a default status message for the specified HTTP status code.
@@ -319,100 +258,97 @@ public class HttpResponseBase
      * @param status The status code for which a message is desired
      */
     protected String getStatusMessage(int status) {
-
         switch (status) {
-        case SC_OK:
-            return ("OK");
-        case SC_ACCEPTED:
-            return ("Accepted");
-        case SC_BAD_GATEWAY:
-            return ("Bad Gateway");
-        case SC_BAD_REQUEST:
-            return ("Bad Request");
-        case SC_CONFLICT:
-            return ("Conflict");
-        case SC_CONTINUE:
-            return ("Continue");
-        case SC_CREATED:
-            return ("Created");
-        case SC_EXPECTATION_FAILED:
-            return ("Expectation Failed");
-        case SC_FORBIDDEN:
-            return ("Forbidden");
-        case SC_GATEWAY_TIMEOUT:
-            return ("Gateway Timeout");
-        case SC_GONE:
-            return ("Gone");
-        case SC_HTTP_VERSION_NOT_SUPPORTED:
-            return ("HTTP Version Not Supported");
-        case SC_INTERNAL_SERVER_ERROR:
-            return ("Internal Server Error");
-        case SC_LENGTH_REQUIRED:
-            return ("Length Required");
-        case SC_METHOD_NOT_ALLOWED:
-            return ("Method Not Allowed");
-        case SC_MOVED_PERMANENTLY:
-            return ("Moved Permanently");
-        case SC_MOVED_TEMPORARILY:
-            return ("Moved Temporarily");
-        case SC_MULTIPLE_CHOICES:
-            return ("Multiple Choices");
-        case SC_NO_CONTENT:
-            return ("No Content");
-        case SC_NON_AUTHORITATIVE_INFORMATION:
-            return ("Non-Authoritative Information");
-        case SC_NOT_ACCEPTABLE:
-            return ("Not Acceptable");
-        case SC_NOT_FOUND:
-            return ("Not Found");
-        case SC_NOT_IMPLEMENTED:
-            return ("Not Implemented");
-        case SC_NOT_MODIFIED:
-            return ("Not Modified");
-        case SC_PARTIAL_CONTENT:
-            return ("Partial Content");
-        case SC_PAYMENT_REQUIRED:
-            return ("Payment Required");
-        case SC_PRECONDITION_FAILED:
-            return ("Precondition Failed");
-        case SC_PROXY_AUTHENTICATION_REQUIRED:
-            return ("Proxy Authentication Required");
-        case SC_REQUEST_ENTITY_TOO_LARGE:
-            return ("Request Entity Too Large");
-        case SC_REQUEST_TIMEOUT:
-            return ("Request Timeout");
-        case SC_REQUEST_URI_TOO_LONG:
-            return ("Request URI Too Long");
-        case SC_REQUESTED_RANGE_NOT_SATISFIABLE:
-            return ("Requested Range Not Satisfiable");
-        case SC_RESET_CONTENT:
-            return ("Reset Content");
-        case SC_SEE_OTHER:
-            return ("See Other");
-        case SC_SERVICE_UNAVAILABLE:
-            return ("Service Unavailable");
-        case SC_SWITCHING_PROTOCOLS:
-            return ("Switching Protocols");
-        case SC_UNAUTHORIZED:
-            return ("Unauthorized");
-        case SC_UNSUPPORTED_MEDIA_TYPE:
-            return ("Unsupported Media Type");
-        case SC_USE_PROXY:
-            return ("Use Proxy");
-        case 207:       // WebDAV
-            return ("Multi-Status");
-        case 422:       // WebDAV
-            return ("Unprocessable Entity");
-        case 423:       // WebDAV
-            return ("Locked");
-        case 507:       // WebDAV
-            return ("Insufficient Storage");
-        default:
-            return ("HTTP Response Status " + status);
+            case SC_OK:
+                return ("OK");
+            case SC_ACCEPTED:
+                return ("Accepted");
+            case SC_BAD_GATEWAY:
+                return ("Bad Gateway");
+            case SC_BAD_REQUEST:
+                return ("Bad Request");
+            case SC_CONFLICT:
+                return ("Conflict");
+            case SC_CONTINUE:
+                return ("Continue");
+            case SC_CREATED:
+                return ("Created");
+            case SC_EXPECTATION_FAILED:
+                return ("Expectation Failed");
+            case SC_FORBIDDEN:
+                return ("Forbidden");
+            case SC_GATEWAY_TIMEOUT:
+                return ("Gateway Timeout");
+            case SC_GONE:
+                return ("Gone");
+            case SC_HTTP_VERSION_NOT_SUPPORTED:
+                return ("HTTP Version Not Supported");
+            case SC_INTERNAL_SERVER_ERROR:
+                return ("Internal Server Error");
+            case SC_LENGTH_REQUIRED:
+                return ("Length Required");
+            case SC_METHOD_NOT_ALLOWED:
+                return ("Method Not Allowed");
+            case SC_MOVED_PERMANENTLY:
+                return ("Moved Permanently");
+            case SC_MOVED_TEMPORARILY:
+                return ("Moved Temporarily");
+            case SC_MULTIPLE_CHOICES:
+                return ("Multiple Choices");
+            case SC_NO_CONTENT:
+                return ("No Content");
+            case SC_NON_AUTHORITATIVE_INFORMATION:
+                return ("Non-Authoritative Information");
+            case SC_NOT_ACCEPTABLE:
+                return ("Not Acceptable");
+            case SC_NOT_FOUND:
+                return ("Not Found");
+            case SC_NOT_IMPLEMENTED:
+                return ("Not Implemented");
+            case SC_NOT_MODIFIED:
+                return ("Not Modified");
+            case SC_PARTIAL_CONTENT:
+                return ("Partial Content");
+            case SC_PAYMENT_REQUIRED:
+                return ("Payment Required");
+            case SC_PRECONDITION_FAILED:
+                return ("Precondition Failed");
+            case SC_PROXY_AUTHENTICATION_REQUIRED:
+                return ("Proxy Authentication Required");
+            case SC_REQUEST_ENTITY_TOO_LARGE:
+                return ("Request Entity Too Large");
+            case SC_REQUEST_TIMEOUT:
+                return ("Request Timeout");
+            case SC_REQUEST_URI_TOO_LONG:
+                return ("Request URI Too Long");
+            case SC_REQUESTED_RANGE_NOT_SATISFIABLE:
+                return ("Requested Range Not Satisfiable");
+            case SC_RESET_CONTENT:
+                return ("Reset Content");
+            case SC_SEE_OTHER:
+                return ("See Other");
+            case SC_SERVICE_UNAVAILABLE:
+                return ("Service Unavailable");
+            case SC_SWITCHING_PROTOCOLS:
+                return ("Switching Protocols");
+            case SC_UNAUTHORIZED:
+                return ("Unauthorized");
+            case SC_UNSUPPORTED_MEDIA_TYPE:
+                return ("Unsupported Media Type");
+            case SC_USE_PROXY:
+                return ("Use Proxy");
+            case 207: // WebDAV
+                return ("Multi-Status");
+            case 422: // WebDAV
+                return ("Unprocessable Entity");
+            case 423: // WebDAV
+                return ("Locked");
+            case 507: // WebDAV
+                return ("Insufficient Storage");
+            default:
+                return ("HTTP Response Status " + status);
         }
-
     }
-
 
     /**
      * Return <code>true</code> if the specified URL should be encoded with
@@ -428,7 +364,6 @@ public class HttpResponseBase
      * @param location Absolute URL to be validated
      **/
     private boolean isEncodeable(String location) {
-
         if (location == null)
             return (false);
 
@@ -479,21 +414,18 @@ public class HttpResponseBase
             String file = url.getFile();
             if ((file == null) || !file.startsWith(contextPath))
                 return (false);
-            if( file.indexOf(";jsessionid=" + session.getId()) >= 0 )
+            if (file.indexOf(";jsessionid=" + session.getId()) >= 0)
                 return (false);
         }
 
         // This URL belongs to our web application, so it is encodeable
         return (true);
-
     }
-
 
     private void log(String message) {
         Logger logger = context.getLogger();
         logger.log(message);
     }
-
 
     private void log(String message, Throwable throwable) {
         Logger logger = context.getLogger();
@@ -509,14 +441,13 @@ public class HttpResponseBase
      * @return A string in the form of &quot;HTTP/1.0&quot; ...
      */
     protected String getProtocol() {
-        return(request.getRequest().getProtocol());
+        return (request.getRequest().getProtocol());
     }
 
     /**
      * Send the HTTP response headers, if this has not already occurred.
      */
     protected void sendHeaders() throws IOException {
-
         if (isCommitted())
             return;
 
@@ -554,20 +485,19 @@ public class HttpResponseBase
             // System.out.println(" Content-Type: " + getContentType());
         }
         if (getContentLength() >= 0) {
-            outputWriter.print("Content-Length: " + getContentLength() +
-                               "\r\n");
+            outputWriter.print("Content-Length: " + getContentLength() + "\r\n");
             // System.out.println(" Content-Length: " + getContentLength());
         }
 
         // Send all specified headers (if any)
         synchronized (headers) {
-        Iterator names = headers.keySet().iterator();
-        while (names.hasNext()) {
-            String name = (String) names.next();
-            ArrayList values = (ArrayList) headers.get(name);
-            Iterator items = values.iterator();
-            while (items.hasNext()) {
-                String value = (String) items.next();
+            Iterator names = headers.keySet().iterator();
+            while (names.hasNext()) {
+                String name = (String) names.next();
+                ArrayList values = (ArrayList) headers.get(name);
+                Iterator items = values.iterator();
+                while (items.hasNext()) {
+                    String value = (String) items.next();
                     outputWriter.print(name);
                     outputWriter.print(": ");
                     outputWriter.print(value);
@@ -581,10 +511,8 @@ public class HttpResponseBase
         HttpServletRequest hreq = (HttpServletRequest) request.getRequest();
         HttpSession session = hreq.getSession(false);
 
-        if ((session != null) && session.isNew() && (getContext() != null)
-            && getContext().getCookies()) {
-            Cookie cookie = new Cookie(Globals.SESSION_COOKIE_NAME,
-                                       session.getId());
+        if ((session != null) && session.isNew() && (getContext() != null) && getContext().getCookies()) {
+            Cookie cookie = new Cookie(Globals.SESSION_COOKIE_NAME, session.getId());
 
             cookie.setMaxAge(-1);
             String contextPath = null;
@@ -608,10 +536,10 @@ public class HttpResponseBase
                 outputWriter.print(": ");
                 outputWriter.print(CookieTools.getCookieHeaderValue(cookie));
                 outputWriter.print("\r\n");
-                //System.out.println(" " +
-                //                   CookieTools.getCookieHeaderName(cookie) +
-                //                   ": " +
-                //                  CookieTools.getCookieHeaderValue(cookie));
+                // System.out.println(" " +
+                //                    CookieTools.getCookieHeaderName(cookie) +
+                //                    ": " +
+                //                   CookieTools.getCookieHeaderValue(cookie));
             }
         }
 
@@ -622,9 +550,7 @@ public class HttpResponseBase
 
         // The response is now committed
         committed = true;
-
     }
-
 
     /**
      * Convert (if necessary) and return the absolute URL that represents the
@@ -637,7 +563,6 @@ public class HttpResponseBase
      *  thrown when converting the relative URL to an absolute one
      */
     private String toAbsolute(String location) {
-
         if (location == null)
             return (location);
 
@@ -647,8 +572,7 @@ public class HttpResponseBase
         try {
             url = new URL(location);
         } catch (MalformedURLException e1) {
-            HttpServletRequest hreq =
-                (HttpServletRequest) request.getRequest();
+            HttpServletRequest hreq = (HttpServletRequest) request.getRequest();
             String requrl = HttpUtils.getRequestURL(hreq).toString();
             try {
                 url = new URL(new URL(requrl), location);
@@ -657,9 +581,7 @@ public class HttpResponseBase
             }
         }
         return (url.toExternalForm());
-
     }
-
 
     /**
      * Return the specified URL with the specified session identifier
@@ -669,7 +591,6 @@ public class HttpResponseBase
      * @param sessionId Session id to be included in the encoded URL
      */
     private String toEncoded(String url, String sessionId) {
-
         if ((url == null) || (sessionId == null))
             return (url);
 
@@ -687,19 +608,16 @@ public class HttpResponseBase
             path = path.substring(0, pound);
         }
         StringBuffer sb = new StringBuffer(path);
-        if( sb.length() > 0 ) { // jsessionid can't be first.
+        if (sb.length() > 0) { // jsessionid can't be first.
             sb.append(";jsessionid=");
             sb.append(sessionId);
         }
         sb.append(anchor);
         sb.append(query);
         return (sb.toString());
-
     }
 
-
     // ------------------------------------------------ ServletResponse Methods
-
 
     /**
      * Flush the buffer and commit this response.  If this is the first output,
@@ -708,29 +626,24 @@ public class HttpResponseBase
      * @exception IOException if an input/output error occurs
      */
     public void flushBuffer() throws IOException {
-
-        if( System.getSecurityManager() != null ) {
+        if (System.getSecurityManager() != null) {
             try {
                 PrivilegedFlushBuffer dp = new PrivilegedFlushBuffer();
                 AccessController.doPrivileged(dp);
-            } catch( PrivilegedActionException pe) {
-                throw (IOException)pe.getException();
+            } catch (PrivilegedActionException pe) {
+                throw (IOException) pe.getException();
             }
         } else {
             doFlushBuffer();
         }
-
     }
 
     private void doFlushBuffer() throws IOException {
-
         if (!isCommitted())
             sendHeaders();
 
         super.flushBuffer();
-
     }
-
 
     /**
      * Clear any content written to the buffer.  In addition, all cookies
@@ -740,18 +653,15 @@ public class HttpResponseBase
      *  been committed
      */
     public void reset() {
-
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         super.reset();
         cookies.clear();
         headers.clear();
         message = null;
         status = HttpServletResponse.SC_OK;
-
     }
-
 
     /**
      * Set the content length (in bytes) for this Response.
@@ -759,18 +669,14 @@ public class HttpResponseBase
      * @param length The new content length
      */
     public void setContentLength(int length) {
-
         if (isCommitted())
             return;
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         super.setContentLength(length);
-
     }
-
-
 
     /**
      * Set the content type for this Response.
@@ -778,17 +684,14 @@ public class HttpResponseBase
      * @param type The new content type
      */
     public void setContentType(String type) {
-
         if (isCommitted())
             return;
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         super.setContentType(type);
-
     }
-
 
     /**
      * Set the Locale that is appropriate for this response, including
@@ -797,12 +700,11 @@ public class HttpResponseBase
      * @param locale The new locale
      */
     public void setLocale(Locale locale) {
-
         if (isCommitted())
             return;
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         super.setLocale(locale);
         String language = locale.getLanguage();
@@ -815,12 +717,9 @@ public class HttpResponseBase
             }
             setHeader("Content-Language", value.toString());
         }
-
     }
 
-
     // -------------------------------------------- HttpServletResponse Methods
-
 
     /**
      * Add the specified Cookie to those that will be included with
@@ -829,19 +728,16 @@ public class HttpResponseBase
      * @param cookie Cookie to be added
      */
     public void addCookie(Cookie cookie) {
-
         if (isCommitted())
             return;
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         synchronized (cookies) {
             cookies.add(cookie);
         }
-
     }
-
 
     /**
      * Add the specified date header to the specified value.
@@ -850,17 +746,14 @@ public class HttpResponseBase
      * @param value Date value to be set
      */
     public void addDateHeader(String name, long value) {
-
         if (isCommitted())
             return;
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         addHeader(name, format.format(new Date(value)));
-
     }
-
 
     /**
      * Add the specified header to the specified value.
@@ -869,12 +762,11 @@ public class HttpResponseBase
      * @param value Value to be set
      */
     public void addHeader(String name, String value) {
-
         if (isCommitted())
             return;
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         synchronized (headers) {
             ArrayList values = (ArrayList) headers.get(name);
@@ -884,9 +776,7 @@ public class HttpResponseBase
             }
             values.add(value);
         }
-
     }
-
 
     /**
      * Add the specified integer header to the specified value.
@@ -895,17 +785,14 @@ public class HttpResponseBase
      * @param value Integer value to be set
      */
     public void addIntHeader(String name, int value) {
-
         if (isCommitted())
             return;
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         addHeader(name, "" + value);
-
     }
-
 
     /**
      * Has the specified header been set already in this response?
@@ -913,13 +800,10 @@ public class HttpResponseBase
      * @param name Name of the header to check
      */
     public boolean containsHeader(String name) {
-
         synchronized (headers) {
             return (headers.get(name) != null);
         }
-
     }
-
 
     /**
      * Encode the session identifier associated with this response
@@ -928,16 +812,12 @@ public class HttpResponseBase
      * @param url URL to be encoded
      */
     public String encodeRedirectURL(String url) {
-
         if (isEncodeable(toAbsolute(url))) {
-            HttpServletRequest hreq =
-              (HttpServletRequest) request.getRequest();
+            HttpServletRequest hreq = (HttpServletRequest) request.getRequest();
             return (toEncoded(url, hreq.getSession().getId()));
         } else
             return (url);
-
     }
-
 
     /**
      * Encode the session identifier associated with this response
@@ -949,11 +829,8 @@ public class HttpResponseBase
      *  <code>encodeRedirectURL()</code> instead.
      */
     public String encodeRedirectUrl(String url) {
-
         return (encodeRedirectURL(url));
-
     }
-
 
     /**
      * Encode the session identifier associated with this response
@@ -963,14 +840,11 @@ public class HttpResponseBase
      */
     public String encodeURL(String url) {
         if (isEncodeable(toAbsolute(url))) {
-            HttpServletRequest hreq =
-              (HttpServletRequest) request.getRequest();
+            HttpServletRequest hreq = (HttpServletRequest) request.getRequest();
             return (toEncoded(url, hreq.getSession().getId()));
         } else
             return (url);
-
     }
-
 
     /**
      * Encode the session identifier associated with this response
@@ -982,21 +856,15 @@ public class HttpResponseBase
      *  <code>encodeURL()</code> instead.
      */
     public String encodeUrl(String url) {
-
         return (encodeURL(url));
-
     }
-
 
     /**
      * Send an acknowledgment of a request.
      *
      * @exception IOException if an input/output error occurs
      */
-    public void sendAcknowledgement()
-        throws IOException {
-    }
-
+    public void sendAcknowledgement() throws IOException {}
 
     /**
      * Send an error response with the specified status and a
@@ -1009,11 +877,8 @@ public class HttpResponseBase
      * @exception IOException if an input/output error occurs
      */
     public void sendError(int status) throws IOException {
-
         sendError(status, getStatusMessage(status));
-
     }
-
 
     /**
      * Send an error response with the specified status and message.
@@ -1026,13 +891,11 @@ public class HttpResponseBase
      * @exception IOException if an input/output error occurs
      */
     public void sendError(int status, String message) throws IOException {
-
         if (isCommitted())
-            throw new IllegalStateException
-                (sm.getString("httpResponseBase.sendError.ise"));
+            throw new IllegalStateException(sm.getString("httpResponseBase.sendError.ise"));
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         setError();
 
@@ -1045,9 +908,7 @@ public class HttpResponseBase
 
         // Cause the response to be finished (from the application perspective)
         setSuspended(true);
-
     }
-
 
     /**
      * Send a temporary redirect to the specified redirect location URL.
@@ -1059,13 +920,11 @@ public class HttpResponseBase
      * @exception IOException if an input/output error occurs
      */
     public void sendRedirect(String location) throws IOException {
-
         if (isCommitted())
-            throw new IllegalStateException
-                (sm.getString("httpResponseBase.sendRedirect.ise"));
+            throw new IllegalStateException(sm.getString("httpResponseBase.sendRedirect.ise"));
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         // Clear any data content that has been buffered
         resetBuffer();
@@ -1081,9 +940,7 @@ public class HttpResponseBase
 
         // Cause the response to be finished (from the application perspective)
         setSuspended(true);
-
     }
-
 
     /**
      * Set the specified date header to the specified value.
@@ -1092,17 +949,14 @@ public class HttpResponseBase
      * @param value Date value to be set
      */
     public void setDateHeader(String name, long value) {
-
         if (isCommitted())
             return;
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         setHeader(name, format.format(new Date(value)));
-
     }
-
 
     /**
      * Set the specified header to the specified value.
@@ -1111,12 +965,11 @@ public class HttpResponseBase
      * @param value Value to be set
      */
     public void setHeader(String name, String value) {
-
         if (isCommitted())
             return;
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         ArrayList values = new ArrayList();
         values.add(value);
@@ -1137,9 +990,7 @@ public class HttpResponseBase
         } else if (match.equals("content-type")) {
             setContentType(value);
         }
-
     }
-
 
     /**
      * Set the specified integer header to the specified value.
@@ -1148,17 +999,14 @@ public class HttpResponseBase
      * @param value Integer value to be set
      */
     public void setIntHeader(String name, int value) {
-
         if (isCommitted())
             return;
 
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         setHeader(name, "" + value);
-
     }
-
 
     /**
      * Set the HTTP status to be returned with this response.
@@ -1166,11 +1014,8 @@ public class HttpResponseBase
      * @param status The new HTTP status
      */
     public void setStatus(int status) {
-
         setStatus(status, getStatusMessage(status));
-
     }
-
 
     /**
      * Set the HTTP status and message to be returned with this response.
@@ -1183,15 +1028,10 @@ public class HttpResponseBase
      *  parameter.
      */
     public void setStatus(int status, String message) {
-
         if (included)
-            return;     // Ignore any call from an included servlet
+            return; // Ignore any call from an included servlet
 
         this.status = status;
         this.message = message;
-
     }
-
-
 }
-

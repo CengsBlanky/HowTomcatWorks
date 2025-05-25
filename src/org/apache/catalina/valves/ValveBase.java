@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/valves/ValveBase.java,v 1.4 2002/01/25 20:12:27 amyroh Exp $
- * $Revision: 1.4 $
- * $Date: 2002/01/25 20:12:27 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/valves/ValveBase.java,v 1.4 2002/01/25
+ * 20:12:27 amyroh Exp $ $Revision: 1.4 $ $Date: 2002/01/25 20:12:27 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.valves;
-
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -74,7 +71,6 @@ import org.apache.catalina.Response;
 import org.apache.catalina.Valve;
 import org.apache.catalina.ValveContext;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * Convenience base class for implementations of the <b>Valve</b> interface.
@@ -87,52 +83,38 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.4 $ $Date: 2002/01/25 20:12:27 $
  */
 
-public abstract class ValveBase
-    implements Contained, Valve {
-
-
+public abstract class ValveBase implements Contained, Valve {
     //------------------------------------------------------ Instance Variables
-
 
     /**
      * The Container whose pipeline this Valve is a component of.
      */
     protected Container container = null;
 
-
     /**
      * The debugging detail level for this component.
      */
     protected int debug = 0;
 
-
     /**
      * Descriptive information about this Valve implementation.  This value
      * should be overridden by subclasses.
      */
-    protected static String info =
-        "org.apache.catalina.core.ValveBase/1.0";
-
+    protected static String info = "org.apache.catalina.core.ValveBase/1.0";
 
     /**
      * The string manager for this package.
      */
-    protected final static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected final static StringManager sm = StringManager.getManager(Constants.Package);
 
     //-------------------------------------------------------------- Properties
-
 
     /**
      * Return the Container with which this Valve is associated, if any.
      */
     public Container getContainer() {
-
         return (container);
-
     }
-
 
     /**
      * Set the Container with which this Valve is associated, if any.
@@ -140,21 +122,15 @@ public abstract class ValveBase
      * @param container The new associated container
      */
     public void setContainer(Container container) {
-
         this.container = container;
-
     }
 
-
-   /**
+    /**
      * Return the debugging detail level for this component.
      */
     public int getDebug() {
-
         return (this.debug);
-
     }
-
 
     /**
      * Set the debugging detail level for this component.
@@ -162,24 +138,17 @@ public abstract class ValveBase
      * @param debug The new debugging detail level
      */
     public void setDebug(int debug) {
-
         this.debug = debug;
-
     }
-
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo() {
-
         return (info);
-
     }
 
-
     //---------------------------------------------------------- Public Methods
-
 
     /**
      * The implementation-specific logic represented by this Valve.  See the
@@ -195,9 +164,6 @@ public abstract class ValveBase
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
-    public abstract void invoke(Request request, Response response,
-                                ValveContext context)
-        throws IOException, ServletException;
-
-
+    public abstract void invoke(Request request, Response response, ValveContext context)
+      throws IOException, ServletException;
 }

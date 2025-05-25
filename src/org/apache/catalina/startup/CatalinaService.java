@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/CatalinaService.java,v 1.7 2002/07/09 10:46:16 jfclere Exp $
- * $Revision: 1.7 $
- * $Date: 2002/07/09 10:46:16 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/CatalinaService.java,v 1.7
+ * 2002/07/09 10:46:16 jfclere Exp $ $Revision: 1.7 $ $Date: 2002/07/09 10:46:16 $
  *
  * ====================================================================
  *
@@ -61,16 +60,13 @@
  *
  */
 
-
 package org.apache.catalina.startup;
-
 
 import java.io.File;
 import java.security.Security;
 import org.apache.catalina.Lifecycle;
 import org.apache.catalina.LifecycleException;
 import org.apache.commons.digester.Digester;
-
 
 /**
  * Startup/Shutdown shell program for Catalina.  The following command line
@@ -95,13 +91,9 @@ import org.apache.commons.digester.Digester;
  */
 
 public class CatalinaService extends Catalina {
-
-
     // ----------------------------------------------------- Instance Variables
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Process the specified command line arguments, and return
@@ -111,7 +103,6 @@ public class CatalinaService extends Catalina {
      * @param args Command line arguments to process
      */
     protected boolean arguments(String args[]) {
-
         boolean isConfig = false;
 
         if (args.length < 1) {
@@ -145,30 +136,24 @@ public class CatalinaService extends Catalina {
         }
 
         return (true);
-
     }
-
 
     /**
      * Execute the processing that has been configured from the command line.
      */
     protected void execute() throws Exception {
-
         if (starting) {
             load();
             start();
         } else if (stopping) {
             stop();
         }
-
     }
-
 
     /**
      * Start a new server instance.
      */
     public void load() {
-
         // Create and execute our Digester
         Digester digester = createStartDigester();
         File file = configFile();
@@ -187,35 +172,33 @@ public class CatalinaService extends Catalina {
         } else {
             System.setProperty("catalina.useNaming", "true");
             String value = "org.apache.naming";
-            String oldValue =
-                System.getProperty(javax.naming.Context.URL_PKG_PREFIXES);
+            String oldValue = System.getProperty(javax.naming.Context.URL_PKG_PREFIXES);
             if (oldValue != null) {
                 value = value + ":" + oldValue;
             }
             System.setProperty(javax.naming.Context.URL_PKG_PREFIXES, value);
-            System.setProperty(javax.naming.Context.INITIAL_CONTEXT_FACTORY,
-                               "org.apache.naming.java.javaURLContextFactory");
+            System.setProperty(
+              javax.naming.Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
         }
 
         // If a SecurityManager is being used, set properties for
         // checkPackageAccess() and checkPackageDefinition
-        if( System.getSecurityManager() != null ) {
+        if (System.getSecurityManager() != null) {
             String access = Security.getProperty("package.access");
-            if( access != null && access.length() > 0 )
+            if (access != null && access.length() > 0)
                 access += ",";
             else
                 access = "sun.,";
-            Security.setProperty("package.access",
-                access + "org.apache.catalina.,org.apache.jasper.");
+            Security.setProperty("package.access", access + "org.apache.catalina.,org.apache.jasper.");
             String definition = Security.getProperty("package.definition");
-            if( definition != null && definition.length() > 0 )
+            if (definition != null && definition.length() > 0)
                 definition += ",";
             else
                 definition = "sun.,";
             Security.setProperty("package.definition",
-                // FIX ME package "javax." was removed to prevent HotSpot
-                // fatal internal errors
-                definition + "java.,org.apache.catalina.,org.apache.jasper.");
+              // FIX ME package "javax." was removed to prevent HotSpot
+              // fatal internal errors
+              definition + "java.,org.apache.catalina.,org.apache.jasper.");
         }
 
         // Start the new server
@@ -231,14 +214,12 @@ public class CatalinaService extends Catalina {
                 }
             }
         }
-
     }
 
-    /* 
+    /*
      * Load using arguments
      */
     public void load(String args[]) {
-
         setCatalinaHome();
         setCatalinaBase();
         try {
@@ -249,12 +230,10 @@ public class CatalinaService extends Catalina {
         }
     }
 
-
     /**
      * Start a new server instance.
      */
     public void start() {
-
         // Start the new server
         if (server instanceof Lifecycle) {
             try {
@@ -268,15 +247,12 @@ public class CatalinaService extends Catalina {
                 }
             }
         }
-
     }
-
 
     /**
      * Stop an existing server instance.
      */
     public void stop() {
-
         // Shut down the server
         if (server instanceof Lifecycle) {
             try {
@@ -290,8 +266,5 @@ public class CatalinaService extends Catalina {
                 }
             }
         }
-
     }
-
-
 }

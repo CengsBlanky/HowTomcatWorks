@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/valves/CertificatesValve.java,v 1.10 2002/06/09 02:19:44 remm Exp $
- * $Revision: 1.10 $
- * $Date: 2002/06/09 02:19:44 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/valves/CertificatesValve.java,v 1.10
+ * 2002/06/09 02:19:44 remm Exp $ $Revision: 1.10 $ $Date: 2002/06/09 02:19:44 $
  *
  * ====================================================================
  *
@@ -61,16 +60,14 @@
  *
  */
 
-
 package org.apache.catalina.valves;
-
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.security.cert.CertificateFactory;
 import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
-import java.security.cert.CertificateFactory;
 import javax.security.cert.X509Certificate;
 import javax.servlet.ServletException;
 import org.apache.catalina.Context;
@@ -86,7 +83,6 @@ import org.apache.catalina.connector.RequestWrapper;
 import org.apache.catalina.deploy.LoginConfig;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * <p>Implementation of a Valve that deals with SSL client certificates, as
@@ -113,103 +109,74 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.10 $ $Date: 2002/06/09 02:19:44 $
  */
 
-public final class CertificatesValve
-    extends ValveBase implements Lifecycle {
-
-
+public final class CertificatesValve extends ValveBase implements Lifecycle {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Are certificates required for authentication by this web application?
      */
     protected boolean certificates = false;
 
-
     /**
      * A mapping table to determine the number of effective bits in the key
      * when using a cipher suite containing the specified cipher name.  The
      * underlying data came from the TLS Specification (RFC 2246), Appendix C.
      */
-    protected static final CipherData ciphers[] = {
-        new CipherData("_WITH_NULL_", 0),
-        new CipherData("_WITH_IDEA_CBC_", 128),
-        new CipherData("_WITH_RC2_CBC_40_", 40),
-        new CipherData("_WITH_RC4_40_", 40),
-        new CipherData("_WITH_RC4_128_", 128),
-        new CipherData("_WITH_DES40_CBC_", 40),
-        new CipherData("_WITH_DES_CBC_", 56),
-        new CipherData("_WITH_3DES_EDE_CBC_", 168)
-    };
-
+    protected static final CipherData ciphers[] = {new CipherData("_WITH_NULL_", 0),
+      new CipherData("_WITH_IDEA_CBC_", 128), new CipherData("_WITH_RC2_CBC_40_", 40),
+      new CipherData("_WITH_RC4_40_", 40), new CipherData("_WITH_RC4_128_", 128),
+      new CipherData("_WITH_DES40_CBC_", 40), new CipherData("_WITH_DES_CBC_", 56),
+      new CipherData("_WITH_3DES_EDE_CBC_", 168)};
 
     /**
      * The debugging detail level for this component.
      */
     protected int debug = 0;
 
-
     /**
      * The descriptive information related to this implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.valves.CertificatesValve/1.0";
-
+    protected static final String info = "org.apache.catalina.valves.CertificatesValve/1.0";
 
     /**
      * The lifecycle event support for this component.
      */
     protected LifecycleSupport lifecycle = new LifecycleSupport(this);
 
-
     /**
      * The StringManager for this package.
      */
-    protected static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static StringManager sm = StringManager.getManager(Constants.Package);
 
     /**
      * Has this component been started yet?
      */
     protected boolean started = false;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the debugging detail level for this component.
      */
     public int getDebug() {
-
         return (this.debug);
-
     }
-
 
     /**
      * Set the debugging detail level for this component.
      */
     public void setDebug(int debug) {
-
         this.debug = debug;
-
     }
-
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo() {
-
         return (info);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Expose the certificates chain if one was included on this request.
@@ -222,14 +189,10 @@ public final class CertificatesValve
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
-    public void invoke(Request request, Response response,
-                       ValveContext context)
-        throws IOException, ServletException {
-
+    public void invoke(Request request, Response response, ValveContext context) throws IOException, ServletException {
         // Identify the underlying request if this request was wrapped
         Request actual = request;
-        while (actual instanceof RequestWrapper)
-            actual = ((RequestWrapper) actual).getWrappedRequest();
+        while (actual instanceof RequestWrapper) actual = ((RequestWrapper) actual).getWrappedRequest();
         //        if (debug >= 2)
         //            log("Processing request");
 
@@ -242,12 +205,9 @@ public final class CertificatesValve
 
         // Invoke the next Valve in our Pipeline
         context.invokeNext(request, response);
-
     }
 
-
     // ------------------------------------------------------ Lifecycle Methods
-
 
     /**
      * Add a LifecycleEvent listener to this component.
@@ -255,22 +215,16 @@ public final class CertificatesValve
      * @param listener The listener to add
      */
     public void addLifecycleListener(LifecycleListener listener) {
-
         lifecycle.addLifecycleListener(listener);
-
     }
 
-
     /**
-     * Get the lifecycle listeners associated with this lifecycle. If this 
+     * Get the lifecycle listeners associated with this lifecycle. If this
      * Lifecycle has no listeners registered, a zero-length array is returned.
      */
     public LifecycleListener[] findLifecycleListeners() {
-
         return lifecycle.findLifecycleListeners();
-
     }
-
 
     /**
      * Remove a LifecycleEvent listener from this component.
@@ -278,11 +232,8 @@ public final class CertificatesValve
      * @param listener The listener to remove
      */
     public void removeLifecycleListener(LifecycleListener listener) {
-
         lifecycle.removeLifecycleListener(listener);
-
     }
-
 
     /**
      * Prepare for the beginning of active use of the public methods of this
@@ -294,11 +245,9 @@ public final class CertificatesValve
      *  that prevents this component from being used
      */
     public void start() throws LifecycleException {
-
         // Validate and update our current component state
         if (started)
-            throw new LifecycleException
-                (sm.getString("certificatesValve.alreadyStarted"));
+            throw new LifecycleException(sm.getString("certificatesValve.alreadyStarted"));
         started = true;
         if (debug >= 1)
             log("Starting");
@@ -317,9 +266,7 @@ public final class CertificatesValve
 
         // Notify our interested LifecycleListeners
         lifecycle.fireLifecycleEvent(Lifecycle.START_EVENT, null);
-
     }
-
 
     /**
      * Gracefully terminate the active use of the public methods of this
@@ -331,23 +278,18 @@ public final class CertificatesValve
      *  that needs to be reported
      */
     public void stop() throws LifecycleException {
-
         // Validate and update our current component state
         if (!started)
-            throw new LifecycleException
-                (sm.getString("certificatesValve.notStarted"));
+            throw new LifecycleException(sm.getString("certificatesValve.notStarted"));
         lifecycle.fireLifecycleEvent(Lifecycle.STOP_EVENT, null);
         started = false;
         if (debug >= 1)
             log("Stopping");
 
         certificates = false;
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Expose the certificate chain for this request, if there is one.
@@ -356,7 +298,6 @@ public final class CertificatesValve
      * @param actual The actual underlying Request object
      */
     protected void expose(Request request, Request actual) {
-
         // Ensure that this request came in on an SSLSocket
         if (actual.getSocket() == null)
             return;
@@ -374,8 +315,7 @@ public final class CertificatesValve
         // Expose the cipher suite and key size
         String cipherSuite = session.getCipherSuite();
         if (cipherSuite != null)
-            request.getRequest().setAttribute(Globals.CIPHER_SUITE_ATTR,
-                                              cipherSuite);
+            request.getRequest().setAttribute(Globals.CIPHER_SUITE_ATTR, cipherSuite);
         Integer keySize = (Integer) session.getValue(Globals.KEY_SIZE_ATTR);
         if (keySize == null) {
             int size = 0;
@@ -388,25 +328,24 @@ public final class CertificatesValve
             keySize = new Integer(size);
             session.putValue(Globals.KEY_SIZE_ATTR, keySize);
         }
-        request.getRequest().setAttribute(Globals.KEY_SIZE_ATTR,
-                                          keySize);
+        request.getRequest().setAttribute(Globals.KEY_SIZE_ATTR, keySize);
         //        if (debug >= 2)
         //            log(" expose: Has cipher suite " + cipherSuite +
         //                " and key size " + keySize);
 
         // Expose ssl_session (getId)
-        byte [] ssl_session = session.getId();
-        if (ssl_session!=null) {
-            StringBuffer buf=new StringBuffer("");
-            for(int x=0; x<ssl_session.length; x++) {
-                String digit=Integer.toHexString((int)ssl_session[x]);
-                if (digit.length()<2) buf.append('0');
-                if (digit.length()>2) digit=digit.substring(digit.length()-2);
+        byte[] ssl_session = session.getId();
+        if (ssl_session != null) {
+            StringBuffer buf = new StringBuffer("");
+            for (int x = 0; x < ssl_session.length; x++) {
+                String digit = Integer.toHexString((int) ssl_session[x]);
+                if (digit.length() < 2)
+                    buf.append('0');
+                if (digit.length() > 2)
+                    digit = digit.substring(digit.length() - 2);
                 buf.append(digit);
             }
-            request.getRequest().setAttribute(
-                "javax.servlet.request.ssl_session",
-                buf.toString());
+            request.getRequest().setAttribute("javax.servlet.request.ssl_session", buf.toString());
         }
 
         // If we have cached certificates, return them
@@ -414,8 +353,7 @@ public final class CertificatesValve
         if (cached != null) {
             //            if (debug >= 2)
             //                log(" expose: Has cached certificates");
-            request.getRequest().setAttribute(Globals.CERTIFICATES_ATTR,
-                                              cached);
+            request.getRequest().setAttribute(Globals.CERTIFICATES_ATTR, cached);
             return;
         }
 
@@ -426,16 +364,12 @@ public final class CertificatesValve
             jsseCerts = session.getPeerCertificateChain();
             if (jsseCerts == null)
                 jsseCerts = new X509Certificate[0];
-            x509Certs =
-              new java.security.cert.X509Certificate[jsseCerts.length];
+            x509Certs = new java.security.cert.X509Certificate[jsseCerts.length];
             for (int i = 0; i < x509Certs.length; i++) {
                 byte buffer[] = jsseCerts[i].getEncoded();
-                CertificateFactory cf =
-                  CertificateFactory.getInstance("X.509");
-                ByteArrayInputStream stream =
-                  new ByteArrayInputStream(buffer);
-                x509Certs[i] = (java.security.cert.X509Certificate)
-                  cf.generateCertificate(stream);
+                CertificateFactory cf = CertificateFactory.getInstance("X.509");
+                ByteArrayInputStream stream = new ByteArrayInputStream(buffer);
+                x509Certs[i] = (java.security.cert.X509Certificate) cf.generateCertificate(stream);
             }
         } catch (Throwable t) {
             return;
@@ -446,11 +380,8 @@ public final class CertificatesValve
             return;
         session.putValue(Globals.CERTIFICATES_ATTR, x509Certs);
         log(" expose: Exposing converted certificates");
-        request.getRequest().setAttribute(Globals.CERTIFICATES_ATTR,
-                                          x509Certs);
-
+        request.getRequest().setAttribute(Globals.CERTIFICATES_ATTR, x509Certs);
     }
-
 
     /**
      * Log a message on the Logger associated with our Container (if any).
@@ -458,17 +389,12 @@ public final class CertificatesValve
      * @param message Message to be logged
      */
     protected void log(String message) {
-
         Logger logger = container.getLogger();
         if (logger != null)
-            logger.log("CertificatesValve[" + container.getName() + "]: " +
-                       message);
+            logger.log("CertificatesValve[" + container.getName() + "]: " + message);
         else
-            System.out.println("CertificatesValve[" + container.getName() +
-                               "]: " + message);
-
+            System.out.println("CertificatesValve[" + container.getName() + "]: " + message);
     }
-
 
     /**
      * Log a message on the Logger associated with our Container (if any).
@@ -477,19 +403,14 @@ public final class CertificatesValve
      * @param throwable Associated exception
      */
     protected void log(String message, Throwable throwable) {
-
         Logger logger = container.getLogger();
         if (logger != null)
-            logger.log("CertificatesValve[" + container.getName() + "]: " +
-                       message, throwable);
+            logger.log("CertificatesValve[" + container.getName() + "]: " + message, throwable);
         else {
-            System.out.println("CertificatesValve[" + container.getName() +
-                               "]: " + message);
+            System.out.println("CertificatesValve[" + container.getName() + "]: " + message);
             throwable.printStackTrace(System.out);
         }
-
     }
-
 
     /**
      * Verify that a client certificate chain exists if our web application
@@ -499,7 +420,6 @@ public final class CertificatesValve
      * @param actual The actual underlying Request object
      */
     protected void verify(Request request, Request actual) {
-
         // Ensure that this request came in on an SSLSocket
         if (actual.getSocket() == null)
             return;
@@ -558,15 +478,10 @@ public final class CertificatesValve
         //        if (debug >= 2)
         //            log(" verify: Certificate chain has " +
         //                jsseCerts.length + " certificates");
-
     }
-
-
 }
 
-
 // ------------------------------------------------------------ Private Classes
-
 
 /**
  * Simple data class that represents the cipher being used, along with the
@@ -575,7 +490,6 @@ public final class CertificatesValve
  */
 
 final class CipherData {
-
     String phrase = null;
 
     int keySize = 0;
@@ -584,5 +498,4 @@ final class CipherData {
         this.phrase = phrase;
         this.keySize = keySize;
     }
-
 }

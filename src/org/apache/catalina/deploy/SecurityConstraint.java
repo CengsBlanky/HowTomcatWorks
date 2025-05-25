@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/SecurityConstraint.java,v 1.5 2001/07/22 20:25:10 pier Exp $
- * $Revision: 1.5 $
- * $Date: 2001/07/22 20:25:10 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/SecurityConstraint.java,v 1.5
+ * 2001/07/22 20:25:10 pier Exp $ $Revision: 1.5 $ $Date: 2001/07/22 20:25:10 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
-
 
 /**
  * Representation of a security constraint element for a web application,
@@ -81,30 +78,22 @@ package org.apache.catalina.deploy;
  */
 
 public final class SecurityConstraint {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new security constraint instance with default values.
      */
     public SecurityConstraint() {
-
         super();
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Was the "all roles" wildcard included in the authorization constraints
      * for this security constraint?
      */
     private boolean allRoles = false;
-
 
     /**
      * Was an authorization constraint included in this security constraint?
@@ -114,13 +103,11 @@ public final class SecurityConstraint {
      */
     private boolean authConstraint = false;
 
-
     /**
      * The set of roles permitted to access resources protected by this
      * security constraint.
      */
     private String authRoles[] = new String[0];
-
 
     /**
      * The set of web resource collections protected by this security
@@ -128,12 +115,10 @@ public final class SecurityConstraint {
      */
     private SecurityCollection collections[] = new SecurityCollection[0];
 
-
     /**
      * The display name of this security constraint.
      */
     private String displayName = null;
-
 
     /**
      * The user data constraint for this security constraint.  Must be NONE,
@@ -141,72 +126,52 @@ public final class SecurityConstraint {
      */
     private String userConstraint = "NONE";
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Was the "all roles" wildcard included in this authentication
      * constraint?
      */
     public boolean getAllRoles() {
-
         return (this.allRoles);
-
     }
-
 
     /**
      * Return the authorization constraint present flag for this security
      * constraint.
      */
     public boolean getAuthConstraint() {
-
         return (this.authConstraint);
-
     }
-
 
     /**
      * Set the authorization constraint present flag for this security
      * constraint.
      */
     public void setAuthConstraint(boolean authConstraint) {
-
         this.authConstraint = authConstraint;
-
     }
-
 
     /**
      * Return the display name of this security constraint.
      */
     public String getDisplayName() {
-
         return (this.displayName);
-
     }
-
 
     /**
      * Set the display name of this security constraint.
      */
     public void setDisplayName(String displayName) {
-
         this.displayName = displayName;
-
     }
-
 
     /**
      * Return the user data constraint for this security constraint.
      */
     public String getUserConstraint() {
-
         return (userConstraint);
-
     }
-
 
     /**
      * Set the user data constraint for this security constraint.
@@ -214,15 +179,11 @@ public final class SecurityConstraint {
      * @param userConstraint The new user data constraint
      */
     public void setUserConstraint(String userConstraint) {
-
         if (userConstraint != null)
             this.userConstraint = userConstraint;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add an authorization role, which is a role name that will be
@@ -231,7 +192,6 @@ public final class SecurityConstraint {
      * @param authRole Role name to be added
      */
     public void addAuthRole(String authRole) {
-
         if (authRole == null)
             return;
         if ("*".equals(authRole)) {
@@ -239,14 +199,11 @@ public final class SecurityConstraint {
             return;
         }
         String results[] = new String[authRoles.length + 1];
-        for (int i = 0; i < authRoles.length; i++)
-            results[i] = authRoles[i];
+        for (int i = 0; i < authRoles.length; i++) results[i] = authRoles[i];
         results[authRoles.length] = authRole;
         authRoles = results;
         authConstraint = true;
-
     }
-
 
     /**
      * Add a new web resource collection to those protected by this
@@ -255,18 +212,13 @@ public final class SecurityConstraint {
      * @param collection The new web resource collection
      */
     public void addCollection(SecurityCollection collection) {
-
         if (collection == null)
             return;
-        SecurityCollection results[] =
-            new SecurityCollection[collections.length + 1];
-        for (int i = 0; i < collections.length; i++)
-            results[i] = collections[i];
+        SecurityCollection results[] = new SecurityCollection[collections.length + 1];
+        for (int i = 0; i < collections.length; i++) results[i] = collections[i];
         results[collections.length] = collection;
         collections = results;
-
     }
-
 
     /**
      * Return <code>true</code> if the specified role is permitted access to
@@ -275,7 +227,6 @@ public final class SecurityConstraint {
      * @param role Role name to be checked
      */
     public boolean findAuthRole(String role) {
-
         if (role == null)
             return (false);
         for (int i = 0; i < authRoles.length; i++) {
@@ -283,9 +234,7 @@ public final class SecurityConstraint {
                 return (true);
         }
         return (false);
-
     }
-
 
     /**
      * Return the set of roles that are permitted access to the resources
@@ -294,11 +243,8 @@ public final class SecurityConstraint {
      * users are permitted access).
      */
     public String[] findAuthRoles() {
-
         return (authRoles);
-
     }
-
 
     /**
      * Return the web resource collection for the specified name, if any;
@@ -307,7 +253,6 @@ public final class SecurityConstraint {
      * @param name Web resource collection name to return
      */
     public SecurityCollection findCollection(String name) {
-
         if (name == null)
             return (null);
         for (int i = 0; i < collections.length; i++) {
@@ -315,9 +260,7 @@ public final class SecurityConstraint {
                 return (collections[i]);
         }
         return (null);
-
     }
-
 
     /**
      * Return all of the web resource collections protected by this
@@ -325,11 +268,8 @@ public final class SecurityConstraint {
      * returned.
      */
     public SecurityCollection[] findCollections() {
-
         return (collections);
-
     }
-
 
     /**
      * Return <code>true</code> if the specified context-relative URI (and
@@ -339,7 +279,6 @@ public final class SecurityConstraint {
      * @param method Request method being used
      */
     public boolean included(String uri, String method) {
-
         // We cannot match without a valid request method
         if (method == null)
             return (false);
@@ -357,9 +296,7 @@ public final class SecurityConstraint {
 
         // No collection included in this constraint matches this request
         return (false);
-
     }
-
 
     /**
      * Remove the specified role from the set of roles permitted to access
@@ -368,7 +305,6 @@ public final class SecurityConstraint {
      * @param authRole Role name to be removed
      */
     public void removeAuthRole(String authRole) {
-
         if (authRole == null)
             return;
         int n = -1;
@@ -387,9 +323,7 @@ public final class SecurityConstraint {
             }
             authRoles = results;
         }
-
     }
-
 
     /**
      * Remove the specified web resource collection from those protected by
@@ -398,7 +332,6 @@ public final class SecurityConstraint {
      * @param collection Web resource collection to be removed
      */
     public void removeCollection(SecurityCollection collection) {
-
         if (collection == null)
             return;
         int n = -1;
@@ -410,23 +343,19 @@ public final class SecurityConstraint {
         }
         if (n >= 0) {
             int j = 0;
-            SecurityCollection results[] =
-                new SecurityCollection[collections.length - 1];
+            SecurityCollection results[] = new SecurityCollection[collections.length - 1];
             for (int i = 0; i < collections.length; i++) {
                 if (i != n)
                     results[j++] = collections[i];
             }
             collections = results;
         }
-
     }
-
 
     /**
      * Return a String representation of this security constraint.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("SecurityConstraint[");
         for (int i = 0; i < collections.length; i++) {
             if (i > 0)
@@ -435,12 +364,9 @@ public final class SecurityConstraint {
         }
         sb.append("]");
         return (sb.toString());
-
     }
 
-
     // -------------------------------------------------------- Private Methods
-
 
     /**
      * Does the specified request path match the specified URL pattern?
@@ -452,7 +378,6 @@ public final class SecurityConstraint {
      * @param pattern URL pattern to be compared against
      */
     private boolean matchPattern(String path, String pattern) {
-
         // Normalize the argument strings
         if ((path == null) || (path.length() == 0))
             path = "/";
@@ -467,7 +392,7 @@ public final class SecurityConstraint {
         if (pattern.startsWith("/") && pattern.endsWith("/*")) {
             pattern = pattern.substring(0, pattern.length() - 2);
             if (pattern.length() == 0)
-                return (true);  // "/*" is the same as "/"
+                return (true); // "/*" is the same as "/"
             if (path.endsWith("/"))
                 path = path.substring(0, path.length() - 1);
             while (true) {
@@ -485,8 +410,7 @@ public final class SecurityConstraint {
         if (pattern.startsWith("*.")) {
             int slash = path.lastIndexOf('/');
             int period = path.lastIndexOf('.');
-            if ((slash >= 0) && (period > slash) &&
-                path.endsWith(pattern.substring(1))) {
+            if ((slash >= 0) && (period > slash) && path.endsWith(pattern.substring(1))) {
                 return (true);
             }
             return (false);
@@ -497,8 +421,5 @@ public final class SecurityConstraint {
             return (true);
 
         return (false);
-
     }
-
-
 }

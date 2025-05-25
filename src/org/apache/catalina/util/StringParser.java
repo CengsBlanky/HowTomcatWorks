@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/StringParser.java,v 1.2 2001/07/22 20:25:14 pier Exp $
- * $Revision: 1.2 $
- * $Date: 2001/07/22 20:25:14 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/StringParser.java,v 1.2 2001/07/22
+ * 20:25:14 pier Exp $ $Revision: 1.2 $ $Date: 2001/07/22 20:25:14 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.util;
-
 
 /**
  * Utility class for string parsing that is higher performance than
@@ -78,20 +75,14 @@ package org.apache.catalina.util;
  */
 
 public final class StringParser {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a string parser with no preset string to be parsed.
      */
     public StringParser() {
-
         this(null);
-
     }
-
 
     /**
      * Construct a string parser that is initialized to parse the specified
@@ -100,15 +91,11 @@ public final class StringParser {
      * @param string The string to be parsed
      */
     public StringParser(String string) {
-
         super();
         setString(string);
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The characters of the current string, as a character array.  Stored
@@ -116,7 +103,6 @@ public final class StringParser {
      * being compared during parsing.
      */
     private char chars[] = null;
-
 
     /**
      * The zero-relative index of the current point at which we are
@@ -128,53 +114,40 @@ public final class StringParser {
      */
     private int index = 0;
 
-
     /**
      * The length of the String we are currently parsing.  Stored when the
      * string is first specified to avoid repeated recalculations.
      */
     private int length = 0;
 
-
     /**
      * The String we are currently parsing.
      */
     private String string = null;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the zero-relative index of our current parsing position
      * within the string being parsed.
      */
     public int getIndex() {
-
         return (this.index);
-
     }
-
 
     /**
      * Return the length of the string we are parsing.
      */
     public int getLength() {
-
         return (this.length);
-
     }
-
 
     /**
      * Return the String we are currently parsing.
      */
     public String getString() {
-
         return (this.string);
-
     }
-
 
     /**
      * Set the String we are currently parsing.  The parser state is also reset
@@ -183,7 +156,6 @@ public final class StringParser {
      * @param string The string to be parsed.
      */
     public void setString(String string) {
-
         this.string = string;
         if (string != null) {
             this.length = string.length();
@@ -193,24 +165,18 @@ public final class StringParser {
             chars = new char[0];
         }
         reset();
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Advance the current parsing position by one, if we are not already
      * past the end of the string.
      */
     public void advance() {
-
         if (index < length)
             index++;
-
     }
-
 
     /**
      * Extract and return a substring that starts at the specified position,
@@ -220,14 +186,11 @@ public final class StringParser {
      * @param start Starting index, zero relative, inclusive
      */
     public String extract(int start) {
-
         if ((start < 0) || (start >= length))
             return ("");
         else
             return (string.substring(start));
-
     }
-
 
     /**
      * Extract and return a substring that starts at the specified position,
@@ -238,14 +201,11 @@ public final class StringParser {
      * @param end Ending index, zero relative, exclusive
      */
     public String extract(int start, int end) {
-
         if ((start < 0) || (start >= end) || (end > length))
             return ("");
         else
             return (string.substring(start, end));
-
     }
-
 
     /**
      * Return the index of the next occurrence of the specified character,
@@ -256,13 +216,9 @@ public final class StringParser {
      * @param ch Character to be found
      */
     public int findChar(char ch) {
-
-        while ((index < length) && (ch != chars[index]))
-            index++;
+        while ((index < length) && (ch != chars[index])) index++;
         return (index);
-
     }
-
 
     /**
      * Return the index of the next occurrence of a non-whitespace character,
@@ -271,13 +227,9 @@ public final class StringParser {
      * parsing position is updated to the returned value.
      */
     public int findText() {
-
-        while ((index < length) && isWhite(chars[index]))
-            index++;
+        while ((index < length) && isWhite(chars[index])) index++;
         return (index);
-
     }
-
 
     /**
      * Return the index of the next occurrence of a whitespace character,
@@ -286,24 +238,17 @@ public final class StringParser {
      * position is updated to the returned value.
      */
     public int findWhite() {
-
-        while ((index < length) && !isWhite(chars[index]))
-            index++;
+        while ((index < length) && !isWhite(chars[index])) index++;
         return (index);
-
     }
-
 
     /**
      * Reset the current state of the parser to the beginning of the
      * current string being parsed.
      */
     public void reset() {
-
         index = 0;
-
     }
-
 
     /**
      * Advance the current parsing position while it is pointing at the
@@ -313,13 +258,9 @@ public final class StringParser {
      * @param ch Character to be skipped
      */
     public int skipChar(char ch) {
-
-        while ((index < length) && (ch == chars[index]))
-            index++;
+        while ((index < length) && (ch == chars[index])) index++;
         return (index);
-
     }
-
 
     /**
      * Advance the current parsing position while it is pointing at a
@@ -327,13 +268,9 @@ public final class StringParser {
      * Return the final value.
      */
     public int skipText() {
-
-        while ((index < length) && !isWhite(chars[index]))
-            index++;
+        while ((index < length) && !isWhite(chars[index])) index++;
         return (index);
-
     }
-
 
     /**
      * Advance the current parsing position while it is pointing at a
@@ -341,16 +278,11 @@ public final class StringParser {
      * Return the final value.
      */
     public int skipWhite() {
-
-        while ((index < length) && isWhite(chars[index]))
-            index++;
+        while ((index < length) && isWhite(chars[index])) index++;
         return (index);
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Is the specified character considered to be whitespace?
@@ -358,13 +290,9 @@ public final class StringParser {
      * @param ch Character to be checked
      */
     protected boolean isWhite(char ch) {
-
         if ((ch == ' ') || (ch == '\t') || (ch == '\r') || (ch == '\n'))
             return (true);
         else
             return (false);
-
     }
-
-
 }

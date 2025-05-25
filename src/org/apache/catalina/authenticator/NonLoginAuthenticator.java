@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/NonLoginAuthenticator.java,v 1.3 2001/07/22 20:09:19 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:09:19 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/NonLoginAuthenticator.java,v 1.3
+ * 2001/07/22 20:09:19 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:09:19 $
  *
  * ====================================================================
  *
@@ -61,16 +61,12 @@
  *
  */
 
-
 package org.apache.catalina.authenticator;
-
 
 import java.io.IOException;
 import org.apache.catalina.HttpRequest;
 import org.apache.catalina.HttpResponse;
 import org.apache.catalina.deploy.LoginConfig;
-
-
 
 /**
  * An <b>Authenticator</b> and <b>Valve</b> implementation that checks
@@ -80,35 +76,24 @@ import org.apache.catalina.deploy.LoginConfig;
  * @version $Revision: 1.3 $ $Date: 2001/07/22 20:09:19 $
  */
 
-public final class NonLoginAuthenticator
-    extends AuthenticatorBase {
-
-
+public final class NonLoginAuthenticator extends AuthenticatorBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Descriptive information about this implementation.
      */
-    private static final String info =
-        "org.apache.catalina.authenticator.NonLoginAuthenticator/1.0";
-
+    private static final String info = "org.apache.catalina.authenticator.NonLoginAuthenticator/1.0";
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo() {
-
         return (this.info);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Authenticate the user making this request, based on the specified
@@ -123,17 +108,9 @@ public final class NonLoginAuthenticator
      *
      * @exception IOException if an input/output error occurs
      */
-    public boolean authenticate(HttpRequest request,
-                                HttpResponse response,
-                                LoginConfig config)
-        throws IOException {
-
+    public boolean authenticate(HttpRequest request, HttpResponse response, LoginConfig config) throws IOException {
         if (debug >= 1)
             log("User authentication is not required");
         return (true);
-
-
     }
-
-
 }

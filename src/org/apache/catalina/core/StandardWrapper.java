@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardWrapper.java,v 1.40 2002/08/29 10:37:55 remm Exp $
- * $Revision: 1.40 $
- * $Date: 2002/08/29 10:37:55 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardWrapper.java,v 1.40
+ * 2002/08/29 10:37:55 remm Exp $ $Revision: 1.40 $ $Date: 2002/08/29 10:37:55 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import java.io.PrintStream;
 import java.util.Enumeration;
@@ -89,7 +86,6 @@ import org.apache.catalina.util.Enumerator;
 import org.apache.catalina.util.InstanceSupport;
 import org.apache.tomcat.util.log.SystemLogHandler;
 
-
 /**
  * Standard implementation of the <b>Wrapper</b> interface that represents
  * an individual servlet definition.  No child Containers are allowed, and
@@ -100,27 +96,18 @@ import org.apache.tomcat.util.log.SystemLogHandler;
  * @version $Revision: 1.40 $ $Date: 2002/08/29 10:37:55 $
  */
 
-public final class StandardWrapper
-    extends ContainerBase
-    implements ServletConfig, Wrapper {
-
-
+public final class StandardWrapper extends ContainerBase implements ServletConfig, Wrapper {
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Create a new StandardWrapper component with the default basic Valve.
      */
     public StandardWrapper() {
-
         super();
         pipeline.setBasic(new StandardWrapperValve());
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The date and time at which this servlet will become available (in
@@ -130,51 +117,41 @@ public final class StandardWrapper
      */
     private long available = 0L;
 
-
     /**
      * The count of allocations that are currently active (even if they
      * are for the same instance, as will be true on a non-STM servlet).
      */
     private int countAllocated = 0;
 
-
     /**
      * The debugging detail level for this component.
      */
     private int debug = 0;
 
-
     /**
      * The facade associated with this wrapper.
      */
-    private StandardWrapperFacade facade =
-        new StandardWrapperFacade(this);
-
+    private StandardWrapperFacade facade = new StandardWrapperFacade(this);
 
     /**
      * The descriptive information string for this implementation.
      */
-    private static final String info =
-        "org.apache.catalina.core.StandardWrapper/1.0";
-
+    private static final String info = "org.apache.catalina.core.StandardWrapper/1.0";
 
     /**
      * The (single) initialized instance of this servlet.
      */
     private Servlet instance = null;
 
-
     /**
      * The support object for our instance listeners.
      */
     private InstanceSupport instanceSupport = new InstanceSupport(this);
 
-
     /**
      * The context-relative URI of the JSP file for this servlet.
      */
     private String jspFile = null;
-
 
     /**
      * The load-on-startup order value (negative value means load on
@@ -182,13 +159,11 @@ public final class StandardWrapper
      */
     private int loadOnStartup = -1;
 
-
     /**
      * The initialization parameters for this servlet, keyed by
      * parameter name.
      */
     private HashMap parameters = new HashMap();
-
 
     /**
      * The security role references for this servlet, keyed by role name
@@ -197,51 +172,42 @@ public final class StandardWrapper
      */
     private HashMap references = new HashMap();
 
-
     /**
      * The run-as identity for this servlet.
      */
     private String runAs = null;
-
 
     /**
      * The fully qualified servlet class name for this servlet.
      */
     private String servletClass = null;
 
-
     /**
      * Does this servlet implement the SingleThreadModel interface?
      */
     private boolean singleThreadModel = false;
-
 
     /**
      * Are we unloading our servlet instance at the moment?
      */
     private boolean unloading = false;
 
-
     /**
      * Maximum number of STM instances.
      */
     private int maxInstances = 20;
-
 
     /**
      * Number of instances currently loaded for a STM servlet.
      */
     private int nInstances = 0;
 
-
     /**
      * Stack containing the STM instances.
      */
     private Stack instancePool = null;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the available date/time for this servlet, in milliseconds since
@@ -251,11 +217,8 @@ public final class StandardWrapper
      * is considered to mean that unavailability is permanent.
      */
     public long getAvailable() {
-
         return (this.available);
-
     }
-
 
     /**
      * Set the available date/time for this servlet, in milliseconds since the
@@ -265,17 +228,13 @@ public final class StandardWrapper
      * @param available The new available date/time
      */
     public void setAvailable(long available) {
-
         long oldAvailable = this.available;
         if (available > System.currentTimeMillis())
             this.available = available;
         else
             this.available = 0L;
-        support.firePropertyChange("available", new Long(oldAvailable),
-                                   new Long(this.available));
-
+        support.firePropertyChange("available", new Long(oldAvailable), new Long(this.available));
     }
-
 
     /**
      * Return the number of active allocations of this servlet, even if they
@@ -283,21 +242,15 @@ public final class StandardWrapper
      * not implement <code>SingleThreadModel</code>.
      */
     public int getCountAllocated() {
-
         return (this.countAllocated);
-
     }
-
 
     /**
      * Return the debugging detail level for this component.
      */
     public int getDebug() {
-
         return (this.debug);
-
     }
-
 
     /**
      * Set the debugging detail level for this component.
@@ -305,14 +258,10 @@ public final class StandardWrapper
      * @param debug The new debugging detail level
      */
     public void setDebug(int debug) {
-
         int oldDebug = this.debug;
         this.debug = debug;
-        support.firePropertyChange("debug", new Integer(oldDebug),
-                                   new Long(this.debug));
-
+        support.firePropertyChange("debug", new Integer(oldDebug), new Long(this.debug));
     }
-
 
     /**
      * Return descriptive information about this Container implementation and
@@ -320,31 +269,22 @@ public final class StandardWrapper
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo() {
-
         return (info);
-
     }
-
 
     /**
      * Return the InstanceSupport object for this Wrapper instance.
      */
     public InstanceSupport getInstanceSupport() {
-
         return (this.instanceSupport);
-
     }
-
 
     /**
      * Return the context-relative URI of the JSP file for this servlet.
      */
     public String getJspFile() {
-
         return (this.jspFile);
-
     }
-
 
     /**
      * Set the context-relative URI of the JSP file for this servlet.
@@ -352,7 +292,6 @@ public final class StandardWrapper
      * @param jspFile JSP file URI
      */
     public void setJspFile(String jspFile) {
-
         //        if ((jspFile != null) && !jspFile.startsWith("/"))
         //        throw new IllegalArgumentException
         //                (sm.getString("standardWrapper.jspFile.format", jspFile));
@@ -360,20 +299,15 @@ public final class StandardWrapper
         String oldJspFile = this.jspFile;
         this.jspFile = jspFile;
         support.firePropertyChange("jspFile", oldJspFile, this.jspFile);
-
     }
-
 
     /**
      * Return the load-on-startup order value (negative value means
      * load on first call).
      */
     public int getLoadOnStartup() {
-
         return (this.loadOnStartup);
-
     }
-
 
     /**
      * Set the load-on-startup order value (negative value means
@@ -382,16 +316,10 @@ public final class StandardWrapper
      * @param value New load-on-startup value
      */
     public void setLoadOnStartup(int value) {
-
         int oldLoadOnStartup = this.loadOnStartup;
         this.loadOnStartup = value;
-        support.firePropertyChange("loadOnStartup",
-                                   new Integer(oldLoadOnStartup),
-                                   new Integer(this.loadOnStartup));
-
+        support.firePropertyChange("loadOnStartup", new Integer(oldLoadOnStartup), new Integer(this.loadOnStartup));
     }
-
-
 
     /**
      * Set the load-on-startup order value from a (possibly null) string.
@@ -402,27 +330,20 @@ public final class StandardWrapper
      * @param value New load-on-startup value
      */
     public void setLoadOnStartupString(String value) {
-
         try {
             setLoadOnStartup(Integer.parseInt(value));
         } catch (NumberFormatException e) {
             setLoadOnStartup(0);
         }
-
     }
-
-
 
     /**
      * Return maximum number of instances that will be allocated when a single
      * thread model servlet is used.
      */
     public int getMaxInstances() {
-
         return (this.maxInstances);
-
     }
-
 
     /**
      * Set the maximum number of instances that will be allocated when a single
@@ -431,14 +352,10 @@ public final class StandardWrapper
      * @param maxInstnces New value of maxInstances
      */
     public void setMaxInstances(int maxInstances) {
-
         int oldMaxInstances = this.maxInstances;
         this.maxInstances = maxInstances;
-        support.firePropertyChange("maxInstances", oldMaxInstances,
-                                   this.maxInstances);
-
+        support.firePropertyChange("maxInstances", oldMaxInstances, this.maxInstances);
     }
-
 
     /**
      * Set the parent Container of this Wrapper, but only if it is a Context.
@@ -446,25 +363,17 @@ public final class StandardWrapper
      * @param container Proposed parent Container
      */
     public void setParent(Container container) {
-
-        if ((container != null) &&
-            !(container instanceof Context))
-            throw new IllegalArgumentException
-                (sm.getString("standardWrapper.notContext"));
+        if ((container != null) && !(container instanceof Context))
+            throw new IllegalArgumentException(sm.getString("standardWrapper.notContext"));
         super.setParent(container);
-
     }
-
 
     /**
      * Return the run-as identity for this servlet.
      */
     public String getRunAs() {
-
         return (this.runAs);
-
     }
-
 
     /**
      * Set the run-as identity for this servlet.
@@ -472,23 +381,17 @@ public final class StandardWrapper
      * @param value New run-as identity value
      */
     public void setRunAs(String runAs) {
-
         String oldRunAs = this.runAs;
         this.runAs = runAs;
         support.firePropertyChange("runAs", oldRunAs, this.runAs);
-
     }
-
 
     /**
      * Return the fully qualified servlet class name for this servlet.
      */
     public String getServletClass() {
-
         return (this.servletClass);
-
     }
-
 
     /**
      * Set the fully qualified servlet class name for this servlet.
@@ -496,15 +399,10 @@ public final class StandardWrapper
      * @param servletClass Servlet class name
      */
     public void setServletClass(String servletClass) {
-
         String oldServletClass = this.servletClass;
         this.servletClass = servletClass;
-        support.firePropertyChange("servletClass", oldServletClass,
-                                   this.servletClass);
-
+        support.firePropertyChange("servletClass", oldServletClass, this.servletClass);
     }
-
-
 
     /**
      * Set the name of this servlet.  This is an alias for the normal
@@ -515,33 +413,26 @@ public final class StandardWrapper
      * @param name The new name of this servlet
      */
     public void setServletName(String name) {
-
         setName(name);
-
     }
-
 
     /**
      * Return <code>true</code> if the servlet class represented by this
      * component implements the <code>SingleThreadModel</code> interface.
      */
     public boolean isSingleThreadModel() {
-
         try {
             loadServlet();
         } catch (Throwable t) {
             ;
         }
         return (singleThreadModel);
-
     }
-
 
     /**
      * Is this servlet currently unavailable?
      */
     public boolean isUnavailable() {
-
         if (available == 0L)
             return (false);
         else if (available <= System.currentTimeMillis()) {
@@ -549,12 +440,9 @@ public final class StandardWrapper
             return (false);
         } else
             return (true);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Refuse to add a child Container, because Wrappers are the lowest level
@@ -563,12 +451,8 @@ public final class StandardWrapper
      * @param child Child container to be added
      */
     public void addChild(Container child) {
-
-        throw new IllegalStateException
-            (sm.getString("standardWrapper.notChild"));
-
+        throw new IllegalStateException(sm.getString("standardWrapper.notChild"));
     }
-
 
     /**
      * Add a new servlet initialization parameter for this servlet.
@@ -577,14 +461,11 @@ public final class StandardWrapper
      * @param value Value of this initialization parameter to add
      */
     public void addInitParameter(String name, String value) {
-
         synchronized (parameters) {
             parameters.put(name, value);
         }
         fireContainerEvent("addInitParameter", name);
-
     }
-
 
     /**
      * Add a new listener interested in InstanceEvents.
@@ -592,11 +473,8 @@ public final class StandardWrapper
      * @param listener The new listener
      */
     public void addInstanceListener(InstanceListener listener) {
-
         instanceSupport.addInstanceListener(listener);
-
     }
-
 
     /**
      * Add a new security role reference record to the set of records for
@@ -606,14 +484,11 @@ public final class StandardWrapper
      * @param link Role name used within the web application
      */
     public void addSecurityReference(String name, String link) {
-
         synchronized (references) {
             references.put(name, link);
         }
         fireContainerEvent("addSecurityReference", name);
-
     }
-
 
     /**
      * Allocate an initialized instance of this Servlet that is ready to have
@@ -629,18 +504,15 @@ public final class StandardWrapper
      * @exception ServletException if a loading error occurs
      */
     public Servlet allocate() throws ServletException {
-
         if (debug >= 1)
             log("Allocating an instance");
 
         // If we are currently unloading this servlet, throw an exception
         if (unloading)
-            throw new ServletException
-              (sm.getString("standardWrapper.unloading", getName()));
+            throw new ServletException(sm.getString("standardWrapper.unloading", getName()));
 
         // If not SingleThreadedModel, return the same instance every time
         if (!singleThreadModel) {
-
             // Load and initialize our instance if necessary
             if (instance == null) {
                 synchronized (this) {
@@ -650,8 +522,7 @@ public final class StandardWrapper
                         } catch (ServletException e) {
                             throw e;
                         } catch (Throwable e) {
-                            throw new ServletException
-                                (sm.getString("standardWrapper.allocate"), e);
+                            throw new ServletException(sm.getString("standardWrapper.allocate"), e);
                         }
                     }
                 }
@@ -663,11 +534,9 @@ public final class StandardWrapper
                 countAllocated++;
                 return (instance);
             }
-
         }
 
         synchronized (instancePool) {
-
             while (countAllocated >= nInstances) {
                 // Allocate a new instance if possible, or else wait
                 if (nInstances < maxInstances) {
@@ -677,8 +546,7 @@ public final class StandardWrapper
                     } catch (ServletException e) {
                         throw e;
                     } catch (Throwable e) {
-                        throw new ServletException
-                            (sm.getString("standardWrapper.allocate"), e);
+                        throw new ServletException(sm.getString("standardWrapper.allocate"), e);
                     }
                 } else {
                     try {
@@ -692,11 +560,8 @@ public final class StandardWrapper
                 log("  Returning allocated STM instance");
             countAllocated++;
             return (Servlet) instancePool.pop();
-
         }
-
     }
-
 
     /**
      * Return this previously allocated servlet to the pool of available
@@ -708,7 +573,6 @@ public final class StandardWrapper
      * @exception ServletException if a deallocation error occurs
      */
     public void deallocate(Servlet servlet) throws ServletException {
-
         // If not SingleThreadModel, no action is required
         if (!singleThreadModel) {
             countAllocated--;
@@ -721,9 +585,7 @@ public final class StandardWrapper
             instancePool.push(servlet);
             instancePool.notify();
         }
-
     }
-
 
     /**
      * Return the value for the specified initialization parameter name,
@@ -732,27 +594,21 @@ public final class StandardWrapper
      * @param name Name of the requested initialization parameter
      */
     public String findInitParameter(String name) {
-
         synchronized (parameters) {
             return ((String) parameters.get(name));
         }
-
     }
-
 
     /**
      * Return the names of all defined initialization parameters for this
      * servlet.
      */
     public String[] findInitParameters() {
-
         synchronized (parameters) {
             String results[] = new String[parameters.size()];
             return ((String[]) parameters.keySet().toArray(results));
         }
-
     }
-
 
     /**
      * Return the security role link for the specified security role
@@ -761,27 +617,21 @@ public final class StandardWrapper
      * @param name Security role reference used within this servlet
      */
     public String findSecurityReference(String name) {
-
         synchronized (references) {
             return ((String) references.get(name));
         }
-
     }
-
 
     /**
      * Return the set of security role reference names associated with
      * this servlet, if any; otherwise return a zero-length array.
      */
     public String[] findSecurityReferences() {
-
         synchronized (references) {
             String results[] = new String[references.size()];
             return ((String[]) references.keySet().toArray(results));
         }
-
     }
-
 
     /**
      * Load and initialize an instance of this servlet, if there is not already
@@ -804,7 +654,6 @@ public final class StandardWrapper
         instance = loadServlet();
     }
 
-
     /**
      * Load and initialize an instance of this servlet, if there is not already
      * at least one initialized instance.  This can be used, for example, to
@@ -812,7 +661,6 @@ public final class StandardWrapper
      * at server startup time.
      */
     public synchronized Servlet loadServlet() throws ServletException {
-
         // Nothing to do if we already have an instance or an instance pool
         if (!singleThreadModel && (instance != null))
             return instance;
@@ -828,8 +676,7 @@ public final class StandardWrapper
             // order to be completely effective
             String actualClass = servletClass;
             if ((actualClass == null) && (jspFile != null)) {
-                Wrapper jspWrapper = (Wrapper)
-                    ((Context) getParent()).findChild(Constants.JSP_SERVLET_NAME);
+                Wrapper jspWrapper = (Wrapper) ((Context) getParent()).findChild(Constants.JSP_SERVLET_NAME);
                 if (jspWrapper != null)
                     actualClass = jspWrapper.getServletClass();
             }
@@ -837,16 +684,14 @@ public final class StandardWrapper
             // Complain if no servlet class has been specified
             if (actualClass == null) {
                 unavailable(null);
-                throw new ServletException
-                    (sm.getString("standardWrapper.notClass", getName()));
+                throw new ServletException(sm.getString("standardWrapper.notClass", getName()));
             }
 
             // Acquire an instance of the class loader to be used
             Loader loader = getLoader();
             if (loader == null) {
                 unavailable(null);
-                throw new ServletException
-                    (sm.getString("standardWrapper.missingLoader", getName()));
+                throw new ServletException(sm.getString("standardWrapper.missingLoader", getName()));
             }
 
             ClassLoader classLoader = loader.getClassLoader();
@@ -854,8 +699,7 @@ public final class StandardWrapper
             // Special case class loader for a container provided servlet
             if (isContainerProvidedServlet(actualClass)) {
                 classLoader = this.getClass().getClassLoader();
-                log(sm.getString
-                      ("standardWrapper.containerServlet", getName()));
+                log(sm.getString("standardWrapper.containerServlet", getName()));
             }
 
             // Load the specified servlet class from the appropriate class loader
@@ -870,14 +714,11 @@ public final class StandardWrapper
                 }
             } catch (ClassNotFoundException e) {
                 unavailable(null);
-                throw new ServletException
-                    (sm.getString("standardWrapper.missingClass", actualClass),
-                     e);
+                throw new ServletException(sm.getString("standardWrapper.missingClass", actualClass), e);
             }
             if (classClass == null) {
                 unavailable(null);
-                throw new ServletException
-                    (sm.getString("standardWrapper.missingClass", actualClass));
+                throw new ServletException(sm.getString("standardWrapper.missingClass", actualClass));
             }
 
             // Instantiate and initialize an instance of the servlet class itself
@@ -886,36 +727,29 @@ public final class StandardWrapper
             } catch (ClassCastException e) {
                 unavailable(null);
                 // Restore the context ClassLoader
-                throw new ServletException
-                    (sm.getString("standardWrapper.notServlet", actualClass), e);
+                throw new ServletException(sm.getString("standardWrapper.notServlet", actualClass), e);
             } catch (Throwable e) {
                 unavailable(null);
                 // Restore the context ClassLoader
-                throw new ServletException
-                    (sm.getString("standardWrapper.instantiate", actualClass), e);
+                throw new ServletException(sm.getString("standardWrapper.instantiate", actualClass), e);
             }
 
             // Check if loading the servlet in this web application should be
             // allowed
             if (!isServletAllowed(servlet)) {
-                throw new SecurityException
-                    (sm.getString("standardWrapper.privilegedServlet",
-                                  actualClass));
+                throw new SecurityException(sm.getString("standardWrapper.privilegedServlet", actualClass));
             }
 
             // Special handling for ContainerServlet instances
-            if ((servlet instanceof ContainerServlet) &&
-                isContainerProvidedServlet(actualClass)) {
-System.out.println("calling setWrapper");                  
+            if ((servlet instanceof ContainerServlet) && isContainerProvidedServlet(actualClass)) {
+                System.out.println("calling setWrapper");
                 ((ContainerServlet) servlet).setWrapper(this);
-System.out.println("after calling setWrapper");                  
+                System.out.println("after calling setWrapper");
             }
-
 
             // Call the initialization method of this servlet
             try {
-                instanceSupport.fireInstanceEvent(InstanceEvent.BEFORE_INIT_EVENT,
-                                                  servlet);
+                instanceSupport.fireInstanceEvent(InstanceEvent.BEFORE_INIT_EVENT, servlet);
                 servlet.init(facade);
                 // Invoke jspInit on JSP pages
                 if ((loadOnStartup > 0) && (jspFile != null)) {
@@ -926,26 +760,21 @@ System.out.println("after calling setWrapper");
                     req.setQueryString("jsp_precompile=true");
                     servlet.service(req, res);
                 }
-                instanceSupport.fireInstanceEvent(InstanceEvent.AFTER_INIT_EVENT,
-                                                  servlet);
+                instanceSupport.fireInstanceEvent(InstanceEvent.AFTER_INIT_EVENT, servlet);
             } catch (UnavailableException f) {
-                instanceSupport.fireInstanceEvent(InstanceEvent.AFTER_INIT_EVENT,
-                                                  servlet, f);
+                instanceSupport.fireInstanceEvent(InstanceEvent.AFTER_INIT_EVENT, servlet, f);
                 unavailable(f);
                 throw f;
             } catch (ServletException f) {
-                instanceSupport.fireInstanceEvent(InstanceEvent.AFTER_INIT_EVENT,
-                                                  servlet, f);
+                instanceSupport.fireInstanceEvent(InstanceEvent.AFTER_INIT_EVENT, servlet, f);
                 // If the servlet wanted to be unavailable it would have
                 // said so, so do not call unavailable(null).
                 throw f;
             } catch (Throwable f) {
-                instanceSupport.fireInstanceEvent(InstanceEvent.AFTER_INIT_EVENT,
-                                                  servlet, f);
+                instanceSupport.fireInstanceEvent(InstanceEvent.AFTER_INIT_EVENT, servlet, f);
                 // If the servlet wanted to be unavailable it would have
                 // said so, so do not call unavailable(null).
-                throw new ServletException
-                    (sm.getString("standardWrapper.initException", getName()), f);
+                throw new ServletException(sm.getString("standardWrapper.initException", getName()), f);
             }
 
             // Register our newly initialized instance
@@ -966,9 +795,7 @@ System.out.println("after calling setWrapper");
             }
         }
         return servlet;
-
     }
-
 
     /**
      * Remove the specified initialization parameter from this servlet.
@@ -976,14 +803,11 @@ System.out.println("after calling setWrapper");
      * @param name Name of the initialization parameter to remove
      */
     public void removeInitParameter(String name) {
-
         synchronized (parameters) {
             parameters.remove(name);
         }
         fireContainerEvent("removeInitParameter", name);
-
     }
-
 
     /**
      * Remove a listener no longer interested in InstanceEvents.
@@ -991,11 +815,8 @@ System.out.println("after calling setWrapper");
      * @param listener The listener to remove
      */
     public void removeInstanceListener(InstanceListener listener) {
-
         instanceSupport.removeInstanceListener(listener);
-
     }
-
 
     /**
      * Remove any security role reference for the specified role name.
@@ -1003,20 +824,16 @@ System.out.println("after calling setWrapper");
      * @param name Security role used within this servlet to be removed
      */
     public void removeSecurityReference(String name) {
-
         synchronized (references) {
             references.remove(name);
         }
         fireContainerEvent("removeSecurityReference", name);
-
     }
-
 
     /**
      * Return a String representation of this component.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer();
         if (getParent() != null) {
             sb.append(getParent().toString());
@@ -1026,9 +843,7 @@ System.out.println("after calling setWrapper");
         sb.append(getName());
         sb.append("]");
         return (sb.toString());
-
     }
-
 
     /**
      * Process an UnavailableException, marking this servlet as unavailable
@@ -1046,13 +861,10 @@ System.out.println("after calling setWrapper");
         else {
             int unavailableSeconds = unavailable.getUnavailableSeconds();
             if (unavailableSeconds <= 0)
-                unavailableSeconds = 60;        // Arbitrary default
-            setAvailable(System.currentTimeMillis() +
-                         (unavailableSeconds * 1000L));
+                unavailableSeconds = 60; // Arbitrary default
+            setAvailable(System.currentTimeMillis() + (unavailableSeconds * 1000L));
         }
-
     }
-
 
     /**
      * Unload all initialized instances of this servlet, after calling the
@@ -1065,7 +877,6 @@ System.out.println("after calling setWrapper");
      *  destroy() method
      */
     public synchronized void unload() throws ServletException {
-
         // Nothing to do if we have never loaded the instance
         if (!singleThreadModel && (instance == null))
             return;
@@ -1077,8 +888,7 @@ System.out.println("after calling setWrapper");
             int nRetries = 0;
             while (nRetries < 10) {
                 if (nRetries == 0) {
-                    log("Waiting for " + countAllocated +
-                        " instance(s) to be deallocated");
+                    log("Waiting for " + countAllocated + " instance(s) to be deallocated");
                 }
                 try {
                     Thread.sleep(50);
@@ -1089,8 +899,7 @@ System.out.println("after calling setWrapper");
             }
         }
 
-        ClassLoader oldCtxClassLoader =
-            Thread.currentThread().getContextClassLoader();
+        ClassLoader oldCtxClassLoader = Thread.currentThread().getContextClassLoader();
         ClassLoader classLoader = instance.getClass().getClassLoader();
 
         PrintStream out = System.out;
@@ -1098,23 +907,18 @@ System.out.println("after calling setWrapper");
 
         // Call the servlet destroy() method
         try {
-            instanceSupport.fireInstanceEvent
-              (InstanceEvent.BEFORE_DESTROY_EVENT, instance);
+            instanceSupport.fireInstanceEvent(InstanceEvent.BEFORE_DESTROY_EVENT, instance);
             Thread.currentThread().setContextClassLoader(classLoader);
             instance.destroy();
-            instanceSupport.fireInstanceEvent
-              (InstanceEvent.AFTER_DESTROY_EVENT, instance);
+            instanceSupport.fireInstanceEvent(InstanceEvent.AFTER_DESTROY_EVENT, instance);
         } catch (Throwable t) {
-            instanceSupport.fireInstanceEvent
-              (InstanceEvent.AFTER_DESTROY_EVENT, instance, t);
+            instanceSupport.fireInstanceEvent(InstanceEvent.AFTER_DESTROY_EVENT, instance, t);
             instance = null;
             instancePool = null;
             nInstances = 0;
             fireContainerEvent("unload", this);
             unloading = false;
-            throw new ServletException
-                (sm.getString("standardWrapper.destroyException", getName()),
-                 t);
+            throw new ServletException(sm.getString("standardWrapper.destroyException", getName()), t);
         } finally {
             // restore the context ClassLoader
             Thread.currentThread().setContextClassLoader(oldCtxClassLoader);
@@ -1143,13 +947,10 @@ System.out.println("after calling setWrapper");
                 nInstances = 0;
                 unloading = false;
                 fireContainerEvent("unload", this);
-                throw new ServletException
-                    (sm.getString("standardWrapper.destroyException",
-                                  getName()), t);
+                throw new ServletException(sm.getString("standardWrapper.destroyException", getName()), t);
             } finally {
                 // restore the context ClassLoader
-                Thread.currentThread().setContextClassLoader
-                    (oldCtxClassLoader);
+                Thread.currentThread().setContextClassLoader(oldCtxClassLoader);
             }
             instancePool = null;
             nInstances = 0;
@@ -1157,12 +958,9 @@ System.out.println("after calling setWrapper");
 
         unloading = false;
         fireContainerEvent("unload", this);
-
     }
 
-
     // -------------------------------------------------- ServletConfig Methods
-
 
     /**
      * Return the initialization parameter value for the specified name,
@@ -1171,55 +969,41 @@ System.out.println("after calling setWrapper");
      * @param name Name of the initialization parameter to retrieve
      */
     public String getInitParameter(String name) {
-
         return (findInitParameter(name));
-
     }
-
 
     /**
      * Return the set of initialization parameter names defined for this
      * servlet.  If none are defined, an empty Enumeration is returned.
      */
     public Enumeration getInitParameterNames() {
-
         synchronized (parameters) {
             return (new Enumerator(parameters.keySet()));
         }
-
     }
-
 
     /**
      * Return the servlet context with which this servlet is associated.
      */
     public ServletContext getServletContext() {
-
         if (parent == null)
             return (null);
         else if (!(parent instanceof Context))
             return (null);
         else
             return (((Context) parent).getServletContext());
-
     }
-
 
     /**
      * Return the name of this servlet.
      */
     public String getServletName() {
-
         return (getName());
-
     }
-
 
     // -------------------------------------------------------- Package Methods
 
-
     // -------------------------------------------------------- Private Methods
-
 
     /**
      * Add a default Mapper implementation if none have been configured
@@ -1228,11 +1012,8 @@ System.out.println("after calling setWrapper");
      * @param mapperClass Java class name of the default Mapper
      */
     protected void addDefaultMapper(String mapperClass) {
-
-        ;       // No need for a default Mapper on a Wrapper
-
+        ; // No need for a default Mapper on a Wrapper
     }
-
 
     /**
      * Return <code>true</code> if the specified class name represents a
@@ -1242,30 +1023,24 @@ System.out.println("after calling setWrapper");
      * @param name Name of the class to be checked
      */
     private boolean isContainerProvidedServlet(String classname) {
-
         if (classname.startsWith("org.apache.catalina.")) {
             return (true);
         }
         try {
-            Class clazz =
-                this.getClass().getClassLoader().loadClass(classname);
+            Class clazz = this.getClass().getClassLoader().loadClass(classname);
             return (ContainerServlet.class.isAssignableFrom(clazz));
         } catch (Throwable t) {
             return (false);
         }
-
     }
-
 
     /**
      * Return <code>true</code> if loading this servlet is allowed.
      */
     private boolean isServletAllowed(Object servlet) {
-
         if (servlet instanceof ContainerServlet) {
             if (((Context) getParent()).getPrivileged()
-                || (servlet.getClass().getName().equals
-                    ("org.apache.catalina.servlets.InvokerServlet"))) {
+              || (servlet.getClass().getName().equals("org.apache.catalina.servlets.InvokerServlet"))) {
                 return (true);
             } else {
                 return (false);
@@ -1273,15 +1048,12 @@ System.out.println("after calling setWrapper");
         }
 
         return (true);
-
     }
-
 
     /**
      * Log the abbreviated name of this Container for logging messages.
      */
     protected String logName() {
-
         StringBuffer sb = new StringBuffer("StandardWrapper[");
         if (getParent() != null)
             sb.append(getParent().getName());
@@ -1291,12 +1063,9 @@ System.out.println("after calling setWrapper");
         sb.append(getName());
         sb.append(']');
         return (sb.toString());
-
     }
 
-
     // ------------------------------------------------------ Lifecycle Methods
-
 
     /**
      * Start this component, pre-loading the servlet if the load-on-startup
@@ -1305,15 +1074,12 @@ System.out.println("after calling setWrapper");
      * @exception LifecycleException if a fatal error occurs during startup
      */
     public void start() throws LifecycleException {
-
         // Start up this component
         super.start();
 
         // Load and initialize an instance of this servlet if requested
         // MOVED TO StandardContext START() METHOD
-
     }
-
 
     /**
      * Stop this component, gracefully shutting down the servlet if it has
@@ -1322,7 +1088,6 @@ System.out.println("after calling setWrapper");
      * @exception LifecycleException if a fatal error occurs during shutdown
      */
     public void stop() throws LifecycleException {
-
         // Shut down our servlet instance (if it has been initialized)
         try {
             unload();
@@ -1332,8 +1097,5 @@ System.out.println("after calling setWrapper");
 
         // Shut down this component
         super.stop();
-
     }
-
-
 }

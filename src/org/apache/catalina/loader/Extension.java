@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/loader/Extension.java,v 1.4 2001/07/22 20:25:10 pier Exp $
- * $Revision: 1.4 $
- * $Date: 2001/07/22 20:25:10 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/loader/Extension.java,v 1.4 2001/07/22
+ * 20:25:10 pier Exp $ $Revision: 1.4 $ $Date: 2001/07/22 20:25:10 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.loader;
-
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -72,7 +69,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
-
 
 /**
  * Utility class that represents either an available "Optional Package"
@@ -95,10 +91,7 @@ import java.util.jar.Manifest;
  */
 
 public final class Extension {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The name of the optional package being made available, or required.
@@ -112,7 +105,6 @@ public final class Extension {
     public void setExtensionName(String extensionName) {
         this.extensionName = extensionName;
     }
-
 
     /**
      * The URL from which the most recent version of this optional package
@@ -128,7 +120,6 @@ public final class Extension {
         this.implementationURL = implementationURL;
     }
 
-
     /**
      * The name of the company or organization that produced this
      * implementation of this optional package.
@@ -142,7 +133,6 @@ public final class Extension {
     public void setImplementationVendor(String implementationVendor) {
         this.implementationVendor = implementationVendor;
     }
-
 
     /**
      * The unique identifier of the company that produced the optional
@@ -158,7 +148,6 @@ public final class Extension {
         this.implementationVendorId = implementationVendorId;
     }
 
-
     /**
      * The version number (dotted decimal notation) for this implementation
      * of the optional package.
@@ -172,7 +161,6 @@ public final class Extension {
     public void setImplementationVersion(String implementationVersion) {
         this.implementationVersion = implementationVersion;
     }
-
 
     /**
      * The name of the company or organization that originated the
@@ -188,7 +176,6 @@ public final class Extension {
         this.specificationVendor = specificationVendor;
     }
 
-
     /**
      * The version number (dotted decimal notation) of the specification
      * to which this optional package conforms.
@@ -203,9 +190,7 @@ public final class Extension {
         this.specificationVersion = specificationVersion;
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return <code>true</code> if the specified <code>Extension</code>
@@ -217,7 +202,6 @@ public final class Extension {
      * @param required Description of the required optional package
      */
     public boolean isCompatibleWith(Extension required) {
-
         // Extension Name must match
         if (extensionName == null)
             return (false);
@@ -240,15 +224,12 @@ public final class Extension {
 
         // This available optional package satisfies the requirements
         return (true);
-
     }
-
 
     /**
      * Return a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("Extension[");
         sb.append(extensionName);
         if (implementationURL != null) {
@@ -277,12 +258,9 @@ public final class Extension {
         }
         sb.append("]");
         return (sb.toString());
-
     }
 
-
     // --------------------------------------------------------- Static Methods
-
 
     /**
      * Return the set of <code>Extension</code> objects representing optional
@@ -293,7 +271,6 @@ public final class Extension {
      * @param manifest Manifest to be parsed
      */
     public static List getAvailable(Manifest manifest) {
-
         ArrayList results = new ArrayList();
         if (manifest == null)
             return (results);
@@ -317,9 +294,7 @@ public final class Extension {
         }
 
         return (results);
-
     }
-
 
     /**
      * Return the set of <code>Extension</code> objects representing optional
@@ -330,14 +305,12 @@ public final class Extension {
      * @param manifest Manifest to be parsed
      */
     public static List getRequired(Manifest manifest) {
-
         ArrayList results = new ArrayList();
 
         Attributes attributes = manifest.getMainAttributes();
         if (attributes != null) {
             Iterator required = getRequired(attributes).iterator();
-            while (required.hasNext())
-                results.add(required.next());
+            while (required.hasNext()) results.add(required.next());
         }
 
         Map entries = manifest.getEntries();
@@ -346,17 +319,13 @@ public final class Extension {
             String key = (String) keys.next();
             attributes = (Attributes) entries.get(key);
             Iterator required = getRequired(attributes).iterator();
-            while (required.hasNext())
-                results.add(required.next());
+            while (required.hasNext()) results.add(required.next());
         }
 
         return (results);
-
     }
 
-
     // -------------------------------------------------------- Private Methods
-
 
     /**
      * If the specified manifest attributes entry represents an available
@@ -366,28 +335,20 @@ public final class Extension {
      * @param attributes Manifest attributes to be parsed
      */
     private static Extension getAvailable(Attributes attributes) {
-
         String name = attributes.getValue("Extension-Name");
         if (name == null)
             return (null);
         Extension extension = new Extension();
         extension.setExtensionName(name);
 
-        extension.setImplementationVendor
-            (attributes.getValue("Implementation-Vendor"));
-        extension.setImplementationVendorId
-            (attributes.getValue("Implementation-Vendor-Id"));
-        extension.setImplementationVersion
-            (attributes.getValue("Implementation-Version"));
-        extension.setSpecificationVendor
-            (attributes.getValue("Specification-Vendor"));
-        extension.setSpecificationVersion
-            (attributes.getValue("Specification-Version"));
+        extension.setImplementationVendor(attributes.getValue("Implementation-Vendor"));
+        extension.setImplementationVendorId(attributes.getValue("Implementation-Vendor-Id"));
+        extension.setImplementationVersion(attributes.getValue("Implementation-Version"));
+        extension.setSpecificationVendor(attributes.getValue("Specification-Vendor"));
+        extension.setSpecificationVersion(attributes.getValue("Specification-Version"));
 
         return (extension);
-
     }
-
 
     /**
      * Return the set of required optional packages defined in the specified
@@ -397,7 +358,6 @@ public final class Extension {
      * @param attributes Attributes to be parsed
      */
     private static List getRequired(Attributes attributes) {
-
         ArrayList results = new ArrayList();
         String names = attributes.getValue("Extension-List");
         if (names == null)
@@ -405,37 +365,28 @@ public final class Extension {
         names += " ";
 
         while (true) {
-
             int space = names.indexOf(' ');
             if (space < 0)
                 break;
             String name = names.substring(0, space).trim();
             names = names.substring(space + 1);
 
-            String value =
-                attributes.getValue(name + "-Extension-Name");
+            String value = attributes.getValue(name + "-Extension-Name");
             if (value == null)
                 continue;
             Extension extension = new Extension();
             extension.setExtensionName(value);
 
-            extension.setImplementationURL
-                (attributes.getValue(name + "-Implementation-URL"));
-            extension.setImplementationVendorId
-                (attributes.getValue(name + "-Implementation-Vendor-Id"));
-            extension.setImplementationVersion
-                (attributes.getValue(name + "-Implementation-Version"));
-            extension.setSpecificationVersion
-                (attributes.getValue(name + "-Specification-Version"));
+            extension.setImplementationURL(attributes.getValue(name + "-Implementation-URL"));
+            extension.setImplementationVendorId(attributes.getValue(name + "-Implementation-Vendor-Id"));
+            extension.setImplementationVersion(attributes.getValue(name + "-Implementation-Version"));
+            extension.setSpecificationVersion(attributes.getValue(name + "-Specification-Version"));
 
             results.add(extension);
-
         }
 
         return (results);
-
     }
-
 
     /**
      * Return <code>true</code> if the first version number is greater than
@@ -446,9 +397,7 @@ public final class Extension {
      *
      * @exception NumberFormatException on a malformed version number
      */
-    private boolean isNewer(String first, String second)
-        throws NumberFormatException {
-
+    private boolean isNewer(String first, String second) throws NumberFormatException {
         if ((first == null) || (second == null))
             return (false);
         if (first.equals(second))
@@ -471,15 +420,12 @@ public final class Extension {
                 return (false);
             else if (fVersion > sVersion)
                 return (true);
-            if (fTok.hasMoreTokens())   // Swallow the periods
+            if (fTok.hasMoreTokens()) // Swallow the periods
                 fTok.nextToken();
             if (sTok.hasMoreTokens())
                 sTok.nextToken();
         }
 
-        return (true);  // Exact match
-
+        return (true); // Exact match
     }
-
-
 }

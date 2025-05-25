@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/valves/RemoteHostValve.java,v 1.3 2001/07/22 20:25:15 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:25:15 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/valves/RemoteHostValve.java,v 1.3
+ * 2001/07/22 20:25:15 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:25:15 $
  *
  * ====================================================================
  *
@@ -61,16 +60,13 @@
  *
  */
 
-
 package org.apache.catalina.valves;
-
 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import org.apache.catalina.Request;
 import org.apache.catalina.Response;
 import org.apache.catalina.ValveContext;
-
 
 /**
  * Concrete implementation of <code>RequestFilterValve</code> that filters
@@ -80,35 +76,24 @@ import org.apache.catalina.ValveContext;
  * @version $Revision: 1.3 $ $Date: 2001/07/22 20:25:15 $
  */
 
-public final class RemoteHostValve
-    extends RequestFilterValve {
-
-
+public final class RemoteHostValve extends RequestFilterValve {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The descriptive information related to this implementation.
      */
-    private static final String info =
-        "org.apache.catalina.valves.RemoteHostValve/1.0";
-
+    private static final String info = "org.apache.catalina.valves.RemoteHostValve/1.0";
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo() {
-
         return (info);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Extract the desired request property, and pass it (along with the
@@ -124,14 +109,7 @@ public final class RemoteHostValve
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
-    public void invoke(Request request, Response response,
-                       ValveContext context)
-        throws IOException, ServletException {
-
-        process(request.getRequest().getRemoteHost(),
-                request, response, context);
-
+    public void invoke(Request request, Response response, ValveContext context) throws IOException, ServletException {
+        process(request.getRequest().getRemoteHost(), request, response, context);
     }
-
-
 }

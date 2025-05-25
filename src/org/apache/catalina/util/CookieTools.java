@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/Base64.java,v 1.4 2001/09/04 21:49:55 craigmcc Exp $
- * $Revision: 1.4 $
- * $Date: 2001/09/04 21:49:55 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/Base64.java,v 1.4 2001/09/04
+ * 21:49:55 craigmcc Exp $ $Revision: 1.4 $ $Date: 2001/09/04 21:49:55 $
  *
  * ====================================================================
  *
@@ -65,7 +64,6 @@ package org.apache.catalina.util;
 
 import java.text.*;
 import java.util.*;
-
 import javax.servlet.http.Cookie;
 
 // XXX use only one Date instance/request, reuse it.
@@ -77,8 +75,8 @@ import javax.servlet.http.Cookie;
  * @author duncan@eng.sun.com
  */
 public class CookieTools {
-
-    /** Return the header name to set the cookie, based on cookie
+    /**
+     * Return the header name to set the cookie, based on cookie
      *  version
      */
     public static String getCookieHeaderName(Cookie cookie) {
@@ -91,23 +89,25 @@ public class CookieTools {
         }
     }
 
-    /** Return the header value used to set this cookie
+    /**
+     * Return the header value used to set this cookie
      *  @deprecated Use StringBuffer version
      */
     public static String getCookieHeaderValue(Cookie cookie) {
         StringBuffer buf = new StringBuffer();
-        getCookieHeaderValue( cookie, buf );
+        getCookieHeaderValue(cookie, buf);
         return buf.toString();
     }
 
-    /** Return the header value used to set this cookie
+    /**
+     * Return the header value used to set this cookie
      */
     public static void getCookieHeaderValue(Cookie cookie, StringBuffer buf) {
         int version = cookie.getVersion();
 
         // this part is the same for all cookies
 
-        String name = cookie.getName();     // Avoid NPE on malformed cookies
+        String name = cookie.getName(); // Avoid NPE on malformed cookies
         if (name == null)
             name = "";
         String value = cookie.getValue();
@@ -121,12 +121,12 @@ public class CookieTools {
         // add version 1 specific information
         if (version == 1) {
             // Version=1 ... required
-            buf.append (";Version=1");
+            buf.append(";Version=1");
 
             // Comment=comment
             if (cookie.getComment() != null) {
-                buf.append (";Comment=");
-                maybeQuote (version, buf, cookie.getComment());
+                buf.append(";Comment=");
+                maybeQuote(version, buf, cookie.getComment());
             }
         }
 
@@ -134,53 +134,48 @@ public class CookieTools {
 
         if (cookie.getDomain() != null) {
             buf.append(";Domain=");
-            maybeQuote (version, buf, cookie.getDomain());
+            maybeQuote(version, buf, cookie.getDomain());
         }
 
         // Max-Age=secs/Discard ... or use old "Expires" format
         if (cookie.getMaxAge() >= 0) {
             if (version == 0) {
-                buf.append (";Expires=");
+                buf.append(";Expires=");
                 if (cookie.getMaxAge() == 0)
-                    DateTool.oldCookieFormat.format(new Date(10000), buf,
-                                                    new FieldPosition(0));
+                    DateTool.oldCookieFormat.format(new Date(10000), buf, new FieldPosition(0));
                 else
-                    DateTool.oldCookieFormat.format
-                        (new Date( System.currentTimeMillis() +
-                                   cookie.getMaxAge() *1000L), buf,
-                         new FieldPosition(0));
+                    DateTool.oldCookieFormat.format(
+                      new Date(System.currentTimeMillis() + cookie.getMaxAge() * 1000L), buf, new FieldPosition(0));
             } else {
-                buf.append (";Max-Age=");
-                buf.append (cookie.getMaxAge());
+                buf.append(";Max-Age=");
+                buf.append(cookie.getMaxAge());
             }
         } else if (version == 1)
-          buf.append (";Discard");
+            buf.append(";Discard");
 
         // Path=path
         if (cookie.getPath() != null) {
-            buf.append (";Path=");
-            maybeQuote (version, buf, cookie.getPath());
+            buf.append(";Path=");
+            maybeQuote(version, buf, cookie.getPath());
         }
 
         // Secure
         if (cookie.getSecure()) {
-          buf.append (";Secure");
+            buf.append(";Secure");
         }
     }
 
-    static void maybeQuote (int version, StringBuffer buf,
-                                    String value)
-    {
-        if (version == 0 || isToken (value))
-            buf.append (value);
+    static void maybeQuote(int version, StringBuffer buf, String value) {
+        if (version == 0 || isToken(value))
+            buf.append(value);
         else {
-            buf.append ('"');
-            buf.append (value);
-            buf.append ('"');
+            buf.append('"');
+            buf.append(value);
+            buf.append('"');
         }
     }
 
-        //
+    //
     // from RFC 2068, token special case characters
     //
     private static final String tspecials = "()<>@,;:\\\"/[]?={} \t";
@@ -188,17 +183,15 @@ public class CookieTools {
     /*
      * Return true iff the string counts as an HTTP/1.1 "token".
      */
-    private static boolean isToken (String value) {
-        int len = value.length ();
+    private static boolean isToken(String value) {
+        int len = value.length();
 
         for (int i = 0; i < len; i++) {
-            char c = value.charAt (i);
+            char c = value.charAt(i);
 
-            if (c < 0x20 || c >= 0x7f || tspecials.indexOf (c) != -1)
-              return false;
+            if (c < 0x20 || c >= 0x7f || tspecials.indexOf(c) != -1)
+                return false;
         }
         return true;
     }
-
-
 }

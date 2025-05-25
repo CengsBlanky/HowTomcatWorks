@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/UserMBean.java,v 1.3 2002/02/03 00:56:57 craigmcc Exp $
- * $Revision: 1.3 $
- * $Date: 2002/02/03 00:56:57 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/UserMBean.java,v 1.3 2002/02/03
+ * 00:56:57 craigmcc Exp $ $Revision: 1.3 $ $Date: 2002/02/03 00:56:57 $
  *
  * ====================================================================
  *
@@ -63,12 +62,11 @@
 
 package org.apache.catalina.mbeans;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.management.MalformedObjectNameException;
 import javax.management.MBeanException;
 import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.RuntimeOperationsException;
 import org.apache.catalina.Group;
@@ -77,7 +75,6 @@ import org.apache.catalina.User;
 import org.apache.commons.modeler.BaseModelMBean;
 import org.apache.commons.modeler.ManagedBean;
 import org.apache.commons.modeler.Registry;
-
 
 /**
  * <p>A <strong>ModelMBean</strong> implementation for the
@@ -88,10 +85,7 @@ import org.apache.commons.modeler.Registry;
  */
 
 public class UserMBean extends BaseModelMBean {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a <code>ModelMBean</code> with default
@@ -102,44 +96,33 @@ public class UserMBean extends BaseModelMBean {
      * @exception RuntimeOperationsException if an IllegalArgumentException
      *  occurs
      */
-    public UserMBean()
-        throws MBeanException, RuntimeOperationsException {
-
+    public UserMBean() throws MBeanException, RuntimeOperationsException {
         super();
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The configuration information registry for our managed beans.
      */
     protected Registry registry = MBeanUtils.createRegistry();
 
-
     /**
      * The <code>MBeanServer</code> in which we are registered.
      */
     protected MBeanServer mserver = MBeanUtils.createServer();
 
-
     /**
      * The <code>ManagedBean</code> information describing this MBean.
      */
-    protected ManagedBean managed =
-        registry.findManagedBean("User");
-
+    protected ManagedBean managed = registry.findManagedBean("User");
 
     // ------------------------------------------------------------- Attributes
-
 
     /**
      * Return the MBean Names of all groups this user is a member of.
      */
     public String[] getGroups() {
-
         User user = (User) this.resource;
         ArrayList results = new ArrayList();
         Iterator groups = user.getGroups();
@@ -147,24 +130,19 @@ public class UserMBean extends BaseModelMBean {
             Group group = null;
             try {
                 group = (Group) groups.next();
-                ObjectName oname =
-                    MBeanUtils.createObjectName(managed.getDomain(), group);
+                ObjectName oname = MBeanUtils.createObjectName(managed.getDomain(), group);
                 results.add(oname.toString());
             } catch (MalformedObjectNameException e) {
-                throw new IllegalArgumentException
-                    ("Cannot create object name for group " + group);
+                throw new IllegalArgumentException("Cannot create object name for group " + group);
             }
         }
         return ((String[]) results.toArray(new String[results.size()]));
-
     }
-
 
     /**
      * Return the MBean Names of all roles assigned to this user.
      */
     public String[] getRoles() {
-
         User user = (User) this.resource;
         ArrayList results = new ArrayList();
         Iterator roles = user.getRoles();
@@ -172,21 +150,16 @@ public class UserMBean extends BaseModelMBean {
             Role role = null;
             try {
                 role = (Role) roles.next();
-                ObjectName oname =
-                    MBeanUtils.createObjectName(managed.getDomain(), role);
+                ObjectName oname = MBeanUtils.createObjectName(managed.getDomain(), role);
                 results.add(oname.toString());
             } catch (MalformedObjectNameException e) {
-                throw new IllegalArgumentException
-                    ("Cannot create object name for role " + role);
+                throw new IllegalArgumentException("Cannot create object name for role " + role);
             }
         }
         return ((String[]) results.toArray(new String[results.size()]));
-
     }
 
-
     // ------------------------------------------------------------- Operations
-
 
     /**
      * Add a new {@link Group} to those this user belongs to.
@@ -194,20 +167,16 @@ public class UserMBean extends BaseModelMBean {
      * @param groupname Group name of the new group
      */
     public void addGroup(String groupname) {
-
         User user = (User) this.resource;
         if (user == null) {
             return;
         }
         Group group = user.getUserDatabase().findGroup(groupname);
         if (group == null) {
-            throw new IllegalArgumentException
-                ("Invalid group name '" + groupname + "'");
+            throw new IllegalArgumentException("Invalid group name '" + groupname + "'");
         }
         user.addGroup(group);
-
     }
-
 
     /**
      * Add a new {@link Role} to those this user belongs to.
@@ -215,20 +184,16 @@ public class UserMBean extends BaseModelMBean {
      * @param rolename Role name of the new role
      */
     public void addRole(String rolename) {
-
         User user = (User) this.resource;
         if (user == null) {
             return;
         }
         Role role = user.getUserDatabase().findRole(rolename);
         if (role == null) {
-            throw new IllegalArgumentException
-                ("Invalid role name '" + rolename + "'");
+            throw new IllegalArgumentException("Invalid role name '" + rolename + "'");
         }
         user.addRole(role);
-
     }
-
 
     /**
      * Remove a {@link Group} from those this user belongs to.
@@ -236,20 +201,16 @@ public class UserMBean extends BaseModelMBean {
      * @param groupname Group name of the old group
      */
     public void removeGroup(String groupname) {
-
         User user = (User) this.resource;
         if (user == null) {
             return;
         }
         Group group = user.getUserDatabase().findGroup(groupname);
         if (group == null) {
-            throw new IllegalArgumentException
-                ("Invalid group name '" + groupname + "'");
+            throw new IllegalArgumentException("Invalid group name '" + groupname + "'");
         }
         user.removeGroup(group);
-
     }
-
 
     /**
      * Remove a {@link Role} from those this user belongs to.
@@ -257,19 +218,14 @@ public class UserMBean extends BaseModelMBean {
      * @param rolename Role name of the old role
      */
     public void removeRole(String rolename) {
-
         User user = (User) this.resource;
         if (user == null) {
             return;
         }
         Role role = user.getUserDatabase().findRole(rolename);
         if (role == null) {
-            throw new IllegalArgumentException
-                ("Invalid role name '" + rolename + "'");
+            throw new IllegalArgumentException("Invalid role name '" + rolename + "'");
         }
         user.removeRole(role);
-
     }
-
-
 }

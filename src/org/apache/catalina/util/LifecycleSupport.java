@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/LifecycleSupport.java,v 1.3 2001/11/09 19:40:54 remm Exp $
- * $Revision: 1.3 $
- * $Date: 2001/11/09 19:40:54 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/LifecycleSupport.java,v 1.3
+ * 2001/11/09 19:40:54 remm Exp $ $Revision: 1.3 $ $Date: 2001/11/09 19:40:54 $
  *
  * ====================================================================
  *
@@ -61,14 +60,11 @@
  *
  */
 
-
 package org.apache.catalina.util;
-
 
 import org.apache.catalina.Lifecycle;
 import org.apache.catalina.LifecycleEvent;
 import org.apache.catalina.LifecycleListener;
-
 
 /**
  * Support class to assist in firing LifecycleEvent notifications to
@@ -79,10 +75,7 @@ import org.apache.catalina.LifecycleListener;
  */
 
 public final class LifecycleSupport {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new LifecycleSupport object associated with the specified
@@ -92,30 +85,23 @@ public final class LifecycleSupport {
      *  of events that we fire
      */
     public LifecycleSupport(Lifecycle lifecycle) {
-
         super();
         this.lifecycle = lifecycle;
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The source component for lifecycle events that we will fire.
      */
     private Lifecycle lifecycle = null;
 
-
     /**
      * The set of registered LifecycleListeners for event notifications.
      */
     private LifecycleListener listeners[] = new LifecycleListener[0];
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a lifecycle event listener to this component.
@@ -123,29 +109,21 @@ public final class LifecycleSupport {
      * @param listener The listener to add
      */
     public void addLifecycleListener(LifecycleListener listener) {
-
-      synchronized (listeners) {
-          LifecycleListener results[] =
-            new LifecycleListener[listeners.length + 1];
-          for (int i = 0; i < listeners.length; i++)
-              results[i] = listeners[i];
-          results[listeners.length] = listener;
-          listeners = results;
-      }
-
+        synchronized (listeners) {
+            LifecycleListener results[] = new LifecycleListener[listeners.length + 1];
+            for (int i = 0; i < listeners.length; i++) results[i] = listeners[i];
+            results[listeners.length] = listener;
+            listeners = results;
+        }
     }
 
-
     /**
-     * Get the lifecycle listeners associated with this lifecycle. If this 
+     * Get the lifecycle listeners associated with this lifecycle. If this
      * Lifecycle has no listeners registered, a zero-length array is returned.
      */
     public LifecycleListener[] findLifecycleListeners() {
-
         return listeners;
-
     }
-
 
     /**
      * Notify all lifecycle event listeners that a particular event has
@@ -156,17 +134,13 @@ public final class LifecycleSupport {
      * @param data Event data
      */
     public void fireLifecycleEvent(String type, Object data) {
-
         LifecycleEvent event = new LifecycleEvent(lifecycle, type, data);
         LifecycleListener interested[] = null;
         synchronized (listeners) {
             interested = (LifecycleListener[]) listeners.clone();
         }
-        for (int i = 0; i < interested.length; i++)
-            interested[i].lifecycleEvent(event);
-
+        for (int i = 0; i < interested.length; i++) interested[i].lifecycleEvent(event);
     }
-
 
     /**
      * Remove a lifecycle event listener from this component.
@@ -174,7 +148,6 @@ public final class LifecycleSupport {
      * @param listener The listener to remove
      */
     public void removeLifecycleListener(LifecycleListener listener) {
-
         synchronized (listeners) {
             int n = -1;
             for (int i = 0; i < listeners.length; i++) {
@@ -185,8 +158,7 @@ public final class LifecycleSupport {
             }
             if (n < 0)
                 return;
-            LifecycleListener results[] =
-              new LifecycleListener[listeners.length - 1];
+            LifecycleListener results[] = new LifecycleListener[listeners.length - 1];
             int j = 0;
             for (int i = 0; i < listeners.length; i++) {
                 if (i != n)
@@ -194,8 +166,5 @@ public final class LifecycleSupport {
             }
             listeners = results;
         }
-
     }
-
-
 }

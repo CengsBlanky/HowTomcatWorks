@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/JAASCallbackHandler.java,v 1.1 2001/11/13 22:42:31 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2001/11/13 22:42:31 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/JAASCallbackHandler.java,v 1.1
+ * 2001/11/13 22:42:31 craigmcc Exp $ $Revision: 1.1 $ $Date: 2001/11/13 22:42:31 $
  *
  * ====================================================================
  * The Apache Software License, Version 1.1
@@ -60,9 +59,7 @@
  *
  */
 
-
 package org.apache.catalina.realm;
-
 
 import java.io.IOException;
 import javax.security.auth.callback.Callback;
@@ -70,7 +67,6 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.callback.UnsupportedCallbackException;
-
 
 /**
  * <p>Implementation of the JAAS <strong>CallbackHandler</code> interface,
@@ -83,10 +79,7 @@ import javax.security.auth.callback.UnsupportedCallbackException;
  */
 
 public class JAASCallbackHandler implements CallbackHandler {
-
-
     // ------------------------------------------------------------ Constructor
-
 
     /**
      * Construct a callback handler configured with the specified values.
@@ -95,40 +88,31 @@ public class JAASCallbackHandler implements CallbackHandler {
      * @param username Username to be authenticated with
      * @param password Password to be authenticated with
      */
-    public JAASCallbackHandler(JAASRealm realm, String username,
-                               String password) {
-
+    public JAASCallbackHandler(JAASRealm realm, String username, String password) {
         super();
         this.realm = realm;
         this.username = username;
         this.password = password;
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The password to be authenticated with.
      */
     protected String password = null;
 
-
     /**
      * The associated <code>JAASRealm</code> instance.
      */
     protected JAASRealm realm = null;
-
 
     /**
      * The username to be authenticated with.
      */
     protected String username = null;
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Retrieve the information requested in the provided Callbacks.  This
@@ -141,11 +125,8 @@ public class JAASCallbackHandler implements CallbackHandler {
      * @exception UnsupportedCallbackException if the login method requests
      *  an unsupported callback type
      */
-    public void handle(Callback callbacks[])
-        throws IOException, UnsupportedCallbackException {
-
+    public void handle(Callback callbacks[]) throws IOException, UnsupportedCallbackException {
         for (int i = 0; i < callbacks.length; i++) {
-
             if (callbacks[i] instanceof NameCallback) {
                 if (realm.getDebug() >= 3)
                     realm.log("Returning username " + username);
@@ -153,16 +134,10 @@ public class JAASCallbackHandler implements CallbackHandler {
             } else if (callbacks[i] instanceof PasswordCallback) {
                 if (realm.getDebug() >= 3)
                     realm.log("Returning password " + password);
-                ((PasswordCallback) callbacks[i]).setPassword
-                    (password.toCharArray());
+                ((PasswordCallback) callbacks[i]).setPassword(password.toCharArray());
             } else {
                 throw new UnsupportedCallbackException(callbacks[i]);
             }
-
-
         }
-
     }
-
-
 }

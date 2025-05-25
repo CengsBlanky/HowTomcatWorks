@@ -1,12 +1,10 @@
 package org.apache.catalina.connector;
 
-
 import java.io.IOException;
 import java.io.OutputStream;
 import javax.servlet.ServletOutputStream;
 import org.apache.catalina.Response;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * Convenience implementation of <b>ServletOutputStream</b> that works with
@@ -19,12 +17,8 @@ import org.apache.catalina.util.StringManager;
  * @deprecated
  */
 
-public class ResponseStream
-    extends ServletOutputStream {
-
-
+public class ResponseStream extends ServletOutputStream {
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a servlet output stream associated with the specified Request.
@@ -32,7 +26,6 @@ public class ResponseStream
      * @param response The associated response
      */
     public ResponseStream(Response response) {
-
         super();
         closed = false;
         commit = false;
@@ -40,30 +33,24 @@ public class ResponseStream
         this.response = response;
         this.stream = response.getStream();
         this.suspended = response.isSuspended();
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Has this stream been closed?
      */
     protected boolean closed = false;
 
-
     /**
      * Should we commit the response when we are flushed?
      */
     protected boolean commit = false;
 
-
     /**
      * The number of bytes which have already been written to this stream.
      */
     protected int count = 0;
-
 
     /**
      * The content length past which we will not write, or -1 if there is
@@ -71,44 +58,34 @@ public class ResponseStream
      */
     protected int length = -1;
 
-
     /**
      * The Response with which this input stream is associated.
      */
     protected Response response = null;
 
-
     /**
      * The localized strings for this package.
      */
-    protected static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static StringManager sm = StringManager.getManager(Constants.Package);
 
     /**
      * The underlying output stream to which we should write data.
      */
     protected OutputStream stream = null;
 
-
     /**
      * Has this response output been suspended?
      */
     protected boolean suspended = false;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * [Package Private] Return the "commit response on flush" flag.
      */
     boolean getCommit() {
-
         return (this.commit);
-
     }
-
 
     /**
      * [Package Private] Set the "commit response on flush" flag.
@@ -116,72 +93,54 @@ public class ResponseStream
      * @param commit The new commit flag
      */
     void setCommit(boolean commit) {
-
         this.commit = commit;
-
     }
-
 
     /**
      * Set the suspended flag.
      */
     void setSuspended(boolean suspended) {
-
         this.suspended = suspended;
-
     }
-
 
     /**
      * Suspended flag accessor.
      */
     boolean isSuspended() {
-
         return (this.suspended);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Close this output stream, causing any buffered data to be flushed and
      * any further output data to throw an IOException.
      */
     public void close() throws IOException {
-
         if (suspended)
-            throw new IOException
-                (sm.getString("responseStream.suspended"));
+            throw new IOException(sm.getString("responseStream.suspended"));
 
         if (closed)
             throw new IOException(sm.getString("responseStream.close.closed"));
 
         response.getResponse().flushBuffer();
         closed = true;
-
     }
-
 
     /**
      * Flush any buffered data for this output stream, which also causes the
      * response to be committed.
      */
     public void flush() throws IOException {
-
         if (suspended)
-            throw new IOException
-                (sm.getString("responseStream.suspended"));
+            throw new IOException(sm.getString("responseStream.suspended"));
 
         if (closed)
             throw new IOException(sm.getString("responseStream.flush.closed"));
 
         if (commit)
             response.getResponse().flushBuffer();
-
     }
-
 
     /**
      * Write the specified byte to our output stream.
@@ -191,7 +150,6 @@ public class ResponseStream
      * @exception IOException if an input/output error occurs
      */
     public void write(int b) throws IOException {
-
         if (suspended)
             return;
 
@@ -203,9 +161,7 @@ public class ResponseStream
 
         ((ResponseBase) response).write(b);
         count++;
-
     }
-
 
     /**
      * Write <code>b.length</code> bytes from the specified byte array
@@ -216,14 +172,11 @@ public class ResponseStream
      * @exception IOException if an input/output error occurs
      */
     public void write(byte b[]) throws IOException {
-
         if (suspended)
             return;
 
         write(b, 0, b.length);
-
     }
-
 
     /**
      * Write <code>len</code> bytes from the specified byte array, starting
@@ -236,7 +189,6 @@ public class ResponseStream
      * @exception IOException if an input/output error occurs
      */
     public void write(byte b[], int off, int len) throws IOException {
-
         if (suspended)
             return;
 
@@ -250,31 +202,21 @@ public class ResponseStream
         count += actual;
         if (actual < len)
             throw new IOException(sm.getString("responseStream.write.count"));
-
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * Has this response stream been closed?
      */
     boolean closed() {
-
         return (this.closed);
-
     }
-
 
     /**
      * Reset the count of bytes written to this stream to zero.
      */
     void reset() {
-
         count = 0;
-
     }
-
-
 }

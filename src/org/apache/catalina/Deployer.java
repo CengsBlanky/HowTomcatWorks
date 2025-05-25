@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Deployer.java,v 1.6 2002/04/09 23:48:21 craigmcc Exp $
- * $Revision: 1.6 $
- * $Date: 2002/04/09 23:48:21 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Deployer.java,v 1.6 2002/04/09 23:48:21
+ * craigmcc Exp $ $Revision: 1.6 $ $Date: 2002/04/09 23:48:21 $
  *
  * ====================================================================
  *
@@ -61,13 +60,10 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 import java.io.IOException;
 import java.net.URL;
-
 
 /**
  * A <b>Deployer</b> is a specialized Container into which web applications
@@ -80,11 +76,8 @@ import java.net.URL;
  */
 
 /* public interface Deployer extends Container { */
-public interface Deployer  {
-
-
+public interface Deployer {
     // ----------------------------------------------------- Manifest Constants
-
 
     /**
      * The ContainerEvent event type sent when a new application is
@@ -93,13 +86,11 @@ public interface Deployer  {
      */
     public static final String PRE_INSTALL_EVENT = "pre-install";
 
-
     /**
      * The ContainerEvent event type sent when a new application is
      * installed by <code>install()</code>, after it has been started.
      */
     public static final String INSTALL_EVENT = "install";
-
 
     /**
      * The ContainerEvent event type sent when an existing application is
@@ -107,15 +98,12 @@ public interface Deployer  {
      */
     public static final String REMOVE_EVENT = "remove";
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return the name of the Container with which this Deployer is associated.
      */
     public String getName();
-
 
     /**
      * Install a new web application, whose web application archive is at the
@@ -143,7 +131,6 @@ public interface Deployer  {
      */
     public void install(String contextPath, URL war) throws IOException;
 
-
     /**
      * <p>Install a new web application, whose context configuration file
      * (consisting of a <code>&lt;Context&gt;</code> element) and web
@@ -170,7 +157,6 @@ public interface Deployer  {
      */
     public void install(URL config, URL war) throws IOException;
 
-
     /**
      * Return the Context for the deployed application that is associated
      * with the specified context path (if any); otherwise return
@@ -180,14 +166,12 @@ public interface Deployer  {
      */
     public Context findDeployedApp(String contextPath);
 
-
     /**
      * Return the context paths of all deployed web applications in this
      * Container.  If there are no deployed applications, a zero-length
      * array is returned.
      */
     public String[] findDeployedApps();
-
 
     /**
      * Remove an existing web application, attached to the specified context
@@ -207,7 +191,6 @@ public interface Deployer  {
      */
     public void remove(String contextPath) throws IOException;
 
-
     /**
      * Start an existing web application, attached to the specified context
      * path.  Only starts a web application if it is not running.
@@ -223,7 +206,6 @@ public interface Deployer  {
      */
     public void start(String contextPath) throws IOException;
 
-
     /**
      * Stop an existing web application, attached to the specified context
      * path.  Only stops a web application if it is running.
@@ -238,6 +220,4 @@ public interface Deployer  {
      *  the web application
      */
     public void stop(String contextPath) throws IOException;
-
-
 }

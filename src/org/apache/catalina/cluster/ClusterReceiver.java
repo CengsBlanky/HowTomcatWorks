@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/cluster/ClusterReceiver.java,v 1.2 2001/07/22 20:25:06 pier Exp $
- * $Revision: 1.2 $
- * $Date: 2001/07/22 20:25:06 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/cluster/ClusterReceiver.java,v 1.2
+ * 2001/07/22 20:25:06 pier Exp $ $Revision: 1.2 $ $Date: 2001/07/22 20:25:06 $
  *
  * ====================================================================
  *
@@ -75,7 +74,6 @@ import org.apache.catalina.Logger;
  */
 
 public interface ClusterReceiver extends Runnable {
-
     // --------------------------------------------------------- Public Methods
 
     /**

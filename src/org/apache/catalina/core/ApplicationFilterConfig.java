@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/ApplicationFilterConfig.java,v 1.7 2001/07/22 20:25:08 pier Exp $
- * $Revision: 1.7 $
- * $Date: 2001/07/22 20:25:08 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/ApplicationFilterConfig.java,v 1.7
+ * 2001/07/22 20:25:08 pier Exp $ $Revision: 1.7 $ $Date: 2001/07/22 20:25:08 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -76,7 +73,6 @@ import org.apache.catalina.Context;
 import org.apache.catalina.deploy.FilterDef;
 import org.apache.catalina.util.Enumerator;
 
-
 /**
  * Implementation of a <code>javax.servlet.FilterConfig</code> useful in
  * managing the filter instances instantiated when a web application
@@ -87,10 +83,7 @@ import org.apache.catalina.util.Enumerator;
  */
 
 final class ApplicationFilterConfig implements FilterConfig {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new ApplicationFilterConfig for the specified filter
@@ -110,50 +103,38 @@ final class ApplicationFilterConfig implements FilterConfig {
      * @exception ServletException if thrown by the filter's init() method
      */
     public ApplicationFilterConfig(Context context, FilterDef filterDef)
-        throws ClassCastException, ClassNotFoundException,
-               IllegalAccessException, InstantiationException,
-               ServletException {
-
+      throws ClassCastException, ClassNotFoundException, IllegalAccessException, InstantiationException,
+             ServletException {
         super();
         this.context = context;
         setFilterDef(filterDef);
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The Context with which we are associated.
      */
     private Context context = null;
 
-
     /**
      * The application Filter we are configured for.
      */
     private Filter filter = null;
-
 
     /**
      * The <code>FilterDef</code> that defines our associated Filter.
      */
     private FilterDef filterDef = null;
 
-
     // --------------------------------------------------- FilterConfig Methods
-
 
     /**
      * Return the name of the filter we are configuring.
      */
     public String getFilterName() {
-
         return (filterDef.getFilterName());
-
     }
-
 
     /**
      * Return a <code>String</code> containing the value of the named
@@ -163,46 +144,36 @@ final class ApplicationFilterConfig implements FilterConfig {
      * @param name Name of the requested initialization parameter
      */
     public String getInitParameter(String name) {
-
         Map map = filterDef.getParameterMap();
         if (map == null)
             return (null);
         else
             return ((String) map.get(name));
-
     }
-
 
     /**
      * Return an <code>Enumeration</code> of the names of the initialization
      * parameters for this Filter.
      */
     public Enumeration getInitParameterNames() {
-
         Map map = filterDef.getParameterMap();
         if (map == null)
             return (new Enumerator(new ArrayList()));
         else
             return (new Enumerator(map.keySet()));
-
     }
-
 
     /**
      * Return the ServletContext of our associated web application.
      */
     public ServletContext getServletContext() {
-
         return (this.context.getServletContext());
-
     }
-
 
     /**
      * Return a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("ApplicationFilterConfig[");
         sb.append("name=");
         sb.append(filterDef.getFilterName());
@@ -210,12 +181,9 @@ final class ApplicationFilterConfig implements FilterConfig {
         sb.append(filterDef.getFilterClass());
         sb.append("]");
         return (sb.toString());
-
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * Return the application Filter we are configured for.
@@ -229,9 +197,8 @@ final class ApplicationFilterConfig implements FilterConfig {
      *  instantiating the filter object
      * @exception ServletException if thrown by the filter's init() method
      */
-    Filter getFilter() throws ClassCastException, ClassNotFoundException,
-        IllegalAccessException, InstantiationException, ServletException {
-
+    Filter getFilter() throws ClassCastException, ClassNotFoundException, IllegalAccessException,
+                              InstantiationException, ServletException {
         // Return the existing filter instance, if any
         if (this.filter != null)
             return (this.filter);
@@ -244,40 +211,31 @@ final class ApplicationFilterConfig implements FilterConfig {
         else
             classLoader = context.getLoader().getClassLoader();
 
-        ClassLoader oldCtxClassLoader =
-            Thread.currentThread().getContextClassLoader();
+        ClassLoader oldCtxClassLoader = Thread.currentThread().getContextClassLoader();
 
         // Instantiate a new instance of this filter and return it
         Class clazz = classLoader.loadClass(filterClass);
         this.filter = (Filter) clazz.newInstance();
         filter.init(this);
         return (this.filter);
-
     }
-
 
     /**
      * Return the filter definition we are configured for.
      */
     FilterDef getFilterDef() {
-
         return (this.filterDef);
-
     }
-
 
     /**
      * Release the Filter instance associated with this FilterConfig,
      * if there is one.
      */
     void release() {
-
         if (this.filter != null)
             filter.destroy();
         this.filter = null;
-
-     }
-
+    }
 
     /**
      * Set the filter definition we are configured for.  This has the side
@@ -294,30 +252,20 @@ final class ApplicationFilterConfig implements FilterConfig {
      *  instantiating the filter object
      * @exception ServletException if thrown by the filter's init() method
      */
-    void setFilterDef(FilterDef filterDef)
-        throws ClassCastException, ClassNotFoundException,
-               IllegalAccessException, InstantiationException,
-               ServletException {
-
+    void setFilterDef(FilterDef filterDef) throws ClassCastException, ClassNotFoundException, IllegalAccessException,
+                                                  InstantiationException, ServletException {
         this.filterDef = filterDef;
         if (filterDef == null) {
-
             // Release any previously allocated filter instance
             if (this.filter != null)
                 this.filter.destroy();
             this.filter = null;
 
         } else {
-
             // Allocate a new filter instance
             Filter filter = getFilter();
-
         }
-
     }
 
-
     // -------------------------------------------------------- Private Methods
-
-
 }

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/naming/resources/RecyclableNamingEnumeration.java,v 1.1 2001/01/23 03:41:29 remm Exp $
- * $Revision: 1.1 $
- * $Date: 2001/01/23 03:41:29 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/naming/resources/RecyclableNamingEnumeration.java,v 1.1
+ * 2001/01/23 03:41:29 remm Exp $ $Revision: 1.1 $ $Date: 2001/01/23 03:41:29 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999 The Apache Software Foundation.  All rights 
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -15,7 +15,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -23,15 +23,15 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution, if
- *    any, must include the following acknowlegement:  
- *       "This product includes software developed by the 
+ *    any, must include the following acknowlegement:
+ *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
  * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written 
+ *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
@@ -59,15 +59,14 @@
  *
  * [Additional notices, if required by prior licensing conditions]
  *
- */ 
-
+ */
 
 package org.apache.naming.resources;
 
-import java.util.Vector;
 import java.util.Enumeration;
-import javax.naming.NamingException;
+import java.util.Vector;
 import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
 
 /**
  * Naming enumeration implementation.
@@ -76,83 +75,66 @@ import javax.naming.NamingEnumeration;
  * @version $Revision: 1.1 $ $Date: 2001/01/23 03:41:29 $
  */
 
-public class RecyclableNamingEnumeration 
-    implements NamingEnumeration {
-
-
+public class RecyclableNamingEnumeration implements NamingEnumeration {
     // ----------------------------------------------------------- Constructors
-
 
     public RecyclableNamingEnumeration(Vector entries) {
         this.entries = entries;
         recycle();
     }
 
-
     // -------------------------------------------------------------- Variables
-
 
     /**
      * Entries.
      */
     protected Vector entries;
 
-
     /**
      * Underlying enumeration.
      */
-    protected Enumeration enum;
-
+    protected Enumeration enum
+    ;
 
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Retrieves the next element in the enumeration.
      */
-    public Object next()
-        throws NamingException {
+    public Object next() throws NamingException {
         return nextElement();
     }
-
 
     /**
      * Determines whether there are any more elements in the enumeration.
      */
-    public boolean hasMore()
-        throws NamingException {
-        return enum.hasMoreElements();
+    public boolean hasMore() throws NamingException {
+        return enum
+        .hasMoreElements();
     }
-
 
     /**
      * Closes this enumeration.
      */
-    public void close()
-        throws NamingException {
-    }
-
+    public void close() throws NamingException {}
 
     public boolean hasMoreElements() {
-        return enum.hasMoreElements();
+        return enum
+        .hasMoreElements();
     }
-
 
     public Object nextElement() {
-        return enum.nextElement();
+        return enum
+        .nextElement();
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * Recycle.
      */
     void recycle() {
-        enum = entries.elements();
+        enum
+        = entries.elements();
     }
-
-
 }
-

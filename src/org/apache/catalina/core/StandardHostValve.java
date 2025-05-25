@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardHostValve.java,v 1.6 2002/01/04 16:33:40 remm Exp $
- * $Revision: 1.6 $
- * $Date: 2002/01/04 16:33:40 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardHostValve.java,v 1.6
+ * 2002/01/04 16:33:40 remm Exp $ $Revision: 1.6 $ $Date: 2002/01/04 16:33:40 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -78,7 +75,6 @@ import org.apache.catalina.ValveContext;
 import org.apache.catalina.util.StringManager;
 import org.apache.catalina.valves.ValveBase;
 
-
 /**
  * Valve that implements the default basic behavior for the
  * <code>StandardHost</code> container implementation.
@@ -90,42 +86,29 @@ import org.apache.catalina.valves.ValveBase;
  * @version $Revision: 1.6 $ $Date: 2002/01/04 16:33:40 $
  */
 
-final class StandardHostValve
-    extends ValveBase {
-
-
+final class StandardHostValve extends ValveBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The descriptive information related to this implementation.
      */
-    private static final String info =
-        "org.apache.catalina.core.StandardHostValve/1.0";
-
+    private static final String info = "org.apache.catalina.core.StandardHostValve/1.0";
 
     /**
      * The string manager for this package.
      */
-    private static final StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    private static final StringManager sm = StringManager.getManager(Constants.Package);
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo() {
-
         return (info);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Select the appropriate child Context to process this request,
@@ -139,29 +122,25 @@ final class StandardHostValve
      * @exception IOException if an input/output error occurred
      * @exception ServletException if a servlet error occurred
      */
-    public void invoke(Request request, Response response,
-                       ValveContext valveContext)
-        throws IOException, ServletException {
-
+    public void invoke(Request request, Response response, ValveContext valveContext)
+      throws IOException, ServletException {
         // Validate the request and response object types
-        if (!(request.getRequest() instanceof HttpServletRequest) ||
-            !(response.getResponse() instanceof HttpServletResponse)) {
-            return;     // NOTE - Not much else we can do generically
+        if (!(request.getRequest() instanceof HttpServletRequest)
+          || !(response.getResponse() instanceof HttpServletResponse)) {
+            return; // NOTE - Not much else we can do generically
         }
 
         // Select the Context to be used for this Request
         StandardHost host = (StandardHost) getContainer();
         Context context = (Context) host.map(request, true);
         if (context == null) {
-            ((HttpServletResponse) response.getResponse()).sendError
-                (HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-                 sm.getString("standardHost.noContext"));
+            ((HttpServletResponse) response.getResponse())
+              .sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, sm.getString("standardHost.noContext"));
             return;
         }
 
         // Bind the context CL to the current thread
-        Thread.currentThread().setContextClassLoader
-            (context.getLoader().getClassLoader());
+        Thread.currentThread().setContextClassLoader(context.getLoader().getClassLoader());
 
         // Update the session last access time for our session (if any)
         HttpServletRequest hreq = (HttpServletRequest) request.getRequest();
@@ -177,7 +156,5 @@ final class StandardHostValve
 
         // Ask this Context to process this request
         context.invoke(request, response);
-
     }
-
 }

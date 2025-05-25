@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/ClassNameMBean.java,v 1.1 2002/01/24 20:34:05 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2002/01/24 20:34:05 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/ClassNameMBean.java,v 1.1
+ * 2002/01/24 20:34:05 craigmcc Exp $ $Revision: 1.1 $ $Date: 2002/01/24 20:34:05 $
  *
  * ====================================================================
  *
@@ -63,11 +62,9 @@
 
 package org.apache.catalina.mbeans;
 
-
 import javax.management.MBeanException;
 import javax.management.RuntimeOperationsException;
 import org.apache.commons.modeler.BaseModelMBean;
-
 
 /**
  * <p>A convenience base class for <strong>ModelMBean</strong> implementations
@@ -83,40 +80,28 @@ import org.apache.commons.modeler.BaseModelMBean;
  */
 
 public class ClassNameMBean extends BaseModelMBean {
+    // ---------------------------------------------------------- Constructors
 
+    /**
+     * Construct a <code>ModelMBean</code> with default
+     * <code>ModelMBeanInfo</code> information.
+     *
+     * @exception MBeanException if the initialize of an object
+     *  throws an exception
+     * @exception RuntimeOperationsException if an IllegalArgumentException
+     *  occurs
+     */
+    public ClassNameMBean() throws MBeanException, RuntimeOperationsException {
+        super();
+    }
 
-     // ---------------------------------------------------------- Constructors
+    // ------------------------------------------------------------ Properties
 
-
-     /**
-      * Construct a <code>ModelMBean</code> with default
-      * <code>ModelMBeanInfo</code> information.
-      *
-      * @exception MBeanException if the initialize of an object
-      *  throws an exception
-      * @exception RuntimeOperationsException if an IllegalArgumentException
-      *  occurs
-      */
-     public ClassNameMBean()
-         throws MBeanException, RuntimeOperationsException {
-
-         super();
-
-     }
-
-
-     // ------------------------------------------------------------ Properties
-
-
-     /**
-      * Return the fully qualified Java class name of the managed object
-      * for this MBean.
-      */
-     public String getClassName() {
-
-         return (this.resource.getClass().getName());
-
-     }
-
-
- }
+    /**
+     * Return the fully qualified Java class name of the managed object
+     * for this MBean.
+     */
+    public String getClassName() {
+        return (this.resource.getClass().getName());
+    }
+}

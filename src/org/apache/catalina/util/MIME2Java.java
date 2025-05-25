@@ -510,7 +510,6 @@ import java.util.*;
  * @author TAMURA Kent &lt;kent@trl.ibm.co.jp&gt;
  */
 public class MIME2Java {
-
     static private Hashtable s_enchash;
     static private Hashtable s_revhash;
 
@@ -518,51 +517,51 @@ public class MIME2Java {
         s_enchash = new Hashtable();
         //    <preferred MIME name>, <Java encoding name>
         s_enchash.put("UTF-8", "UTF8");
-        s_enchash.put("US-ASCII",        "8859_1");    // ?
-        s_enchash.put("ISO-8859-1",      "8859_1");
-        s_enchash.put("ISO-8859-2",      "8859_2");
-        s_enchash.put("ISO-8859-3",      "8859_3");
-        s_enchash.put("ISO-8859-4",      "8859_4");
-        s_enchash.put("ISO-8859-5",      "8859_5");
-        s_enchash.put("ISO-8859-6",      "8859_6");
-        s_enchash.put("ISO-8859-7",      "8859_7");
-        s_enchash.put("ISO-8859-8",      "8859_8");
-        s_enchash.put("ISO-8859-9",      "8859_9");
-        s_enchash.put("ISO-2022-JP",     "JIS");
-        s_enchash.put("SHIFT_JIS",       "SJIS");
-        s_enchash.put("EUC-JP",          "EUCJIS");
-        s_enchash.put("GB2312",          "GB2312");
-        s_enchash.put("BIG5",            "Big5");
-        s_enchash.put("EUC-KR",          "KSC5601");
-        s_enchash.put("ISO-2022-KR",     "ISO2022KR");
-        s_enchash.put("KOI8-R",          "KOI8_R");
+        s_enchash.put("US-ASCII", "8859_1"); // ?
+        s_enchash.put("ISO-8859-1", "8859_1");
+        s_enchash.put("ISO-8859-2", "8859_2");
+        s_enchash.put("ISO-8859-3", "8859_3");
+        s_enchash.put("ISO-8859-4", "8859_4");
+        s_enchash.put("ISO-8859-5", "8859_5");
+        s_enchash.put("ISO-8859-6", "8859_6");
+        s_enchash.put("ISO-8859-7", "8859_7");
+        s_enchash.put("ISO-8859-8", "8859_8");
+        s_enchash.put("ISO-8859-9", "8859_9");
+        s_enchash.put("ISO-2022-JP", "JIS");
+        s_enchash.put("SHIFT_JIS", "SJIS");
+        s_enchash.put("EUC-JP", "EUCJIS");
+        s_enchash.put("GB2312", "GB2312");
+        s_enchash.put("BIG5", "Big5");
+        s_enchash.put("EUC-KR", "KSC5601");
+        s_enchash.put("ISO-2022-KR", "ISO2022KR");
+        s_enchash.put("KOI8-R", "KOI8_R");
 
-        s_enchash.put("EBCDIC-CP-US",    "CP037");
-        s_enchash.put("EBCDIC-CP-CA",    "CP037");
-        s_enchash.put("EBCDIC-CP-NL",    "CP037");
-        s_enchash.put("EBCDIC-CP-DK",    "CP277");
-        s_enchash.put("EBCDIC-CP-NO",    "CP277");
-        s_enchash.put("EBCDIC-CP-FI",    "CP278");
-        s_enchash.put("EBCDIC-CP-SE",    "CP278");
-        s_enchash.put("EBCDIC-CP-IT",    "CP280");
-        s_enchash.put("EBCDIC-CP-ES",    "CP284");
-        s_enchash.put("EBCDIC-CP-GB",    "CP285");
-        s_enchash.put("EBCDIC-CP-FR",    "CP297");
-        s_enchash.put("EBCDIC-CP-AR1",   "CP420");
-        s_enchash.put("EBCDIC-CP-HE",    "CP424");
-        s_enchash.put("EBCDIC-CP-CH",    "CP500");
+        s_enchash.put("EBCDIC-CP-US", "CP037");
+        s_enchash.put("EBCDIC-CP-CA", "CP037");
+        s_enchash.put("EBCDIC-CP-NL", "CP037");
+        s_enchash.put("EBCDIC-CP-DK", "CP277");
+        s_enchash.put("EBCDIC-CP-NO", "CP277");
+        s_enchash.put("EBCDIC-CP-FI", "CP278");
+        s_enchash.put("EBCDIC-CP-SE", "CP278");
+        s_enchash.put("EBCDIC-CP-IT", "CP280");
+        s_enchash.put("EBCDIC-CP-ES", "CP284");
+        s_enchash.put("EBCDIC-CP-GB", "CP285");
+        s_enchash.put("EBCDIC-CP-FR", "CP297");
+        s_enchash.put("EBCDIC-CP-AR1", "CP420");
+        s_enchash.put("EBCDIC-CP-HE", "CP424");
+        s_enchash.put("EBCDIC-CP-CH", "CP500");
         s_enchash.put("EBCDIC-CP-ROECE", "CP870");
-        s_enchash.put("EBCDIC-CP-YU",    "CP870");
-        s_enchash.put("EBCDIC-CP-IS",    "CP871");
-        s_enchash.put("EBCDIC-CP-AR2",   "CP918");
+        s_enchash.put("EBCDIC-CP-YU", "CP870");
+        s_enchash.put("EBCDIC-CP-IS", "CP871");
+        s_enchash.put("EBCDIC-CP-AR2", "CP918");
 
-                                                // j:CNS11643 -> EUC-TW?
-                                                // ISO-2022-CN? ISO-2022-CN-EXT?
+        // j:CNS11643 -> EUC-TW?
+        // ISO-2022-CN? ISO-2022-CN-EXT?
 
         s_revhash = new Hashtable();
         //    <Java encoding name>, <preferred MIME name>
         s_revhash.put("UTF8", "UTF-8");
-        //s_revhash.put("8859_1", "US-ASCII");    // ?
+        // s_revhash.put("8859_1", "US-ASCII");    // ?
         s_revhash.put("8859_1", "ISO-8859-1");
         s_revhash.put("8859_2", "ISO-8859-2");
         s_revhash.put("8859_3", "ISO-8859-3");
@@ -601,8 +600,7 @@ public class MIME2Java {
         s_revhash.put("CP918", "EBCDIC-CP-AR2");
     }
 
-    private MIME2Java() {
-    }
+    private MIME2Java() {}
 
     /**
      * Convert a MIME charset name, also known as an XML encoding name, to a Java encoding name.
@@ -620,7 +618,7 @@ public class MIME2Java {
      * @see #reverse
      */
     public static String convert(String mimeCharsetName) {
-        return (String)s_enchash.get(mimeCharsetName.toUpperCase());
+        return (String) s_enchash.get(mimeCharsetName.toUpperCase());
     }
 
     /**
@@ -638,6 +636,6 @@ public class MIME2Java {
      * @see #convert
      */
     public static String reverse(String encoding) {
-        return (String)s_revhash.get(encoding.toUpperCase());
+        return (String) s_revhash.get(encoding.toUpperCase());
     }
 }

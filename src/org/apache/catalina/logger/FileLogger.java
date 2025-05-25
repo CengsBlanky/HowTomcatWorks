@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/logger/FileLogger.java,v 1.8 2002/06/09 02:19:43 remm Exp $
- * $Revision: 1.8 $
- * $Date: 2002/06/09 02:19:43 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/logger/FileLogger.java,v 1.8 2002/06/09
+ * 02:19:43 remm Exp $ $Revision: 1.8 $ $Date: 2002/06/09 02:19:43 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.logger;
-
 
 import java.io.File;
 import java.io.FileWriter;
@@ -76,7 +73,6 @@ import org.apache.catalina.LifecycleListener;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
 
-
 /**
  * Implementation of <b>Logger</b> that appends log messages to a file
  * named {prefix}.{date}.{suffix} in a configured directory, with an
@@ -86,13 +82,8 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.8 $ $Date: 2002/06/09 02:19:43 $
  */
 
-public class FileLogger
-    extends LoggerBase
-    implements Lifecycle {
-
-
+public class FileLogger extends LoggerBase implements Lifecycle {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The as-of date for the currently open log file, or a zero-length
@@ -100,75 +91,59 @@ public class FileLogger
      */
     private String date = "";
 
-
     /**
      * The directory in which log files are created.
      */
     private String directory = "logs";
 
-
     /**
      * The descriptive information about this implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.logger.FileLogger/1.0";
-
+    protected static final String info = "org.apache.catalina.logger.FileLogger/1.0";
 
     /**
      * The lifecycle event support for this component.
      */
     protected LifecycleSupport lifecycle = new LifecycleSupport(this);
 
-
     /**
      * The prefix that is added to log file filenames.
      */
     private String prefix = "catalina.";
 
-
     /**
      * The string manager for this package.
      */
-    private StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    private StringManager sm = StringManager.getManager(Constants.Package);
 
     /**
      * Has this component been started?
      */
     private boolean started = false;
 
-
     /**
      * The suffix that is added to log file filenames.
      */
     private String suffix = ".log";
-
 
     /**
      * Should logged messages be date/time stamped?
      */
     private boolean timestamp = false;
 
-
     /**
      * The PrintWriter to which we are currently logging, if any.
      */
     private PrintWriter writer = null;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the directory in which we create log files.
      */
     public String getDirectory() {
-
         return (directory);
-
     }
-
 
     /**
      * Set the directory in which we create log files.
@@ -176,23 +151,17 @@ public class FileLogger
      * @param directory The new log file directory
      */
     public void setDirectory(String directory) {
-
         String oldDirectory = this.directory;
         this.directory = directory;
         support.firePropertyChange("directory", oldDirectory, this.directory);
-
     }
-
 
     /**
      * Return the log file prefix.
      */
     public String getPrefix() {
-
         return (prefix);
-
     }
-
 
     /**
      * Set the log file prefix.
@@ -200,23 +169,17 @@ public class FileLogger
      * @param prefix The new log file prefix
      */
     public void setPrefix(String prefix) {
-
         String oldPrefix = this.prefix;
         this.prefix = prefix;
         support.firePropertyChange("prefix", oldPrefix, this.prefix);
-
     }
-
 
     /**
      * Return the log file suffix.
      */
     public String getSuffix() {
-
         return (suffix);
-
     }
-
 
     /**
      * Set the log file suffix.
@@ -224,23 +187,17 @@ public class FileLogger
      * @param suffix The new log file suffix
      */
     public void setSuffix(String suffix) {
-
         String oldSuffix = this.suffix;
         this.suffix = suffix;
         support.firePropertyChange("suffix", oldSuffix, this.suffix);
-
     }
-
 
     /**
      * Return the timestamp flag.
      */
     public boolean getTimestamp() {
-
         return (timestamp);
-
     }
-
 
     /**
      * Set the timestamp flag.
@@ -248,17 +205,12 @@ public class FileLogger
      * @param timestamp The new timestamp flag
      */
     public void setTimestamp(boolean timestamp) {
-
         boolean oldTimestamp = this.timestamp;
         this.timestamp = timestamp;
-        support.firePropertyChange("timestamp", new Boolean(oldTimestamp),
-                                   new Boolean(this.timestamp));
-
+        support.firePropertyChange("timestamp", new Boolean(oldTimestamp), new Boolean(this.timestamp));
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Writes the specified message to a servlet log file, usually an event
@@ -269,7 +221,6 @@ public class FileLogger
      *  to the log file
      */
     public void log(String msg) {
-
         // Construct the timestamp we will use, if requested
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         String tsString = ts.toString().substring(0, 19);
@@ -294,33 +245,26 @@ public class FileLogger
                 writer.println(msg);
             }
         }
-
     }
 
-
     // -------------------------------------------------------- Private Methods
-
 
     /**
      * Close the currently open log file (if any)
      */
     private void close() {
-
         if (writer == null)
             return;
         writer.flush();
         writer.close();
         writer = null;
         date = "";
-
     }
-
 
     /**
      * Open the new log file for the date specified by <code>date</code>.
      */
     private void open() {
-
         // Create the directory if necessary
         File dir = new File(directory);
         if (!dir.isAbsolute())
@@ -329,18 +273,14 @@ public class FileLogger
 
         // Open the current log file
         try {
-            String pathname = dir.getAbsolutePath() + File.separator +
-                prefix + date + suffix;
+            String pathname = dir.getAbsolutePath() + File.separator + prefix + date + suffix;
             writer = new PrintWriter(new FileWriter(pathname, true), true);
         } catch (IOException e) {
             writer = null;
         }
-
     }
 
-
     // ------------------------------------------------------ Lifecycle Methods
-
 
     /**
      * Add a lifecycle event listener to this component.
@@ -348,22 +288,16 @@ public class FileLogger
      * @param listener The listener to add
      */
     public void addLifecycleListener(LifecycleListener listener) {
-
         lifecycle.addLifecycleListener(listener);
-
     }
-
 
     /**
      * Get the lifecycle listeners associated with this lifecycle. If this
      * Lifecycle has no listeners registered, a zero-length array is returned.
      */
     public LifecycleListener[] findLifecycleListeners() {
-
         return lifecycle.findLifecycleListeners();
-
     }
-
 
     /**
      * Remove a lifecycle event listener from this component.
@@ -371,11 +305,8 @@ public class FileLogger
      * @param listener The listener to add
      */
     public void removeLifecycleListener(LifecycleListener listener) {
-
         lifecycle.removeLifecycleListener(listener);
-
     }
-
 
     /**
      * Prepare for the beginning of active use of the public methods of this
@@ -386,16 +317,12 @@ public class FileLogger
      *  that prevents this component from being used
      */
     public void start() throws LifecycleException {
-
         // Validate and update our current component state
         if (started)
-            throw new LifecycleException
-                (sm.getString("fileLogger.alreadyStarted"));
+            throw new LifecycleException(sm.getString("fileLogger.alreadyStarted"));
         lifecycle.fireLifecycleEvent(START_EVENT, null);
         started = true;
-
     }
-
 
     /**
      * Gracefully terminate the active use of the public methods of this
@@ -406,18 +333,12 @@ public class FileLogger
      *  that needs to be reported
      */
     public void stop() throws LifecycleException {
-
         // Validate and update our current component state
         if (!started)
-            throw new LifecycleException
-                (sm.getString("fileLogger.notStarted"));
+            throw new LifecycleException(sm.getString("fileLogger.notStarted"));
         lifecycle.fireLifecycleEvent(STOP_EVENT, null);
         started = false;
 
         close();
-
     }
-
-
 }
-

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/SecurityCollection.java,v 1.3 2001/07/22 20:25:10 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:25:10 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/SecurityCollection.java,v 1.3
+ * 2001/07/22 20:25:10 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:25:10 $
  *
  * ====================================================================
  *
@@ -61,12 +60,9 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
 
-
 import org.apache.catalina.util.RequestUtil;
-
 
 /**
  * Representation of a web resource collection for a web application's security
@@ -84,20 +80,14 @@ import org.apache.catalina.util.RequestUtil;
  */
 
 public final class SecurityCollection {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new security collection instance with default values.
      */
     public SecurityCollection() {
-
         this(null, null);
-
     }
-
 
     /**
      * Construct a new security collection instance with specified values.
@@ -105,11 +95,8 @@ public final class SecurityCollection {
      * @param name Name of this security collection
      */
     public SecurityCollection(String name) {
-
         this(name, null);
-
     }
-
 
     /**
      * Construct a new security collection instance with specified values.
@@ -118,53 +105,41 @@ public final class SecurityCollection {
      * @param description Description of this security collection
      */
     public SecurityCollection(String name, String description) {
-
         super();
         setName(name);
         setDescription(description);
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Description of this web resource collection.
      */
     private String description = null;
 
-
     /**
      * The HTTP methods covered by this web resource collection.
      */
     private String methods[] = new String[0];
-
 
     /**
      * The name of this web resource collection.
      */
     private String name = null;
 
-
     /**
      * The URL patterns protected by this security collection.
      */
     private String patterns[] = new String[0];
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the description of this web resource collection.
      */
     public String getDescription() {
-
         return (this.description);
-
     }
-
 
     /**
      * Set the description of this web resource collection.
@@ -172,21 +147,15 @@ public final class SecurityCollection {
      * @param description The new description
      */
     public void setDescription(String description) {
-
         this.description = description;
-
     }
-
 
     /**
      * Return the name of this web resource collection.
      */
     public String getName() {
-
         return (this.name);
-
     }
-
 
     /**
      * Set the name of this web resource collection
@@ -194,47 +163,35 @@ public final class SecurityCollection {
      * @param name The new name
      */
     public void setName(String name) {
-
         this.name = name;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add an HTTP request method to be part of this web resource collection.
      */
     public void addMethod(String method) {
-
         if (method == null)
             return;
         String results[] = new String[methods.length + 1];
-        for (int i = 0; i < methods.length; i++)
-            results[i] = methods[i];
+        for (int i = 0; i < methods.length; i++) results[i] = methods[i];
         results[methods.length] = method;
         methods = results;
-
     }
-
 
     /**
      * Add a URL pattern to be part of this web resource collection.
      */
     public void addPattern(String pattern) {
-
         if (pattern == null)
             return;
         pattern = RequestUtil.URLDecode(pattern);
         String results[] = new String[patterns.length + 1];
-        for (int i = 0; i < patterns.length; i++)
-            results[i] = patterns[i];
+        for (int i = 0; i < patterns.length; i++) results[i] = patterns[i];
         results[patterns.length] = pattern;
         patterns = results;
-
     }
-
 
     /**
      * Return <code>true</code> if the specified HTTP request method is
@@ -243,7 +200,6 @@ public final class SecurityCollection {
      * @param method Request method to check
      */
     public boolean findMethod(String method) {
-
         if (methods.length == 0)
             return (true);
         for (int i = 0; i < methods.length; i++) {
@@ -251,9 +207,7 @@ public final class SecurityCollection {
                 return (true);
         }
         return (false);
-
     }
-
 
     /**
      * Return the set of HTTP request methods that are part of this web
@@ -261,11 +215,8 @@ public final class SecurityCollection {
      * are included.
      */
     public String[] findMethods() {
-
         return (methods);
-
     }
-
 
     /**
      * Is the specified pattern part of this web resource collection?
@@ -273,15 +224,12 @@ public final class SecurityCollection {
      * @param pattern Pattern to be compared
      */
     public boolean findPattern(String pattern) {
-
         for (int i = 0; i < patterns.length; i++) {
             if (patterns[i].equals(pattern))
                 return (true);
         }
         return (false);
-
     }
-
 
     /**
      * Return the set of URL patterns that are part of this web resource
@@ -289,11 +237,8 @@ public final class SecurityCollection {
      * returned.
      */
     public String[] findPatterns() {
-
         return (patterns);
-
     }
-
 
     /**
      * Remove the specified HTTP request method from those that are part
@@ -302,7 +247,6 @@ public final class SecurityCollection {
      * @param method Request method to be removed
      */
     public void removeMethod(String method) {
-
         if (method == null)
             return;
         int n = -1;
@@ -321,9 +265,7 @@ public final class SecurityCollection {
             }
             methods = results;
         }
-
     }
-
 
     /**
      * Remove the specified URL pattern from those that are part of this
@@ -332,7 +274,6 @@ public final class SecurityCollection {
      * @param pattern Pattern to be removed
      */
     public void removePattern(String pattern) {
-
         if (pattern == null)
             return;
         int n = -1;
@@ -351,15 +292,12 @@ public final class SecurityCollection {
             }
             patterns = results;
         }
-
     }
-
 
     /**
      * Return a String representation of this security collection.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("SecurityCollection[");
         sb.append(name);
         if (description != null) {
@@ -368,8 +306,5 @@ public final class SecurityCollection {
         }
         sb.append("]");
         return (sb.toString());
-
     }
-
-
 }

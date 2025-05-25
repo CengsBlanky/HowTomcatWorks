@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/CatalinaManagerMBean.java,v 1.3 2001/07/22 20:25:13 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:25:13 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/CatalinaManagerMBean.java,v 1.3
+ * 2001/07/22 20:25:13 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:25:13 $
  *
  * ====================================================================
  *
@@ -74,86 +73,67 @@ package org.apache.catalina.startup;
  */
 
 public interface CatalinaManagerMBean {
-
-
     // -------------------------------------------------------------- Constants
-
 
     /**
      * Status constants.
      */
-    public static final String[] states =
-    {"Stopped", "Stopping", "Starting", "Started"};
+    public static final String[] states = {"Stopped", "Stopping", "Starting", "Started"};
 
-
-    public static final int STOPPED  = 0;
+    public static final int STOPPED = 0;
     public static final int STOPPING = 1;
     public static final int STARTING = 2;
-    public static final int STARTED  = 3;
-
+    public static final int STARTED = 3;
 
     /**
      * Component name.
      */
     public static final String NAME = "Catalina servlet container";
 
-
     /**
      * Object name.
      */
     public static final String OBJECT_NAME = ":service=Catalina";
 
-
     // ------------------------------------------------------ Interface Methods
-
 
     /**
      * Retruns the Catalina component name.
      */
     public String getName();
 
-
     /**
      * Returns the state.
      */
     public int getState();
-
 
     /**
      * Returns a String representation of the state.
      */
     public String getStateString();
 
-
     /**
      * Path accessor.
      */
     public String getPath();
-
 
     /**
      * Path mutator.
      */
     public void setPath(String Path);
 
-
     /**
      * Start the servlet container.
      */
-    public void start()
-        throws Exception;
-
+    public void start() throws Exception;
 
     /**
      * Stop the servlet container.
      */
     public void stop();
 
-
     /**
      * Destroy servlet container (if any is running).
      */
     public void destroy();
-
-
 }

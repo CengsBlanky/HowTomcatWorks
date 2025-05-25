@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/ContextResourceMBean.java,v 1.8 2002/06/24 21:11:42 amyroh Exp $
- * $Revision: 1.8 $
- * $Date: 2002/06/24 21:11:42 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/ContextResourceMBean.java,v 1.8
+ * 2002/06/24 21:11:42 amyroh Exp $ $Revision: 1.8 $ $Date: 2002/06/24 21:11:42 $
  *
  * ====================================================================
  *
@@ -63,7 +62,6 @@
 
 package org.apache.catalina.mbeans;
 
-
 import javax.management.Attribute;
 import javax.management.AttributeNotFoundException;
 import javax.management.InstanceNotFoundException;
@@ -76,7 +74,6 @@ import org.apache.catalina.deploy.NamingResources;
 import org.apache.catalina.deploy.ResourceParams;
 import org.apache.commons.modeler.BaseModelMBean;
 
-
 /**
  * <p>A <strong>ModelMBean</strong> implementation for the
  * <code>org.apache.catalina.deploy.ContextResource</code> component.</p>
@@ -86,10 +83,7 @@ import org.apache.commons.modeler.BaseModelMBean;
  */
 
 public class ContextResourceMBean extends BaseModelMBean {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a <code>ModelMBean</code> with default
@@ -100,19 +94,13 @@ public class ContextResourceMBean extends BaseModelMBean {
      * @exception RuntimeOperationsException if an IllegalArgumentException
      *  occurs
      */
-    public ContextResourceMBean()
-        throws MBeanException, RuntimeOperationsException {
-
+    public ContextResourceMBean() throws MBeanException, RuntimeOperationsException {
         super();
-
     }
-
 
     // ----------------------------------------------------- Instance Variables
 
-
     // ------------------------------------------------------------- Attributes
-
 
     /**
      * Obtain and return the value of a specific attribute of this MBean.
@@ -126,15 +114,11 @@ public class ContextResourceMBean extends BaseModelMBean {
      * @exception ReflectionException if a Java reflection exception
      *  occurs when invoking the getter
      */
-    public Object getAttribute(String name)
-        throws AttributeNotFoundException, MBeanException,
-        ReflectionException {
- 
+    public Object getAttribute(String name) throws AttributeNotFoundException, MBeanException, ReflectionException {
         // Validate the input parameters
         if (name == null)
-            throw new RuntimeOperationsException
-                (new IllegalArgumentException("Attribute name is null"),
-                 "Attribute name is null");
+            throw new RuntimeOperationsException(
+              new IllegalArgumentException("Attribute name is null"), "Attribute name is null");
 
         ContextResource cr = null;
         try {
@@ -142,43 +126,38 @@ public class ContextResourceMBean extends BaseModelMBean {
         } catch (InstanceNotFoundException e) {
             throw new MBeanException(e);
         } catch (InvalidTargetObjectTypeException e) {
-             throw new MBeanException(e);
+            throw new MBeanException(e);
         }
-        
+
         String value = null;
         if ("auth".equals(name)) {
             return (cr.getAuth());
         } else if ("description".equals(name)) {
             return (cr.getDescription());
         } else if ("name".equals(name)) {
-            return (cr.getName());              
+            return (cr.getName());
         } else if ("scope".equals(name)) {
-            return (cr.getScope());  
+            return (cr.getScope());
         } else if ("type".equals(name)) {
             return (cr.getType());
         } else {
-            NamingResources nr = cr.getNamingResources(); 
+            NamingResources nr = cr.getNamingResources();
             if (nr == null) {
-                throw new AttributeNotFoundException
-                    ("Cannot find naming resource "+cr.getName());
+                throw new AttributeNotFoundException("Cannot find naming resource " + cr.getName());
             }
             ResourceParams rp = nr.findResourceParams(cr.getName());
             if (rp == null) {
-                throw new AttributeNotFoundException
-                    ("Cannot find resource param "+cr.getName());
+                throw new AttributeNotFoundException("Cannot find resource param " + cr.getName());
             }
             value = (String) rp.getParameters().get(name);
             if (value == null) {
-                throw new AttributeNotFoundException
-                    ("Cannot find attribute "+name+rp);
+                throw new AttributeNotFoundException("Cannot find attribute " + name + rp);
             }
         }
-        
+
         return value;
-        
     }
 
-    
     /**
      * Set the value of a specific attribute of this MBean.
      *
@@ -192,62 +171,56 @@ public class ContextResourceMBean extends BaseModelMBean {
      * @exception ReflectionException if a Java reflection exception
      *  occurs when invoking the getter
      */
-     public void setAttribute(Attribute attribute)
-        throws AttributeNotFoundException, MBeanException,
-        ReflectionException {
-
+    public void setAttribute(Attribute attribute)
+      throws AttributeNotFoundException, MBeanException, ReflectionException {
         // Validate the input parameters
         if (attribute == null)
-            throw new RuntimeOperationsException
-                (new IllegalArgumentException("Attribute is null"),
-                 "Attribute is null");
+            throw new RuntimeOperationsException(
+              new IllegalArgumentException("Attribute is null"), "Attribute is null");
         String name = attribute.getName();
         Object value = attribute.getValue();
         if (name == null)
-            throw new RuntimeOperationsException
-                (new IllegalArgumentException("Attribute name is null"),
-                 "Attribute name is null"); 
-        
+            throw new RuntimeOperationsException(
+              new IllegalArgumentException("Attribute name is null"), "Attribute name is null");
+
         ContextResource cr = null;
         try {
             cr = (ContextResource) getManagedResource();
         } catch (InstanceNotFoundException e) {
             throw new MBeanException(e);
         } catch (InvalidTargetObjectTypeException e) {
-             throw new MBeanException(e);
+            throw new MBeanException(e);
         }
-        
+
         if ("auth".equals(name)) {
-            cr.setAuth((String)value);
+            cr.setAuth((String) value);
         } else if ("description".equals(name)) {
-            cr.setDescription((String)value);
+            cr.setDescription((String) value);
         } else if ("name".equals(name)) {
-            cr.setName((String)value);              
+            cr.setName((String) value);
         } else if ("scope".equals(name)) {
-            cr.setScope((String)value);  
+            cr.setScope((String) value);
         } else if ("type".equals(name)) {
-            cr.setType((String)value);
+            cr.setType((String) value);
         } else {
-            ResourceParams rp = 
-                cr.getNamingResources().findResourceParams(cr.getName());
+            ResourceParams rp = cr.getNamingResources().findResourceParams(cr.getName());
             if (rp != null) {
-                String valueStr = ""+value;
+                String valueStr = "" + value;
                 rp.addParameter(name, valueStr);
                 cr.getNamingResources().removeResourceParams(cr.getName());
             } else {
                 rp = new ResourceParams();
                 rp.setName(cr.getName());
-                String valueStr = ""+value;
+                String valueStr = "" + value;
                 rp.addParameter(name, valueStr);
             }
             cr.getNamingResources().addResourceParams(rp);
         }
-        
-        // cannot use side-efects.  It's removed and added back each time 
+
+        // cannot use side-efects.  It's removed and added back each time
         // there is a modification in a resource.
         NamingResources nr = cr.getNamingResources();
         nr.removeResource(cr.getName());
         nr.addResource(cr);
     }
-    
 }

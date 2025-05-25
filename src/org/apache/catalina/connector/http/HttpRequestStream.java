@@ -10,10 +10,7 @@ import org.apache.catalina.connector.RequestStream;
  * @deprecated
  */
 public class HttpRequestStream extends RequestStream {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a servlet input stream associated with the specified Request.
@@ -21,65 +18,52 @@ public class HttpRequestStream extends RequestStream {
      * @param request The associated request
      * @param response The associated response
      */
-    public HttpRequestStream(HttpRequestImpl request,
-                             HttpResponseImpl response) {
-
+    public HttpRequestStream(HttpRequestImpl request, HttpResponseImpl response) {
         super(request);
         String transferEncoding = request.getHeader("Transfer-Encoding");
 
         http11 = request.getProtocol().equals("HTTP/1.1");
-        chunk = ((transferEncoding != null)
-                 && (transferEncoding.indexOf("chunked") != -1));
+        chunk = ((transferEncoding != null) && (transferEncoding.indexOf("chunked") != -1));
 
         if ((!chunk) && (length == -1)) {
             // Ask for connection close
             response.addHeader("Connection", "close");
         }
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Use chunking ?
      */
     protected boolean chunk = false;
 
-
     /**
      * True if the final chunk was found.
      */
     protected boolean endChunk = false;
-
 
     /**
      * Chunk buffer.
      */
     protected byte[] chunkBuffer = null;
 
-
     /**
      * Chunk length.
      */
     protected int chunkLength = 0;
-
 
     /**
      * Chunk buffer position.
      */
     protected int chunkPos = 0;
 
-
     /**
      * HTTP/1.1 flag.
      */
     protected boolean http11 = false;
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Close this input stream.  No physical level I-O is performed, but
@@ -87,14 +71,11 @@ public class HttpRequestStream extends RequestStream {
      * If a content length has been set but not all of the bytes have yet been
      * consumed, the remaining bytes will be swallowed.
      */
-    public void close()
-        throws IOException {
-
+    public void close() throws IOException {
         if (closed)
             throw new IOException(sm.getString("requestStream.close.closed"));
 
         if (chunk) {
-
             while (!endChunk) {
                 int b = read();
                 if (b < 0)
@@ -102,7 +83,6 @@ public class HttpRequestStream extends RequestStream {
             }
 
         } else {
-
             if (http11 && (length > 0)) {
                 while (count < length) {
                     int b = read();
@@ -110,13 +90,10 @@ public class HttpRequestStream extends RequestStream {
                         break;
                 }
             }
-
         }
 
         closed = true;
-
     }
-
 
     /**
      * Read and return a single byte from this input stream, or -1 if end of
@@ -124,20 +101,16 @@ public class HttpRequestStream extends RequestStream {
      *
      * @exception IOException if an input/output error occurs
      */
-    public int read()
-        throws IOException {
-
+    public int read() throws IOException {
         // Has this stream been closed?
         if (closed)
             throw new IOException(sm.getString("requestStream.read.closed"));
 
         if (chunk) {
-
             if (endChunk)
                 return (-1);
 
-            if ((chunkBuffer == null)
-                || (chunkPos >= chunkLength)) {
+            if ((chunkBuffer == null) || (chunkPos >= chunkLength)) {
                 if (!fillChunkBuffer())
                     return (-1);
             }
@@ -145,13 +118,9 @@ public class HttpRequestStream extends RequestStream {
             return (chunkBuffer[chunkPos++] & 0xff);
 
         } else {
-
             return (super.read());
-
         }
-
     }
-
 
     /**
      * Read up to <code>len</code> bytes of data from the input stream
@@ -170,7 +139,6 @@ public class HttpRequestStream extends RequestStream {
      */
     public int read(byte b[], int off, int len) throws IOException {
         if (chunk) {
-
             int avail = chunkLength - chunkPos;
             if (avail == 0)
                 fillChunkBuffer();
@@ -190,24 +158,19 @@ public class HttpRequestStream extends RequestStream {
         }
     }
 
-
     // -------------------------------------------------------- Private Methods
-
 
     /**
      * Fill the chunk buffer.
      */
-    private synchronized boolean fillChunkBuffer()
-        throws IOException {
-
+    private synchronized boolean fillChunkBuffer() throws IOException {
         chunkPos = 0;
 
         try {
             String numberValue = readLineFromStream();
             if (numberValue != null)
                 numberValue = numberValue.trim();
-            chunkLength =
-                Integer.parseInt(numberValue, 16);
+            chunkLength = Integer.parseInt(numberValue, 16);
         } catch (NumberFormatException e) {
             // Critical error, unable to parse the chunk length
             chunkLength = 0;
@@ -217,19 +180,15 @@ public class HttpRequestStream extends RequestStream {
         }
 
         if (chunkLength == 0) {
-
             // Skipping trailing headers, if any
             String trailingLine = readLineFromStream();
-            while (!trailingLine.equals(""))
-                trailingLine = readLineFromStream();
+            while (!trailingLine.equals("")) trailingLine = readLineFromStream();
             endChunk = true;
             return false;
             // TODO : Should the stream be automatically closed ?
 
         } else {
-
-            if ((chunkBuffer == null)
-                || (chunkLength > chunkBuffer.length))
+            if ((chunkBuffer == null) || (chunkLength > chunkBuffer.length))
                 chunkBuffer = new byte[chunkLength];
 
             // Now read the whole chunk into the buffer
@@ -239,29 +198,23 @@ public class HttpRequestStream extends RequestStream {
 
             while (nbRead < chunkLength) {
                 try {
-                    currentRead =
-                        stream.read(chunkBuffer, nbRead,
-                                    chunkLength - nbRead);
+                    currentRead = stream.read(chunkBuffer, nbRead, chunkLength - nbRead);
                 } catch (Throwable t) {
                     t.printStackTrace();
                     throw new IOException();
                 }
                 if (currentRead < 0) {
-                    throw new IOException
-                        (sm.getString("requestStream.read.error"));
+                    throw new IOException(sm.getString("requestStream.read.error"));
                 }
                 nbRead += currentRead;
             }
 
             // Skipping the CRLF
             String blank = readLineFromStream();
-
         }
 
         return true;
-
     }
-
 
     /**
      * Reads the input stream, one line at a time. Reads bytes into an array,
@@ -273,9 +226,7 @@ public class HttpRequestStream extends RequestStream {
      *  was encountered
      * @exception IOException   if an input or output exception has occurred
      */
-    private String readLineFromStream()
-        throws IOException {
-
+    private String readLineFromStream() throws IOException {
         StringBuffer sb = new StringBuffer();
         while (true) {
             int ch = super.read();
@@ -293,8 +244,5 @@ public class HttpRequestStream extends RequestStream {
             sb.append((char) ch);
         }
         return (sb.toString());
-
     }
-
-
 }

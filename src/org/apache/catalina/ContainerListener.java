@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ContainerListener.java,v 1.3 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ContainerListener.java,v 1.3 2001/07/22
+ * 20:13:30 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 /**
  * Interface defining a listener for significant Container generated events.
@@ -75,14 +72,10 @@ package org.apache.catalina;
  */
 
 public interface ContainerListener {
-
-
     /**
      * Acknowledge the occurrence of the specified event.
      *
      * @param event ContainerEvent that has occurred
      */
     public void containerEvent(ContainerEvent event);
-
-
 }

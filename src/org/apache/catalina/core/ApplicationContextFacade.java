@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/ApplicationContextFacade.java,v 1.3 2001/07/22 20:25:08 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:25:08 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/ApplicationContextFacade.java,v 1.3
+ * 2001/07/22 20:25:08 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:25:08 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -83,12 +80,8 @@ import javax.servlet.ServletException;
  * @version $Revision: 1.3 $ $Date: 2001/07/22 20:25:08 $
  */
 
-public final class ApplicationContextFacade
-    implements ServletContext {
-
-
+public final class ApplicationContextFacade implements ServletContext {
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new instance of this class, associated with the specified
@@ -101,143 +94,111 @@ public final class ApplicationContextFacade
         this.context = context;
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Wrapped application context.
      */
     private ApplicationContext context = null;
 
-
     // ------------------------------------------------- ServletContext Methods
-
 
     public ServletContext getContext(String uripath) {
         ServletContext theContext = context.getContext(uripath);
-        if ((theContext != null) &&
-            (theContext instanceof ApplicationContext))
+        if ((theContext != null) && (theContext instanceof ApplicationContext))
             theContext = ((ApplicationContext) theContext).getFacade();
         return (theContext);
     }
-
 
     public int getMajorVersion() {
         return context.getMajorVersion();
     }
 
-
     public int getMinorVersion() {
         return context.getMinorVersion();
     }
-
 
     public String getMimeType(String file) {
         return context.getMimeType(file);
     }
 
-
     public Set getResourcePaths(String path) {
         return context.getResourcePaths(path);
     }
 
-
-    public URL getResource(String path)
-        throws MalformedURLException {
+    public URL getResource(String path) throws MalformedURLException {
         return context.getResource(path);
     }
-
 
     public InputStream getResourceAsStream(String path) {
         return context.getResourceAsStream(path);
     }
 
-
     public RequestDispatcher getRequestDispatcher(String path) {
         return context.getRequestDispatcher(path);
     }
-
 
     public RequestDispatcher getNamedDispatcher(String name) {
         return context.getNamedDispatcher(name);
     }
 
-
-    public Servlet getServlet(String name)
-        throws ServletException {
+    public Servlet getServlet(String name) throws ServletException {
         return context.getServlet(name);
     }
-
 
     public Enumeration getServlets() {
         return context.getServlets();
     }
 
-
     public Enumeration getServletNames() {
         return context.getServletNames();
     }
-
 
     public void log(String msg) {
         context.log(msg);
     }
 
-
     public void log(Exception exception, String msg) {
         context.log(exception, msg);
     }
-
 
     public void log(String message, Throwable throwable) {
         context.log(message, throwable);
     }
 
-
     public String getRealPath(String path) {
         return context.getRealPath(path);
     }
-
 
     public String getServerInfo() {
         return context.getServerInfo();
     }
 
-
     public String getInitParameter(String name) {
         return context.getInitParameter(name);
     }
-
 
     public Enumeration getInitParameterNames() {
         return context.getInitParameterNames();
     }
 
-
     public Object getAttribute(String name) {
         return context.getAttribute(name);
     }
-
 
     public Enumeration getAttributeNames() {
         return context.getAttributeNames();
     }
 
-
     public void setAttribute(String name, Object object) {
         context.setAttribute(name, object);
     }
-
 
     public void removeAttribute(String name) {
         context.removeAttribute(name);
     }
 
-
     public String getServletContextName() {
         return context.getServletContextName();
     }
-
-
 }

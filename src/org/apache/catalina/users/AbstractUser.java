@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/users/AbstractUser.java,v 1.4 2002/02/10 08:06:20 craigmcc Exp $
- * $Revision: 1.4 $
- * $Date: 2002/02/10 08:06:20 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/users/AbstractUser.java,v 1.4 2002/02/10
+ * 08:06:20 craigmcc Exp $ $Revision: 1.4 $ $Date: 2002/02/10 08:06:20 $
  *
  * ====================================================================
  * The Apache Software License, Version 1.1
@@ -60,15 +59,12 @@
  *
  */
 
-
 package org.apache.catalina.users;
-
 
 import java.util.Iterator;
 import org.apache.catalina.Group;
 import org.apache.catalina.Role;
 import org.apache.catalina.User;
-
 
 /**
  * <p>Convenience base class for {@link User} implementations.</p>
@@ -79,41 +75,31 @@ import org.apache.catalina.User;
  */
 
 public abstract class AbstractUser implements User {
-
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The full name of this user.
      */
     protected String fullName = null;
 
-
     /**
      * The logon password of this user.
      */
     protected String password = null;
-
 
     /**
      * The logon username of this user.
      */
     protected String username = null;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the full name of this user.
      */
     public String getFullName() {
-
         return (this.fullName);
-
     }
-
 
     /**
      * Set the full name of this user.
@@ -121,17 +107,13 @@ public abstract class AbstractUser implements User {
      * @param fullName The new full name
      */
     public void setFullName(String fullName) {
-
         this.fullName = fullName;
-
     }
-
 
     /**
      * Return the set of {@link Group}s to which this user belongs.
      */
     public abstract Iterator getGroups();
-
 
     /**
      * Return the logon password of this user, optionally prefixed with the
@@ -139,11 +121,8 @@ public abstract class AbstractUser implements User {
      * <code>{md5}xxxxx</code>.
      */
     public String getPassword() {
-
         return (this.password);
-
     }
-
 
     /**
      * Set the logon password of this user, optionally prefixed with the
@@ -153,28 +132,21 @@ public abstract class AbstractUser implements User {
      * @param password The new logon password
      */
     public void setPassword(String password) {
-
         this.password = password;
-
     }
-
 
     /**
      * Return the set of {@link Role}s assigned specifically to this user.
      */
     public abstract Iterator getRoles();
 
-
     /**
      * Return the logon username of this user, which must be unique
      * within the scope of a {@link UserDatabase}.
      */
     public String getUsername() {
-
         return (this.username);
-
     }
-
 
     /**
      * Set the logon username of this user, which must be unique within
@@ -183,14 +155,10 @@ public abstract class AbstractUser implements User {
      * @param username The new logon username
      */
     public void setUsername(String username) {
-
         this.username = username;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a new {@link Group} to those this user belongs to.
@@ -199,7 +167,6 @@ public abstract class AbstractUser implements User {
      */
     public abstract void addGroup(Group group);
 
-
     /**
      * Add a new {@link Role} to those assigned specifically to this user.
      *
@@ -207,14 +174,12 @@ public abstract class AbstractUser implements User {
      */
     public abstract void addRole(Role role);
 
-
     /**
      * Is this user in the specified {@link Group}?
      *
      * @param group The group to check
      */
     public abstract boolean isInGroup(Group group);
-
 
     /**
      * Is this user specifically assigned the specified {@link Role}?  This
@@ -225,7 +190,6 @@ public abstract class AbstractUser implements User {
      */
     public abstract boolean isInRole(Role role);
 
-
     /**
      * Remove a {@link Group} from those this user belongs to.
      *
@@ -233,12 +197,10 @@ public abstract class AbstractUser implements User {
      */
     public abstract void removeGroup(Group group);
 
-
     /**
      * Remove all {@link Group}s from those this user belongs to.
      */
     public abstract void removeGroups();
-
 
     /**
      * Remove a {@link Role} from those assigned to this user.
@@ -247,24 +209,17 @@ public abstract class AbstractUser implements User {
      */
     public abstract void removeRole(Role role);
 
-
     /**
      * Remove all {@link Role}s from those assigned to this user.
      */
     public abstract void removeRoles();
 
-
     // ------------------------------------------------------ Principal Methods
-
 
     /**
      * Make the principal name the same as the group name.
      */
     public String getName() {
-
         return (getUsername());
-
     }
-
-
 }

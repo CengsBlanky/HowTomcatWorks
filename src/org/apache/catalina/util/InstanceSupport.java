@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/InstanceSupport.java,v 1.5 2001/10/11 23:30:58 craigmcc Exp $
- * $Revision: 1.5 $
- * $Date: 2001/10/11 23:30:58 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/InstanceSupport.java,v 1.5
+ * 2001/10/11 23:30:58 craigmcc Exp $ $Revision: 1.5 $ $Date: 2001/10/11 23:30:58 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.util;
-
 
 import javax.servlet.Filter;
 import javax.servlet.Servlet;
@@ -72,7 +69,6 @@ import javax.servlet.ServletResponse;
 import org.apache.catalina.InstanceEvent;
 import org.apache.catalina.InstanceListener;
 import org.apache.catalina.Wrapper;
-
 
 /**
  * Support class to assist in firing InstanceEvent notifications to
@@ -83,10 +79,7 @@ import org.apache.catalina.Wrapper;
  */
 
 public final class InstanceSupport {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new InstanceSupport object associated with the specified
@@ -96,43 +89,32 @@ public final class InstanceSupport {
      *  of events that we fire
      */
     public InstanceSupport(Wrapper wrapper) {
-
         super();
         this.wrapper = wrapper;
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The set of registered InstanceListeners for event notifications.
      */
     private InstanceListener listeners[] = new InstanceListener[0];
 
-
     /**
      * The source component for instance events that we will fire.
      */
     private Wrapper wrapper = null;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Wrapper with which we are associated.
      */
     public Wrapper getWrapper() {
-
         return (this.wrapper);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a lifecycle event listener to this component.
@@ -140,18 +122,13 @@ public final class InstanceSupport {
      * @param listener The listener to add
      */
     public void addInstanceListener(InstanceListener listener) {
-
-      synchronized (listeners) {
-          InstanceListener results[] =
-            new InstanceListener[listeners.length + 1];
-          for (int i = 0; i < listeners.length; i++)
-              results[i] = listeners[i];
-          results[listeners.length] = listener;
-          listeners = results;
-      }
-
+        synchronized (listeners) {
+            InstanceListener results[] = new InstanceListener[listeners.length + 1];
+            for (int i = 0; i < listeners.length; i++) results[i] = listeners[i];
+            results[listeners.length] = listener;
+            listeners = results;
+        }
     }
-
 
     /**
      * Notify all lifecycle event listeners that a particular event has
@@ -162,7 +139,6 @@ public final class InstanceSupport {
      * @param filter The relevant Filter for this event
      */
     public void fireInstanceEvent(String type, Filter filter) {
-
         if (listeners.length == 0)
             return;
 
@@ -171,11 +147,8 @@ public final class InstanceSupport {
         synchronized (listeners) {
             interested = (InstanceListener[]) listeners.clone();
         }
-        for (int i = 0; i < interested.length; i++)
-            interested[i].instanceEvent(event);
-
+        for (int i = 0; i < interested.length; i++) interested[i].instanceEvent(event);
     }
-
 
     /**
      * Notify all lifecycle event listeners that a particular event has
@@ -186,23 +159,17 @@ public final class InstanceSupport {
      * @param filter The relevant Filter for this event
      * @param exception Exception that occurred
      */
-    public void fireInstanceEvent(String type, Filter filter,
-                                  Throwable exception) {
-
+    public void fireInstanceEvent(String type, Filter filter, Throwable exception) {
         if (listeners.length == 0)
             return;
 
-        InstanceEvent event = new InstanceEvent(wrapper, filter, type,
-                                                exception);
+        InstanceEvent event = new InstanceEvent(wrapper, filter, type, exception);
         InstanceListener interested[] = null;
         synchronized (listeners) {
             interested = (InstanceListener[]) listeners.clone();
         }
-        for (int i = 0; i < interested.length; i++)
-            interested[i].instanceEvent(event);
-
+        for (int i = 0; i < interested.length; i++) interested[i].instanceEvent(event);
     }
-
 
     /**
      * Notify all lifecycle event listeners that a particular event has
@@ -214,24 +181,17 @@ public final class InstanceSupport {
      * @param request The servlet request we are processing
      * @param response The servlet response we are processing
      */
-    public void fireInstanceEvent(String type, Filter filter,
-                                  ServletRequest request,
-                                  ServletResponse response) {
-
+    public void fireInstanceEvent(String type, Filter filter, ServletRequest request, ServletResponse response) {
         if (listeners.length == 0)
             return;
 
-        InstanceEvent event = new InstanceEvent(wrapper, filter, type,
-                                                request, response);
+        InstanceEvent event = new InstanceEvent(wrapper, filter, type, request, response);
         InstanceListener interested[] = null;
         synchronized (listeners) {
             interested = (InstanceListener[]) listeners.clone();
         }
-        for (int i = 0; i < interested.length; i++)
-            interested[i].instanceEvent(event);
-
+        for (int i = 0; i < interested.length; i++) interested[i].instanceEvent(event);
     }
-
 
     /**
      * Notify all lifecycle event listeners that a particular event has
@@ -244,25 +204,18 @@ public final class InstanceSupport {
      * @param response The servlet response we are processing
      * @param exception Exception that occurred
      */
-    public void fireInstanceEvent(String type, Filter filter,
-                                  ServletRequest request,
-                                  ServletResponse response,
-                                  Throwable exception) {
-
+    public void fireInstanceEvent(
+      String type, Filter filter, ServletRequest request, ServletResponse response, Throwable exception) {
         if (listeners.length == 0)
             return;
 
-        InstanceEvent event = new InstanceEvent(wrapper, filter, type,
-                                                request, response, exception);
+        InstanceEvent event = new InstanceEvent(wrapper, filter, type, request, response, exception);
         InstanceListener interested[] = null;
         synchronized (listeners) {
             interested = (InstanceListener[]) listeners.clone();
         }
-        for (int i = 0; i < interested.length; i++)
-            interested[i].instanceEvent(event);
-
+        for (int i = 0; i < interested.length; i++) interested[i].instanceEvent(event);
     }
-
 
     /**
      * Notify all lifecycle event listeners that a particular event has
@@ -273,7 +226,6 @@ public final class InstanceSupport {
      * @param servlet The relevant Servlet for this event
      */
     public void fireInstanceEvent(String type, Servlet servlet) {
-
         if (listeners.length == 0)
             return;
 
@@ -282,11 +234,8 @@ public final class InstanceSupport {
         synchronized (listeners) {
             interested = (InstanceListener[]) listeners.clone();
         }
-        for (int i = 0; i < interested.length; i++)
-            interested[i].instanceEvent(event);
-
+        for (int i = 0; i < interested.length; i++) interested[i].instanceEvent(event);
     }
-
 
     /**
      * Notify all lifecycle event listeners that a particular event has
@@ -297,23 +246,17 @@ public final class InstanceSupport {
      * @param servlet The relevant Servlet for this event
      * @param exception Exception that occurred
      */
-    public void fireInstanceEvent(String type, Servlet servlet,
-                                  Throwable exception) {
-
+    public void fireInstanceEvent(String type, Servlet servlet, Throwable exception) {
         if (listeners.length == 0)
             return;
 
-        InstanceEvent event = new InstanceEvent(wrapper, servlet, type,
-                                                exception);
+        InstanceEvent event = new InstanceEvent(wrapper, servlet, type, exception);
         InstanceListener interested[] = null;
         synchronized (listeners) {
             interested = (InstanceListener[]) listeners.clone();
         }
-        for (int i = 0; i < interested.length; i++)
-            interested[i].instanceEvent(event);
-
+        for (int i = 0; i < interested.length; i++) interested[i].instanceEvent(event);
     }
-
 
     /**
      * Notify all lifecycle event listeners that a particular event has
@@ -325,24 +268,17 @@ public final class InstanceSupport {
      * @param request The servlet request we are processing
      * @param response The servlet response we are processing
      */
-    public void fireInstanceEvent(String type, Servlet servlet,
-                                  ServletRequest request,
-                                  ServletResponse response) {
-
+    public void fireInstanceEvent(String type, Servlet servlet, ServletRequest request, ServletResponse response) {
         if (listeners.length == 0)
             return;
 
-        InstanceEvent event = new InstanceEvent(wrapper, servlet, type,
-                                                request, response);
+        InstanceEvent event = new InstanceEvent(wrapper, servlet, type, request, response);
         InstanceListener interested[] = null;
         synchronized (listeners) {
             interested = (InstanceListener[]) listeners.clone();
         }
-        for (int i = 0; i < interested.length; i++)
-            interested[i].instanceEvent(event);
-
+        for (int i = 0; i < interested.length; i++) interested[i].instanceEvent(event);
     }
-
 
     /**
      * Notify all lifecycle event listeners that a particular event has
@@ -355,25 +291,18 @@ public final class InstanceSupport {
      * @param response The servlet response we are processing
      * @param exception Exception that occurred
      */
-    public void fireInstanceEvent(String type, Servlet servlet,
-                                  ServletRequest request,
-                                  ServletResponse response,
-                                  Throwable exception) {
-
+    public void fireInstanceEvent(
+      String type, Servlet servlet, ServletRequest request, ServletResponse response, Throwable exception) {
         if (listeners.length == 0)
             return;
 
-        InstanceEvent event = new InstanceEvent(wrapper, servlet, type,
-                                                request, response, exception);
+        InstanceEvent event = new InstanceEvent(wrapper, servlet, type, request, response, exception);
         InstanceListener interested[] = null;
         synchronized (listeners) {
             interested = (InstanceListener[]) listeners.clone();
         }
-        for (int i = 0; i < interested.length; i++)
-            interested[i].instanceEvent(event);
-
+        for (int i = 0; i < interested.length; i++) interested[i].instanceEvent(event);
     }
-
 
     /**
      * Remove a lifecycle event listener from this component.
@@ -381,7 +310,6 @@ public final class InstanceSupport {
      * @param listener The listener to remove
      */
     public void removeInstanceListener(InstanceListener listener) {
-
         synchronized (listeners) {
             int n = -1;
             for (int i = 0; i < listeners.length; i++) {
@@ -392,8 +320,7 @@ public final class InstanceSupport {
             }
             if (n < 0)
                 return;
-            InstanceListener results[] =
-              new InstanceListener[listeners.length - 1];
+            InstanceListener results[] = new InstanceListener[listeners.length - 1];
             int j = 0;
             for (int i = 0; i < listeners.length; i++) {
                 if (i != n)
@@ -401,8 +328,5 @@ public final class InstanceSupport {
             }
             listeners = results;
         }
-
     }
-
-
 }

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/ApplicationHttpResponse.java,v 1.8 2002/06/28 12:19:13 remm Exp $
- * $Revision: 1.8 $
- * $Date: 2002/06/28 12:19:13 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/ApplicationHttpResponse.java,v 1.8
+ * 2002/06/28 12:19:13 remm Exp $ $Revision: 1.8 $ $Date: 2002/06/28 12:19:13 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import java.io.IOException;
 import java.util.Locale;
@@ -71,7 +68,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * Wrapper around a <code>javax.servlet.http.HttpServletResponse</code>
@@ -90,10 +86,7 @@ import org.apache.catalina.util.StringManager;
  */
 
 class ApplicationHttpResponse extends HttpServletResponseWrapper {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new wrapped response around the specified servlet response.
@@ -101,11 +94,8 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param response The servlet response being wrapped
      */
     public ApplicationHttpResponse(HttpServletResponse response) {
-
         this(response, false);
-
     }
-
 
     /**
      * Construct a new wrapped response around the specified servlet response.
@@ -114,17 +104,12 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param included <code>true</code> if this response is being processed
      *  by a <code>RequestDispatcher.include()</code> call
      */
-    public ApplicationHttpResponse(HttpServletResponse response,
-                                   boolean included) {
-
+    public ApplicationHttpResponse(HttpServletResponse response, boolean included) {
         super(response);
         setIncluded(included);
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Is this wrapped response the subject of an <code>include()</code>
@@ -132,23 +117,17 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      */
     protected boolean included = false;
 
-
     /**
      * Descriptive information about this implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.core.ApplicationHttpResponse/1.0";
-
+    protected static final String info = "org.apache.catalina.core.ApplicationHttpResponse/1.0";
 
     /**
      * The string manager for this package.
      */
-    protected static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static StringManager sm = StringManager.getManager(Constants.Package);
 
     // ------------------------------------------------ ServletResponse Methods
-
 
     /**
      * Disallow <code>reset()</code> calls on a included response.
@@ -157,13 +136,10 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      *  been committed
      */
     public void reset() {
-
         // If already committed, the wrapped response will throw ISE
         if (!included || getResponse().isCommitted())
             getResponse().reset();
-
     }
-
 
     /**
      * Disallow <code>setContentLength()</code> calls on an included response.
@@ -171,12 +147,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param len The new content length
      */
     public void setContentLength(int len) {
-
         if (!included)
             getResponse().setContentLength(len);
-
     }
-
 
     /**
      * Disallow <code>setContentType()</code> calls on an included response.
@@ -184,12 +157,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param type The new content type
      */
     public void setContentType(String type) {
-
         if (!included)
             getResponse().setContentType(type);
-
     }
-
 
     /**
      * Disallow <code>setLocale()</code> calls on an included response.
@@ -197,15 +167,11 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param loc The new locale
      */
     public void setLocale(Locale loc) {
-
         if (!included)
             getResponse().setLocale(loc);
-
     }
 
-
     // -------------------------------------------- HttpServletResponse Methods
-
 
     /**
      * Disallow <code>addCookie()</code> calls on an included response.
@@ -213,12 +179,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param cookie The new cookie
      */
     public void addCookie(Cookie cookie) {
-
         if (!included)
             ((HttpServletResponse) getResponse()).addCookie(cookie);
-
     }
-
 
     /**
      * Disallow <code>addDateHeader()</code> calls on an included response.
@@ -227,12 +190,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param value The new header value
      */
     public void addDateHeader(String name, long value) {
-
         if (!included)
             ((HttpServletResponse) getResponse()).addDateHeader(name, value);
-
     }
-
 
     /**
      * Disallow <code>addHeader()</code> calls on an included response.
@@ -241,12 +201,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param value The new header value
      */
     public void addHeader(String name, String value) {
-
         if (!included)
             ((HttpServletResponse) getResponse()).addHeader(name, value);
-
     }
-
 
     /**
      * Disallow <code>addIntHeader()</code> calls on an included response.
@@ -255,12 +212,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param value The new header value
      */
     public void addIntHeader(String name, int value) {
-
         if (!included)
             ((HttpServletResponse) getResponse()).addIntHeader(name, value);
-
     }
-
 
     /**
      * Disallow <code>sendError()</code> calls on an included response.
@@ -270,12 +224,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @exception IOException if an input/output error occurs
      */
     public void sendError(int sc) throws IOException {
-
         if (!included)
             ((HttpServletResponse) getResponse()).sendError(sc);
-
     }
-
 
     /**
      * Disallow <code>sendError()</code> calls on an included response.
@@ -286,12 +237,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @exception IOException if an input/output error occurs
      */
     public void sendError(int sc, String msg) throws IOException {
-
         if (!included)
             ((HttpServletResponse) getResponse()).sendError(sc, msg);
-
     }
-
 
     /**
      * Disallow <code>sendRedirect()</code> calls on an included response.
@@ -301,12 +249,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @exception IOException if an input/output error occurs
      */
     public void sendRedirect(String location) throws IOException {
-
         if (!included)
             ((HttpServletResponse) getResponse()).sendRedirect(location);
-
     }
-
 
     /**
      * Disallow <code>setDateHeader()</code> calls on an included response.
@@ -315,12 +260,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param value The new header value
      */
     public void setDateHeader(String name, long value) {
-
         if (!included)
             ((HttpServletResponse) getResponse()).setDateHeader(name, value);
-
     }
-
 
     /**
      * Disallow <code>setHeader()</code> calls on an included response.
@@ -329,12 +271,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param value The new header value
      */
     public void setHeader(String name, String value) {
-
         if (!included)
             ((HttpServletResponse) getResponse()).setHeader(name, value);
-
     }
-
 
     /**
      * Disallow <code>setIntHeader()</code> calls on an included response.
@@ -343,12 +282,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param value The new header value
      */
     public void setIntHeader(String name, int value) {
-
         if (!included)
             ((HttpServletResponse) getResponse()).setIntHeader(name, value);
-
     }
-
 
     /**
      * Disallow <code>setStatus()</code> calls on an included response.
@@ -356,12 +292,9 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param sc The new status code
      */
     public void setStatus(int sc) {
-
         if (!included)
             ((HttpServletResponse) getResponse()).setStatus(sc);
-
     }
-
 
     /**
      * Disallow <code>setStatus()</code> calls on an included response.
@@ -370,35 +303,25 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param msg The new message
      */
     public void setStatus(int sc, String msg) {
-
         if (!included)
             ((HttpServletResponse) getResponse()).setStatus(sc, msg);
-
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * Return descriptive information about this implementation.
      */
     public String getInfo() {
-
         return (this.info);
-
     }
-
 
     /**
      * Return the included flag for this response.
      */
     boolean isIncluded() {
-
         return (this.included);
-
     }
-
 
     /**
      * Set the included flag for this response.
@@ -406,11 +329,8 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param included The new included flag
      */
     void setIncluded(boolean included) {
-
         this.included = included;
-
     }
-
 
     /**
      * Set the response that we are wrapping.
@@ -418,10 +338,6 @@ class ApplicationHttpResponse extends HttpServletResponseWrapper {
      * @param response The new wrapped response
      */
     void setResponse(HttpServletResponse response) {
-
         super.setResponse(response);
-
     }
-
-
 }

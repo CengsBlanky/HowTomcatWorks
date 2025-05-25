@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/FastEngineMapper.java,v 1.4 2002/06/09 02:19:42 remm Exp $
- * $Revision: 1.4 $
- * $Date: 2002/06/09 02:19:42 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/FastEngineMapper.java,v 1.4
+ * 2002/06/09 02:19:42 remm Exp $ $Revision: 1.4 $ $Date: 2002/06/09 02:19:42 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -82,7 +79,6 @@ import org.apache.catalina.Request;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
 
-
 /**
  * Implementation of <code>Mapper</code> for an <code>Engine</code>,
  * designed to process HTTP requests.  This mapper selects an appropriate
@@ -95,74 +91,57 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.4 $ $Date: 2002/06/09 02:19:42 $
  */
 
-public final class FastEngineMapper
-    implements ContainerListener, Lifecycle, Mapper, PropertyChangeListener {
-
-
+public final class FastEngineMapper implements ContainerListener, Lifecycle, Mapper, PropertyChangeListener {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Cache of hostname -> Host mappings.  FIXME - use FastHashMap.
      */
     private java.util.HashMap cache = new java.util.HashMap();
 
-
     /**
      * The default host used for unknown host names.
      */
     private Host defaultHost = null;
-
 
     /**
      * The debugging detail level for this component.
      */
     private int debug = 0;
 
-
     /**
      * The Container with which this Mapper is associated.
      */
     private StandardEngine engine = null;
-
 
     /**
      * The lifecycle event support for this component.
      */
     private LifecycleSupport lifecycle = new LifecycleSupport(this);
 
-
     /**
      * The protocol with which this Mapper is associated.
      */
     private String protocol = null;
 
-
     /**
      * The string manager for this package.
      */
-    private static final StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    private static final StringManager sm = StringManager.getManager(Constants.Package);
 
     /**
      * Has this component been started yet?
      */
     private boolean started = false;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Container with which this Mapper is associated.
      */
     public Container getContainer() {
-
         return (engine);
-
     }
-
 
     /**
      * Set the Container with which this Mapper is associated.
@@ -173,24 +152,17 @@ public final class FastEngineMapper
      *  acceptable to this Mapper
      */
     public void setContainer(Container container) {
-
         if (!(container instanceof StandardEngine))
-            throw new IllegalArgumentException
-                (sm.getString("httpEngineMapper.container"));
+            throw new IllegalArgumentException(sm.getString("httpEngineMapper.container"));
         engine = (StandardEngine) container;
-
     }
-
 
     /**
      * Return the protocol for which this Mapper is responsible.
      */
     public String getProtocol() {
-
         return (this.protocol);
-
     }
-
 
     /**
      * Set the protocol for which this Mapper is responsible.
@@ -198,14 +170,10 @@ public final class FastEngineMapper
      * @param protocol The newly associated protocol
      */
     public void setProtocol(String protocol) {
-
         this.protocol = protocol;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return the child Container that should be used to process this Request,
@@ -216,7 +184,6 @@ public final class FastEngineMapper
      * @param update Update the Request to reflect the mapping selection?
      */
     public Container map(Request request, boolean update) {
-
         debug = engine.getDebug();
 
         // Extract the requested server name
@@ -245,14 +212,11 @@ public final class FastEngineMapper
         }
 
         // Update the Request if requested, and return the selected Host
-        ;       // No update to the Request is required
+        ; // No update to the Request is required
         return (host);
-
     }
 
-
     // ---------------------------------------------- ContainerListener Methods
-
 
     /**
      * Acknowledge the occurrence of the specified event.
@@ -260,7 +224,6 @@ public final class FastEngineMapper
      * @param event ContainerEvent that has occurred
      */
     public void containerEvent(ContainerEvent event) {
-
         Container source = (Container) event.getSource();
         String type = event.getType();
         if (source == engine) {
@@ -274,12 +237,9 @@ public final class FastEngineMapper
             else if (Host.REMOVE_ALIAS_EVENT.equals(type))
                 removeAlias((String) event.getData());
         }
-
     }
 
-
     // ------------------------------------------------------ Lifecycle Methods
-
 
     /**
      * Add a lifecycle event listener to this component.
@@ -287,22 +247,16 @@ public final class FastEngineMapper
      * @param listener The listener to add
      */
     public void addLifecycleListener(LifecycleListener listener) {
-
         lifecycle.addLifecycleListener(listener);
-
     }
 
-
     /**
-     * Get the lifecycle listeners associated with this lifecycle. If this 
+     * Get the lifecycle listeners associated with this lifecycle. If this
      * Lifecycle has no listeners registered, a zero-length array is returned.
      */
     public LifecycleListener[] findLifecycleListeners() {
-
         return lifecycle.findLifecycleListeners();
-
     }
-
 
     /**
      * Remove a lifecycle event listener from this component.
@@ -310,11 +264,8 @@ public final class FastEngineMapper
      * @param listener The listener to remove
      */
     public void removeLifecycleListener(LifecycleListener listener) {
-
         lifecycle.removeLifecycleListener(listener);
-
     }
-
 
     /**
      * Prepare for active use of the public methods of this Component.
@@ -323,12 +274,9 @@ public final class FastEngineMapper
      *  that prevents it from being started
      */
     public synchronized void start() throws LifecycleException {
-
         // Validate and update our current component state
         if (started)
-            throw new LifecycleException
-                (sm.getString("fastEngineMapper.alreadyStarted",
-                              engine.getName()));
+            throw new LifecycleException(sm.getString("fastEngineMapper.alreadyStarted", engine.getName()));
         started = true;
 
         // Configure based on our associated Engine properties
@@ -344,9 +292,7 @@ public final class FastEngineMapper
 
         // Notify our interested LifecycleListeners
         lifecycle.fireLifecycleEvent(START_EVENT, null);
-
     }
-
 
     /**
      * Gracefully shut down active use of the public methods of this Component.
@@ -355,12 +301,9 @@ public final class FastEngineMapper
      *  that needs to be reported
      */
     public synchronized void stop() throws LifecycleException {
-
         // Validate and update our current component state
         if (!started)
-            throw new LifecycleException
-                (sm.getString("fastEngineMapper.notStarted",
-                              engine.getName()));
+            throw new LifecycleException(sm.getString("fastEngineMapper.notStarted", engine.getName()));
 
         // Notify our interested LifecycleListeners
         lifecycle.fireLifecycleEvent(STOP_EVENT, null);
@@ -373,29 +316,22 @@ public final class FastEngineMapper
 
         // Clear our mapping cache
         cache.clear();
-
     }
 
-
     // ----------------------------------------- PropertyChangeListener Methods
-
 
     /**
      * Process a property change event.
      */
     public void propertyChange(PropertyChangeEvent event) {
-
         Object source = event.getSource();
         if (source instanceof Engine) {
             if ("defaultHost".equals(event.getPropertyName()))
                 setDefaultHost((String) event.getNewValue());
         }
-
     }
 
-
     // -------------------------------------------------------- Private Methods
-
 
     /**
      * Add an alias for the specified host.
@@ -404,14 +340,10 @@ public final class FastEngineMapper
      * @param host Host to resolve to
      */
     private void addAlias(String alias, Host host) {
-
         if (debug >= 3)
-            engine.log("Adding alias '" + alias + "' for host '" +
-                       host.getName() + "'");
+            engine.log("Adding alias '" + alias + "' for host '" + host.getName() + "'");
         cache.put(alias.toLowerCase(), host);
-
     }
-
 
     /**
      * Add a new child Host to our associated Engine.
@@ -419,7 +351,6 @@ public final class FastEngineMapper
      * @param host Child host to add
      */
     private void addHost(Host host) {
-
         if (debug >= 3)
             engine.log("Adding host '" + host.getName() + "'");
 
@@ -430,11 +361,8 @@ public final class FastEngineMapper
 
         // Register all associated aliases
         String aliases[] = host.findAliases();
-        for (int i = 0; i < aliases.length; i++)
-            addAlias(aliases[i], host);
-
+        for (int i = 0; i < aliases.length; i++) addAlias(aliases[i], host);
     }
-
 
     /**
      * Return the Host that matches the specified name (or alias), if any;
@@ -443,11 +371,8 @@ public final class FastEngineMapper
      * @param name Name or alias of the desired Host
      */
     private Host findHost(String name) {
-
         return ((Host) cache.get(name.toLowerCase()));
-
     }
-
 
     /**
      * Remove the specified alias from our cache.
@@ -455,13 +380,10 @@ public final class FastEngineMapper
      * @param alias Alias to remove
      */
     private void removeAlias(String alias) {
-
         if (debug >= 3)
             engine.log("Removing alias '" + alias + "'");
         cache.remove(alias.toLowerCase());
-
     }
-
 
     /**
      * Remove an existing child Host from our associated Engine.
@@ -469,7 +391,6 @@ public final class FastEngineMapper
      * @param host Host to be removed
      */
     private void removeHost(Host host) {
-
         if (debug >= 3)
             engine.log("Removing host '" + host.getName() + "'");
 
@@ -489,9 +410,7 @@ public final class FastEngineMapper
         while (keys.hasNext()) {
             removeAlias((String) keys.next());
         }
-
     }
-
 
     /**
      * Set the default Host used for resolving unknown host names.
@@ -499,7 +418,6 @@ public final class FastEngineMapper
      * @param name Name of the default host
      */
     private void setDefaultHost(String name) {
-
         if (debug >= 3)
             engine.log("Setting default host '" + name + "'");
 
@@ -507,8 +425,5 @@ public final class FastEngineMapper
             defaultHost = null;
         else
             defaultHost = (Host) engine.findChild(name);
-
     }
-
-
 }

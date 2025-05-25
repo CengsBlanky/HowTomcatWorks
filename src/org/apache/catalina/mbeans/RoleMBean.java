@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/RoleMBean.java,v 1.1 2002/02/03 00:56:57 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/03 00:56:57 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/RoleMBean.java,v 1.1 2002/02/03
+ * 00:56:57 craigmcc Exp $ $Revision: 1.1 $ $Date: 2002/02/03 00:56:57 $
  *
  * ====================================================================
  *
@@ -70,7 +69,6 @@ import org.apache.commons.modeler.BaseModelMBean;
 import org.apache.commons.modeler.ManagedBean;
 import org.apache.commons.modeler.Registry;
 
-
 /**
  * <p>A <strong>ModelMBean</strong> implementation for the
  * <code>org.apache.catalina.Role</code> component.</p>
@@ -80,10 +78,7 @@ import org.apache.commons.modeler.Registry;
  */
 
 public class RoleMBean extends BaseModelMBean {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a <code>ModelMBean</code> with default
@@ -94,40 +89,28 @@ public class RoleMBean extends BaseModelMBean {
      * @exception RuntimeOperationsException if an IllegalArgumentException
      *  occurs
      */
-    public RoleMBean()
-        throws MBeanException, RuntimeOperationsException {
-
+    public RoleMBean() throws MBeanException, RuntimeOperationsException {
         super();
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The configuration information registry for our managed beans.
      */
     protected Registry registry = MBeanUtils.createRegistry();
 
-
     /**
      * The <code>MBeanServer</code> in which we are registered.
      */
     protected MBeanServer mserver = MBeanUtils.createServer();
 
-
     /**
      * The <code>ManagedBean</code> information describing this MBean.
      */
-    protected ManagedBean managed =
-        registry.findManagedBean("Role");
-
+    protected ManagedBean managed = registry.findManagedBean("Role");
 
     // ------------------------------------------------------------- Attributes
 
-
     // ------------------------------------------------------------- Operations
-
-
 }

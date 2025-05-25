@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/cluster/ReplicationWrapper.java,v 1.1 2001/05/04 20:48:02 bip Exp $
- * $Revision: 1.1 $
- * $Date: 2001/05/04 20:48:02 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/cluster/ReplicationWrapper.java,v 1.1
+ * 2001/05/04 20:48:02 bip Exp $ $Revision: 1.1 $ $Date: 2001/05/04 20:48:02 $
  *
  * ====================================================================
  *
@@ -76,7 +75,6 @@ import java.io.Serializable;
  * @version $Revision: 1.1 $, $Date: 2001/05/04 20:48:02 $
  */
 public final class ReplicationWrapper implements Serializable {
-
     /**
      * Our buffer to hold the stream
      */
@@ -112,7 +110,7 @@ public final class ReplicationWrapper implements Serializable {
      * @return a our data
      */
     public final byte[] getDataStream() {
-        return(_buf);
+        return (_buf);
     }
 
     /**
@@ -130,6 +128,6 @@ public final class ReplicationWrapper implements Serializable {
      * @return The sender Id associated with this wrapper
      */
     public final String getSenderId() {
-        return(this.senderId);
+        return (this.senderId);
     }
 }

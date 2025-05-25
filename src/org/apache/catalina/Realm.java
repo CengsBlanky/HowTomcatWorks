@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Realm.java,v 1.4 2001/07/30 20:04:04 craigmcc Exp $
- * $Revision: 1.4 $
- * $Date: 2001/07/30 20:04:04 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Realm.java,v 1.4 2001/07/30 20:04:04
+ * craigmcc Exp $ $Revision: 1.4 $ $Date: 2001/07/30 20:04:04 $
  *
  * ====================================================================
  *
@@ -61,14 +60,11 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 import java.beans.PropertyChangeListener;
 import java.security.Principal;
 import java.security.cert.X509Certificate;
-
 
 /**
  * A <b>Realm</b> is a read-only facade for an underlying security realm
@@ -82,16 +78,12 @@ import java.security.cert.X509Certificate;
  */
 
 public interface Realm {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Container with which this Realm has been associated.
      */
     public Container getContainer();
-
 
     /**
      * Set the Container with which this Realm has been associated.
@@ -100,7 +92,6 @@ public interface Realm {
      */
     public void setContainer(Container container);
 
-
     /**
      * Return descriptive information about this Realm implementation and
      * the corresponding version number, in the format
@@ -108,9 +99,7 @@ public interface Realm {
      */
     public String getInfo();
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a property change listener to this component.
@@ -118,7 +107,6 @@ public interface Realm {
      * @param listener The listener to add
      */
     public void addPropertyChangeListener(PropertyChangeListener listener);
-
 
     /**
      * Return the Principal associated with the specified username and
@@ -130,7 +118,6 @@ public interface Realm {
      */
     public Principal authenticate(String username, String credentials);
 
-
     /**
      * Return the Principal associated with the specified username and
      * credentials, if there is one; otherwise return <code>null</code>.
@@ -140,7 +127,6 @@ public interface Realm {
      *  authenticating this username
      */
     public Principal authenticate(String username, byte[] credentials);
-
 
     /**
      * Return the Principal associated with the specified username, which
@@ -155,11 +141,8 @@ public interface Realm {
      * @param md5a2 Second MD5 digest used to calculate the digest :
      * MD5(Method + ":" + uri)
      */
-    public Principal authenticate(String username, String digest,
-                                  String nonce, String nc, String cnonce,
-                                  String qop, String realm,
-                                  String md5a2);
-
+    public Principal authenticate(
+      String username, String digest, String nonce, String nc, String cnonce, String qop, String realm, String md5a2);
 
     /**
      * Return the Principal associated with the specified chain of X509
@@ -169,7 +152,6 @@ public interface Realm {
      *  the array being the certificate of the client itself.
      */
     public Principal authenticate(X509Certificate certs[]);
-
 
     /**
      * Return <code>true</code> if the specified Principal has the specified
@@ -181,13 +163,10 @@ public interface Realm {
      */
     public boolean hasRole(Principal principal, String role);
 
-
     /**
      * Remove a property change listener from this component.
      *
      * @param listener The listener to remove
      */
     public void removePropertyChangeListener(PropertyChangeListener listener);
-
-
 }

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/cluster/ClusterMemberInfo.java,v 1.4 2001/12/21 21:15:44 craigmcc Exp $
- * $Revision: 1.4 $
- * $Date: 2001/12/21 21:15:44 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/cluster/ClusterMemberInfo.java,v 1.4
+ * 2001/12/21 21:15:44 craigmcc Exp $ $Revision: 1.4 $ $Date: 2001/12/21 21:15:44 $
  *
  * ====================================================================
  *
@@ -75,7 +74,6 @@ import org.apache.catalina.util.ServerInfo;
  */
 
 public final class ClusterMemberInfo implements Serializable {
-
     // ----------------------------------------------------- Instance Variables
 
     private static String clusterName = null;
@@ -91,7 +89,7 @@ public final class ClusterMemberInfo implements Serializable {
     }
 
     public String getClusterName() {
-        return(this.clusterName);
+        return (this.clusterName);
     }
 
     public void setHostName(String hostName) {
@@ -99,11 +97,11 @@ public final class ClusterMemberInfo implements Serializable {
     }
 
     public String getHostName() {
-        return(this.hostName);
+        return (this.hostName);
     }
 
     public String getServerVersion() {
-        return(ServerInfo.getServerInfo());
+        return (ServerInfo.getServerInfo());
     }
 
     public void setClusterInfo(String clusterInfo) {
@@ -111,6 +109,6 @@ public final class ClusterMemberInfo implements Serializable {
     }
 
     public String getClusterInfo() {
-        return(this.clusterInfo);
+        return (this.clusterInfo);
     }
 }

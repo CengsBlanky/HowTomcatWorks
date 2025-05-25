@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/XMLWriter.java,v 1.6 2001/07/22 20:25:14 pier Exp $
- * $Revision: 1.6 $
- * $Date: 2001/07/22 20:25:14 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/XMLWriter.java,v 1.6 2001/07/22
+ * 20:25:14 pier Exp $ $Revision: 1.6 $ $Date: 2001/07/22 20:25:14 $
  *
  * ====================================================================
  *
@@ -72,53 +71,41 @@ import java.io.Writer;
  * @author <a href="mailto:remm@apache.org">Remy Maucherat</a>
  */
 public class XMLWriter {
-
-
     // -------------------------------------------------------------- Constants
-
 
     /**
      * Opening tag.
      */
     public static final int OPENING = 0;
 
-
     /**
      * Closing tag.
      */
     public static final int CLOSING = 1;
-
 
     /**
      * Element with no content.
      */
     public static final int NO_CONTENT = 2;
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Buffer.
      */
     protected StringBuffer buffer = new StringBuffer();
 
-
     /**
      * Writer.
      */
     protected Writer writer = null;
 
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Constructor.
      */
-    public XMLWriter() {
-    }
-
+    public XMLWriter() {}
 
     /**
      * Constructor.
@@ -127,9 +114,7 @@ public class XMLWriter {
         this.writer = writer;
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Retrieve generated XML.
@@ -140,7 +125,6 @@ public class XMLWriter {
         return buffer.toString();
     }
 
-
     /**
      * Write property to the XML.
      *
@@ -149,14 +133,11 @@ public class XMLWriter {
      * @param name Property name
      * @param value Property value
      */
-    public void writeProperty(String namespace, String namespaceInfo,
-                              String name, String value) {
+    public void writeProperty(String namespace, String namespaceInfo, String name, String value) {
         writeElement(namespace, namespaceInfo, name, OPENING);
         buffer.append(value);
         writeElement(namespace, namespaceInfo, name, CLOSING);
-
     }
-
 
     /**
      * Write property to the XML.
@@ -171,7 +152,6 @@ public class XMLWriter {
         writeElement(namespace, name, CLOSING);
     }
 
-
     /**
      * Write property to the XML.
      *
@@ -181,7 +161,6 @@ public class XMLWriter {
     public void writeProperty(String namespace, String name) {
         writeElement(namespace, name, NO_CONTENT);
     }
-
 
     /**
      * Write an element.
@@ -194,7 +173,6 @@ public class XMLWriter {
         writeElement(namespace, null, name, type);
     }
 
-
     /**
      * Write an element.
      *
@@ -203,49 +181,45 @@ public class XMLWriter {
      * @param name Element name
      * @param type Element type
      */
-    public void writeElement(String namespace, String namespaceInfo,
-                             String name, int type) {
+    public void writeElement(String namespace, String namespaceInfo, String name, int type) {
         if ((namespace != null) && (namespace.length() > 0)) {
             switch (type) {
-            case OPENING:
-                if (namespaceInfo != null) {
-                    buffer.append("<" + namespace + ":" + name + " xmlns:"
-                                  + namespace + "=\""
-                                  + namespaceInfo + "\">");
-                } else {
-                    buffer.append("<" + namespace + ":" + name + ">");
-                }
-                break;
-            case CLOSING:
-                buffer.append("</" + namespace + ":" + name + ">\n");
-                break;
-            case NO_CONTENT:
-            default:
-                if (namespaceInfo != null) {
-                    buffer.append("<" + namespace + ":" + name + " xmlns:"
-                                  + namespace + "=\""
-                                  + namespaceInfo + "\"/>");
-                } else {
-                    buffer.append("<" + namespace + ":" + name + "/>");
-                }
-                break;
+                case OPENING:
+                    if (namespaceInfo != null) {
+                        buffer.append(
+                          "<" + namespace + ":" + name + " xmlns:" + namespace + "=\"" + namespaceInfo + "\">");
+                    } else {
+                        buffer.append("<" + namespace + ":" + name + ">");
+                    }
+                    break;
+                case CLOSING:
+                    buffer.append("</" + namespace + ":" + name + ">\n");
+                    break;
+                case NO_CONTENT:
+                default:
+                    if (namespaceInfo != null) {
+                        buffer.append(
+                          "<" + namespace + ":" + name + " xmlns:" + namespace + "=\"" + namespaceInfo + "\"/>");
+                    } else {
+                        buffer.append("<" + namespace + ":" + name + "/>");
+                    }
+                    break;
             }
         } else {
             switch (type) {
-            case OPENING:
-                buffer.append("<" + name + ">");
-                break;
-            case CLOSING:
-                buffer.append("</" + name + ">\n");
-                break;
-            case NO_CONTENT:
-            default:
-                buffer.append("<" + name + "/>");
-                break;
+                case OPENING:
+                    buffer.append("<" + name + ">");
+                    break;
+                case CLOSING:
+                    buffer.append("</" + name + ">\n");
+                    break;
+                case NO_CONTENT:
+                default:
+                    buffer.append("<" + name + "/>");
+                    break;
             }
         }
     }
-
 
     /**
      * Write text.
@@ -256,7 +230,6 @@ public class XMLWriter {
         buffer.append(text);
     }
 
-
     /**
      * Write data.
      *
@@ -266,7 +239,6 @@ public class XMLWriter {
         buffer.append("<![CDATA[" + data + "]]>");
     }
 
-
     /**
      * Write XML Header.
      */
@@ -274,17 +246,13 @@ public class XMLWriter {
         buffer.append("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n");
     }
 
-
     /**
      * Send data and reinitializes buffer.
      */
-    public void sendData()
-        throws IOException {
+    public void sendData() throws IOException {
         if (writer != null) {
             writer.write(buffer.toString());
             buffer = new StringBuffer();
         }
     }
-
-
 }

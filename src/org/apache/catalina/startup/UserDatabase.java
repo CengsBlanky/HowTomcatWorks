@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/UserDatabase.java,v 1.1 2000/08/11 23:38:42 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2000/08/11 23:38:42 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/UserDatabase.java,v 1.1
+ * 2000/08/11 23:38:42 craigmcc Exp $ $Revision: 1.1 $ $Date: 2000/08/11 23:38:42 $
  *
  * ====================================================================
  *
@@ -61,12 +60,9 @@
  *
  */
 
-
 package org.apache.catalina.startup;
 
-
 import java.util.Enumeration;
-
 
 /**
  * Abstraction of the set of users defined by the operating system on the
@@ -77,16 +73,12 @@ import java.util.Enumeration;
  */
 
 public interface UserDatabase {
-
-
     // ----------------------------------------------------------- Properties
-
 
     /**
      * Return the UserConfig listener with which we are associated.
      */
     public UserConfig getUserConfig();
-
 
     /**
      * Set the UserConfig listener with which we are associated.
@@ -95,9 +87,7 @@ public interface UserDatabase {
      */
     public void setUserConfig(UserConfig userConfig);
 
-
     // ------------------------------------------------------- Public Methods
-
 
     /**
      * Return an absolute pathname to the home directory for the specified user.
@@ -106,11 +96,8 @@ public interface UserDatabase {
      */
     public String getHome(String user);
 
-
     /**
      * Return an enumeration of the usernames defined on this server.
      */
     public Enumeration getUsers();
-
-
 }

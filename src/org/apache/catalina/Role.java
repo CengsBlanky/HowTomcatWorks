@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Role.java,v 1.2 2002/02/03 00:56:57 craigmcc Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/03 00:56:57 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Role.java,v 1.2 2002/02/03 00:56:57
+ * craigmcc Exp $ $Revision: 1.2 $ $Date: 2002/02/03 00:56:57 $
  *
  * ====================================================================
  * The Apache Software License, Version 1.1
@@ -60,12 +59,9 @@
  *
  */
 
-
 package org.apache.catalina;
 
-
 import java.security.Principal;
-
 
 /**
  * <p>Abstract representation of a security role, suitable for use in
@@ -77,16 +73,12 @@ import java.security.Principal;
  */
 
 public interface Role extends Principal {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the description of this role.
      */
     public String getDescription();
-
 
     /**
      * Set the description of this role.
@@ -95,13 +87,11 @@ public interface Role extends Principal {
      */
     public void setDescription(String description);
 
-
     /**
      * Return the role name of this role, which must be unique
      * within the scope of a {@link UserDatabase}.
      */
     public String getRolename();
-
 
     /**
      * Set the role name of this role, which must be unique
@@ -111,11 +101,8 @@ public interface Role extends Principal {
      */
     public void setRolename(String rolename);
 
-
     /**
      * Return the {@link UserDatabase} within which this Role is defined.
      */
     public UserDatabase getUserDatabase();
-
-
 }

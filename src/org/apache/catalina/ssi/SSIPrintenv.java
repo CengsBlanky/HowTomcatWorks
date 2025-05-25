@@ -1,8 +1,7 @@
 /*
  * SSIPrintenv.java
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/SSIPrintenv.java,v 1.1 2002/05/24 04:38:58 billbarker Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/24 04:38:58 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ssi/SSIPrintenv.java,v 1.1 2002/05/24
+ * 04:38:58 billbarker Exp $ $Revision: 1.1 $ $Date: 2002/05/24 04:38:58 $
  *
  * ====================================================================
  *
@@ -78,30 +77,26 @@ public class SSIPrintenv implements SSICommand {
     /**
      * @see SSICommand
      */
-    public void process(SSIMediator ssiMediator,
-			String[] paramNames,
-			String[] paramValues,
-			PrintWriter writer) {
-
-	//any arguments should produce an error
-	if ( paramNames.length > 0 ) {
-	    String errorMessage = ssiMediator.getConfigErrMsg();
-	    writer.write( errorMessage );
-	} else {
-	    Collection variableNames = ssiMediator.getVariableNames();
-	    Iterator iter = variableNames.iterator();
-	    while ( iter.hasNext() ) {
-		String variableName = (String) iter.next();
-		String variableValue = ssiMediator.getVariableValue( variableName );
-		//This shouldn't happen, since all the variable names must have values
-		if ( variableValue == null ) {
-		    variableValue = "(none)";
-		}
-		writer.write( variableName );
-		writer.write( '=' );
-		writer.write( variableValue );
-		writer.write( '\n' );
-	    }
-	}
+    public void process(SSIMediator ssiMediator, String[] paramNames, String[] paramValues, PrintWriter writer) {
+        // any arguments should produce an error
+        if (paramNames.length > 0) {
+            String errorMessage = ssiMediator.getConfigErrMsg();
+            writer.write(errorMessage);
+        } else {
+            Collection variableNames = ssiMediator.getVariableNames();
+            Iterator iter = variableNames.iterator();
+            while (iter.hasNext()) {
+                String variableName = (String) iter.next();
+                String variableValue = ssiMediator.getVariableValue(variableName);
+                // This shouldn't happen, since all the variable names must have values
+                if (variableValue == null) {
+                    variableValue = "(none)";
+                }
+                writer.write(variableName);
+                writer.write('=');
+                writer.write(variableValue);
+                writer.write('\n');
+            }
+        }
     }
 }

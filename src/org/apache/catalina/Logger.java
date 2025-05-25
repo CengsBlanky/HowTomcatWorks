@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Logger.java,v 1.3 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Logger.java,v 1.3 2001/07/22 20:13:30
+ * pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,12 +60,9 @@
  *
  */
 
-
 package org.apache.catalina;
 
-
 import java.beans.PropertyChangeListener;
-
 
 /**
  * A <b>Logger</b> is a generic interface for the message and exception
@@ -79,10 +75,7 @@ import java.beans.PropertyChangeListener;
  */
 
 public interface Logger {
-
-
     // ----------------------------------------------------- Manifest Constants
-
 
     /**
      * Verbosity level constants for log messages that may be filtered
@@ -99,15 +92,12 @@ public interface Logger {
 
     public static final int DEBUG = 4;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Container with which this Logger has been associated.
      */
     public Container getContainer();
-
 
     /**
      * Set the Container with which this Logger has been associated.
@@ -116,7 +106,6 @@ public interface Logger {
      */
     public void setContainer(Container container);
 
-
     /**
      * Return descriptive information about this Logger implementation and
      * the corresponding version number, in the format
@@ -124,13 +113,11 @@ public interface Logger {
      */
     public String getInfo();
 
-
     /**
      * Return the verbosity level of this logger.  Messages logged with a
      * higher verbosity than this level will be silently ignored.
      */
     public int getVerbosity();
-
 
     /**
      * Set the verbosity level of this logger.  Messages logged with a
@@ -140,9 +127,7 @@ public interface Logger {
      */
     public void setVerbosity(int verbosity);
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a property change listener to this component.
@@ -150,7 +135,6 @@ public interface Logger {
      * @param listener The listener to add
      */
     public void addPropertyChangeListener(PropertyChangeListener listener);
-
 
     /**
      * Writes the specified message to a servlet log file, usually an event
@@ -161,7 +145,6 @@ public interface Logger {
      *  written to the log file
      */
     public void log(String message);
-
 
     /**
      * Writes the specified exception, and message, to a servlet log file.
@@ -176,7 +159,6 @@ public interface Logger {
      */
     public void log(Exception exception, String msg);
 
-
     /**
      * Writes an explanatory message and a stack trace for a given
      * <code>Throwable</code> exception to the servlet log file.  The name
@@ -189,7 +171,6 @@ public interface Logger {
      */
     public void log(String message, Throwable throwable);
 
-
     /**
      * Writes the specified message to the servlet log file, usually an event
      * log, if the logger is set to a verbosity level equal to or higher than
@@ -200,7 +181,6 @@ public interface Logger {
      * @param verbosity Verbosity level of this message
      */
     public void log(String message, int verbosity);
-
 
     /**
      * Writes the specified message and exception to the servlet log file,
@@ -214,13 +194,10 @@ public interface Logger {
      */
     public void log(String message, Throwable throwable, int verbosity);
 
-
     /**
      * Remove a property change listener from this component.
      *
      * @param listener The listener to remove
      */
     public void removePropertyChangeListener(PropertyChangeListener listener);
-
-
 }

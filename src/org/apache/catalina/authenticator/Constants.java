@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/Constants.java,v 1.7 2001/08/01 03:04:04 craigmcc Exp $
- * $Revision: 1.7 $
- * $Date: 2001/08/01 03:04:04 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/Constants.java,v 1.7
+ * 2001/08/01 03:04:04 craigmcc Exp $ $Revision: 1.7 $ $Date: 2001/08/01 03:04:04 $
  *
  * ====================================================================
  *
@@ -61,12 +60,9 @@
  *
  */
 
-
 package org.apache.catalina.authenticator;
 
-
 public class Constants {
-
     public static final String Package = "org.apache.catalina.authenticator";
 
     // Authentication methods for login configuration
@@ -88,9 +84,7 @@ public class Constants {
     // Cookie name for single sign on support
     public static final String SINGLE_SIGN_ON_COOKIE = "JSESSIONIDSSO";
 
-
     // --------------------------------------------------------- Request Notes
-
 
     /**
      * <p>If a user has been authenticated by the web layer, by means of a
@@ -112,31 +106,23 @@ public class Constants {
      * servlet specification.</p>
      */
 
-
     /**
      * The notes key for the password used to authenticate this user.
      */
-    public static final String REQ_PASSWORD_NOTE =
-      "org.apache.catalina.request.PASSWORD";
-
+    public static final String REQ_PASSWORD_NOTE = "org.apache.catalina.request.PASSWORD";
 
     /**
      * The notes key for the username used to authenticate this user.
      */
-    public static final String REQ_USERNAME_NOTE =
-      "org.apache.catalina.request.USERNAME";
-
+    public static final String REQ_USERNAME_NOTE = "org.apache.catalina.request.USERNAME";
 
     /**
      * The notes key to track the single-sign-on identity with which this
      * request is associated.
      */
-    public static final String REQ_SSOID_NOTE =
-      "org.apache.catalina.request.SSOID";
-
+    public static final String REQ_SSOID_NOTE = "org.apache.catalina.request.SSOID";
 
     // ---------------------------------------------------------- Session Notes
-
 
     /**
      * If the <code>cache</code> property of our authenticator is set, and
@@ -145,40 +131,29 @@ public class Constants {
      * <code>Realm.authenticate()</code>, under the following keys:
      */
 
-
     /**
      * The notes key for the password used to authenticate this user.
      */
-    public static final String SESS_PASSWORD_NOTE =
-      "org.apache.catalina.session.PASSWORD";
-
+    public static final String SESS_PASSWORD_NOTE = "org.apache.catalina.session.PASSWORD";
 
     /**
      * The notes key for the username used to authenticate this user.
      */
-    public static final String SESS_USERNAME_NOTE =
-      "org.apache.catalina.session.USERNAME";
-
+    public static final String SESS_USERNAME_NOTE = "org.apache.catalina.session.USERNAME";
 
     /**
      * The following note keys are used during form login processing to
      * cache required information prior to the completion of authentication.
      */
 
-
     /**
      * The previously authenticated principal (if caching is disabled).
      */
-    public static final String FORM_PRINCIPAL_NOTE =
-        "org.apache.catalina.authenticator.PRINCIPAL";
-
+    public static final String FORM_PRINCIPAL_NOTE = "org.apache.catalina.authenticator.PRINCIPAL";
 
     /**
      * The original request information, to which the user will be
      * redirected if authentication succeeds.
      */
-    public static final String FORM_REQUEST_NOTE =
-        "org.apache.catalina.authenticator.REQUEST";
-
-
+    public static final String FORM_REQUEST_NOTE = "org.apache.catalina.authenticator.REQUEST";
 }

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/SavedRequest.java,v 1.4 2001/07/22 20:09:19 pier Exp $
- * $Revision: 1.4 $
- * $Date: 2001/07/22 20:09:19 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/SavedRequest.java,v 1.4
+ * 2001/07/22 20:09:19 pier Exp $ $Revision: 1.4 $ $Date: 2001/07/22 20:09:19 $
  *
  * ====================================================================
  *
@@ -61,16 +60,13 @@
  *
  */
 
-
 package org.apache.catalina.authenticator;
 
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
-import java.util.ArrayList;
 import javax.servlet.http.Cookie;
-
 
 /**
  * Object that saves the critical information from a request so that
@@ -91,8 +87,6 @@ import javax.servlet.http.Cookie;
  */
 
 public final class SavedRequest {
-
-
     /**
      * The set of Cookies associated with this Request.
      */
@@ -105,7 +99,6 @@ public final class SavedRequest {
     public Iterator getCookies() {
         return (cookies.iterator());
     }
-
 
     /**
      * The set of Headers associated with this Request.  Each key is a header
@@ -136,7 +129,6 @@ public final class SavedRequest {
             return (values.iterator());
     }
 
-
     /**
      * The set of Locales associated with this Request.
      */
@@ -150,7 +142,6 @@ public final class SavedRequest {
         return (locales.iterator());
     }
 
-
     /**
      * The request method used on this Request.
      */
@@ -163,8 +154,6 @@ public final class SavedRequest {
     public void setMethod(String method) {
         this.method = method;
     }
-
-
 
     /**
      * The set of request parameters associated with this Request.  Each
@@ -185,7 +174,6 @@ public final class SavedRequest {
         return ((String[]) parameters.get(name));
     }
 
-
     /**
      * The query string associated with this Request.
      */
@@ -199,7 +187,6 @@ public final class SavedRequest {
         this.queryString = queryString;
     }
 
-
     /**
      * The request URI associated with this Request.
      */
@@ -212,6 +199,4 @@ public final class SavedRequest {
     public void setRequestURI(String requestURI) {
         this.requestURI = requestURI;
     }
-
-
 }

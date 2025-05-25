@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/InstanceListener.java,v 1.3 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/InstanceListener.java,v 1.3 2001/07/22
+ * 20:13:30 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 /**
  * Interface defining a listener for significant events related to a
@@ -75,14 +72,10 @@ package org.apache.catalina;
  */
 
 public interface InstanceListener {
-
-
     /**
      * Acknowledge the occurrence of the specified event.
      *
      * @param event InstanceEvent that has occurred
      */
     public void instanceEvent(InstanceEvent event);
-
-
 }

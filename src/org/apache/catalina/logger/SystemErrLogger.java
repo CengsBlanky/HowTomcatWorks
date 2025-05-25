@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/logger/SystemErrLogger.java,v 1.3 2002/04/26 21:09:06 craigmcc Exp $
- * $Revision: 1.3 $
- * $Date: 2002/04/26 21:09:06 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/logger/SystemErrLogger.java,v 1.3
+ * 2002/04/26 21:09:06 craigmcc Exp $ $Revision: 1.3 $ $Date: 2002/04/26 21:09:06 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.logger;
-
 
 /**
  * Simple implementation of <b>Logger</b> that writes to System.err.
@@ -72,22 +69,15 @@ package org.apache.catalina.logger;
  * @version $Revision: 1.3 $ $Date: 2002/04/26 21:09:06 $
  */
 
-public class SystemErrLogger
-    extends LoggerBase {
-
-
+public class SystemErrLogger extends LoggerBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The descriptive information about this implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.logger.SystemErrLogger/1.0";
-
+    protected static final String info = "org.apache.catalina.logger.SystemErrLogger/1.0";
 
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Writes the specified message to a servlet log file, usually an event
@@ -98,10 +88,6 @@ public class SystemErrLogger
      *  to the log file
      */
     public void log(String msg) {
-
         System.err.println(msg);
-
     }
-
-
 }

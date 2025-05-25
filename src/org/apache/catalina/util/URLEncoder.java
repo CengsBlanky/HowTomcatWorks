@@ -1,8 +1,7 @@
 /*
  * URLEncoder.java
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/URLEncoder.java,v 1.1 2002/05/11 05:06:25 billbarker Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/11 05:06:25 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/URLEncoder.java,v 1.1 2002/05/11
+ * 05:06:25 billbarker Exp $ $Revision: 1.1 $ $Date: 2002/05/11 05:06:25 $
  *
  * ====================================================================
  *
@@ -72,7 +71,7 @@ import java.util.BitSet;
  *
  * This class is very similar to the java.net.URLEncoder class.
  *
- * Unfortunately, with java.net.URLEncoder there is no way to specify to the 
+ * Unfortunately, with java.net.URLEncoder there is no way to specify to the
  * java.net.URLEncoder which characters should NOT be encoded.
  *
  * This code was moved from DefaultServlet.java
@@ -81,11 +80,10 @@ import java.util.BitSet;
  * @author Remy Maucherat
  */
 public class URLEncoder {
-    protected static final char[] hexadecimal =
-    {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-     'A', 'B', 'C', 'D', 'E', 'F'};
+    protected static final char[] hexadecimal = {
+      '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-    //Array containing the safe characters set.
+    // Array containing the safe characters set.
     protected BitSet safeCharacters = new BitSet(256);
 
     public URLEncoder() {
@@ -100,11 +98,11 @@ public class URLEncoder {
         }
     }
 
-    public void addSafeCharacter( char c ) {
-	safeCharacters.set( c );
+    public void addSafeCharacter(char c) {
+        safeCharacters.set(c);
     }
 
-    public String encode( String path ) {
+    public String encode(String path) {
         int maxBytesPerChar = 10;
         int caseDiff = ('a' - 'A');
         StringBuffer rewrittenPath = new StringBuffer(path.length());
@@ -120,13 +118,13 @@ public class URLEncoder {
         for (int i = 0; i < path.length(); i++) {
             int c = (int) path.charAt(i);
             if (safeCharacters.get(c)) {
-                rewrittenPath.append((char)c);
+                rewrittenPath.append((char) c);
             } else {
                 // convert to external encoding before hex conversion
                 try {
                     writer.write(c);
                     writer.flush();
-                } catch(IOException e) {
+                } catch (IOException e) {
                     buf.reset();
                     continue;
                 }

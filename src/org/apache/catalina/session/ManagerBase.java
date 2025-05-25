@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/session/ManagerBase.java,v 1.12 2002/09/19 22:55:48 amyroh Exp $
- * $Revision: 1.12 $
- * $Date: 2002/09/19 22:55:48 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/session/ManagerBase.java,v 1.12
+ * 2002/09/19 22:55:48 amyroh Exp $ $Revision: 1.12 $ $Date: 2002/09/19 22:55:48 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.session;
-
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -81,7 +78,6 @@ import org.apache.catalina.Manager;
 import org.apache.catalina.Session;
 import org.apache.catalina.util.StringManager;
 
-
 /**
  * Minimal implementation of the <b>Manager</b> interface that supports
  * no session persistence or distributable capabilities.  This class may
@@ -92,10 +88,7 @@ import org.apache.catalina.util.StringManager;
  */
 
 public abstract class ManagerBase implements Manager {
-
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The default message digest algorithm to use if we cannot use
@@ -103,13 +96,11 @@ public abstract class ManagerBase implements Manager {
      */
     protected static final String DEFAULT_ALGORITHM = "MD5";
 
-
     /**
      * The number of random bytes to include when generating a
      * session identifier.
      */
     protected static final int SESSION_ID_BYTES = 16;
-
 
     /**
      * The message digest algorithm to be used when generating session
@@ -118,31 +109,26 @@ public abstract class ManagerBase implements Manager {
      */
     protected String algorithm = DEFAULT_ALGORITHM;
 
-
     /**
      * The Container with which this Manager is associated.
      */
     protected Container container;
-
 
     /**
      * The debugging detail level for this component.
      */
     protected int debug = 0;
 
-
     /**
      * The DefaultContext with which this Manager is associated.
      */
     protected DefaultContext defaultContext = null;
-    
-    
+
     /**
      * Return the MessageDigest implementation to be used when
      * creating session identifiers.
      */
     protected MessageDigest digest = null;
-
 
     /**
      * The distributable flag for Sessions created by this Manager.  If this
@@ -151,19 +137,16 @@ public abstract class ManagerBase implements Manager {
      */
     protected boolean distributable;
 
-
     /**
      * A String initialization parameter used to increase the entropy of
      * the initialization of our random number generator.
      */
     protected String entropy = null;
 
-
     /**
      * The descriptive information string for this implementation.
      */
     private static final String info = "ManagerBase/1.0";
-
 
     /**
      * The default maximum inactive interval for Sessions created by
@@ -171,18 +154,15 @@ public abstract class ManagerBase implements Manager {
      */
     protected int maxInactiveInterval = 60;
 
-
     /**
      * The descriptive name of this Manager implementation (for logging).
      */
     protected static String name = "ManagerBase";
 
-
     /**
      * A random number generator to use when generating session identifiers.
      */
     protected Random random = null;
-
 
     /**
      * The Java class name of the random number generator class to be used
@@ -190,12 +170,10 @@ public abstract class ManagerBase implements Manager {
      */
     protected String randomClass = "java.security.SecureRandom";
 
-
     /**
      * The set of previously recycled Sessions for this Manager.
      */
     protected ArrayList recycled = new ArrayList();
-
 
     /**
      * The set of currently active Sessions for this Manager, keyed by
@@ -203,32 +181,24 @@ public abstract class ManagerBase implements Manager {
      */
     protected HashMap sessions = new HashMap();
 
-
     /**
      * The string manager for this package.
      */
-    protected static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static StringManager sm = StringManager.getManager(Constants.Package);
 
     /**
      * The property change support for this component.
      */
     protected PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the message digest algorithm for this Manager.
      */
     public String getAlgorithm() {
-
         return (this.algorithm);
-
     }
-
 
     /**
      * Set the message digest algorithm for this Manager.
@@ -236,23 +206,17 @@ public abstract class ManagerBase implements Manager {
      * @param algorithm The new message digest algorithm
      */
     public void setAlgorithm(String algorithm) {
-
         String oldAlgorithm = this.algorithm;
         this.algorithm = algorithm;
         support.firePropertyChange("algorithm", oldAlgorithm, this.algorithm);
-
     }
-
 
     /**
      * Return the Container with which this Manager is associated.
      */
     public Container getContainer() {
-
         return (this.container);
-
     }
-
 
     /**
      * Set the Container with which this Manager is associated.
@@ -260,23 +224,17 @@ public abstract class ManagerBase implements Manager {
      * @param container The newly associated Container
      */
     public void setContainer(Container container) {
-
         Container oldContainer = this.container;
         this.container = container;
         support.firePropertyChange("container", oldContainer, this.container);
-
     }
-
 
     /**
      * Return the DefaultContext with which this Manager is associated.
      */
     public DefaultContext getDefaultContext() {
-
         return (this.defaultContext);
-
     }
-
 
     /**
      * Set the DefaultContext with which this Manager is associated.
@@ -284,23 +242,17 @@ public abstract class ManagerBase implements Manager {
      * @param defaultContext The newly associated DefaultContext
      */
     public void setDefaultContext(DefaultContext defaultContext) {
-
         DefaultContext oldDefaultContext = this.defaultContext;
         this.defaultContext = defaultContext;
         support.firePropertyChange("defaultContext", oldDefaultContext, this.defaultContext);
-
     }
-    
-    
+
     /**
      * Return the debugging detail level for this component.
      */
     public int getDebug() {
-
         return (this.debug);
-
     }
-
 
     /**
      * Set the debugging detail level for this component.
@@ -308,11 +260,8 @@ public abstract class ManagerBase implements Manager {
      * @param debug The new debugging detail level
      */
     public void setDebug(int debug) {
-
         this.debug = debug;
-
     }
-
 
     /**
      * Return the MessageDigest object to be used for calculating
@@ -320,7 +269,6 @@ public abstract class ManagerBase implements Manager {
      * one the first time this method is called.
      */
     public synchronized MessageDigest getDigest() {
-
         if (this.digest == null) {
             if (debug >= 1)
                 log(sm.getString("managerBase.getting", algorithm));
@@ -331,8 +279,7 @@ public abstract class ManagerBase implements Manager {
                 try {
                     this.digest = MessageDigest.getInstance(DEFAULT_ALGORITHM);
                 } catch (NoSuchAlgorithmException f) {
-                    log(sm.getString("managerBase.digest",
-                                     DEFAULT_ALGORITHM), e);
+                    log(sm.getString("managerBase.digest", DEFAULT_ALGORITHM), e);
                     this.digest = null;
                 }
             }
@@ -341,20 +288,15 @@ public abstract class ManagerBase implements Manager {
         }
 
         return (this.digest);
-
     }
-
 
     /**
      * Return the distributable flag for the sessions supported by
      * this Manager.
      */
     public boolean getDistributable() {
-
         return (this.distributable);
-
     }
-
 
     /**
      * Set the distributable flag for the sessions supported by this
@@ -364,30 +306,22 @@ public abstract class ManagerBase implements Manager {
      * @param distributable The new distributable flag
      */
     public void setDistributable(boolean distributable) {
-
         boolean oldDistributable = this.distributable;
         this.distributable = distributable;
-        support.firePropertyChange("distributable",
-                                   new Boolean(oldDistributable),
-                                   new Boolean(this.distributable));
-
+        support.firePropertyChange("distributable", new Boolean(oldDistributable), new Boolean(this.distributable));
     }
-
 
     /**
      * Return the entropy increaser value, or compute a semi-useful value
      * if this String has not yet been set.
      */
     public String getEntropy() {
-
         // Calculate a semi-useful value if this has not been set
         if (this.entropy == null)
             setEntropy(this.toString());
 
         return (this.entropy);
-
     }
-
 
     /**
      * Set the entropy increaser value.
@@ -395,13 +329,10 @@ public abstract class ManagerBase implements Manager {
      * @param entropy The new entropy increaser value
      */
     public void setEntropy(String entropy) {
-
         String oldEntropy = entropy;
         this.entropy = entropy;
         support.firePropertyChange("entropy", oldEntropy, this.entropy);
-
     }
-
 
     /**
      * Return descriptive information about this Manager implementation and
@@ -409,22 +340,16 @@ public abstract class ManagerBase implements Manager {
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo() {
-
         return (this.info);
-
     }
-
 
     /**
      * Return the default maximum inactive interval (in seconds)
      * for Sessions created by this Manager.
      */
     public int getMaxInactiveInterval() {
-
         return (this.maxInactiveInterval);
-
     }
-
 
     /**
      * Set the default maximum inactive interval (in seconds)
@@ -433,25 +358,18 @@ public abstract class ManagerBase implements Manager {
      * @param interval The new default value
      */
     public void setMaxInactiveInterval(int interval) {
-
         int oldMaxInactiveInterval = this.maxInactiveInterval;
         this.maxInactiveInterval = interval;
-        support.firePropertyChange("maxInactiveInterval",
-                                   new Integer(oldMaxInactiveInterval),
-                                   new Integer(this.maxInactiveInterval));
-
+        support.firePropertyChange(
+          "maxInactiveInterval", new Integer(oldMaxInactiveInterval), new Integer(this.maxInactiveInterval));
     }
-
 
     /**
      * Return the descriptive short name of this Manager implementation.
      */
     public String getName() {
-
         return (name);
-
     }
-
 
     /**
      * Return the random number generator instance we should use for
@@ -459,7 +377,6 @@ public abstract class ManagerBase implements Manager {
      * currently defined, construct and seed a new one.
      */
     public synchronized Random getRandom() {
-
         if (this.random == null) {
             synchronized (this) {
                 if (this.random == null) {
@@ -478,8 +395,7 @@ public abstract class ManagerBase implements Manager {
                         this.random.setSeed(seed);
                     } catch (Exception e) {
                         // Fall back to the simple case
-                        log(sm.getString("managerBase.random", randomClass),
-                            e);
+                        log(sm.getString("managerBase.random", randomClass), e);
                         this.random = new java.util.Random();
                         this.random.setSeed(seed);
                     }
@@ -489,19 +405,14 @@ public abstract class ManagerBase implements Manager {
         }
 
         return (this.random);
-
     }
-
 
     /**
      * Return the random number generator class name.
      */
     public String getRandomClass() {
-
         return (this.randomClass);
-
     }
-
 
     /**
      * Set the random number generator class name.
@@ -509,17 +420,12 @@ public abstract class ManagerBase implements Manager {
      * @param randomClass The new random number generator class name
      */
     public void setRandomClass(String randomClass) {
-
         String oldRandomClass = this.randomClass;
         this.randomClass = randomClass;
-        support.firePropertyChange("randomClass", oldRandomClass,
-                                   this.randomClass);
-
+        support.firePropertyChange("randomClass", oldRandomClass, this.randomClass);
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add this Session to the set of active Sessions for this Manager.
@@ -527,13 +433,10 @@ public abstract class ManagerBase implements Manager {
      * @param session Session to be added
      */
     public void add(Session session) {
-
         synchronized (sessions) {
             sessions.put(session.getId(), session);
         }
-
     }
-
 
     /**
      * Add a property change listener to this component.
@@ -541,11 +444,8 @@ public abstract class ManagerBase implements Manager {
      * @param listener The listener to add
      */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
-
         support.addPropertyChangeListener(listener);
-
     }
-
 
     /**
      * Construct and return a new session object, based on the default
@@ -558,7 +458,6 @@ public abstract class ManagerBase implements Manager {
      *  instantiated for any reason
      */
     public Session createSession() {
-
         // Recycle or create a Session instance
         Session session = null;
         synchronized (recycled) {
@@ -594,9 +493,7 @@ public abstract class ManagerBase implements Manager {
         session.setId(sessionId);
 
         return (session);
-
     }
-
 
     /**
      * Return the active Session, associated with this Manager, with the
@@ -610,32 +507,26 @@ public abstract class ManagerBase implements Manager {
      *  processing this request
      */
     public Session findSession(String id) throws IOException {
-
         if (id == null)
             return (null);
         synchronized (sessions) {
             Session session = (Session) sessions.get(id);
             return (session);
         }
-
     }
-
 
     /**
      * Return the set of active Sessions associated with this Manager.
      * If this Manager has no active Sessions, a zero-length array is returned.
      */
     public Session[] findSessions() {
-
         Session results[] = null;
         synchronized (sessions) {
             results = new Session[sessions.size()];
             results = (Session[]) sessions.values().toArray(results);
         }
         return (results);
-
     }
-
 
     /**
      * Remove this Session from the active Sessions for this Manager.
@@ -643,13 +534,10 @@ public abstract class ManagerBase implements Manager {
      * @param session Session to be removed
      */
     public void remove(Session session) {
-
         synchronized (sessions) {
             sessions.remove(session.getId());
         }
-
     }
-
 
     /**
      * Remove a property change listener from this component.
@@ -657,20 +545,15 @@ public abstract class ManagerBase implements Manager {
      * @param listener The listener to remove
      */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
-
         support.removePropertyChangeListener(listener);
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Generate and return a new session identifier.
      */
     protected synchronized String generateSessionId() {
-
         // Generate a byte array containing a session identifier
         Random random = getRandom();
         byte bytes[] = new byte[SESSION_ID_BYTES];
@@ -692,12 +575,9 @@ public abstract class ManagerBase implements Manager {
                 result.append((char) ('A' + (b2 - 10)));
         }
         return (result.toString());
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Retrieve the enclosing Engine for this Manager.
@@ -706,14 +586,13 @@ public abstract class ManagerBase implements Manager {
      */
     public Engine getEngine() {
         Engine e = null;
-        for (Container c = getContainer(); e == null && c != null ; c = c.getParent()) {
+        for (Container c = getContainer(); e == null && c != null; c = c.getParent()) {
             if (c != null && c instanceof Engine) {
-                e = (Engine)c;
+                e = (Engine) c;
             }
         }
         return e;
     }
-
 
     /**
      * Retrieve the JvmRoute for the enclosing Engine.
@@ -724,9 +603,7 @@ public abstract class ManagerBase implements Manager {
         return e == null ? null : e.getJvmRoute();
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * Log a message on the Logger associated with our Container (if any).
@@ -734,23 +611,18 @@ public abstract class ManagerBase implements Manager {
      * @param message Message to be logged
      */
     void log(String message) {
-
         Logger logger = null;
         if (container != null)
             logger = container.getLogger();
         if (logger != null)
-            logger.log(getName() + "[" + container.getName() + "]: "
-                       + message);
+            logger.log(getName() + "[" + container.getName() + "]: " + message);
         else {
             String containerName = null;
             if (container != null)
                 containerName = container.getName();
-            System.out.println(getName() + "[" + containerName
-                               + "]: " + message);
+            System.out.println(getName() + "[" + containerName + "]: " + message);
         }
-
     }
-
 
     /**
      * Log a message on the Logger associated with our Container (if any).
@@ -759,24 +631,19 @@ public abstract class ManagerBase implements Manager {
      * @param throwable Associated exception
      */
     void log(String message, Throwable throwable) {
-
         Logger logger = null;
         if (container != null)
             logger = container.getLogger();
         if (logger != null)
-            logger.log(getName() + "[" + container.getName() + "] "
-                       + message, throwable);
+            logger.log(getName() + "[" + container.getName() + "] " + message, throwable);
         else {
             String containerName = null;
             if (container != null)
                 containerName = container.getName();
-            System.out.println(getName() + "[" + containerName
-                               + "]: " + message);
+            System.out.println(getName() + "[" + containerName + "]: " + message);
             throwable.printStackTrace(System.out);
         }
-
     }
-
 
     /**
      * Add this Session to the recycle collection for this Manager.
@@ -784,12 +651,8 @@ public abstract class ManagerBase implements Manager {
      * @param session Session to be recycled
      */
     void recycle(Session session) {
-
         synchronized (recycled) {
             recycled.add(session);
         }
-
     }
-
-
 }

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/SingleSignOn.java,v 1.11 2002/06/09 02:19:41 remm Exp $
- * $Revision: 1.11 $
- * $Date: 2002/06/09 02:19:41 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/SingleSignOn.java,v 1.11
+ * 2002/06/09 02:19:41 remm Exp $ $Revision: 1.11 $ $Date: 2002/06/09 02:19:41 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.authenticator;
-
 
 import java.io.IOException;
 import java.security.Principal;
@@ -84,10 +81,9 @@ import org.apache.catalina.Session;
 import org.apache.catalina.SessionEvent;
 import org.apache.catalina.SessionListener;
 import org.apache.catalina.ValveContext;
-import org.apache.catalina.valves.ValveBase;
 import org.apache.catalina.util.LifecycleSupport;
 import org.apache.catalina.util.StringManager;
-
+import org.apache.catalina.valves.ValveBase;
 
 /**
  * A <strong>Valve</strong> that supports a "single sign on" user experience,
@@ -110,13 +106,8 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.11 $ $Date: 2002/06/09 02:19:41 $
  */
 
-public class SingleSignOn
-    extends ValveBase
-    implements Lifecycle, SessionListener {
-
-
+public class SingleSignOn extends ValveBase implements Lifecycle, SessionListener {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The cache of SingleSignOnEntry instances for authenticated Principals,
@@ -124,25 +115,20 @@ public class SingleSignOn
      */
     protected HashMap cache = new HashMap();
 
-
     /**
      * The debugging detail level for this component.
      */
     protected int debug = 0;
 
-
     /**
      * Descriptive information about this Valve implementation.
      */
-    protected static String info =
-        "org.apache.catalina.authenticator.SingleSignOn";
-
+    protected static String info = "org.apache.catalina.authenticator.SingleSignOn";
 
     /**
      * The lifecycle event support for this component.
      */
     protected LifecycleSupport lifecycle = new LifecycleSupport(this);
-
 
     /**
      * The cache of single sign on identifiers, keyed by the Session that is
@@ -150,32 +136,24 @@ public class SingleSignOn
      */
     protected HashMap reverse = new HashMap();
 
-
     /**
      * The string manager for this package.
      */
-    protected final static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected final static StringManager sm = StringManager.getManager(Constants.Package);
 
     /**
      * Component started flag.
      */
     protected boolean started = false;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the debugging detail level.
      */
     public int getDebug() {
-
         return (this.debug);
-
     }
-
 
     /**
      * Set the debugging detail level.
@@ -183,14 +161,10 @@ public class SingleSignOn
      * @param debug The new debugging detail level
      */
     public void setDebug(int debug) {
-
         this.debug = debug;
-
     }
 
-
     // ------------------------------------------------------ Lifecycle Methods
-
 
     /**
      * Add a lifecycle event listener to this component.
@@ -198,22 +172,16 @@ public class SingleSignOn
      * @param listener The listener to add
      */
     public void addLifecycleListener(LifecycleListener listener) {
-
         lifecycle.addLifecycleListener(listener);
-
     }
 
-
     /**
-     * Get the lifecycle listeners associated with this lifecycle. If this 
+     * Get the lifecycle listeners associated with this lifecycle. If this
      * Lifecycle has no listeners registered, a zero-length array is returned.
      */
     public LifecycleListener[] findLifecycleListeners() {
-
         return lifecycle.findLifecycleListeners();
-
     }
-
 
     /**
      * Remove a lifecycle event listener from this component.
@@ -221,11 +189,8 @@ public class SingleSignOn
      * @param listener The listener to remove
      */
     public void removeLifecycleListener(LifecycleListener listener) {
-
         lifecycle.removeLifecycleListener(listener);
-
     }
-
 
     /**
      * Prepare for the beginning of active use of the public methods of this
@@ -236,19 +201,15 @@ public class SingleSignOn
      *  that prevents this component from being used
      */
     public void start() throws LifecycleException {
-
         // Validate and update our current component state
         if (started)
-            throw new LifecycleException
-                (sm.getString("authenticator.alreadyStarted"));
+            throw new LifecycleException(sm.getString("authenticator.alreadyStarted"));
         lifecycle.fireLifecycleEvent(START_EVENT, null);
         started = true;
 
         if (debug >= 1)
             log("Started");
-
     }
-
 
     /**
      * Gracefully terminate the active use of the public methods of this
@@ -259,22 +220,17 @@ public class SingleSignOn
      *  that needs to be reported
      */
     public void stop() throws LifecycleException {
-
         // Validate and update our current component state
         if (!started)
-            throw new LifecycleException
-                (sm.getString("authenticator.notStarted"));
+            throw new LifecycleException(sm.getString("authenticator.notStarted"));
         lifecycle.fireLifecycleEvent(STOP_EVENT, null);
         started = false;
 
         if (debug >= 1)
             log("Stopped");
-
     }
 
-
     // ------------------------------------------------ SessionListener Methods
-
 
     /**
      * Acknowledge the occurrence of the specified event.
@@ -282,7 +238,6 @@ public class SingleSignOn
      * @param event SessionEvent that has occurred
      */
     public void sessionEvent(SessionEvent event) {
-
         // We only care about session destroyed events
         if (!Session.SESSION_DESTROYED_EVENT.equals(event.getType()))
             return;
@@ -300,22 +255,16 @@ public class SingleSignOn
 
         // Deregister this single session id, invalidating associated sessions
         deregister(ssoId);
-
     }
 
-
     // ---------------------------------------------------------- Valve Methods
-
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo() {
-
         return (info);
-
     }
-
 
     /**
      * Perform single-sign-on support processing for this request.
@@ -328,20 +277,14 @@ public class SingleSignOn
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
-    public void invoke(Request request, Response response,
-                       ValveContext context)
-        throws IOException, ServletException {
-
+    public void invoke(Request request, Response response, ValveContext context) throws IOException, ServletException {
         // If this is not an HTTP request and response, just pass them on
-        if (!(request instanceof HttpRequest) ||
-            !(response instanceof HttpResponse)) {
+        if (!(request instanceof HttpRequest) || !(response instanceof HttpResponse)) {
             context.invokeNext(request, response);
             return;
         }
-        HttpServletRequest hreq =
-            (HttpServletRequest) request.getRequest();
-        HttpServletResponse hres =
-            (HttpServletResponse) response.getResponse();
+        HttpServletRequest hreq = (HttpServletRequest) request.getRequest();
+        HttpServletResponse hres = (HttpServletResponse) response.getResponse();
         request.removeNote(Constants.REQ_SSOID_NOTE);
 
         // Has a valid user already been authenticated?
@@ -349,8 +292,7 @@ public class SingleSignOn
             log("Process request for '" + hreq.getRequestURI() + "'");
         if (hreq.getUserPrincipal() != null) {
             if (debug >= 1)
-                log(" Principal '" + hreq.getUserPrincipal().getName() +
-                    "' has already been authenticated");
+                log(" Principal '" + hreq.getUserPrincipal().getName() + "' has already been authenticated");
             context.invokeNext(request, response);
             return;
         }
@@ -381,9 +323,8 @@ public class SingleSignOn
         SingleSignOnEntry entry = lookup(cookie.getValue());
         if (entry != null) {
             if (debug >= 1)
-                log(" Found cached principal '" +
-                    entry.principal.getName() + "' with auth type '" +
-                    entry.authType + "'");
+                log(" Found cached principal '" + entry.principal.getName() + "' with auth type '" + entry.authType
+                  + "'");
             request.setNote(Constants.REQ_SSOID_NOTE, cookie.getValue());
             ((HttpRequest) request).setAuthType(entry.authType);
             ((HttpRequest) request).setUserPrincipal(entry.principal);
@@ -396,28 +337,21 @@ public class SingleSignOn
 
         // Invoke the next Valve in our pipeline
         context.invokeNext(request, response);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return a String rendering of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("SingleSignOn[");
         sb.append(container.getName());
         sb.append("]");
         return (sb.toString());
-
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * Associate the specified single sign on identifier with the
@@ -427,7 +361,6 @@ public class SingleSignOn
      * @param session Session to be associated
      */
     void associate(String ssoId, Session session) {
-
         if (debug >= 1)
             log("Associate sso id " + ssoId + " with session " + session);
 
@@ -437,9 +370,7 @@ public class SingleSignOn
         synchronized (reverse) {
             reverse.put(session, ssoId);
         }
-
     }
-
 
     /**
      * Deregister the specified single sign on identifier, and invalidate
@@ -448,7 +379,6 @@ public class SingleSignOn
      * @param ssoId Single sign on identifier to deregister
      */
     void deregister(String ssoId) {
-
         if (debug >= 1)
             log("Deregistering sso id '" + ssoId + "'");
 
@@ -476,9 +406,7 @@ public class SingleSignOn
         // NOTE:  Clients may still possess the old single sign on cookie,
         // but it will be removed on the next request since it is no longer
         // in the cache
-
     }
-
 
     /**
      * Register the specified Principal as being associated with the specified
@@ -491,23 +419,17 @@ public class SingleSignOn
      * @param username Username used to authenticate this user
      * @param password Password used to authenticate this user
      */
-    void register(String ssoId, Principal principal, String authType,
-                  String username, String password) {
-
+    void register(String ssoId, Principal principal, String authType, String username, String password) {
         if (debug >= 1)
-            log("Registering sso id '" + ssoId + "' for user '" +
-                principal.getName() + "' with auth type '" + authType + "'");
+            log("Registering sso id '" + ssoId + "' for user '" + principal.getName() + "' with auth type '" + authType
+              + "'");
 
         synchronized (cache) {
-            cache.put(ssoId, new SingleSignOnEntry(principal, authType,
-                                                   username, password));
+            cache.put(ssoId, new SingleSignOnEntry(principal, authType, username, password));
         }
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Log a message on the Logger associated with our Container (if any).
@@ -515,15 +437,12 @@ public class SingleSignOn
      * @param message Message to be logged
      */
     protected void log(String message) {
-
         Logger logger = container.getLogger();
         if (logger != null)
             logger.log(this.toString() + ": " + message);
         else
             System.out.println(this.toString() + ": " + message);
-
     }
-
 
     /**
      * Log a message on the Logger associated with our Container (if any).
@@ -532,7 +451,6 @@ public class SingleSignOn
      * @param throwable Associated exception
      */
     protected void log(String message, Throwable throwable) {
-
         Logger logger = container.getLogger();
         if (logger != null)
             logger.log(this.toString() + ": " + message, throwable);
@@ -540,9 +458,7 @@ public class SingleSignOn
             System.out.println(this.toString() + ": " + message);
             throwable.printStackTrace(System.out);
         }
-
     }
-
 
     /**
      * Look up and return the cached SingleSignOn entry associated with this
@@ -551,25 +467,18 @@ public class SingleSignOn
      * @param ssoId Single sign on identifier to look up
      */
     protected SingleSignOnEntry lookup(String ssoId) {
-
         synchronized (cache) {
             return ((SingleSignOnEntry) cache.get(ssoId));
         }
-
     }
-
-
 }
 
-
 // ------------------------------------------------------------ Private Classes
-
 
 /**
  * A private class representing entries in the cache of authenticated users.
  */
 class SingleSignOnEntry {
-
     public String authType = null;
 
     public String password = null;
@@ -580,8 +489,7 @@ class SingleSignOnEntry {
 
     public String username = null;
 
-    public SingleSignOnEntry(Principal principal, String authType,
-                             String username, String password) {
+    public SingleSignOnEntry(Principal principal, String authType, String username, String password) {
         super();
         this.principal = principal;
         this.authType = authType;
@@ -604,5 +512,4 @@ class SingleSignOnEntry {
     public synchronized Session[] findSessions() {
         return (this.sessions);
     }
-
 }

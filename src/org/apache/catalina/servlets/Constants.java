@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/servlets/Constants.java,v 1.3 2001/07/22 20:25:11 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:25:11 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/servlets/Constants.java,v 1.3 2001/07/22
+ * 20:25:11 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:25:11 $
  *
  * ====================================================================
  *
@@ -61,13 +60,8 @@
  *
  */
 
-
 package org.apache.catalina.servlets;
 
-
 public class Constants {
-
     public static final String Package = "org.apache.catalina.servlets";
-
 }
-

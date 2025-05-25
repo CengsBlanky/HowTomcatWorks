@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/http/HttpResponseStream.java,v 1.14 2002/03/18 07:15:40 remm Exp $
- * $Revision: 1.14 $
- * $Date: 2002/03/18 07:15:40 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/http/HttpResponseStream.java,v 1.14
+ * 2002/03/18 07:15:40 remm Exp $ $Revision: 1.14 $ $Date: 2002/03/18 07:15:40 $
  *
  * ====================================================================
  *
@@ -61,12 +61,11 @@
  *
  */
 
-
 package org.apache.catalina.connector.http;
 
 import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.connector.ResponseStream;
 
 /**
@@ -78,19 +77,13 @@ import org.apache.catalina.connector.ResponseStream;
  * @deprecated
  */
 public final class HttpResponseStream extends ResponseStream {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     private static final int MAX_CHUNK_SIZE = 4096;
 
-
     private static final String CRLF = "\r\n";
 
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a servlet output stream associated with the specified Request.
@@ -98,37 +91,29 @@ public final class HttpResponseStream extends ResponseStream {
      * @param response The associated response
      */
     public HttpResponseStream(HttpResponseImpl response) {
-
         super(response);
         checkChunking(response);
         checkHead(response);
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * True if chunking is allowed.
      */
     private boolean useChunking;
 
-
     /**
      * True if printing a chunk.
      */
     private boolean writingChunk;
-
 
     /**
      * True if no content should be written.
      */
     private boolean writeContent;
 
-
     // -------------------------------------------- ServletOutputStream Methods
-
 
     /**
      * Write the specified byte to our output stream.
@@ -137,9 +122,7 @@ public final class HttpResponseStream extends ResponseStream {
      *
      * @exception IOException if an input/output error occurs
      */
-    public void write(int b)
-        throws IOException {
-
+    public void write(int b) throws IOException {
         if (suspended)
             return;
 
@@ -158,16 +141,12 @@ public final class HttpResponseStream extends ResponseStream {
         } else {
             super.write(b);
         }
-
     }
-
 
     /**
      * Write the specified byte array.
      */
-    public void write(byte[] b, int off, int len)
-        throws IOException {
-
+    public void write(byte[] b, int off, int len) throws IOException {
         if (suspended)
             return;
 
@@ -188,19 +167,15 @@ public final class HttpResponseStream extends ResponseStream {
         } else {
             super.write(b, off, len);
         }
-
     }
-
 
     /**
      * Close this output stream, causing any buffered data to be flushed and
      * any further output data to throw an IOException.
      */
     public void close() throws IOException {
-
         if (suspended)
-            throw new IOException
-                (sm.getString("responseStream.suspended"));
+            throw new IOException(sm.getString("responseStream.suspended"));
 
         if (!writeContent)
             return;
@@ -215,12 +190,9 @@ public final class HttpResponseStream extends ResponseStream {
             }
         }
         super.close();
-
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     void checkChunking(HttpResponseImpl response) {
         // If any data has already been written to the stream, we must not
@@ -228,10 +200,8 @@ public final class HttpResponseStream extends ResponseStream {
         if (count != 0)
             return;
         // Check the basic cases in which we chunk
-        useChunking =
-            (!response.isCommitted()
-             && response.getContentLength() == -1
-             && response.getStatus() != HttpServletResponse.SC_NOT_MODIFIED);
+        useChunking = (!response.isCommitted() && response.getContentLength() == -1
+          && response.getStatus() != HttpServletResponse.SC_NOT_MODIFIED);
         if (!response.isChunkingAllowed() && useChunking) {
             // If we should chunk, but chunking is forbidden by the connector,
             // we close the connection
@@ -246,16 +216,12 @@ public final class HttpResponseStream extends ResponseStream {
         }
     }
 
-
     protected void checkHead(HttpResponseImpl response) {
-        HttpServletRequest servletRequest = 
-            (HttpServletRequest) response.getRequest();
+        HttpServletRequest servletRequest = (HttpServletRequest) response.getRequest();
         if ("HEAD".equals(servletRequest.getMethod())) {
             writeContent = false;
         } else {
             writeContent = true;
         }
     }
-
-
 }

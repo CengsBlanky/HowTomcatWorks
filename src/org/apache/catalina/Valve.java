@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Valve.java,v 1.4 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.4 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Valve.java,v 1.4 2001/07/22 20:13:30
+ * pier Exp $ $Revision: 1.4 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,13 +60,10 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 import java.io.IOException;
 import javax.servlet.ServletException;
-
 
 /**
  * <p>A <b>Valve</b> is a request processing component associated with a
@@ -86,19 +82,14 @@ import javax.servlet.ServletException;
  */
 
 public interface Valve {
-
-
     //-------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo();
 
-
     //---------------------------------------------------------- Public Methods
-
 
     /**
      * <p>Perform request processing as required by this Valve.</p>
@@ -149,9 +140,5 @@ public interface Valve {
      * @exception ServletException if a servlet error occurs, or is thrown
      *  by a subsequently invoked Valve, Filter, or Servlet
      */
-    public void invoke(Request request, Response response,
-                       ValveContext context)
-        throws IOException, ServletException;
-
-
+    public void invoke(Request request, Response response, ValveContext context) throws IOException, ServletException;
 }

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/JAASMemoryLoginModule.java,v 1.1 2001/11/13 22:42:31 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2001/11/13 22:42:31 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/JAASMemoryLoginModule.java,v 1.1
+ * 2001/11/13 22:42:31 craigmcc Exp $ $Revision: 1.1 $ $Date: 2001/11/13 22:42:31 $
  *
  * ====================================================================
  * The Apache Software License, Version 1.1
@@ -60,18 +59,16 @@
  *
  */
 
-
 package org.apache.catalina.realm;
-
 
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.security.Principal;
-import java.security.cert.X509Certificate;
 import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
@@ -84,7 +81,6 @@ import javax.security.auth.spi.LoginModule;
 import org.apache.catalina.Container;
 import org.apache.catalina.Realm;
 import org.apache.commons.digester.Digester;
-
 
 /**
  * <p>Implementation of the JAAS <strong>LoginModule</strong> interface,
@@ -116,40 +112,32 @@ import org.apache.commons.digester.Digester;
  */
 
 public class JAASMemoryLoginModule implements LoginModule, Realm {
-
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The callback handler responsible for answering our requests.
      */
     protected CallbackHandler callbackHandler = null;
 
-
     /**
      * Has our own <code>commit()</code> returned successfully?
      */
     protected boolean committed = false;
-
 
     /**
      * Should we log debugging messages?
      */
     protected boolean debug = false;
 
-
     /**
      * The configuration information for this <code>LoginModule</code>.
      */
     protected Map options = null;
 
-
     /**
      * The absolute or relative pathname to the XML configuration file.
      */
     protected String pathname = "conf/tomcat-users.xml";
-
 
     /**
      * The <code>Principal</code> identified by our validation, or
@@ -157,12 +145,10 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      */
     protected Principal principal = null;
 
-
     /**
      * The set of <code>Principals</code> loaded from our configuration file.
      */
     protected HashMap principals = new HashMap();
-
 
     /**
      * The state information that is shared with other configured
@@ -170,15 +156,12 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      */
     protected Map sharedState = null;
 
-
     /**
      * The subject for which we are performing authentication.
      */
     protected Subject subject = null;
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a new user to the in-memory database.
@@ -188,7 +171,6 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @param roles Comma-delimited set of roles associated with this user
      */
     void addUser(String username, String password, String roles) {
-
         // Accumulate the list of roles for this user
         ArrayList list = new ArrayList();
         roles += ",";
@@ -202,12 +184,9 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
         }
 
         // Construct and cache the Principal for this user
-        GenericPrincipal principal =
-            new GenericPrincipal(this, username, password, list);
+        GenericPrincipal principal = new GenericPrincipal(this, username, password, list);
         principals.put(username, principal);
-
     }
-
 
     /**
      * Phase 2 of authenticating a <code>Subject</code> when Phase 1
@@ -221,7 +200,6 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @exception LoginException if the abort fails
      */
     public boolean abort() throws LoginException {
-
         // If our authentication was not successful, just return false
         if (principal == null)
             return (false);
@@ -234,9 +212,7 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
             principal = null;
         }
         return (true);
-
     }
-
 
     /**
      * Phase 2 of authenticating a <code>Subject</code> when Phase 1
@@ -250,7 +226,6 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @exception LoginException if the commit fails
      */
     public boolean commit() throws LoginException {
-
         // If authentication was not successful, just return false
         if (principal == null)
             return (false);
@@ -260,9 +235,7 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
             subject.getPrincipals().add(principal);
         committed = true;
         return (true);
-
     }
-
 
     /**
      * Initialize this <code>LoginModule</code> with the specified
@@ -276,9 +249,7 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @param options Configuration information for this specific
      *  <code>LoginModule</code> instance
      */
-    public void initialize(Subject subject, CallbackHandler callbackHandler,
-                           Map sharedState, Map options) {
-
+    public void initialize(Subject subject, CallbackHandler callbackHandler, Map sharedState, Map options) {
         // Save configuration values
         this.subject = subject;
         this.callbackHandler = callbackHandler;
@@ -292,9 +263,7 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
 
         // Load our defined Principals
         load();
-
     }
-
 
     /**
      * Phase 1 of authenticating a <code>Subject</code>.
@@ -306,7 +275,6 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @exception LoginException if the authentication fails
      */
     public boolean login() throws LoginException {
-
         // Set up our CallbackHandler requests
         if (callbackHandler == null)
             throw new LoginException("No CallbackHandler specified");
@@ -320,8 +288,7 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
         try {
             callbackHandler.handle(callbacks);
             username = ((NameCallback) callbacks[0]).getName();
-            password =
-                new String(((PasswordCallback) callbacks[1]).getPassword());
+            password = new String(((PasswordCallback) callbacks[1]).getPassword());
         } catch (IOException e) {
             throw new LoginException(e.toString());
         } catch (UnsupportedCallbackException e) {
@@ -335,12 +302,9 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
         if (principal != null) {
             return (true);
         } else {
-            throw new
-                FailedLoginException("Username or password is incorrect");
+            throw new FailedLoginException("Username or password is incorrect");
         }
-
     }
-
 
     /**
      * Log out this user.
@@ -351,27 +315,20 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @exception LoginException if logging out failed
      */
     public boolean logout() throws LoginException {
-
         subject.getPrincipals().remove(principal);
         committed = false;
         principal = null;
         return (true);
-
     }
 
-
     // ---------------------------------------------------------- Realm Methods
-
 
     /**
      * Return the Container with which this Realm has been associated.
      */
     public Container getContainer() {
-
         return (null);
-
     }
-
 
     /**
      * Set the Container with which this Realm has been associated.
@@ -379,11 +336,8 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @param container The associated Container
      */
     public void setContainer(Container container) {
-
         ;
-
     }
-
 
     /**
      * Return descriptive information about this Realm implementation and
@@ -391,11 +345,8 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo() {
-
         return (null);
-
     }
-
 
     /**
      * Add a property change listener to this component.
@@ -403,11 +354,8 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @param listener The listener to add
      */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
-
         ;
-
     }
-
 
     /**
      * Return the Principal associated with the specified username and
@@ -418,11 +366,8 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      *  authenticating this username
      */
     public Principal authenticate(String username, String credentials) {
-
         return (null);
-
     }
-
 
     /**
      * Return the Principal associated with the specified username and
@@ -433,11 +378,8 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      *  authenticating this username
      */
     public Principal authenticate(String username, byte[] credentials) {
-
         return (null);
-
     }
-
 
     /**
      * Return the Principal associated with the specified username, which
@@ -452,15 +394,10 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @param md5a2 Second MD5 digest used to calculate the digest :
      * MD5(Method + ":" + uri)
      */
-    public Principal authenticate(String username, String digest,
-                                  String nonce, String nc, String cnonce,
-                                  String qop, String realm,
-                                  String md5a2) {
-
+    public Principal authenticate(
+      String username, String digest, String nonce, String nc, String cnonce, String qop, String realm, String md5a2) {
         return (null);
-
     }
-
 
     /**
      * Return the Principal associated with the specified chain of X509
@@ -470,11 +407,8 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      *  the array being the certificate of the client itself.
      */
     public Principal authenticate(X509Certificate certs[]) {
-
         return (null);
-
     }
-
 
     /**
      * Return <code>true</code> if the specified Principal has the specified
@@ -485,11 +419,8 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @param role Security role to be checked
      */
     public boolean hasRole(Principal principal, String role) {
-
         return (false);
-
     }
-
 
     /**
      * Remove a property change listener from this component.
@@ -497,20 +428,15 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @param listener The listener to remove
      */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
-
         ;
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Load the contents of our configuration file.
      */
     protected void load() {
-
         // Validate the existence of our configuration file
         File file = new File(pathname);
         if (!file.isAbsolute())
@@ -528,13 +454,10 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
             digester.push(this);
             digester.parse(file);
         } catch (Exception e) {
-            log("Error processing configuration file " +
-                file.getAbsolutePath(), e);
+            log("Error processing configuration file " + file.getAbsolutePath(), e);
             return;
         }
-
     }
-
 
     /**
      * Log a message.
@@ -542,12 +465,9 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @param message The message to be logged
      */
     protected void log(String message) {
-
         System.out.print("JAASMemoryLoginModule: ");
         System.out.println(message);
-
     }
-
 
     /**
      * Log a message and associated exception.
@@ -556,11 +476,7 @@ public class JAASMemoryLoginModule implements LoginModule, Realm {
      * @param exception The associated exception
      */
     protected void log(String message, Throwable exception) {
-
         log(message);
         exception.printStackTrace(System.out);
-
     }
-
-
 }

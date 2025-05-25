@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/Base64.java,v 1.4 2001/09/04 21:49:55 craigmcc Exp $
- * $Revision: 1.4 $
- * $Date: 2001/09/04 21:49:55 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/util/Base64.java,v 1.4 2001/09/04
+ * 21:49:55 craigmcc Exp $ $Revision: 1.4 $ $Date: 2001/09/04 21:49:55 $
  *
  * ====================================================================
  *
@@ -63,8 +62,8 @@
 
 package org.apache.catalina.util;
 
-import java.util.*;
 import java.text.*;
+import java.util.*;
 
 /**
  *  Common place for date utils.
@@ -75,50 +74,47 @@ import java.text.*;
  * @author Costin Manolache
  */
 public class DateTool {
+    private static StringManager sm = StringManager.getManager("org.apache.catalina.util");
 
-    private static StringManager sm =
-        StringManager.getManager("org.apache.catalina.util");
-
-    /** US locale - all HTTP dates are in english
+    /**
+     * US locale - all HTTP dates are in english
      */
     public final static Locale LOCALE_US = Locale.US;
 
-    /** GMT timezone - all HTTP dates are on GMT
+    /**
+     * GMT timezone - all HTTP dates are on GMT
      */
     public final static TimeZone GMT_ZONE = TimeZone.getTimeZone("GMT");
 
-    /** format for RFC 1123 date string -- "Sun, 06 Nov 1994 08:49:37 GMT"
+    /**
+     * format for RFC 1123 date string -- "Sun, 06 Nov 1994 08:49:37 GMT"
      */
-    public final static String RFC1123_PATTERN =
-        "EEE, dd MMM yyyyy HH:mm:ss z";
+    public final static String RFC1123_PATTERN = "EEE, dd MMM yyyyy HH:mm:ss z";
 
     // format for RFC 1036 date string -- "Sunday, 06-Nov-94 08:49:37 GMT"
-    private final static String rfc1036Pattern =
-        "EEEEEEEEE, dd-MMM-yy HH:mm:ss z";
+    private final static String rfc1036Pattern = "EEEEEEEEE, dd-MMM-yy HH:mm:ss z";
 
     // format for C asctime() date string -- "Sun Nov  6 08:49:37 1994"
-    private final static String asctimePattern =
-        "EEE MMM d HH:mm:ss yyyyy";
+    private final static String asctimePattern = "EEE MMM d HH:mm:ss yyyyy";
 
-    /** Pattern used for old cookies
+    /**
+     * Pattern used for old cookies
      */
     public final static String OLD_COOKIE_PATTERN = "EEE, dd-MMM-yyyy HH:mm:ss z";
 
-    /** DateFormat to be used to format dates
+    /**
+     * DateFormat to be used to format dates
      */
-    public final static DateFormat rfc1123Format =
-        new SimpleDateFormat(RFC1123_PATTERN, LOCALE_US);
+    public final static DateFormat rfc1123Format = new SimpleDateFormat(RFC1123_PATTERN, LOCALE_US);
 
-    /** DateFormat to be used to format old netscape cookies
+    /**
+     * DateFormat to be used to format old netscape cookies
      */
-    public final static DateFormat oldCookieFormat =
-        new SimpleDateFormat(OLD_COOKIE_PATTERN, LOCALE_US);
+    public final static DateFormat oldCookieFormat = new SimpleDateFormat(OLD_COOKIE_PATTERN, LOCALE_US);
 
-    public final static DateFormat rfc1036Format =
-        new SimpleDateFormat(rfc1036Pattern, LOCALE_US);
+    public final static DateFormat rfc1036Format = new SimpleDateFormat(rfc1036Pattern, LOCALE_US);
 
-    public final static DateFormat asctimeFormat =
-        new SimpleDateFormat(asctimePattern, LOCALE_US);
+    public final static DateFormat asctimeFormat = new SimpleDateFormat(asctimePattern, LOCALE_US);
 
     static {
         rfc1123Format.setTimeZone(GMT_ZONE);
@@ -126,5 +122,4 @@ public class DateTool {
         rfc1036Format.setTimeZone(GMT_ZONE);
         asctimeFormat.setTimeZone(GMT_ZONE);
     }
-
 }

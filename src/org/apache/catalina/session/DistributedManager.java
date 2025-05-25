@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/session/DistributedManager.java,v 1.5 2002/01/03 08:52:57 remm Exp $
- * $Revision: 1.5 $
- * $Date: 2002/01/03 08:52:57 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/session/DistributedManager.java,v 1.5
+ * 2002/01/03 08:52:57 remm Exp $ $Revision: 1.5 $ $Date: 2002/01/03 08:52:57 $
  *
  * ====================================================================
  *
@@ -74,8 +73,8 @@ import org.apache.catalina.Container;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Loader;
 import org.apache.catalina.Session;
-import org.apache.catalina.cluster.ClusterSender;
 import org.apache.catalina.cluster.ClusterReceiver;
+import org.apache.catalina.cluster.ClusterSender;
 import org.apache.catalina.cluster.ReplicationWrapper;
 import org.apache.catalina.util.CustomObjectInputStream;
 
@@ -89,10 +88,7 @@ import org.apache.catalina.util.CustomObjectInputStream;
  */
 
 public final class DistributedManager extends PersistentManagerBase {
-
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The descriptive information about this implementation.
@@ -114,9 +110,7 @@ public final class DistributedManager extends PersistentManagerBase {
      */
     private ClusterReceiver clusterReceiver = null;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Manager implementation and
@@ -134,9 +128,7 @@ public final class DistributedManager extends PersistentManagerBase {
         return (this.name);
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Create a Session and replicate it in our Cluster
@@ -153,16 +145,16 @@ public final class DistributedManager extends PersistentManagerBase {
             bos = new ByteArrayOutputStream();
             oos = new ObjectOutputStream(new BufferedOutputStream(bos));
 
-            ((StandardSession)session).writeObjectData(oos);
+            ((StandardSession) session).writeObjectData(oos);
             oos.close();
 
             byte[] obs = bos.toByteArray();
             clusterSender.send(obs);
 
-            if(debug > 0)
-                log("Replicating Session: "+session.getId());
+            if (debug > 0)
+                log("Replicating Session: " + session.getId());
         } catch (IOException e) {
-            log("An error occurred when replicating Session: "+session.getId());
+            log("An error occurred when replicating Session: " + session.getId());
         }
 
         return (session);
@@ -177,10 +169,10 @@ public final class DistributedManager extends PersistentManagerBase {
         Container container = getContainer();
         Cluster cluster = null;
 
-        if(container != null)
+        if (container != null)
             cluster = container.getCluster();
 
-        if(cluster != null) {
+        if (cluster != null) {
             this.clusterSender = cluster.getClusterSender(getName());
             this.clusterReceiver = cluster.getClusterReceiver(getName());
         }
@@ -202,10 +194,10 @@ public final class DistributedManager extends PersistentManagerBase {
         byte[] buf = new byte[5000];
         ReplicationWrapper repObj = null;
 
-        for(int i=0; i < objs.length;i++) {
+        for (int i = 0; i < objs.length; i++) {
             try {
                 bis = new ByteArrayInputStream(buf);
-                repObj = (ReplicationWrapper)objs[i];
+                repObj = (ReplicationWrapper) objs[i];
                 buf = repObj.getDataStream();
                 bis = new ByteArrayInputStream(buf, 0, buf.length);
 
@@ -216,8 +208,7 @@ public final class DistributedManager extends PersistentManagerBase {
                     classLoader = loader.getClassLoader();
 
                 if (classLoader != null)
-                    ois = new CustomObjectInputStream(bis,
-                                                      classLoader);
+                    ois = new CustomObjectInputStream(bis, classLoader);
                 else
                     ois = new ObjectInputStream(bis);
 
@@ -226,13 +217,11 @@ public final class DistributedManager extends PersistentManagerBase {
                 _session.setManager(this);
 
                 if (debug > 0)
-                    log("Loading replicated session: "+_session.getId());
+                    log("Loading replicated session: " + _session.getId());
             } catch (IOException e) {
-                log("Error occurred when trying to read replicated session: "+
-                    e.toString());
+                log("Error occurred when trying to read replicated session: " + e.toString());
             } catch (ClassNotFoundException e) {
-                log("Error occurred when trying to read replicated session: "+
-                    e.toString());
+                log("Error occurred when trying to read replicated session: " + e.toString());
             } finally {
                 if (ois != null) {
                     try {

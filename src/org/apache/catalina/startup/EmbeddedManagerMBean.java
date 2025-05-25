@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/EmbeddedManagerMBean.java,v 1.4 2001/07/22 20:25:13 pier Exp $
- * $Revision: 1.4 $
- * $Date: 2001/07/22 20:25:13 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/EmbeddedManagerMBean.java,v 1.4
+ * 2001/07/22 20:25:13 pier Exp $ $Revision: 1.4 $ $Date: 2001/07/22 20:25:13 $
  *
  * ====================================================================
  *
@@ -71,7 +70,6 @@ import org.apache.catalina.Host;
 import org.apache.catalina.Logger;
 import org.apache.catalina.Realm;
 
-
 /**
  * Embedded MBean interface.
  *
@@ -80,62 +78,49 @@ import org.apache.catalina.Realm;
  */
 
 public interface EmbeddedManagerMBean {
-
-
     // -------------------------------------------------------------- Constants
-
 
     /**
      * Status constants.
      */
-    public static final String[] states =
-    {"Stopped", "Stopping", "Starting", "Started"};
+    public static final String[] states = {"Stopped", "Stopping", "Starting", "Started"};
 
-
-    public static final int STOPPED  = 0;
+    public static final int STOPPED = 0;
     public static final int STOPPING = 1;
     public static final int STARTING = 2;
-    public static final int STARTED  = 3;
-
+    public static final int STARTED = 3;
 
     /**
      * Component name.
      */
     public static final String NAME = "Catalina servlet container";
 
-
     /**
      * Object name.
      */
     public static final String OBJECT_NAME = ":service=Catalina";
 
-
     // ------------------------------------------------------ Interface Methods
 
-
-     /**
+    /**
      * Retruns the Catalina component name.
      */
     public String getName();
-
 
     /**
      * Returns the state.
      */
     public int getState();
 
-
     /**
      * Returns a String representation of the state.
      */
     public String getStateString();
 
-
-   /**
+    /**
      * Return the debugging detail level for this component.
      */
     public int getDebug();
-
 
     /**
      * Set the debugging detail level for this component.
@@ -144,12 +129,10 @@ public interface EmbeddedManagerMBean {
      */
     public void setDebug(int debug);
 
-
     /**
      * Return true if naming is enabled.
      */
     public boolean isUseNaming();
-
 
     /**
      * Enables or disables naming support.
@@ -158,12 +141,10 @@ public interface EmbeddedManagerMBean {
      */
     public void setUseNaming(boolean useNaming);
 
-
     /**
      * Return the Logger for this component.
      */
     public Logger getLogger();
-
 
     /**
      * Set the Logger for this component.
@@ -172,12 +153,10 @@ public interface EmbeddedManagerMBean {
      */
     public void setLogger(Logger logger);
 
-
     /**
      * Return the default Realm for our Containers.
      */
     public Realm getRealm();
-
 
     /**
      * Set the default Realm for our Containers.
@@ -186,12 +165,10 @@ public interface EmbeddedManagerMBean {
      */
     public void setRealm(Realm realm);
 
-
     /**
      * Return the secure socket factory class name.
      */
     public String getSocketFactory();
-
 
     /**
      * Set the secure socket factory class name.
@@ -199,7 +176,6 @@ public interface EmbeddedManagerMBean {
      * @param socketFactory The new secure socket factory class name
      */
     public void setSocketFactory(String socketFactory);
-
 
     /**
      * Add a new Connector to the set of defined Connectors.  The newly
@@ -211,14 +187,12 @@ public interface EmbeddedManagerMBean {
      */
     public void addConnector(Connector connector);
 
-
     /**
      * Add a new Engine to the set of defined Engines.
      *
      * @param engine The engine to be added
      */
     public void addEngine(Engine engine);
-
 
     /**
      * Create, configure, and return a new TCP/IP socket connector
@@ -229,9 +203,7 @@ public interface EmbeddedManagerMBean {
      * @param port Port number to listen to
      * @param secure Should this port be SSL-enabled?
      */
-    public Connector createConnector(InetAddress address, int port,
-                                     boolean secure);
-
+    public Connector createConnector(InetAddress address, int port, boolean secure);
 
     /**
      * Create, configure, and return a Context that will process all
@@ -258,14 +230,12 @@ public interface EmbeddedManagerMBean {
      */
     public Context createContext(String path, String docBase);
 
-
     /**
      * Create, configure, and return an Engine that will process all
      * HTTP requests received from one of the associated Connectors,
      * based on the specified properties.
      */
     public Engine createEngine();
-
 
     /**
      * Create, configure, and return a Host that will process all
@@ -295,7 +265,6 @@ public interface EmbeddedManagerMBean {
      */
     public Host createHost(String name, String appBase);
 
-
     /**
      * Return descriptive information about this Server implementation and
      * the corresponding version number, in the format
@@ -303,14 +272,12 @@ public interface EmbeddedManagerMBean {
      */
     public String getInfo();
 
-
     /**
      * Remove the specified Connector from the set of defined Connectors.
      *
      * @param connector The Connector to be removed
      */
     public void removeConnector(Connector connector);
-
 
     /**
      * Remove the specified Context from the set of defined Contexts for its
@@ -321,7 +288,6 @@ public interface EmbeddedManagerMBean {
      */
     public void removeContext(Context context);
 
-
     /**
      * Remove the specified Engine from the set of defined Engines, along with
      * all of its related Hosts and Contexts.  All associated Connectors are
@@ -331,7 +297,6 @@ public interface EmbeddedManagerMBean {
      */
     public void removeEngine(Engine engine);
 
-
     /**
      * Remove the specified Host, along with all of its related Contexts,
      * from the set of defined Hosts for its associated Engine.  If this is
@@ -340,7 +305,6 @@ public interface EmbeddedManagerMBean {
      * @param host The Host to be removed
      */
     public void removeHost(Host host);
-
 
     /**
      * Prepare for the beginning of active use of the public methods of this
@@ -352,7 +316,6 @@ public interface EmbeddedManagerMBean {
      */
     public void start();
 
-
     /**
      * Gracefully terminate the active use of the public methods of this
      * component.  This method should be the last one called on a given
@@ -362,11 +325,8 @@ public interface EmbeddedManagerMBean {
      */
     public void stop();
 
-
     /**
      * Destroy servlet container (if any is running).
      */
     public void destroy();
-
-
 }

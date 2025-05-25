@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardHost.java,v 1.29 2002/06/09 02:19:42 remm Exp $
- * $Revision: 1.29 $
- * $Date: 2002/06/09 02:19:42 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardHost.java,v 1.29 2002/06/09
+ * 02:19:42 remm Exp $ $Revision: 1.29 $ $Date: 2002/06/09 02:19:42 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -76,7 +73,6 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Valve;
 import org.apache.catalina.valves.ErrorDispatcherValve;
 
-
 /**
  * Standard implementation of the <b>Host</b> interface.  Each
  * child container must be a Context implementation to process the
@@ -87,61 +83,45 @@ import org.apache.catalina.valves.ErrorDispatcherValve;
  * @version $Revision: 1.29 $ $Date: 2002/06/09 02:19:42 $
  */
 
-public class StandardHost
-    extends ContainerBase
-    implements Deployer, Host {
-
-
+public class StandardHost extends ContainerBase implements Deployer, Host {
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Create a new StandardHost component with the default basic Valve.
      */
     public StandardHost() {
-
         super();
         pipeline.setBasic(new StandardHostValve());
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The set of aliases for this Host.
      */
     private String[] aliases = new String[0];
 
-
     /**
      * The application root for this Host.
      */
     private String appBase = ".";
-
 
     /**
      * The auto deploy flag for this Host.
      */
     private boolean autoDeploy = true;
 
-
     /**
      * The Java class name of the default context configuration class
      * for deployed web applications.
      */
-    private String configClass =
-        "org.apache.catalina.startup.ContextConfig";
-
+    private String configClass = "org.apache.catalina.startup.ContextConfig";
 
     /**
      * The Java class name of the default Context implementation class for
      * deployed web applications.
      */
-    private String contextClass =
-        "org.apache.catalina.core.StandardContext";
-
+    private String contextClass = "org.apache.catalina.core.StandardContext";
 
     /**
      * The <code>Deployer</code> to whom we delegate application
@@ -149,72 +129,56 @@ public class StandardHost
      */
     private Deployer deployer = new StandardHostDeployer(this);
 
-
     /**
      * deploy Context XML config files property.
      */
     private boolean deployXML = true;
 
-
     /**
      * The Java class name of the default error reporter implementation class
      * for deployed web applications.
      */
-    private String errorReportValveClass =
-        "org.apache.catalina.valves.ErrorReportValve";
-
+    private String errorReportValveClass = "org.apache.catalina.valves.ErrorReportValve";
 
     /**
      * The descriptive information string for this implementation.
      */
-    private static final String info =
-        "org.apache.catalina.core.StandardHost/1.0";
-
+    private static final String info = "org.apache.catalina.core.StandardHost/1.0";
 
     /**
      * The live deploy flag for this Host.
      */
     private boolean liveDeploy = true;
 
-
     /**
      * The Java class name of the default Mapper class for this Container.
      */
-    private String mapperClass =
-        "org.apache.catalina.core.StandardHostMapper";
-
+    private String mapperClass = "org.apache.catalina.core.StandardHostMapper";
 
     /**
      * Unpack WARs property.
      */
     private boolean unpackWARs = true;
 
-
     /**
      * Work Directory base for applications.
      */
     private String workDir = null;
-
 
     /**
      * DefaultContext config
      */
     private DefaultContext defaultContext;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the application root for this Host.  This can be an absolute
      * pathname, a relative pathname, or a URL.
      */
     public String getAppBase() {
-
         return (this.appBase);
-
     }
-
 
     /**
      * Set the application root for this Host.  This can be an absolute
@@ -223,13 +187,10 @@ public class StandardHost
      * @param appBase The new application root
      */
     public void setAppBase(String appBase) {
-
         String oldAppBase = this.appBase;
         this.appBase = appBase;
         support.firePropertyChange("appBase", oldAppBase, this.appBase);
-
     }
-
 
     /**
      * Return the value of the auto deploy flag.  If true, it indicates that
@@ -237,11 +198,8 @@ public class StandardHost
      * deployed at startup time.
      */
     public boolean getAutoDeploy() {
-
         return (this.autoDeploy);
-
     }
-
 
     /**
      * Set the auto deploy flag value for this host.
@@ -249,25 +207,18 @@ public class StandardHost
      * @param autoDeploy The new auto deploy flag
      */
     public void setAutoDeploy(boolean autoDeploy) {
-
         boolean oldAutoDeploy = this.autoDeploy;
         this.autoDeploy = autoDeploy;
-        support.firePropertyChange("autoDeploy", oldAutoDeploy,
-                                   this.autoDeploy);
-
+        support.firePropertyChange("autoDeploy", oldAutoDeploy, this.autoDeploy);
     }
-
 
     /**
      * Return the Java class name of the context configuration class
      * for new web applications.
      */
     public String getConfigClass() {
-
         return (this.configClass);
-
     }
-
 
     /**
      * Set the Java class name of the context configuration class
@@ -276,14 +227,10 @@ public class StandardHost
      * @param configClass The new context configuration class
      */
     public void setConfigClass(String configClass) {
-
         String oldConfigClass = this.configClass;
         this.configClass = configClass;
-        support.firePropertyChange("configClass",
-                                   oldConfigClass, this.configClass);
-
+        support.firePropertyChange("configClass", oldConfigClass, this.configClass);
     }
-
 
     /**
      * Set the DefaultContext
@@ -292,14 +239,10 @@ public class StandardHost
      * @param defaultContext The new DefaultContext
      */
     public void addDefaultContext(DefaultContext defaultContext) {
-
         DefaultContext oldDefaultContext = this.defaultContext;
         this.defaultContext = defaultContext;
-        support.firePropertyChange("defaultContext",
-                                   oldDefaultContext, this.defaultContext);
-
+        support.firePropertyChange("defaultContext", oldDefaultContext, this.defaultContext);
     }
-
 
     /**
      * Retrieve the DefaultContext for new web applications.
@@ -308,17 +251,13 @@ public class StandardHost
         return (this.defaultContext);
     }
 
-
     /**
      * Return the Java class name of the Context implementation class
      * for new web applications.
      */
     public String getContextClass() {
-
         return (this.contextClass);
-
     }
-
 
     /**
      * Set the Java class name of the Context implementation class
@@ -327,34 +266,24 @@ public class StandardHost
      * @param contextClass The new context implementation class
      */
     public void setContextClass(String contextClass) {
-
         String oldContextClass = this.contextClass;
         this.contextClass = contextClass;
-        support.firePropertyChange("contextClass",
-                                   oldContextClass, this.contextClass);
-
+        support.firePropertyChange("contextClass", oldContextClass, this.contextClass);
     }
-
 
     /**
      * Deploy XML Context config files flag accessor.
      */
     public boolean isDeployXML() {
-
         return (deployXML);
-
     }
-
 
     /**
      * Deploy XML Context config files flag mutator.
      */
     public void setDeployXML(boolean deployXML) {
-
         this.deployXML = deployXML;
-
     }
-
 
     /**
      * Return the value of the live deploy flag.  If true, it indicates that
@@ -364,11 +293,8 @@ public class StandardHost
      * encountered.
      */
     public boolean getLiveDeploy() {
-
         return (this.liveDeploy);
-
     }
-
 
     /**
      * Set the live deploy flag value for this host.
@@ -376,24 +302,17 @@ public class StandardHost
      * @param liveDeploy The new live deploy flag
      */
     public void setLiveDeploy(boolean liveDeploy) {
-
         boolean oldLiveDeploy = this.liveDeploy;
         this.liveDeploy = liveDeploy;
-        support.firePropertyChange("liveDeploy", oldLiveDeploy,
-                                   this.liveDeploy);
-
+        support.firePropertyChange("liveDeploy", oldLiveDeploy, this.liveDeploy);
     }
-
 
     /**
      * Return the default Mapper class name.
      */
     public String getMapperClass() {
-
         return (this.mapperClass);
-
     }
-
 
     /**
      * Set the default Mapper class name.
@@ -401,25 +320,18 @@ public class StandardHost
      * @param mapperClass The new default Mapper class name
      */
     public void setMapperClass(String mapperClass) {
-
         String oldMapperClass = this.mapperClass;
         this.mapperClass = mapperClass;
-        support.firePropertyChange("mapperClass",
-                                   oldMapperClass, this.mapperClass);
-
+        support.firePropertyChange("mapperClass", oldMapperClass, this.mapperClass);
     }
-
 
     /**
      * Return the Java class name of the error report valve class
      * for new web applications.
      */
     public String getErrorReportValveClass() {
-
         return (this.errorReportValveClass);
-
     }
-
 
     /**
      * Set the Java class name of the error report valve class
@@ -428,26 +340,18 @@ public class StandardHost
      * @param errorReportValveClass The new error report valve class
      */
     public void setErrorReportValveClass(String errorReportValveClass) {
-
         String oldErrorReportValveClassClass = this.errorReportValveClass;
         this.errorReportValveClass = errorReportValveClass;
-        support.firePropertyChange("errorReportValveClass",
-                                   oldErrorReportValveClassClass,
-                                   this.errorReportValveClass);
-
+        support.firePropertyChange("errorReportValveClass", oldErrorReportValveClassClass, this.errorReportValveClass);
     }
-
 
     /**
      * Return the canonical, fully qualified, name of the virtual host
      * this Container represents.
      */
     public String getName() {
-
         return (name);
-
     }
-
 
     /**
      * Set the canonical, fully qualified, name of the virtual host
@@ -458,60 +362,45 @@ public class StandardHost
      * @exception IllegalArgumentException if name is null
      */
     public void setName(String name) {
-
         if (name == null)
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.nullName"));
+            throw new IllegalArgumentException(sm.getString("standardHost.nullName"));
 
-        name = name.toLowerCase();      // Internally all names are lower case
+        name = name.toLowerCase(); // Internally all names are lower case
 
         String oldName = this.name;
         this.name = name;
         support.firePropertyChange("name", oldName, this.name);
-
     }
-
 
     /**
      * Unpack WARs flag accessor.
      */
     public boolean isUnpackWARs() {
-
         return (unpackWARs);
-
     }
-
 
     /**
      * Unpack WARs flag mutator.
      */
     public void setUnpackWARs(boolean unpackWARs) {
-
         this.unpackWARs = unpackWARs;
-
     }
-
 
     /**
      * Host work directory base.
      */
     public String getWorkDir() {
-
         return (workDir);
     }
-
 
     /**
      * Host work directory base.
      */
     public void setWorkDir(String workDir) {
-
         this.workDir = workDir;
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Import the DefaultContext config into a web application context.
@@ -519,10 +408,8 @@ public class StandardHost
      * @param context web application context to import default context
      */
     public void importDefaultContext(Context context) {
-
-        if( this.defaultContext != null )
+        if (this.defaultContext != null)
             this.defaultContext.importDefaultContext(context);
-
     }
 
     /**
@@ -531,7 +418,6 @@ public class StandardHost
      * @param alias The alias to be added
      */
     public void addAlias(String alias) {
-
         alias = alias.toLowerCase();
 
         // Skip duplicate aliases
@@ -542,17 +428,14 @@ public class StandardHost
 
         // Add this alias to the list
         String newAliases[] = new String[aliases.length + 1];
-        for (int i = 0; i < aliases.length; i++)
-            newAliases[i] = aliases[i];
+        for (int i = 0; i < aliases.length; i++) newAliases[i] = aliases[i];
         newAliases[aliases.length] = alias;
 
         aliases = newAliases;
 
         // Inform interested listeners
         fireContainerEvent(ADD_ALIAS_EVENT, alias);
-
     }
-
 
     /**
      * Add a child Container, only if the proposed child is an implementation
@@ -561,26 +444,19 @@ public class StandardHost
      * @param child Child container to be added
      */
     public void addChild(Container child) {
-
         if (!(child instanceof Context)) {
-            throw new IllegalArgumentException
-                (sm.getString("standardHost.notContext"));
+            throw new IllegalArgumentException(sm.getString("standardHost.notContext"));
         }
         super.addChild(child);
-
     }
-
 
     /**
      * Return the set of alias names for this Host.  If none are defined,
      * a zero length array is returned.
      */
     public String[] findAliases() {
-
         return (this.aliases);
-
     }
-
 
     /**
      * Return descriptive information about this Container implementation and
@@ -588,11 +464,8 @@ public class StandardHost
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo() {
-
         return (info);
-
     }
-
 
     /**
      * Return the Context that would be used to process the specified
@@ -601,7 +474,6 @@ public class StandardHost
      * @param uri Request URI to be mapped
      */
     public Context map(String uri) {
-
         if (debug > 0)
             log("Mapping request URI '" + uri + "'");
         if (uri == null)
@@ -639,9 +511,7 @@ public class StandardHost
         if (debug > 0)
             log(" Mapped to context '" + context.getPath() + "'");
         return (context);
-
     }
-
 
     /**
      * Remove the specified alias name from the aliases for this Host.
@@ -649,11 +519,9 @@ public class StandardHost
      * @param alias Alias name to be removed
      */
     public void removeAlias(String alias) {
-
         alias = alias.toLowerCase();
 
         synchronized (aliases) {
-
             // Make sure this alias is currently present
             int n = -1;
             for (int i = 0; i < aliases.length; i++) {
@@ -673,20 +541,16 @@ public class StandardHost
                     results[j++] = aliases[i];
             }
             aliases = results;
-
         }
 
         // Inform interested listeners
         fireContainerEvent(REMOVE_ALIAS_EVENT, alias);
-
     }
-
 
     /**
      * Return a String representation of this component.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer();
         if (getParent() != null) {
             sb.append(getParent().toString());
@@ -696,9 +560,7 @@ public class StandardHost
         sb.append(getName());
         sb.append("]");
         return (sb.toString());
-
     }
-
 
     /**
      * Start this host.
@@ -708,16 +570,12 @@ public class StandardHost
      */
     public synchronized void start() throws LifecycleException {
         // Set error report valve
-        if ((errorReportValveClass != null)
-            && (!errorReportValveClass.equals(""))) {
+        if ((errorReportValveClass != null) && (!errorReportValveClass.equals(""))) {
             try {
-                Valve valve = (Valve) Class.forName(errorReportValveClass)
-                    .newInstance();
+                Valve valve = (Valve) Class.forName(errorReportValveClass).newInstance();
                 addValve(valve);
             } catch (Throwable t) {
-                log(sm.getString
-                    ("standardHost.invalidErrorReportValveClass",
-                     errorReportValveClass));
+                log(sm.getString("standardHost.invalidErrorReportValveClass", errorReportValveClass));
             }
         }
 
@@ -725,12 +583,9 @@ public class StandardHost
         addValve(new ErrorDispatcherValve());
 
         super.start();
-
     }
 
-
     // ------------------------------------------------------- Deployer Methods
-
 
     /**
      * Install a new web application, whose web application archive is at the
@@ -757,11 +612,8 @@ public class StandardHost
      *  during install
      */
     public void install(String contextPath, URL war) throws IOException {
-
         deployer.install(contextPath, war);
-
     }
-
 
     /**
      * <p>Install a new web application, whose context configuration file
@@ -788,11 +640,8 @@ public class StandardHost
      *  during installation
      */
     public synchronized void install(URL config, URL war) throws IOException {
-
         deployer.install(config, war);
-
     }
-
 
     /**
      * Return the Context for the deployed application that is associated
@@ -802,11 +651,8 @@ public class StandardHost
      * @param contextPath The context path of the requested web application
      */
     public Context findDeployedApp(String contextPath) {
-
         return (deployer.findDeployedApp(contextPath));
-
     }
-
 
     /**
      * Return the context paths of all deployed web applications in this
@@ -814,11 +660,8 @@ public class StandardHost
      * array is returned.
      */
     public String[] findDeployedApps() {
-
         return (deployer.findDeployedApps());
-
     }
-
 
     /**
      * Remove an existing web application, attached to the specified context
@@ -837,11 +680,8 @@ public class StandardHost
      *  removal
      */
     public void remove(String contextPath) throws IOException {
-
         deployer.remove(contextPath);
-
     }
-
 
     /**
      * Start an existing web application, attached to the specified context
@@ -857,11 +697,8 @@ public class StandardHost
      *  startup
      */
     public void start(String contextPath) throws IOException {
-
         deployer.start(contextPath);
-
     }
-
 
     /**
      * Stop an existing web application, attached to the specified context
@@ -877,14 +714,10 @@ public class StandardHost
      *  the web application
      */
     public void stop(String contextPath) throws IOException {
-
         deployer.stop(contextPath);
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Add a default Mapper implementation if none have been configured
@@ -893,10 +726,6 @@ public class StandardHost
      * @param mapperClass Java class name of the default Mapper
      */
     protected void addDefaultMapper(String mapperClass) {
-
         super.addDefaultMapper(this.mapperClass);
-
     }
-
-
 }

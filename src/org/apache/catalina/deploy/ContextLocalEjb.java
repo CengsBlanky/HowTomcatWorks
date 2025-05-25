@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ContextLocalEjb.java,v 1.4 2002/06/08 07:24:59 remm Exp $
- * $Revision: 1.4 $
- * $Date: 2002/06/08 07:24:59 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ContextLocalEjb.java,v 1.4
+ * 2002/06/08 07:24:59 remm Exp $ $Revision: 1.4 $ $Date: 2002/06/08 07:24:59 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
-
 
 /**
  * Representation of a local EJB resource reference for a web application, as
@@ -75,10 +72,7 @@ package org.apache.catalina.deploy;
  */
 
 public final class ContextLocalEjb {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The description of this EJB.
@@ -93,7 +87,6 @@ public final class ContextLocalEjb {
         this.description = description;
     }
 
-
     /**
      * The name of the EJB home implementation class.
      */
@@ -106,7 +99,6 @@ public final class ContextLocalEjb {
     public void setHome(String home) {
         this.home = home;
     }
-
 
     /**
      * The link to a J2EE EJB definition.
@@ -121,7 +113,6 @@ public final class ContextLocalEjb {
         this.link = link;
     }
 
-
     /**
      * The name of the EJB local implementation class.
      */
@@ -134,7 +125,6 @@ public final class ContextLocalEjb {
     public void setLocal(String local) {
         this.local = local;
     }
-
 
     /**
      * The name of this EJB.
@@ -149,7 +139,6 @@ public final class ContextLocalEjb {
         this.name = name;
     }
 
-
     /**
      * The name of the EJB bean implementation class.
      */
@@ -163,15 +152,12 @@ public final class ContextLocalEjb {
         this.type = type;
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("ContextLocalEjb[");
         sb.append("name=");
         sb.append(name);
@@ -197,12 +183,9 @@ public final class ContextLocalEjb {
         }
         sb.append("]");
         return (sb.toString());
-
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * The NamingResources with which we are associated (if any).
@@ -216,6 +199,4 @@ public final class ContextLocalEjb {
     void setNamingResources(NamingResources resources) {
         this.resources = resources;
     }
-
-
 }

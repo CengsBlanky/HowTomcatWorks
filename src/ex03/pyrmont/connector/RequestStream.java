@@ -2,11 +2,10 @@ package ex03.pyrmont.connector;
 
 import ex03.pyrmont.connector.http.Constants;
 import ex03.pyrmont.connector.http.HttpRequest;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.servlet.ServletInputStream;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * Convenience implementation of <b>ServletInputStream</b> that works with
@@ -19,12 +18,8 @@ import org.apache.catalina.util.StringManager;
  * @deprecated
  */
 
-public class RequestStream
-    extends ServletInputStream {
-
-
+public class RequestStream extends ServletInputStream {
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a servlet input stream associated with the specified Request.
@@ -32,30 +27,24 @@ public class RequestStream
      * @param request The associated request
      */
     public RequestStream(HttpRequest request) {
-
         super();
         closed = false;
         count = 0;
         length = request.getContentLength();
         stream = request.getStream();
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Has this stream been closed?
      */
     protected boolean closed = false;
 
-
     /**
      * The number of bytes which have already been returned by this stream.
      */
     protected int count = 0;
-
 
     /**
      * The content length past which we will not read, or -1 if there is
@@ -63,22 +52,17 @@ public class RequestStream
      */
     protected int length = -1;
 
-
     /**
      * The localized strings for this package.
      */
-    protected static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static StringManager sm = StringManager.getManager(Constants.Package);
 
     /**
      * The underlying input stream from which we should read data.
      */
     protected InputStream stream = null;
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Close this input stream.  No physical level I-O is performed, but
@@ -87,7 +71,6 @@ public class RequestStream
      * consumed, the remaining bytes will be swallowed.
      */
     public void close() throws IOException {
-
         if (closed)
             throw new IOException(sm.getString("requestStream.close.closed"));
 
@@ -100,10 +83,7 @@ public class RequestStream
         }
 
         closed = true;
-
     }
-
-
 
     /**
      * Read and return a single byte from this input stream, or -1 if end of
@@ -112,23 +92,20 @@ public class RequestStream
      * @exception IOException if an input/output error occurs
      */
     public int read() throws IOException {
-
         // Has this stream been closed?
         if (closed)
             throw new IOException(sm.getString("requestStream.read.closed"));
 
         // Have we read the specified content length already?
         if ((length >= 0) && (count >= length))
-            return (-1);        // End of file indicator
+            return (-1); // End of file indicator
 
         // Read and count the next byte, then return it
         int b = stream.read();
         if (b >= 0)
             count++;
         return (b);
-
     }
-
 
     /**
      * Read some number of bytes from the input stream, and store them
@@ -141,11 +118,8 @@ public class RequestStream
      * @exception IOException if an input/output error occurs
      */
     public int read(byte b[]) throws IOException {
-
         return (read(b, 0, b.length));
-
     }
-
 
     /**
      * Read up to <code>len</code> bytes of data from the input stream
@@ -163,7 +137,6 @@ public class RequestStream
      * @exception IOException if an input/output error occurs
      */
     public int read(byte b[], int off, int len) throws IOException {
-
         int toRead = len;
         if (length > 0) {
             if (count >= length)
@@ -173,8 +146,5 @@ public class RequestStream
         }
         int actuallyRead = super.read(b, off, toRead);
         return (actuallyRead);
-
     }
-
-
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/ServerLifecycleListener.java,v 1.35 2002/09/20 21:20:44 amyroh Exp $
- * $Revision: 1.35 $
- * $Date: 2002/09/20 21:20:44 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/mbeans/ServerLifecycleListener.java,v 1.35
+ * 2002/09/20 21:20:44 amyroh Exp $ $Revision: 1.35 $ $Date: 2002/09/20 21:20:44 $
  *
  * ====================================================================
  *
@@ -63,7 +63,6 @@
 
 package org.apache.catalina.mbeans;
 
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.StringTokenizer;
@@ -77,12 +76,12 @@ import org.apache.catalina.DefaultContext;
 import org.apache.catalina.Engine;
 import org.apache.catalina.Globals;
 import org.apache.catalina.Host;
-import org.apache.catalina.Loader;
-import org.apache.catalina.Logger;
-import org.apache.catalina.Manager;
 import org.apache.catalina.Lifecycle;
 import org.apache.catalina.LifecycleEvent;
 import org.apache.catalina.LifecycleListener;
+import org.apache.catalina.Loader;
+import org.apache.catalina.Logger;
+import org.apache.catalina.Manager;
 import org.apache.catalina.Realm;
 import org.apache.catalina.Server;
 import org.apache.catalina.ServerFactory;
@@ -98,8 +97,6 @@ import org.apache.catalina.deploy.ContextResource;
 import org.apache.catalina.deploy.ContextResourceLink;
 import org.apache.catalina.deploy.NamingResources;
 
-
-
 /**
  * Implementation of <code>LifecycleListener</code> that
  * instantiates the set of MBeans associated with the components of a
@@ -110,12 +107,8 @@ import org.apache.catalina.deploy.NamingResources;
  * @version $Revision: 1.35 $ $Date: 2002/09/20 21:20:44 $
  */
 
-public class ServerLifecycleListener
-    implements ContainerListener, LifecycleListener, PropertyChangeListener {
-
-
+public class ServerLifecycleListener implements ContainerListener, LifecycleListener, PropertyChangeListener {
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The debugging detail level for this component.
@@ -130,7 +123,6 @@ public class ServerLifecycleListener
         this.debug = debug;
     }
 
-
     /**
      * Semicolon separated list of paths containing MBean desciptor resources.
      */
@@ -144,9 +136,7 @@ public class ServerLifecycleListener
         this.descriptors = descriptors;
     }
 
-
     // ---------------------------------------------- ContainerListener Methods
-
 
     /**
      * Handle a <code>ContainerEvent</code> from one of the Containers we are
@@ -155,31 +145,23 @@ public class ServerLifecycleListener
      * @param event The event that has occurred
      */
     public void containerEvent(ContainerEvent event) {
-
         try {
             String type = event.getType();
             if (Container.ADD_CHILD_EVENT.equals(type)) {
-                processContainerAddChild(event.getContainer(),
-                                         (Container) event.getData());
+                processContainerAddChild(event.getContainer(), (Container) event.getData());
             } else if (Container.ADD_VALVE_EVENT.equals(type)) {
-                processContainerAddValve(event.getContainer(),
-                                         (Valve) event.getData());
+                processContainerAddValve(event.getContainer(), (Valve) event.getData());
             } else if (Container.REMOVE_CHILD_EVENT.equals(type)) {
-                processContainerRemoveChild(event.getContainer(),
-                                            (Container) event.getData());
+                processContainerRemoveChild(event.getContainer(), (Container) event.getData());
             } else if (Container.REMOVE_VALVE_EVENT.equals(type)) {
-                processContainerRemoveValve(event.getContainer(),
-                                            (Valve) event.getData());
+                processContainerRemoveValve(event.getContainer(), (Valve) event.getData());
             }
         } catch (Exception e) {
             log("Exception processing event " + event, e);
         }
-
     }
 
-
     // ---------------------------------------------- LifecycleListener Methods
-
 
     /**
      * Primary entry point for startup and shutdown events.
@@ -189,13 +171,10 @@ public class ServerLifecycleListener
     public void lifecycleEvent(LifecycleEvent event) {
         Lifecycle lifecycle = event.getLifecycle();
         if (Lifecycle.START_EVENT.equals(event.getType())) {
-
             if (lifecycle instanceof Server) {
-
                 // Loading additional MBean descriptors
                 loadMBeanDescriptors();
                 createMBeans();
-
             }
 
             /*
@@ -207,37 +186,27 @@ public class ServerLifecycleListener
             */
 
         } else if (Lifecycle.STOP_EVENT.equals(event.getType())) {
-
             if (lifecycle instanceof Server) {
                 destroyMBeans();
             }
 
         } else if (Context.RELOAD_EVENT.equals(event.getType())) {
-
             // Give context a new handle to the MBean server if the
             // context has been reloaded since reloading causes the
             // context to lose its previous handle to the server
             if (lifecycle instanceof StandardContext) {
                 // If the context is privileged, give a reference to it
                 // in a servlet context attribute
-                StandardContext context = (StandardContext)lifecycle;
+                StandardContext context = (StandardContext) lifecycle;
                 if (context.getPrivileged()) {
-                    context.getServletContext().setAttribute
-                        (Globals.MBEAN_REGISTRY_ATTR,
-                         MBeanUtils.createRegistry());
-                    context.getServletContext().setAttribute
-                        (Globals.MBEAN_SERVER_ATTR,
-                         MBeanUtils.createServer());
+                    context.getServletContext().setAttribute(Globals.MBEAN_REGISTRY_ATTR, MBeanUtils.createRegistry());
+                    context.getServletContext().setAttribute(Globals.MBEAN_SERVER_ATTR, MBeanUtils.createServer());
                 }
             }
-
         }
-
     }
 
-
     // ----------------------------------------- PropertyChangeListener Methods
-
 
     /**
      * Handle a <code>PropertyChangeEvent</code> from one of the Containers
@@ -246,67 +215,50 @@ public class ServerLifecycleListener
      * @param event The event that has occurred
      */
     public void propertyChange(PropertyChangeEvent event) {
-
         if (event.getSource() instanceof Container) {
             try {
-                processContainerPropertyChange((Container) event.getSource(),
-                                               event.getPropertyName(),
-                                               event.getOldValue(),
-                                               event.getNewValue());
+                processContainerPropertyChange(
+                  (Container) event.getSource(), event.getPropertyName(), event.getOldValue(), event.getNewValue());
             } catch (Exception e) {
                 log("Exception handling Container property change", e);
             }
         } else if (event.getSource() instanceof DefaultContext) {
             try {
-                processDefaultContextPropertyChange
-                    ((DefaultContext) event.getSource(),
-                     event.getPropertyName(),
-                     event.getOldValue(),
-                     event.getNewValue());
+                processDefaultContextPropertyChange((DefaultContext) event.getSource(), event.getPropertyName(),
+                  event.getOldValue(), event.getNewValue());
             } catch (Exception e) {
                 log("Exception handling DefaultContext property change", e);
-            }            
+            }
         } else if (event.getSource() instanceof NamingResources) {
             try {
-                processNamingResourcesPropertyChange
-                    ((NamingResources) event.getSource(),
-                     event.getPropertyName(),
-                     event.getOldValue(),
-                     event.getNewValue());
+                processNamingResourcesPropertyChange((NamingResources) event.getSource(), event.getPropertyName(),
+                  event.getOldValue(), event.getNewValue());
             } catch (Exception e) {
                 log("Exception handling NamingResources property change", e);
             }
         } else if (event.getSource() instanceof Server) {
             try {
-                processServerPropertyChange((Server) event.getSource(),
-                                            event.getPropertyName(),
-                                            event.getOldValue(),
-                                            event.getNewValue());
+                processServerPropertyChange(
+                  (Server) event.getSource(), event.getPropertyName(), event.getOldValue(), event.getNewValue());
             } catch (Exception e) {
                 log("Exception handing Server property change", e);
             }
         } else if (event.getSource() instanceof Service) {
             try {
-                processServicePropertyChange((Service) event.getSource(),
-                                             event.getPropertyName(),
-                                             event.getOldValue(),
-                                             event.getNewValue());
+                processServicePropertyChange(
+                  (Service) event.getSource(), event.getPropertyName(), event.getOldValue(), event.getNewValue());
             } catch (Exception e) {
                 log("Exception handing Service property change", e);
             }
         }
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Load additional MBean descriptor resources.
      */
     protected void loadMBeanDescriptors() {
-
         if (descriptors != null) {
             StringTokenizer tokenizer = new StringTokenizer(descriptors, ";");
             while (tokenizer.hasMoreTokens()) {
@@ -314,36 +266,27 @@ public class ServerLifecycleListener
                 MBeanUtils.loadMBeanDescriptors(resource);
             }
         }
-
     }
-
 
     /**
      * Create the MBeans that correspond to every existing node of our tree.
      */
     protected void createMBeans() {
-
         try {
-
             MBeanFactory factory = new MBeanFactory();
             createMBeans(factory);
             createMBeans(ServerFactory.getServer());
 
         } catch (MBeanException t) {
-
             Exception e = t.getTargetException();
             if (e == null)
                 e = t;
             log("createMBeans: MBeanException", e);
 
         } catch (Throwable t) {
-
             log("createMBeans: Throwable", t);
-
         }
-
     }
-
 
     /**
      * Create the MBeans for the specified Connector and its nested components.
@@ -353,14 +296,11 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean creation
      */
     protected void createMBeans(Connector connector) throws Exception {
-
         // Create the MBean for the Connnector itself
         if (debug >= 5)
             log("Creating MBean for Connector " + connector);
         MBeanUtils.createMBean(connector);
-
     }
-
 
     /**
      * Create the MBeans for the specified Context and its nested components.
@@ -383,12 +323,8 @@ public class ServerLifecycleListener
         // If the context is privileged, give a reference to it
         // in a servlet context attribute
         if (context.getPrivileged()) {
-            context.getServletContext().setAttribute
-                (Globals.MBEAN_REGISTRY_ATTR,
-                 MBeanUtils.createRegistry());
-            context.getServletContext().setAttribute
-                (Globals.MBEAN_SERVER_ATTR, 
-                 MBeanUtils.createServer());
+            context.getServletContext().setAttribute(Globals.MBEAN_REGISTRY_ATTR, MBeanUtils.createRegistry());
+            context.getServletContext().setAttribute(Globals.MBEAN_SERVER_ATTR, MBeanUtils.createServer());
         }
 
         // Create the MBeans for the associated nested components
@@ -421,21 +357,18 @@ public class ServerLifecycleListener
 
         // Create the MBeans for the associated Valves
         if (context instanceof StandardContext) {
-            Valve cValves[] = ((StandardContext)context).getValves();
+            Valve cValves[] = ((StandardContext) context).getValves();
             for (int l = 0; l < cValves.length; l++) {
                 if (debug >= 4)
                     log("Creating MBean for Valve " + cValves[l]);
                 MBeanUtils.createMBean(cValves[l]);
             }
-            
-        }        
-        
+        }
+
         // Create the MBeans for the NamingResources (if any)
         NamingResources resources = context.getNamingResources();
         createMBeans(resources);
-
     }
-
 
     /**
      * Create the MBeans for the specified ContextEnvironment entry.
@@ -444,17 +377,13 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown during MBean creation
      */
-    protected void createMBeans(ContextEnvironment environment)
-        throws Exception {
-
+    protected void createMBeans(ContextEnvironment environment) throws Exception {
         // Create the MBean for the ContextEnvironment itself
         if (debug >= 3) {
             log("Creating MBean for ContextEnvironment " + environment);
         }
         MBeanUtils.createMBean(environment);
-
     }
-
 
     /**
      * Create the MBeans for the specified ContextResource entry.
@@ -463,18 +392,14 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown during MBean creation
      */
-    protected void createMBeans(ContextResource resource)
-        throws Exception {
-
+    protected void createMBeans(ContextResource resource) throws Exception {
         // Create the MBean for the ContextResource itself
         if (debug >= 3) {
             log("Creating MBean for ContextResource " + resource);
         }
         MBeanUtils.createMBean(resource);
-
     }
 
-    
     /**
      * Create the MBeans for the specified ContextResourceLink entry.
      *
@@ -482,17 +407,13 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown during MBean creation
      */
-    protected void createMBeans(ContextResourceLink resourceLink)
-        throws Exception {
-
+    protected void createMBeans(ContextResourceLink resourceLink) throws Exception {
         // Create the MBean for the ContextResourceLink itself
         if (debug >= 3) {
             log("Creating MBean for ContextResourceLink " + resourceLink);
         }
         MBeanUtils.createMBean(resourceLink);
-
     }
-
 
     /**
      * Create the MBeans for the specified DefaultContext and its nested components.
@@ -502,13 +423,12 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean creation
      */
     protected void createMBeans(DefaultContext dcontext) throws Exception {
-
         // Create the MBean for the DefaultContext itself
         if (debug >= 4)
             log("Creating MBean for DefaultContext " + dcontext);
         MBeanUtils.createMBean(dcontext);
         dcontext.addPropertyChangeListener(this);
-        
+
         // Create the MBeans for the associated nested components
         Loader dLoader = dcontext.getLoader();
         if (dLoader != null) {
@@ -516,21 +436,19 @@ public class ServerLifecycleListener
                 log("Creating MBean for Loader " + dLoader);
             MBeanUtils.createMBean(dLoader);
         }
-     
+
         Manager dManager = dcontext.getManager();
         if (dManager != null) {
             if (debug >= 4)
                 log("Creating MBean for Manager " + dManager);
             MBeanUtils.createMBean(dManager);
         }
-        
+
         // Create the MBeans for the NamingResources (if any)
         NamingResources resources = dcontext.getNamingResources();
         createMBeans(resources);
-
     }
 
-    
     /**
      * Create the MBeans for the specified Engine and its nested components.
      *
@@ -539,7 +457,6 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean creation
      */
     protected void createMBeans(Engine engine) throws Exception {
-
         // Create the MBean for the Engine itself
         if (debug >= 2) {
             log("Creating MBean for Engine " + engine);
@@ -566,7 +483,7 @@ public class ServerLifecycleListener
 
         // Create the MBeans for the associated Valves
         if (engine instanceof StandardEngine) {
-            Valve eValves[] = ((StandardEngine)engine).getValves();
+            Valve eValves[] = ((StandardEngine) engine).getValves();
             for (int j = 0; j < eValves.length; j++) {
                 if (debug >= 2)
                     log("Creating MBean for Valve " + eValves[j]);
@@ -586,9 +503,7 @@ public class ServerLifecycleListener
             dcontext.setParent(engine);
             createMBeans(dcontext);
         }
-
     }
-
 
     /**
      * Create the MBeans for the specified Host and its nested components.
@@ -598,7 +513,6 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean creation
      */
     protected void createMBeans(Host host) throws Exception {
-
         // Create the MBean for the Host itself
         if (debug >= 3) {
             log("Creating MBean for Host " + host);
@@ -627,7 +541,7 @@ public class ServerLifecycleListener
 
         // Create the MBeans for the associated Valves
         if (host instanceof StandardHost) {
-            Valve hValves[] = ((StandardHost)host).getValves();
+            Valve hValves[] = ((StandardHost) host).getValves();
             for (int k = 0; k < hValves.length; k++) {
                 if (debug >= 3)
                     log("Creating MBean for Valve " + hValves[k]);
@@ -647,9 +561,7 @@ public class ServerLifecycleListener
             dcontext.setParent(host);
             createMBeans(dcontext);
         }
-    
     }
-
 
     /**
      * Create the MBeans for MBeanFactory.
@@ -659,14 +571,11 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean creation
      */
     protected void createMBeans(MBeanFactory factory) throws Exception {
-
         // Create the MBean for the MBeanFactory
         if (debug >= 2)
             log("Creating MBean for MBeanFactory " + factory);
         MBeanUtils.createMBean(factory);
-
     }
-
 
     /**
      * Create the MBeans for the specified NamingResources and its
@@ -675,7 +584,6 @@ public class ServerLifecycleListener
      * @param resources NamingResources for which to create MBeans
      */
     protected void createMBeans(NamingResources resources) throws Exception {
-
         // Create the MBean for the NamingResources itself
         if (debug >= 2) {
             log("Creating MBean for NamingResources " + resources);
@@ -694,15 +602,13 @@ public class ServerLifecycleListener
         for (int i = 0; i < cresources.length; i++) {
             createMBeans(cresources[i]);
         }
-        
+
         // Create the MBeans for each child resource link entry
         ContextResourceLink cresourcelinks[] = resources.findResourceLinks();
         for (int i = 0; i < cresourcelinks.length; i++) {
             createMBeans(cresourcelinks[i]);
         }
-
     }
-
 
     /**
      * Create the MBeans for the specified Server and its nested components.
@@ -712,7 +618,6 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean creation
      */
     protected void createMBeans(Server server) throws Exception {
-
         // Create the MBean for the Server itself
         if (debug >= 2)
             log("Creating MBean for Server " + server);
@@ -731,8 +636,8 @@ public class ServerLifecycleListener
         Service services[] = server.findServices();
         for (int i = 0; i < services.length; i++) {
             // FIXME - Warp object hierarchy not currently supported
-            if (services[i].getContainer().getClass().getName().equals
-                ("org.apache.catalina.connector.warp.WarpEngine")) {
+            if (services[i].getContainer().getClass().getName().equals(
+                  "org.apache.catalina.connector.warp.WarpEngine")) {
                 if (debug >= 1) {
                     log("Skipping MBean for Service " + services[i]);
                 }
@@ -740,9 +645,7 @@ public class ServerLifecycleListener
             }
             createMBeans(services[i]);
         }
-
     }
-
 
     /**
      * Create the MBeans for the specified Service and its nested components.
@@ -752,7 +655,6 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean creation
      */
     protected void createMBeans(Service service) throws Exception {
-
         // Create the MBean for the Service itself
         if (debug >= 2)
             log("Creating MBean for Service " + service);
@@ -772,21 +674,16 @@ public class ServerLifecycleListener
         if (engine != null) {
             createMBeans(engine);
         }
-
     }
-
 
     /**
      * Destroy the MBeans that correspond to every existing node of our tree.
      */
     protected void destroyMBeans() {
-
         try {
-
             destroyMBeans(ServerFactory.getServer());
 
         } catch (MBeanException t) {
-
             Exception e = t.getTargetException();
             if (e == null) {
                 e = t;
@@ -794,13 +691,9 @@ public class ServerLifecycleListener
             log("destroyMBeans: MBeanException", e);
 
         } catch (Throwable t) {
-
             log("destroyMBeans: Throwable", t);
-
         }
-
     }
-
 
     /**
      * Deregister the MBeans for the specified Connector and its nested
@@ -810,16 +703,12 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown during MBean destruction
      */
-    protected void destroyMBeans(Connector connector, Service service)
-        throws Exception {
-
+    protected void destroyMBeans(Connector connector, Service service) throws Exception {
         // deregister the MBean for the Connector itself
         if (debug >= 5)
             log("Destroying MBean for Connector " + connector);
         MBeanUtils.destroyMBean(connector, service);
-
     }
-
 
     /**
      * Deregister the MBeans for the specified Context and its nested
@@ -830,19 +719,17 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean destruction
      */
     protected void destroyMBeans(Context context) throws Exception {
-
         // Deregister ourselves as a ContainerListener
         context.removeContainerListener(this);
 
         // destroy the MBeans for the associated Valves
         if (context instanceof StandardContext) {
-            Valve cValves[] = ((StandardContext)context).getValves();
+            Valve cValves[] = ((StandardContext) context).getValves();
             for (int l = 0; l < cValves.length; l++) {
                 if (debug >= 4)
                     log("Destroying MBean for Valve " + cValves[l]);
                 MBeanUtils.destroyMBean(cValves[l], context);
             }
-            
         }
 
         // Destroy the MBeans for the associated nested components
@@ -878,18 +765,15 @@ public class ServerLifecycleListener
         if (resources != null) {
             destroyMBeans(resources);
         }
-        
+
         // deregister the MBean for the Context itself
         if (debug >= 4)
             log("Destroying MBean for Context " + context);
         MBeanUtils.destroyMBean(context);
         if (context instanceof StandardContext) {
-            ((StandardContext) context).
-                removePropertyChangeListener(this);
+            ((StandardContext) context).removePropertyChangeListener(this);
         }
-
     }
-
 
     /**
      * Deregister the MBeans for the specified ContextEnvironment entry.
@@ -898,17 +782,13 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown during MBean destruction
      */
-    protected void destroyMBeans(ContextEnvironment environment)
-        throws Exception {
-
+    protected void destroyMBeans(ContextEnvironment environment) throws Exception {
         // Destroy the MBean for the ContextEnvironment itself
         if (debug >= 3) {
             log("Destroying MBean for ContextEnvironment " + environment);
         }
         MBeanUtils.destroyMBean(environment);
-
     }
-
 
     /**
      * Deregister the MBeans for the specified ContextResource entry.
@@ -917,17 +797,13 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown during MBean destruction
      */
-    protected void destroyMBeans(ContextResource resource)
-        throws Exception {
-
+    protected void destroyMBeans(ContextResource resource) throws Exception {
         // Destroy the MBean for the ContextResource itself
         if (debug >= 3) {
             log("Destroying MBean for ContextResource " + resource);
         }
         MBeanUtils.destroyMBean(resource);
-
     }
-
 
     /**
      * Deregister the MBeans for the specified ContextResourceLink entry.
@@ -936,18 +812,14 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown during MBean destruction
      */
-    protected void destroyMBeans(ContextResourceLink resourceLink)
-        throws Exception {
-
+    protected void destroyMBeans(ContextResourceLink resourceLink) throws Exception {
         // Destroy the MBean for the ContextResourceLink itself
         if (debug >= 3) {
             log("Destroying MBean for ContextResourceLink " + resourceLink);
         }
         MBeanUtils.destroyMBean(resourceLink);
-
     }
-    
-    
+
     /**
      * Deregister the MBeans for the specified DefaultContext and its nested
      * components.
@@ -957,14 +829,13 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean destruction
      */
     protected void destroyMBeans(DefaultContext dcontext) throws Exception {
-
         Manager dManager = dcontext.getManager();
         if (dManager != null) {
             if (debug >= 4)
                 log("Destroying MBean for Manager " + dManager);
             MBeanUtils.destroyMBean(dManager);
         }
-        
+
         Loader dLoader = dcontext.getLoader();
         if (dLoader != null) {
             if (debug >= 4)
@@ -977,16 +848,14 @@ public class ServerLifecycleListener
         if (resources != null) {
             destroyMBeans(resources);
         }
-        
+
         // deregister the MBean for the DefaultContext itself
         if (debug >= 4)
             log("Destroying MBean for Context " + dcontext);
         MBeanUtils.destroyMBean(dcontext);
         dcontext.removePropertyChangeListener(this);
+    }
 
-    }    
-    
-    
     /**
      * Deregister the MBeans for the specified Engine and its nested
      * components.
@@ -996,7 +865,6 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean destruction
      */
     protected void destroyMBeans(Engine engine) throws Exception {
-
         // Deregister ourselves as a ContainerListener
         engine.removeContainerListener(this);
 
@@ -1008,7 +876,7 @@ public class ServerLifecycleListener
 
         // Deregister the MBeans for the associated Valves
         if (engine instanceof StandardEngine) {
-            Valve eValves[] = ((StandardEngine)engine).getValves();
+            Valve eValves[] = ((StandardEngine) engine).getValves();
             for (int k = 0; k < eValves.length; k++) {
                 if (debug >= 3)
                     log("Destroying MBean for Valve " + eValves[k]);
@@ -1035,9 +903,7 @@ public class ServerLifecycleListener
             log("Destroying MBean for Engine " + engine);
         }
         MBeanUtils.destroyMBean(engine);
-
     }
-
 
     /**
      * Deregister the MBeans for the specified Host and its nested components.
@@ -1047,7 +913,6 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean destruction
      */
     protected void destroyMBeans(Host host) throws Exception {
-
         // Deregister ourselves as a ContainerListener
         host.removeContainerListener(this);
 
@@ -1059,7 +924,7 @@ public class ServerLifecycleListener
 
         // Deregister the MBeans for the associated Valves
         if (host instanceof StandardHost) {
-            Valve hValves[] = ((StandardHost)host).getValves();
+            Valve hValves[] = ((StandardHost) host).getValves();
             for (int k = 0; k < hValves.length; k++) {
                 if (debug >= 3)
                     log("Destroying MBean for Valve " + hValves[k]);
@@ -1088,9 +953,7 @@ public class ServerLifecycleListener
             log("Destroying MBean for Host " + host);
         }
         MBeanUtils.destroyMBean(host);
-
     }
-
 
     /**
      * Deregister the MBeans for the specified NamingResources and its
@@ -1101,19 +964,18 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean destruction
      */
     protected void destroyMBeans(NamingResources resources) throws Exception {
-
         // Destroy the MBeans for each child resource entry
         ContextResource cresources[] = resources.findResources();
         for (int i = 0; i < cresources.length; i++) {
             destroyMBeans(cresources[i]);
         }
-        
+
         // Destroy the MBeans for each child resource link entry
         ContextResourceLink cresourcelinks[] = resources.findResourceLinks();
         for (int i = 0; i < cresourcelinks.length; i++) {
             destroyMBeans(cresourcelinks[i]);
         }
-        
+
         // Destroy the MBeans for each child environment entry
         ContextEnvironment environments[] = resources.findEnvironments();
         for (int i = 0; i < environments.length; i++) {
@@ -1126,9 +988,7 @@ public class ServerLifecycleListener
         }
         MBeanUtils.destroyMBean(resources);
         resources.removePropertyChangeListener(this);
-
     }
-
 
     /**
      * Deregister the MBeans for the specified Server and its related
@@ -1139,19 +999,18 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean destruction
      */
     protected void destroyMBeans(Server server) throws Exception {
-        
         // Destroy the MBeans for the global NamingResources (if any)
         NamingResources resources = server.getGlobalNamingResources();
         if (resources != null) {
             destroyMBeans(resources);
         }
-        
+
         // Destroy the MBeans for each child Service
         Service services[] = server.findServices();
         for (int i = 0; i < services.length; i++) {
             // FIXME - Warp object hierarchy not currently supported
-            if (services[i].getContainer().getClass().getName().equals
-                ("org.apache.catalina.connector.warp.WarpEngine")) {
+            if (services[i].getContainer().getClass().getName().equals(
+                  "org.apache.catalina.connector.warp.WarpEngine")) {
                 if (debug >= 1) {
                     log("Skipping MBean for Service " + services[i]);
                 }
@@ -1168,9 +1027,7 @@ public class ServerLifecycleListener
         if (server instanceof StandardServer) {
             ((StandardServer) server).removePropertyChangeListener(this);
         }
-
     }
-
 
     /**
      * Deregister the MBeans for the specified Service and its nested
@@ -1181,7 +1038,6 @@ public class ServerLifecycleListener
      * @exception Exception if an exception is thrown during MBean destruction
      */
     protected void destroyMBeans(Service service) throws Exception {
-
         // Deregister the MBeans for the associated Engine
         Engine engine = (Engine) service.getContainer();
         if (engine != null) {
@@ -1202,9 +1058,7 @@ public class ServerLifecycleListener
         if (service instanceof StandardService) {
             ((StandardService) service).removePropertyChangeListener(this);
         }
-
     }
-
 
     /**
      * Log a message.
@@ -1212,12 +1066,9 @@ public class ServerLifecycleListener
      * @param message The message to be logged
      */
     protected void log(String message) {
-
         System.out.print("ServerLifecycleListener: ");
         System.out.println(message);
-
     }
-
 
     /**
      * Log a message and associated exception.
@@ -1226,12 +1077,9 @@ public class ServerLifecycleListener
      * @param throwable The exception to be logged
      */
     protected void log(String message, Throwable throwable) {
-
         log(message);
         throwable.printStackTrace(System.out);
-
     }
-
 
     /**
      * Process the addition of a new child Container to a parent Container.
@@ -1239,9 +1087,7 @@ public class ServerLifecycleListener
      * @param parent Parent container
      * @param child Child container
      */
-    protected void processContainerAddChild(Container parent,
-                                            Container child) {
-
+    protected void processContainerAddChild(Container parent, Container child) {
         if (debug >= 1)
             log("Process addChild[parent=" + parent + ",child=" + child + "]");
 
@@ -1261,9 +1107,7 @@ public class ServerLifecycleListener
         } catch (Throwable t) {
             log("processContainerAddChild: Throwable", t);
         }
-
     }
-
 
     /**
      * Process the addition of a new Valve to a Container.
@@ -1271,22 +1115,16 @@ public class ServerLifecycleListener
      * @param container The affected Container
      * @param valve The new Valve
      */
-    protected void processContainerAddValve(Container container,
-                                            Valve valve)
-        throws Exception {
-
+    protected void processContainerAddValve(Container container, Valve valve) throws Exception {
         if (debug >= 1) {
-            log("Process addValve[container=" + container + ",valve=" +
-                valve + "]");
+            log("Process addValve[container=" + container + ",valve=" + valve + "]");
         }
 
         if (debug >= 4) {
             log("Creating MBean for Valve " + valve);
         }
         MBeanUtils.createMBean(valve);
-
     }
-
 
     /**
      * Process a property change event on a Container.
@@ -1298,17 +1136,11 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown
      */
-    protected void processContainerPropertyChange(Container container,
-                                                  String propertyName,
-                                                  Object oldValue,
-                                                  Object newValue)
-        throws Exception {
-
+    protected void processContainerPropertyChange(
+      Container container, String propertyName, Object oldValue, Object newValue) throws Exception {
         if (debug >= 6) {
-            log("propertyChange[container=" + container +
-                ",propertyName=" + propertyName +
-                ",oldValue=" + oldValue +
-                ",newValue=" + newValue + "]");
+            log("propertyChange[container=" + container + ",propertyName=" + propertyName + ",oldValue=" + oldValue
+              + ",newValue=" + newValue + "]");
         }
         if ("defaultContext".equals(propertyName)) {
             if (oldValue != null) {
@@ -1383,9 +1215,7 @@ public class ServerLifecycleListener
                 createMBeans((Service) newValue);
             }
         }
-
     }
-
 
     /**
      * Process a property change event on a DefaultContext.
@@ -1397,17 +1227,11 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown
      */
-    protected void processDefaultContextPropertyChange(DefaultContext defaultContext,
-                                                  String propertyName,
-                                                  Object oldValue,
-                                                  Object newValue)
-        throws Exception {
-
+    protected void processDefaultContextPropertyChange(
+      DefaultContext defaultContext, String propertyName, Object oldValue, Object newValue) throws Exception {
         if (debug >= 6) {
-            log("propertyChange[defaultContext=" + defaultContext +
-                ",propertyName=" + propertyName +
-                ",oldValue=" + oldValue +
-                ",newValue=" + newValue + "]");
+            log("propertyChange[defaultContext=" + defaultContext + ",propertyName=" + propertyName
+              + ",oldValue=" + oldValue + ",newValue=" + newValue + "]");
         }
         if ("loader".equals(propertyName)) {
             if (oldValue != null) {
@@ -1469,45 +1293,36 @@ public class ServerLifecycleListener
                 createMBeans((Service) newValue);
             }
         }
-
     }
-    
-    
+
     /**
      * Process the removal of a child Container from a parent Container.
      *
      * @param parent Parent container
      * @param child Child container
      */
-    protected void processContainerRemoveChild(Container parent,
-                                               Container child) {
-
+    protected void processContainerRemoveChild(Container parent, Container child) {
         if (debug >= 1)
-            log("Process removeChild[parent=" + parent + ",child=" +
-                child + "]");
+            log("Process removeChild[parent=" + parent + ",child=" + child + "]");
 
         try {
             if (child instanceof Context) {
                 Context context = (Context) child;
                 if (context.getPrivileged()) {
-                    context.getServletContext().removeAttribute
-                        (Globals.MBEAN_REGISTRY_ATTR);
-                    context.getServletContext().removeAttribute
-                        (Globals.MBEAN_SERVER_ATTR);
+                    context.getServletContext().removeAttribute(Globals.MBEAN_REGISTRY_ATTR);
+                    context.getServletContext().removeAttribute(Globals.MBEAN_SERVER_ATTR);
                 }
                 if (debug >= 4)
                     log("  Removing MBean for Context " + context);
                 destroyMBeans(context);
                 if (context instanceof StandardContext) {
-                    ((StandardContext) context).
-                        removePropertyChangeListener(this);
+                    ((StandardContext) context).removePropertyChangeListener(this);
                 }
             } else if (child instanceof Host) {
                 Host host = (Host) child;
                 destroyMBeans(host);
                 if (host instanceof StandardHost) {
-                    ((StandardHost) host).
-                        removePropertyChangeListener(this);
+                    ((StandardHost) host).removePropertyChangeListener(this);
                 }
             }
         } catch (MBeanException t) {
@@ -1518,9 +1333,7 @@ public class ServerLifecycleListener
         } catch (Throwable t) {
             log("processContainerRemoveChild: Throwable", t);
         }
-
     }
-
 
     /**
      * Process the removal of a Valve from a Container.
@@ -1528,12 +1341,9 @@ public class ServerLifecycleListener
      * @param container The affected Container
      * @param valve The old Valve
      */
-    protected void processContainerRemoveValve(Container container,
-                                               Valve valve) {
-
+    protected void processContainerRemoveValve(Container container, Valve valve) {
         if (debug >= 1)
-            log("Process removeValve[container=" + container + ",valve=" +
-                valve + "]");
+            log("Process removeValve[container=" + container + ",valve=" + valve + "]");
 
         try {
             MBeanUtils.destroyMBean(valve, container);
@@ -1545,9 +1355,7 @@ public class ServerLifecycleListener
         } catch (Throwable t) {
             log("processContainerRemoveValve: Throwable", t);
         }
-
     }
-
 
     /**
      * Process a property change event on a NamingResources.
@@ -1560,16 +1368,11 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown
      */
-    protected void processNamingResourcesPropertyChange
-        (NamingResources resources, String propertyName,
-         Object oldValue, Object newValue)
-        throws Exception {
-
+    protected void processNamingResourcesPropertyChange(
+      NamingResources resources, String propertyName, Object oldValue, Object newValue) throws Exception {
         if (debug >= 6) {
-            log("propertyChange[namingResources=" + resources +
-                ",propertyName=" + propertyName +
-                ",oldValue=" + oldValue +
-                ",newValue=" + newValue + "]");
+            log("propertyChange[namingResources=" + resources + ",propertyName=" + propertyName
+              + ",oldValue=" + oldValue + ",newValue=" + newValue + "]");
         }
 
         // FIXME - Add other resource types when supported by admin tool
@@ -1595,9 +1398,7 @@ public class ServerLifecycleListener
                 createMBeans((ContextResourceLink) newValue);
             }
         }
-
     }
-
 
     /**
      * Process a property change event on a Server.
@@ -1609,17 +1410,11 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown
      */
-    protected void processServerPropertyChange(Server server,
-                                               String propertyName,
-                                               Object oldValue,
-                                               Object newValue)
-        throws Exception {
-
+    protected void processServerPropertyChange(Server server, String propertyName, Object oldValue, Object newValue)
+      throws Exception {
         if (debug >= 6) {
-            log("propertyChange[server=" + server +
-                ",propertyName=" + propertyName +
-                ",oldValue=" + oldValue +
-                ",newValue=" + newValue + "]");
+            log("propertyChange[server=" + server + ",propertyName=" + propertyName + ",oldValue=" + oldValue
+              + ",newValue=" + newValue + "]");
         }
         if ("globalNamingResources".equals(propertyName)) {
             if (oldValue != null) {
@@ -1636,9 +1431,7 @@ public class ServerLifecycleListener
                 createMBeans((Service) newValue);
             }
         }
-
     }
-
 
     /**
      * Process a property change event on a Service.
@@ -1650,17 +1443,11 @@ public class ServerLifecycleListener
      *
      * @exception Exception if an exception is thrown
      */
-    protected void processServicePropertyChange(Service service,
-                                                String propertyName,
-                                                Object oldValue,
-                                                Object newValue)
-        throws Exception {
-
+    protected void processServicePropertyChange(Service service, String propertyName, Object oldValue, Object newValue)
+      throws Exception {
         if (debug >= 6) {
-            log("propertyChange[service=" + service +
-                ",propertyName=" + propertyName +
-                ",oldValue=" + oldValue +
-                ",newValue=" + newValue + "]");
+            log("propertyChange[service=" + service + ",propertyName=" + propertyName + ",oldValue=" + oldValue
+              + ",newValue=" + newValue + "]");
         }
         if ("connector".equals(propertyName)) {
             if (oldValue != null) {
@@ -1677,8 +1464,5 @@ public class ServerLifecycleListener
                 createMBeans((Engine) newValue);
             }
         }
-
     }
-
-
 }

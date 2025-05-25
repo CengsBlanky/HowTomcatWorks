@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/BasicAuthenticator.java,v 1.12 2002/03/23 17:52:16 remm Exp $
- * $Revision: 1.12 $
- * $Date: 2002/03/23 17:52:16 $
+ * $Header:
+ * /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/authenticator/BasicAuthenticator.java,v 1.12
+ * 2002/03/23 17:52:16 remm Exp $ $Revision: 1.12 $ $Date: 2002/03/23 17:52:16 $
  *
  * ====================================================================
  *
@@ -61,9 +61,7 @@
  *
  */
 
-
 package org.apache.catalina.authenticator;
-
 
 import java.io.IOException;
 import java.security.Principal;
@@ -74,8 +72,6 @@ import org.apache.catalina.HttpResponse;
 import org.apache.catalina.deploy.LoginConfig;
 import org.apache.catalina.util.Base64;
 
-
-
 /**
  * An <b>Authenticator</b> and <b>Valve</b> implementation of HTTP BASIC
  * Authentication, as outlined in RFC 2617:  "HTTP Authentication: Basic
@@ -85,41 +81,29 @@ import org.apache.catalina.util.Base64;
  * @version $Revision: 1.12 $ $Date: 2002/03/23 17:52:16 $
  */
 
-public class BasicAuthenticator
-    extends AuthenticatorBase {
-
-
+public class BasicAuthenticator extends AuthenticatorBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The Base64 helper object for this class.
      */
     protected static final Base64 base64Helper = new Base64();
 
-
     /**
      * Descriptive information about this implementation.
      */
-    protected static final String info =
-        "org.apache.catalina.authenticator.BasicAuthenticator/1.0";
-
+    protected static final String info = "org.apache.catalina.authenticator.BasicAuthenticator/1.0";
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo() {
-
         return (this.info);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Authenticate the user making this request, based on the specified
@@ -134,14 +118,9 @@ public class BasicAuthenticator
      *
      * @exception IOException if an input/output error occurs
      */
-    public boolean authenticate(HttpRequest request,
-                                HttpResponse response,
-                                LoginConfig config)
-        throws IOException {
-
+    public boolean authenticate(HttpRequest request, HttpResponse response, LoginConfig config) throws IOException {
         // Have we already authenticated someone?
-        Principal principal =
-            ((HttpServletRequest) request.getRequest()).getUserPrincipal();
+        Principal principal = ((HttpServletRequest) request.getRequest()).getUserPrincipal();
         if (principal != null) {
             if (debug >= 1)
                 log("Already authenticated '" + principal.getName() + "'");
@@ -149,17 +128,14 @@ public class BasicAuthenticator
         }
 
         // Validate any credentials already included with this request
-        HttpServletRequest hreq =
-            (HttpServletRequest) request.getRequest();
-        HttpServletResponse hres =
-            (HttpServletResponse) response.getResponse();
+        HttpServletRequest hreq = (HttpServletRequest) request.getRequest();
+        HttpServletResponse hres = (HttpServletResponse) response.getResponse();
         String authorization = request.getAuthorization();
         String username = parseUsername(authorization);
         String password = parsePassword(authorization);
         principal = context.getRealm().authenticate(username, password);
         if (principal != null) {
-            register(request, response, principal, Constants.BASIC_METHOD,
-                     username, password);
+            register(request, response, principal, Constants.BASIC_METHOD, username, password);
             return (true);
         }
 
@@ -167,19 +143,15 @@ public class BasicAuthenticator
         String realmName = config.getRealmName();
         if (realmName == null)
             realmName = hreq.getServerName() + ":" + hreq.getServerPort();
-    //        if (debug >= 1)
-    //            log("Challenging for realm '" + realmName + "'");
-        hres.setHeader("WWW-Authenticate",
-                       "Basic realm=\"" + realmName + "\"");
+        //        if (debug >= 1)
+        //            log("Challenging for realm '" + realmName + "'");
+        hres.setHeader("WWW-Authenticate", "Basic realm=\"" + realmName + "\"");
         hres.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         //      hres.flushBuffer();
         return (false);
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Parse the username from the specified authorization credentials.
@@ -188,7 +160,6 @@ public class BasicAuthenticator
      * @param authorization Authorization credentials from this request
      */
     protected String parseUsername(String authorization) {
-
         if (authorization == null)
             return (null);
         if (!authorization.toLowerCase().startsWith("basic "))
@@ -196,17 +167,14 @@ public class BasicAuthenticator
         authorization = authorization.substring(6).trim();
 
         // Decode and parse the authorization credentials
-        String unencoded =
-          new String(base64Helper.decode(authorization.getBytes()));
+        String unencoded = new String(base64Helper.decode(authorization.getBytes()));
         int colon = unencoded.indexOf(':');
         if (colon < 0)
             return (null);
         String username = unencoded.substring(0, colon).trim();
         //        String password = unencoded.substring(colon + 1).trim();
         return (username);
-
     }
-
 
     /**
      * Parse the password from the specified authorization credentials.
@@ -215,7 +183,6 @@ public class BasicAuthenticator
      * @param authorization Authorization credentials from this request
      */
     protected String parsePassword(String authorization) {
-
         if (authorization == null)
             return (null);
         if (!authorization.startsWith("Basic "))
@@ -223,17 +190,12 @@ public class BasicAuthenticator
         authorization = authorization.substring(6).trim();
 
         // Decode and parse the authorization credentials
-        String unencoded =
-          new String(base64Helper.decode(authorization.getBytes()));
+        String unencoded = new String(base64Helper.decode(authorization.getBytes()));
         int colon = unencoded.indexOf(':');
         if (colon < 0)
             return (null);
         //        String username = unencoded.substring(0, colon).trim();
         String password = unencoded.substring(colon + 1).trim();
         return (password);
-
     }
-
-
-
 }

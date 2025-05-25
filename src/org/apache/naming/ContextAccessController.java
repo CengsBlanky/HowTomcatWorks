@@ -1,13 +1,12 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/naming/ContextAccessController.java,v 1.3 2001/06/11 22:44:03 remm Exp $
- * $Revision: 1.3 $
- * $Date: 2001/06/11 22:44:03 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/naming/ContextAccessController.java,v 1.3
+ * 2001/06/11 22:44:03 remm Exp $ $Revision: 1.3 $ $Date: 2001/06/11 22:44:03 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999 The Apache Software Foundation.  All rights 
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -15,7 +14,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -23,15 +22,15 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution, if
- *    any, must include the following acknowlegement:  
- *       "This product includes software developed by the 
+ *    any, must include the following acknowlegement:
+ *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
  * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written 
+ *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
@@ -59,8 +58,7 @@
  *
  * [Additional notices, if required by prior licensing conditions]
  *
- */ 
-
+ */
 
 package org.apache.naming;
 
@@ -74,29 +72,23 @@ import java.util.Hashtable;
  */
 
 public class ContextAccessController {
-
-
     // -------------------------------------------------------------- Variables
-
 
     /**
      * Catalina context names on which writing is not allowed.
      */
     private static Hashtable readOnlyContexts = new Hashtable();
 
-
     /**
      * Security tokens repository.
      */
     private static Hashtable securityTokens = new Hashtable();
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Set a security token for a context. Can be set only once.
-     * 
+     *
      * @param name Name of the context
      * @param context Security token
      */
@@ -106,10 +98,9 @@ public class ContextAccessController {
         }
     }
 
-
     /**
      * Remove a security token for a context.
-     * 
+     *
      * @param name Name of the context
      * @param context Security token
      */
@@ -119,17 +110,15 @@ public class ContextAccessController {
         }
     }
 
-
     /**
      * Check a submitted security token. The submitted token must be equal to
-     * the token present in the repository. If no token is present for the 
+     * the token present in the repository. If no token is present for the
      * context, then returns true.
-     * 
+     *
      * @param name Name of the context
      * @param context Submitted security token
      */
-    public static boolean checkSecurityToken
-        (Object name, Object token) {
+    public static boolean checkSecurityToken(Object name, Object token) {
         Object refToken = securityTokens.get(name);
         if (refToken == null)
             return (true);
@@ -138,10 +127,9 @@ public class ContextAccessController {
         return (false);
     }
 
-
     /**
      * Allow writing to a context.
-     * 
+     *
      * @param name Name of the context
      * @param token Security token
      */
@@ -150,26 +138,21 @@ public class ContextAccessController {
             readOnlyContexts.remove(name);
     }
 
-
     /**
      * Set whether or not a context is writable.
-     * 
+     *
      * @param name Name of the context
      */
     public static void setReadOnly(Object name) {
         readOnlyContexts.put(name, name);
     }
 
-
     /**
      * Returns if a context is writable.
-     * 
+     *
      * @param name Name of the context
      */
     public static boolean isWritable(Object name) {
         return !(readOnlyContexts.containsKey(name));
     }
-
-
 }
-

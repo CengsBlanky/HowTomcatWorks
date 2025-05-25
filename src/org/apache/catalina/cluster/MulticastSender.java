@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/cluster/MulticastSender.java,v 1.4 2001/07/22 20:25:06 pier Exp $
- * $Revision: 1.4 $
- * $Date: 2001/07/22 20:25:06 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/cluster/MulticastSender.java,v 1.4
+ * 2001/07/22 20:25:06 pier Exp $ $Revision: 1.4 $ $Date: 2001/07/22 20:25:06 $
  *
  * ====================================================================
  *
@@ -63,14 +62,13 @@
 
 package org.apache.catalina.cluster;
 
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
 
 /**
  * This class is responsible for sending outgoing multicast
@@ -80,9 +78,7 @@ import java.io.ObjectOutputStream;
  * @version $Revision: 1.4 $, $Date: 2001/07/22 20:25:06 $
  */
 
-public class MulticastSender
-    extends ClusterSessionBase implements ClusterSender {
-
+public class MulticastSender extends ClusterSessionBase implements ClusterSender {
     // ----------------------------------------------------- Instance Variables
 
     /**
@@ -110,9 +106,7 @@ public class MulticastSender
      */
     private int multicastPort;
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Create a new MulticastSender, only receivers with our
@@ -123,8 +117,7 @@ public class MulticastSender
      * @param multicastAddress the address to use
      * @param multicastPort the port to use
      */
-    MulticastSender(String senderId, MulticastSocket multicastSocket,
-                    InetAddress multicastAddress, int multicastPort) {
+    MulticastSender(String senderId, MulticastSocket multicastSocket, InetAddress multicastAddress, int multicastPort) {
         this.multicastAddress = multicastAddress;
         this.multicastPort = multicastPort;
         this.multicastSocket = multicastSocket;
@@ -138,7 +131,7 @@ public class MulticastSender
      * @return The name of the implementation
      */
     public String getName() {
-        return(this.senderName);
+        return (this.senderName);
     }
 
     /**
@@ -184,8 +177,7 @@ public class MulticastSender
 
             byte[] obs = bos.toByteArray();
             int size = obs.length;
-            DatagramPacket p = new DatagramPacket(obs, size,
-                                                  multicastAddress, multicastPort);
+            DatagramPacket p = new DatagramPacket(obs, size, multicastAddress, multicastPort);
             send(p);
         } catch (IOException e) {
             log(sm.getString("multicastSender.sendException", e.toString()));

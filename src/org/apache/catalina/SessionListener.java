@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/SessionListener.java,v 1.1 2001/07/29 03:43:54 craigmcc Exp $
- * $Revision: 1.1 $
- * $Date: 2001/07/29 03:43:54 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/SessionListener.java,v 1.1 2001/07/29
+ * 03:43:54 craigmcc Exp $ $Revision: 1.1 $ $Date: 2001/07/29 03:43:54 $
  *
  * ====================================================================
  *
@@ -61,10 +60,7 @@
  *
  */
 
-
 package org.apache.catalina;
-
-
 
 /**
  * Interface defining a listener for significant Session generated events.
@@ -74,14 +70,10 @@ package org.apache.catalina;
  */
 
 public interface SessionListener {
-
-
     /**
      * Acknowledge the occurrence of the specified event.
      *
      * @param event SessionEvent that has occurred
      */
     public void sessionEvent(SessionEvent event);
-
-
 }

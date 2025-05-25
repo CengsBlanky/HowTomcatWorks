@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Service.java,v 1.7 2001/11/06 22:33:46 amyroh Exp $
- * $Revision: 1.7 $
- * $Date: 2001/11/06 22:33:46 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Service.java,v 1.7 2001/11/06 22:33:46
+ * amyroh Exp $ $Revision: 1.7 $ $Date: 2001/11/06 22:33:46 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 /**
  * A <strong>Service</strong> is a group of one or more
@@ -80,17 +77,13 @@ package org.apache.catalina;
  */
 
 public interface Service {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the <code>Container</code> that handles requests for all
      * <code>Connectors</code> associated with this Service.
      */
     public Container getContainer();
-
 
     /**
      * Set the <code>Container</code> that handles requests for all
@@ -100,7 +93,6 @@ public interface Service {
      */
     public void setContainer(Container container);
 
-
     /**
      * Return descriptive information about this Service implementation and
      * the corresponding version number, in the format
@@ -108,12 +100,10 @@ public interface Service {
      */
     public String getInfo();
 
-
     /**
      * Return the name of this Service.
      */
     public String getName();
-
 
     /**
      * Set the name of this Service.
@@ -122,12 +112,10 @@ public interface Service {
      */
     public void setName(String name);
 
-
     /**
      * Return the <code>Server</code> with which we are associated (if any).
      */
     public Server getServer();
-
 
     /**
      * Set the <code>Server</code> with which we are associated (if any).
@@ -136,9 +124,7 @@ public interface Service {
      */
     public void setServer(Server server);
 
-    
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a new Connector to the set of defined Connectors, and associate it
@@ -148,12 +134,10 @@ public interface Service {
      */
     public void addConnector(Connector connector);
 
-
     /**
      * Find and return the set of Connectors associated with this Service.
      */
     public Connector[] findConnectors();
-
 
     /**
      * Remove the specified Connector from the set associated from this
@@ -170,7 +154,5 @@ public interface Service {
      *
      * @exception LifecycleException If this server was already initialized.
      */
-    public void initialize()
-    throws LifecycleException;
-
+    public void initialize() throws LifecycleException;
 }

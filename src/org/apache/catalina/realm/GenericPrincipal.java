@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/GenericPrincipal.java,v 1.4 2001/10/27 20:29:03 craigmcc Exp $
- * $Revision: 1.4 $
- * $Date: 2001/10/27 20:29:03 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/GenericPrincipal.java,v 1.4
+ * 2001/10/27 20:29:03 craigmcc Exp $ $Revision: 1.4 $ $Date: 2001/10/27 20:29:03 $
  *
  * ====================================================================
  *
@@ -61,15 +60,12 @@
  *
  */
 
-
 package org.apache.catalina.realm;
-
 
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.catalina.Realm;
-
 
 /**
  * Generic implementation of <strong>java.security.Principal</strong> that
@@ -80,10 +76,7 @@ import org.apache.catalina.Realm;
  */
 
 public class GenericPrincipal implements Principal {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new Principal, associated with the specified Realm, for the
@@ -94,11 +87,8 @@ public class GenericPrincipal implements Principal {
      * @param password Credentials used to authenticate this user
      */
     public GenericPrincipal(Realm realm, String name, String password) {
-
         this(realm, name, password, null);
-
     }
-
 
     /**
      * Construct a new Principal, associated with the specified Realm, for the
@@ -110,9 +100,7 @@ public class GenericPrincipal implements Principal {
      * @param password Credentials used to authenticate this user
      * @param roles List of roles (must be Strings) possessed by this user
      */
-    public GenericPrincipal(Realm realm, String name, String password,
-                            List roles) {
-
+    public GenericPrincipal(Realm realm, String name, String password, List roles) {
         super();
         this.realm = realm;
         this.name = name;
@@ -123,12 +111,9 @@ public class GenericPrincipal implements Principal {
             if (this.roles.length > 0)
                 Arrays.sort(this.roles);
         }
-
     }
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The username of the user represented by this Principal.
@@ -138,7 +123,6 @@ public class GenericPrincipal implements Principal {
     public String getName() {
         return (this.name);
     }
-
 
     /**
      * The authentication credentials for the user represented by
@@ -150,7 +134,6 @@ public class GenericPrincipal implements Principal {
         return (this.password);
     }
 
-
     /**
      * The Realm with which this Principal is associated.
      */
@@ -159,7 +142,6 @@ public class GenericPrincipal implements Principal {
     public Realm getRealm() {
         return (this.realm);
     }
-
 
     /**
      * The set of roles associated with this user.
@@ -170,9 +152,7 @@ public class GenericPrincipal implements Principal {
         return (this.roles);
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Does the user represented by this Principal possess the specified role?
@@ -180,26 +160,19 @@ public class GenericPrincipal implements Principal {
      * @param role Role to be tested
      */
     public boolean hasRole(String role) {
-
         if (role == null)
             return (false);
         return (Arrays.binarySearch(roles, role) >= 0);
-
     }
-
 
     /**
      * Return a String representation of this object, which exposes only
      * information that should be public.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("GenericPrincipal[");
         sb.append(this.name);
         sb.append("]");
         return (sb.toString());
-
     }
-
-
 }

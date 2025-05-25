@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardEngineMapper.java,v 1.5 2001/07/22 20:25:08 pier Exp $
- * $Revision: 1.5 $
- * $Date: 2001/07/22 20:25:08 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardEngineMapper.java,v 1.5
+ * 2001/07/22 20:25:08 pier Exp $ $Revision: 1.5 $ $Date: 2001/07/22 20:25:08 $
  *
  * ====================================================================
  *
@@ -61,16 +60,13 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import org.apache.catalina.Container;
 import org.apache.catalina.Host;
 import org.apache.catalina.Mapper;
 import org.apache.catalina.Request;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * Implementation of <code>Mapper</code> for an <code>Engine</code>,
@@ -84,44 +80,32 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.5 $ $Date: 2001/07/22 20:25:08 $
  */
 
-public class StandardEngineMapper
-    implements Mapper {
-
-
+public class StandardEngineMapper implements Mapper {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The Container with which this Mapper is associated.
      */
     private StandardEngine engine = null;
 
-
     /**
      * The protocol with which this Mapper is associated.
      */
     private String protocol = null;
 
-
     /**
      * The string manager for this package.
      */
-    private static final StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    private static final StringManager sm = StringManager.getManager(Constants.Package);
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Container with which this Mapper is associated.
      */
     public Container getContainer() {
-
         return (engine);
-
     }
-
 
     /**
      * Set the Container with which this Mapper is associated.
@@ -132,24 +116,17 @@ public class StandardEngineMapper
      *  acceptable to this Mapper
      */
     public void setContainer(Container container) {
-
         if (!(container instanceof StandardEngine))
-            throw new IllegalArgumentException
-                (sm.getString("httpEngineMapper.container"));
+            throw new IllegalArgumentException(sm.getString("httpEngineMapper.container"));
         engine = (StandardEngine) container;
-
     }
-
 
     /**
      * Return the protocol for which this Mapper is responsible.
      */
     public String getProtocol() {
-
         return (this.protocol);
-
     }
-
 
     /**
      * Set the protocol for which this Mapper is responsible.
@@ -157,14 +134,10 @@ public class StandardEngineMapper
      * @param protocol The newly associated protocol
      */
     public void setProtocol(String protocol) {
-
         this.protocol = protocol;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return the child Container that should be used to process this Request,
@@ -175,7 +148,6 @@ public class StandardEngineMapper
      * @param update Update the Request to reflect the mapping selection?
      */
     public Container map(Request request, boolean update) {
-
         int debug = engine.getDebug();
 
         // Extract the requested server name
@@ -222,10 +194,7 @@ public class StandardEngineMapper
         }
 
         // Update the Request if requested, and return the selected Host
-        ;       // No update to the Request is required
+        ; // No update to the Request is required
         return (host);
-
     }
-
-
 }

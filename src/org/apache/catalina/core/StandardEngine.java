@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardEngine.java,v 1.15 2002/05/02 22:14:45 craigmcc Exp $
- * $Revision: 1.15 $
- * $Date: 2002/05/02 22:14:45 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardEngine.java,v 1.15
+ * 2002/05/02 22:14:45 craigmcc Exp $ $Revision: 1.15 $ $Date: 2002/05/02 22:14:45 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import org.apache.catalina.Container;
 import org.apache.catalina.Context;
@@ -83,27 +80,18 @@ import org.apache.catalina.util.ServerInfo;
  * @version $Revision: 1.15 $ $Date: 2002/05/02 22:14:45 $
  */
 
-public class StandardEngine
-    extends ContainerBase
-    implements Engine {
-
-
+public class StandardEngine extends ContainerBase implements Engine {
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Create a new StandardEngine component with the default basic Valve.
      */
     public StandardEngine() {
-
         super();
         pipeline.setBasic(new StandardEngineValve());
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * Host name to use when no server host, or an unknown host,
@@ -111,32 +99,25 @@ public class StandardEngine
      */
     private String defaultHost = null;
 
-
     /**
      * The descriptive information string for this implementation.
      */
-    private static final String info =
-        "org.apache.catalina.core.StandardEngine/1.0";
-
+    private static final String info = "org.apache.catalina.core.StandardEngine/1.0";
 
     /**
      * The Java class name of the default Mapper class for this Container.
      */
-    private String mapperClass =
-        "org.apache.catalina.core.StandardEngineMapper";
-
+    private String mapperClass = "org.apache.catalina.core.StandardEngineMapper";
 
     /**
      * The <code>Service</code> that owns this Engine, if any.
      */
     private Service service = null;
 
-
     /**
      * DefaultContext config
      */
     private DefaultContext defaultContext;
-
 
     /**
      * The JVM Route ID for this Tomcat instance. All Route ID's must be unique
@@ -144,19 +125,14 @@ public class StandardEngine
      */
     private String jvmRouteId;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the default host.
      */
     public String getDefaultHost() {
-
         return (defaultHost);
-
     }
-
 
     /**
      * Set the default host.
@@ -164,18 +140,14 @@ public class StandardEngine
      * @param host The new default host
      */
     public void setDefaultHost(String host) {
-
         String oldDefaultHost = this.defaultHost;
         if (host == null) {
             this.defaultHost = null;
         } else {
             this.defaultHost = host.toLowerCase();
         }
-        support.firePropertyChange("defaultHost", oldDefaultHost,
-                                   this.defaultHost);
-
+        support.firePropertyChange("defaultHost", oldDefaultHost, this.defaultHost);
     }
-
 
     /**
      * Set the cluster-wide unique identifier for this Engine.
@@ -188,7 +160,6 @@ public class StandardEngine
         jvmRouteId = routeId;
     }
 
-
     /**
      * Retrieve the cluster-wide unique identifier for this Engine.
      * This value is only useful in a load-balancing scenario.
@@ -197,7 +168,6 @@ public class StandardEngine
         return jvmRouteId;
     }
 
-
     /**
      * Set the DefaultContext
      * for new web applications.
@@ -205,14 +175,10 @@ public class StandardEngine
      * @param defaultContext The new DefaultContext
      */
     public void addDefaultContext(DefaultContext defaultContext) {
-
         DefaultContext oldDefaultContext = this.defaultContext;
         this.defaultContext = defaultContext;
-        support.firePropertyChange("defaultContext",
-                                   oldDefaultContext, this.defaultContext);
-
+        support.firePropertyChange("defaultContext", oldDefaultContext, this.defaultContext);
     }
-
 
     /**
      * Retrieve the DefaultContext for new web applications.
@@ -221,16 +187,12 @@ public class StandardEngine
         return (this.defaultContext);
     }
 
-
     /**
      * Return the default Mapper class name.
      */
     public String getMapperClass() {
-
         return (this.mapperClass);
-
     }
-
 
     /**
      * Set the default Mapper class name.
@@ -238,24 +200,17 @@ public class StandardEngine
      * @param mapperClass The new default Mapper class name
      */
     public void setMapperClass(String mapperClass) {
-
         String oldMapperClass = this.mapperClass;
         this.mapperClass = mapperClass;
-        support.firePropertyChange("mapperClass",
-                                   oldMapperClass, this.mapperClass);
-
+        support.firePropertyChange("mapperClass", oldMapperClass, this.mapperClass);
     }
-
 
     /**
      * Return the <code>Service</code> with which we are associated (if any).
      */
     public Service getService() {
-
         return (this.service);
-
     }
-
 
     /**
      * Set the <code>Service</code> with which we are associated (if any).
@@ -263,14 +218,10 @@ public class StandardEngine
      * @param service The service that owns this Engine
      */
     public void setService(Service service) {
-
         this.service = service;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Import the DefaultContext config into a web application context.
@@ -278,12 +229,9 @@ public class StandardEngine
      * @param context web application context to import default context
      */
     public void importDefaultContext(Context context) {
-
-        if ( this.defaultContext != null )
+        if (this.defaultContext != null)
             this.defaultContext.importDefaultContext(context);
-
     }
-
 
     /**
      * Add a child Container, only if the proposed child is an implementation
@@ -292,14 +240,10 @@ public class StandardEngine
      * @param child Child container to be added
      */
     public void addChild(Container child) {
-
         if (!(child instanceof Host))
-            throw new IllegalArgumentException
-                (sm.getString("standardEngine.notHost"));
+            throw new IllegalArgumentException(sm.getString("standardEngine.notHost"));
         super.addChild(child);
-
     }
-
 
     /**
      * Return descriptive information about this Container implementation and
@@ -307,11 +251,8 @@ public class StandardEngine
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo() {
-
         return (info);
-
     }
-
 
     /**
      * Disallow any attempt to set a parent for this Container, since an
@@ -320,12 +261,8 @@ public class StandardEngine
      * @param container Proposed parent Container
      */
     public void setParent(Container container) {
-
-        throw new IllegalArgumentException
-            (sm.getString("standardEngine.notParent"));
-
+        throw new IllegalArgumentException(sm.getString("standardEngine.notParent"));
     }
-
 
     /**
      * Start this Engine component.
@@ -333,31 +270,24 @@ public class StandardEngine
      * @exception LifecycleException if a startup error occurs
      */
     public void start() throws LifecycleException {
-
         // Log our server identification information
         System.out.println(ServerInfo.getServerInfo());
 
         // Standard container startup
         super.start();
-
     }
-
 
     /**
      * Return a String representation of this component.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("StandardEngine[");
         sb.append(getName());
         sb.append("]");
         return (sb.toString());
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Add a default Mapper implementation if none have been configured
@@ -366,10 +296,6 @@ public class StandardEngine
      * @param mapperClass The default mapper class name to add
      */
     protected void addDefaultMapper(String mapperClass) {
-
         super.addDefaultMapper(this.mapperClass);
-
     }
-
-
 }

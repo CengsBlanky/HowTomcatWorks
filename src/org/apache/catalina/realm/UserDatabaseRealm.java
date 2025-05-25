@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/UserDatabaseRealm.java,v 1.8 2002/06/09 02:19:43 remm Exp $
- * $Revision: 1.8 $
- * $Date: 2002/06/09 02:19:43 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/realm/UserDatabaseRealm.java,v 1.8
+ * 2002/06/09 02:19:43 remm Exp $ $Revision: 1.8 $ $Date: 2002/06/09 02:19:43 $
  *
  * ====================================================================
  *
@@ -61,23 +60,20 @@
  *
  */
 
-
 package org.apache.catalina.realm;
-
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.naming.Context;
-import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Group;
+import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Role;
 import org.apache.catalina.ServerFactory;
 import org.apache.catalina.User;
 import org.apache.catalina.UserDatabase;
 import org.apache.catalina.core.StandardServer;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * <p>Implementation of {@link Realm} that is based on an implementation of
@@ -91,12 +87,8 @@ import org.apache.catalina.util.StringManager;
  * @since 4.1
  */
 
-public class UserDatabaseRealm
-    extends RealmBase {
-
-
+public class UserDatabaseRealm extends RealmBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The <code>UserDatabase</code> we will use to authenticate users
@@ -104,19 +96,15 @@ public class UserDatabaseRealm
      */
     protected UserDatabase database = null;
 
-
     /**
      * Descriptive information about this Realm implementation.
      */
-    protected final String info =
-        "org.apache.catalina.realm.UserDatabaseRealm/1.0";
-
+    protected final String info = "org.apache.catalina.realm.UserDatabaseRealm/1.0";
 
     /**
      * Descriptive information about this Realm implementation.
      */
     protected static final String name = "UserDatabaseRealm";
-
 
     /**
      * The global JNDI name of the <code>UserDatabase</code> resource
@@ -124,16 +112,12 @@ public class UserDatabaseRealm
      */
     protected String resourceName = "UserDatabase";
 
-
     /**
      * The string manager for this package.
      */
-    private static StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    private static StringManager sm = StringManager.getManager(Constants.Package);
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Realm implementation and
@@ -141,22 +125,16 @@ public class UserDatabaseRealm
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo() {
-
         return info;
-
     }
-
 
     /**
      * Return the global JNDI name of the <code>UserDatabase</code> resource
      * we will be using.
      */
     public String getResourceName() {
-
         return resourceName;
-
     }
-
 
     /**
      * Set the global JNDI name of the <code>UserDatabase</code> resource
@@ -165,14 +143,10 @@ public class UserDatabaseRealm
      * @param resourceName The new global JNDI name
      */
     public void setResourceName(String resourceName) {
-
         this.resourceName = resourceName;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return the Principal associated with the specified username and
@@ -183,7 +157,6 @@ public class UserDatabaseRealm
      *  authenticating this username
      */
     public Principal authenticate(String username, String credentials) {
-
         // Does a user with this username exist?
         User user = database.findUser(username);
         if (user == null) {
@@ -195,24 +168,20 @@ public class UserDatabaseRealm
         boolean validated = false;
         if (hasMessageDigest()) {
             // Hex hashes should be compared case-insensitive
-            validated = (digest(credentials)
-                         .equalsIgnoreCase(user.getPassword()));
+            validated = (digest(credentials).equalsIgnoreCase(user.getPassword()));
         } else {
-            validated =
-                (digest(credentials).equals(user.getPassword()));
+            validated = (digest(credentials).equals(user.getPassword()));
         }
         if (!validated) {
             if (debug >= 2) {
-                log(sm.getString("userDatabaseRealm.authenticateFailure",
-                                 username));
+                log(sm.getString("userDatabaseRealm.authenticateFailure", username));
             }
             return (null);
         }
 
         // Construct a GenericPrincipal that represents this user
         if (debug >= 2) {
-            log(sm.getString("userDatabaseRealm.authenticateSuccess",
-                             username));
+            log(sm.getString("userDatabaseRealm.authenticateSuccess", username));
         }
         ArrayList combined = new ArrayList();
         Iterator roles = user.getRoles();
@@ -235,47 +204,33 @@ public class UserDatabaseRealm
                 }
             }
         }
-        return (new GenericPrincipal(this, user.getUsername(),
-                                     user.getPassword(), combined));
-
+        return (new GenericPrincipal(this, user.getUsername(), user.getPassword(), combined));
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Return a short name for this Realm implementation.
      */
     protected String getName() {
-
         return (this.name);
-
     }
-
 
     /**
      * Return the password associated with the given principal's user name.
      */
     protected String getPassword(String username) {
-
         return (null);
-
     }
-
 
     /**
      * Return the Principal associated with the given user name.
      */
     protected Principal getPrincipal(String username) {
-
         return (null);
-
     }
 
-
     // ------------------------------------------------------ Lifecycle Methods
-
 
     /**
      * Prepare for active use of the public methods of this Component.
@@ -284,7 +239,6 @@ public class UserDatabaseRealm
      *  that prevents it from being started
      */
     public synchronized void start() throws LifecycleException {
-
         try {
             StandardServer server = (StandardServer) ServerFactory.getServer();
             Context context = server.getGlobalNamingContext();
@@ -295,15 +249,12 @@ public class UserDatabaseRealm
             database = null;
         }
         if (database == null) {
-            throw new LifecycleException
-                (sm.getString("userDatabaseRealm.noDatabase", resourceName));
+            throw new LifecycleException(sm.getString("userDatabaseRealm.noDatabase", resourceName));
         }
 
         // Perform normal superclass initialization
         super.start();
-
     }
-
 
     /**
      * Gracefully shut down active use of the public methods of this Component.
@@ -312,14 +263,10 @@ public class UserDatabaseRealm
      *  that needs to be reported
      */
     public synchronized void stop() throws LifecycleException {
-
         // Perform normal superclass finalization
         super.stop();
 
         // Release reference to our user database
         database = null;
-
     }
-
-
 }

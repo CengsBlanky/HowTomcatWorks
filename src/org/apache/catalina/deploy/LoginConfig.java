@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/LoginConfig.java,v 1.6 2001/07/22 20:25:10 pier Exp $
- * $Revision: 1.6 $
- * $Date: 2001/07/22 20:25:10 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/LoginConfig.java,v 1.6 2001/07/22
+ * 20:25:10 pier Exp $ $Revision: 1.6 $ $Date: 2001/07/22 20:25:10 $
  *
  * ====================================================================
  *
@@ -61,12 +60,9 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
 
-
 import org.apache.catalina.util.RequestUtil;
-
 
 /**
  * Representation of a login configuration element for a web application,
@@ -78,20 +74,14 @@ import org.apache.catalina.util.RequestUtil;
  */
 
 public final class LoginConfig {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Construct a new LoginConfig with default properties.
      */
     public LoginConfig() {
-
         super();
-
     }
-
 
     /**
      * Construct a new LoginConfig with the specified properties.
@@ -101,20 +91,15 @@ public final class LoginConfig {
      * @param loginPage The login page URI
      * @param errorPage The error page URI
      */
-    public LoginConfig(String authMethod, String realmName,
-                       String loginPage, String errorPage) {
-
+    public LoginConfig(String authMethod, String realmName, String loginPage, String errorPage) {
         super();
         setAuthMethod(authMethod);
         setRealmName(realmName);
         setLoginPage(loginPage);
         setErrorPage(errorPage);
-
     }
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The authentication method to use for application login.  Must be
@@ -129,7 +114,6 @@ public final class LoginConfig {
     public void setAuthMethod(String authMethod) {
         this.authMethod = authMethod;
     }
-
 
     /**
      * The context-relative URI of the error page for form login.
@@ -147,7 +131,6 @@ public final class LoginConfig {
         this.errorPage = RequestUtil.URLDecode(errorPage);
     }
 
-
     /**
      * The context-relative URI of the login page for form login.
      */
@@ -164,7 +147,6 @@ public final class LoginConfig {
         this.loginPage = RequestUtil.URLDecode(loginPage);
     }
 
-
     /**
      * The realm name used when challenging the user for authentication
      * credentials.
@@ -179,15 +161,12 @@ public final class LoginConfig {
         this.realmName = realmName;
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("LoginConfig[");
         sb.append("authMethod=");
         sb.append(authMethod);
@@ -205,8 +184,5 @@ public final class LoginConfig {
         }
         sb.append("]");
         return (sb.toString());
-
     }
-
-
 }

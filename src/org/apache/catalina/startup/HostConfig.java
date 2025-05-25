@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/HostConfig.java,v 1.23 2002/05/30 22:12:28 remm Exp $
- * $Revision: 1.23 $
- * $Date: 2002/05/30 22:12:28 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/startup/HostConfig.java,v 1.23
+ * 2002/05/30 22:12:28 remm Exp $ $Revision: 1.23 $ $Date: 2002/05/30 22:12:28 $
  *
  * ====================================================================
  *
@@ -61,15 +60,13 @@
  *
  */
 
-
 package org.apache.catalina.startup;
-
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -79,7 +76,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
-import org.apache.naming.resources.ResourceAttributes;
 import org.apache.catalina.Context;
 import org.apache.catalina.Deployer;
 import org.apache.catalina.Host;
@@ -90,7 +86,7 @@ import org.apache.catalina.LifecycleListener;
 import org.apache.catalina.Logger;
 import org.apache.catalina.core.StandardHost;
 import org.apache.catalina.util.StringManager;
-
+import org.apache.naming.resources.ResourceAttributes;
 
 /**
  * Startup event listener for a <b>Host</b> that configures the properties
@@ -101,30 +97,23 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.23 $ $Date: 2002/05/30 22:12:28 $
  */
 
-public class HostConfig
-    implements LifecycleListener, Runnable {
-
-
+public class HostConfig implements LifecycleListener, Runnable {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The Java class name of the Context configuration class we should use.
      */
     protected String configClass = "org.apache.catalina.startup.ContextConfig";
 
-
     /**
      * The Java class name of the Context implementation we should use.
      */
     protected String contextClass = "org.apache.catalina.core.StandardContext";
 
-
     /**
      * The debugging detail level for this component.
      */
     protected int debug = 0;
-
 
     /**
      * The names of applications that we have auto-deployed (to avoid
@@ -132,31 +121,25 @@ public class HostConfig
      */
     protected ArrayList deployed = new ArrayList();
 
-
     /**
      * The Host we are associated with.
      */
     protected Host host = null;
 
-
     /**
      * The string resources for this package.
      */
-    protected static final StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    protected static final StringManager sm = StringManager.getManager(Constants.Package);
 
     /**
      * The number of seconds between checks for web app deployment.
      */
     private int checkInterval = 15;
 
-
     /**
      * Should we deploy XML Context config files?
      */
     private boolean deployXML = false;
-
 
     /**
      * Should we monitor the <code>appBase</code> directory for new
@@ -164,24 +147,20 @@ public class HostConfig
      */
     private boolean liveDeploy = false;
 
-
     /**
      * The background thread.
      */
     private Thread thread = null;
-
 
     /**
      * The background thread completion semaphore.
      */
     private boolean threadDone = false;
 
-
     /**
      * Name to register for the background thread.
      */
     private String threadName = "HostConfig";
-
 
     /**
      * Should we unpack WAR files when auto-deploying applications in the
@@ -189,26 +168,20 @@ public class HostConfig
      */
     private boolean unpackWARs = false;
 
-
     /**
      * Last modified dates of the web.xml files of the contexts, keyed by
      * context name.
      */
     private HashMap webXmlLastModified = new HashMap();
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Context configuration class name.
      */
     public String getConfigClass() {
-
         return (this.configClass);
-
     }
-
 
     /**
      * Set the Context configuration class name.
@@ -216,21 +189,15 @@ public class HostConfig
      * @param configClass The new Context configuration class name.
      */
     public void setConfigClass(String configClass) {
-
         this.configClass = configClass;
-
     }
-
 
     /**
      * Return the Context implementation class name.
      */
     public String getContextClass() {
-
         return (this.contextClass);
-
     }
-
 
     /**
      * Set the Context implementation class name.
@@ -238,21 +205,15 @@ public class HostConfig
      * @param contextClass The new Context implementation class name.
      */
     public void setContextClass(String contextClass) {
-
         this.contextClass = contextClass;
-
     }
-
 
     /**
      * Return the debugging detail level for this component.
      */
     public int getDebug() {
-
         return (this.debug);
-
     }
-
 
     /**
      * Set the debugging detail level for this component.
@@ -260,21 +221,15 @@ public class HostConfig
      * @param debug The new debugging detail level
      */
     public void setDebug(int debug) {
-
         this.debug = debug;
-
     }
-
 
     /**
      * Return the deploy XML config file flag for this component.
      */
     public boolean isDeployXML() {
-
         return (this.deployXML);
-
     }
-
 
     /**
      * Set the deploy XML config file flag for this component.
@@ -282,21 +237,15 @@ public class HostConfig
      * @param deployXML The new deploy XML flag
      */
     public void setDeployXML(boolean deployXML) {
-
-        this.deployXML= deployXML;
-
+        this.deployXML = deployXML;
     }
-
 
     /**
      * Return the live deploy flag for this component.
      */
     public boolean isLiveDeploy() {
-
         return (this.liveDeploy);
-
     }
-
 
     /**
      * Set the live deploy flag for this component.
@@ -304,21 +253,15 @@ public class HostConfig
      * @param liveDeploy The new live deploy flag
      */
     public void setLiveDeploy(boolean liveDeploy) {
-
         this.liveDeploy = liveDeploy;
-
     }
-
 
     /**
      * Return the unpack WARs flag.
      */
     public boolean isUnpackWARs() {
-
         return (this.unpackWARs);
-
     }
-
 
     /**
      * Set the unpack WARs flag.
@@ -326,14 +269,10 @@ public class HostConfig
      * @param unpackWARs The new unpack WARs flag
      */
     public void setUnpackWARs(boolean unpackWARs) {
-
         this.unpackWARs = unpackWARs;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Process the START event for an associated Host.
@@ -341,7 +280,6 @@ public class HostConfig
      * @param event The lifecycle event that has occurred
      */
     public void lifecycleEvent(LifecycleEvent event) {
-
         // Identify the host we are associated with
         try {
             host = (Host) event.getLifecycle();
@@ -364,34 +302,26 @@ public class HostConfig
             start();
         else if (event.getType().equals(Lifecycle.STOP_EVENT))
             stop();
-
     }
 
-
     // ------------------------------------------------------ Protected Methods
-
 
     /**
      * Return a File object representing the "application root" directory
      * for our associated Host.
      */
     protected File appBase() {
-
         File file = new File(host.getAppBase());
         if (!file.isAbsolute())
-            file = new File(System.getProperty("catalina.base"),
-                            host.getAppBase());
+            file = new File(System.getProperty("catalina.base"), host.getAppBase());
         return (file);
-
     }
-
 
     /**
      * Deploy applications for any directories or WAR files that are found
      * in our "application root" directory.
      */
     protected void deployApps() {
-
         if (!(host instanceof Deployer))
             return;
         if (debug >= 1)
@@ -405,20 +335,16 @@ public class HostConfig
         deployDescriptors(appBase, files);
         deployWARs(appBase, files);
         deployDirectories(appBase, files);
-
     }
-
 
     /**
      * Deploy XML context descriptors.
      */
     protected void deployDescriptors(File appBase, String[] files) {
-
         if (!deployXML)
-           return;
+            return;
 
         for (int i = 0; i < files.length; i++) {
-
             if (files[i].equalsIgnoreCase("META-INF"))
                 continue;
             if (files[i].equalsIgnoreCase("WEB-INF"))
@@ -427,7 +353,6 @@ public class HostConfig
                 continue;
             File dir = new File(appBase, files[i]);
             if (files[i].toLowerCase().endsWith(".xml")) {
-
                 deployed.add(files[i]);
 
                 // Calculate the context path and make sure it is unique
@@ -443,28 +368,20 @@ public class HostConfig
                 // Assume this is a configuration descriptor and deploy it
                 log(sm.getString("hostConfig.deployDescriptor", files[i]));
                 try {
-                    URL config =
-                        new URL("file", null, dir.getCanonicalPath());
+                    URL config = new URL("file", null, dir.getCanonicalPath());
                     ((Deployer) host).install(config, null);
                 } catch (Throwable t) {
-                    log(sm.getString("hostConfig.deployDescriptor.error",
-                                     files[i]), t);
+                    log(sm.getString("hostConfig.deployDescriptor.error", files[i]), t);
                 }
-
             }
-
         }
-
     }
-
 
     /**
      * Deploy WAR files.
      */
     protected void deployWARs(File appBase, String[] files) {
-
         for (int i = 0; i < files.length; i++) {
-
             if (files[i].equalsIgnoreCase("META-INF"))
                 continue;
             if (files[i].equalsIgnoreCase("WEB-INF"))
@@ -473,7 +390,6 @@ public class HostConfig
                 continue;
             File dir = new File(appBase, files[i]);
             if (files[i].toLowerCase().endsWith(".war")) {
-
                 deployed.add(files[i]);
 
                 // Calculate the context path and make sure it is unique
@@ -487,50 +403,37 @@ public class HostConfig
                     continue;
 
                 if (isUnpackWARs()) {
-
                     // Expand and deploy this application as a directory
                     log(sm.getString("hostConfig.expand", files[i]));
                     try {
-                        URL url = new URL("jar:file:" +
-                                          dir.getCanonicalPath() + "!/");
+                        URL url = new URL("jar:file:" + dir.getCanonicalPath() + "!/");
                         String path = expand(url);
                         url = new URL("file:" + path);
                         ((Deployer) host).install(contextPath, url);
                     } catch (Throwable t) {
-                        log(sm.getString("hostConfig.expand.error", files[i]),
-                            t);
+                        log(sm.getString("hostConfig.expand.error", files[i]), t);
                     }
 
                 } else {
-
                     // Deploy the application in this WAR file
                     log(sm.getString("hostConfig.deployJar", files[i]));
                     try {
-                        URL url = new URL("file", null,
-                                          dir.getCanonicalPath());
+                        URL url = new URL("file", null, dir.getCanonicalPath());
                         url = new URL("jar:" + url.toString() + "!/");
                         ((Deployer) host).install(contextPath, url);
                     } catch (Throwable t) {
-                        log(sm.getString("hostConfig.deployJar.error",
-                                         files[i]), t);
+                        log(sm.getString("hostConfig.deployJar.error", files[i]), t);
                     }
-
                 }
-
             }
-
         }
-
     }
-
 
     /**
      * Deploy directories.
      */
     protected void deployDirectories(File appBase, String[] files) {
-
         for (int i = 0; i < files.length; i++) {
-
             if (files[i].equalsIgnoreCase("META-INF"))
                 continue;
             if (files[i].equalsIgnoreCase("WEB-INF"))
@@ -539,7 +442,6 @@ public class HostConfig
                 continue;
             File dir = new File(appBase, files[i]);
             if (dir.isDirectory()) {
-
                 deployed.add(files[i]);
 
                 // Make sure there is an application configuration directory
@@ -547,8 +449,7 @@ public class HostConfig
                 // web server document root to make sure only web applications
                 // are deployed and not directories for web space.
                 File webInf = new File(dir, "/WEB-INF");
-                if (!webInf.exists() || !webInf.isDirectory() ||
-                    !webInf.canRead())
+                if (!webInf.exists() || !webInf.isDirectory() || !webInf.canRead())
                     continue;
 
                 // Calculate the context path and make sure it is unique
@@ -564,22 +465,16 @@ public class HostConfig
                     URL url = new URL("file", null, dir.getCanonicalPath());
                     ((Deployer) host).install(contextPath, url);
                 } catch (Throwable t) {
-                    log(sm.getString("hostConfig.deployDir.error", files[i]),
-                        t);
+                    log(sm.getString("hostConfig.deployDir.error", files[i]), t);
                 }
-
             }
-
         }
-
     }
-
 
     /**
      * Check deployment descriptors last modified date.
      */
     protected void checkWebXmlLastModified() {
-
         if (!(host instanceof Deployer))
             return;
 
@@ -588,7 +483,6 @@ public class HostConfig
         String[] contextNames = deployer.findDeployedApps();
 
         for (int i = 0; i < contextNames.length; i++) {
-
             String contextName = contextNames[i];
             Context context = deployer.findDeployedApp(contextName);
 
@@ -602,19 +496,16 @@ public class HostConfig
                     // the context
                     continue;
                 }
-                ResourceAttributes webXmlAttributes = 
-                    (ResourceAttributes) 
-                    resources.getAttributes("/WEB-INF/web.xml");
+                ResourceAttributes webXmlAttributes = (ResourceAttributes) resources.getAttributes("/WEB-INF/web.xml");
                 long newLastModified = webXmlAttributes.getLastModified();
                 Long lastModified = (Long) webXmlLastModified.get(contextName);
                 if (lastModified == null) {
-                    webXmlLastModified.put
-                        (contextName, new Long(newLastModified));
+                    webXmlLastModified.put(contextName, new Long(newLastModified));
                 } else {
                     if (lastModified.longValue() != newLastModified) {
                         webXmlLastModified.remove(contextName);
                         ((Lifecycle) context).stop();
-                        // Note: If the context was already stopped, a 
+                        // Note: If the context was already stopped, a
                         // Lifecycle exception will be thrown, and the context
                         // won't be restarted
                         ((Lifecycle) context).start();
@@ -625,12 +516,8 @@ public class HostConfig
             } catch (NamingException e) {
                 ; // Ignore
             }
-
         }
-
     }
-
-
 
     /**
      * Expand the WAR file found at the specified URL into an unpacked
@@ -645,7 +532,6 @@ public class HostConfig
      *  during expansion
      */
     protected String expand(URL war) throws IOException {
-
         // Calculate the directory name of the expanded directory
         if (getDebug() >= 1) {
             log("expand(" + war.toString() + ")");
@@ -668,13 +554,10 @@ public class HostConfig
         // Make sure that there is no such directory already existing
         File appBase = new File(host.getAppBase());
         if (!appBase.isAbsolute()) {
-            appBase = new File(System.getProperty("catalina.base"),
-                               host.getAppBase());
+            appBase = new File(System.getProperty("catalina.base"), host.getAppBase());
         }
         if (!appBase.exists() || !appBase.isDirectory()) {
-            throw new IOException
-                (sm.getString("standardHost.appBase",
-                              appBase.getAbsolutePath()));
+            throw new IOException(sm.getString("standardHost.appBase", appBase.getAbsolutePath()));
         }
         File docBase = new File(appBase, pathname);
         if (docBase.exists()) {
@@ -685,8 +568,7 @@ public class HostConfig
         // Create the new document base directory
         docBase.mkdir();
         if (getDebug() >= 2) {
-            log("  Have created expansion directory " +
-                docBase.getAbsolutePath());
+            log("  Have created expansion directory " + docBase.getAbsolutePath());
         }
 
         // Expand the WAR into the new document base directory
@@ -747,8 +629,7 @@ public class HostConfig
                 }
                 int last = name.lastIndexOf('/');
                 if (last >= 0) {
-                    File parent = new File(docBase,
-                                           name.substring(0, last));
+                    File parent = new File(docBase, name.substring(0, last));
                     if (getDebug() >= 2) {
                         log("  Creating parent directory " + parent);
                     }
@@ -788,9 +669,7 @@ public class HostConfig
 
         // Return the absolute path to our new document base directory
         return (docBase.getAbsolutePath());
-
     }
-
 
     /**
      * Expand the specified input stream into the specified directory, creating
@@ -802,12 +681,9 @@ public class HostConfig
      *
      * @exception IOException if an input/output error occurs
      */
-    protected void expand(InputStream input, File docBase, String name)
-        throws IOException {
-
+    protected void expand(InputStream input, File docBase, String name) throws IOException {
         File file = new File(docBase, name);
-        BufferedOutputStream output =
-            new BufferedOutputStream(new FileOutputStream(file));
+        BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(file));
         byte buffer[] = new byte[2048];
         while (true) {
             int n = input.read(buffer);
@@ -816,9 +692,7 @@ public class HostConfig
             output.write(buffer, 0, n);
         }
         output.close();
-
     }
-
 
     /**
      * Log a message on the Logger associated with our Host (if any)
@@ -826,18 +700,14 @@ public class HostConfig
      * @param message Message to be logged
      */
     protected void log(String message) {
-
         Logger logger = null;
         if (host != null)
             logger = host.getLogger();
         if (logger != null)
             logger.log("HostConfig[" + host.getName() + "]: " + message);
         else
-            System.out.println("HostConfig[" + host.getName() + "]: "
-                               + message);
-
+            System.out.println("HostConfig[" + host.getName() + "]: " + message);
     }
-
 
     /**
      * Log a message on the Logger associated with our Host (if any)
@@ -846,28 +716,22 @@ public class HostConfig
      * @param throwable Associated exception
      */
     protected void log(String message, Throwable throwable) {
-
         Logger logger = null;
         if (host != null)
             logger = host.getLogger();
         if (logger != null)
-            logger.log("HostConfig[" + host.getName() + "] "
-                       + message, throwable);
+            logger.log("HostConfig[" + host.getName() + "] " + message, throwable);
         else {
-            System.out.println("HostConfig[" + host.getName() + "]: "
-                               + message);
+            System.out.println("HostConfig[" + host.getName() + "]: " + message);
             System.out.println("" + throwable);
             throwable.printStackTrace(System.out);
         }
-
     }
-
 
     /**
      * Process a "start" event for this Host.
      */
     protected void start() {
-
         if (debug >= 1)
             log(sm.getString("hostConfig.start"));
 
@@ -878,30 +742,24 @@ public class HostConfig
         if (isLiveDeploy()) {
             threadStart();
         }
-
     }
-
 
     /**
      * Process a "stop" event for this Host.
      */
     protected void stop() {
-
         if (debug >= 1)
             log(sm.getString("hostConfig.stop"));
 
         threadStop();
 
         undeployApps();
-
     }
-
 
     /**
      * Undeploy all deployed applications.
      */
     protected void undeployApps() {
-
         if (!(host instanceof Deployer))
             return;
         if (debug >= 1)
@@ -914,13 +772,10 @@ public class HostConfig
             try {
                 ((Deployer) host).remove(contextPaths[i]);
             } catch (Throwable t) {
-                log(sm.getString("hostConfig.undeploy.error",
-                                 contextPaths[i]), t);
+                log(sm.getString("hostConfig.undeploy.error", contextPaths[i]), t);
             }
         }
-
     }
-
 
     /**
      * Start the background thread that will periodically check for
@@ -930,7 +785,6 @@ public class HostConfig
      *  a background thread now
      */
     protected void threadStart() {
-
         // Has the background thread already been started?
         if (thread != null)
             return;
@@ -943,16 +797,13 @@ public class HostConfig
         thread = new Thread(this, threadName);
         thread.setDaemon(true);
         thread.start();
-
     }
-
 
     /**
      * Stop the background thread that is periodically checking for
      * for web application autoDeploy and changes to the web.xml config.
      */
     protected void threadStop() {
-
         if (thread == null)
             return;
 
@@ -967,40 +818,32 @@ public class HostConfig
         }
 
         thread = null;
-
     }
-
 
     /**
      * Sleep for the duration specified by the <code>checkInterval</code>
      * property.
      */
     protected void threadSleep() {
-
         try {
             Thread.sleep(checkInterval * 1000L);
         } catch (InterruptedException e) {
             ;
         }
-
     }
 
-
     // ------------------------------------------------------ Background Thread
-
 
     /**
      * The background thread that checks for web application autoDeploy
      * and changes to the web.xml config.
      */
     public void run() {
-
         if (debug >= 1)
             log("BACKGROUND THREAD Starting");
 
         // Loop until the termination semaphore is set
         while (!threadDone) {
-
             // Wait for our check interval
             threadSleep();
 
@@ -1009,13 +852,9 @@ public class HostConfig
 
             // Check for web.xml modification
             checkWebXmlLastModified();
-
         }
 
         if (debug >= 1)
             log("BACKGROUND THREAD Stopping");
-
     }
-
-
 }

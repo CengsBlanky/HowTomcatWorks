@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Group.java,v 1.5 2002/02/10 08:06:19 craigmcc Exp $
- * $Revision: 1.5 $
- * $Date: 2002/02/10 08:06:19 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Group.java,v 1.5 2002/02/10 08:06:19
+ * craigmcc Exp $ $Revision: 1.5 $ $Date: 2002/02/10 08:06:19 $
  *
  * ====================================================================
  * The Apache Software License, Version 1.1
@@ -60,13 +59,10 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 import java.security.Principal;
 import java.util.Iterator;
-
 
 /**
  * <p>Abstract representation of a group of {@link User}s in a
@@ -79,16 +75,12 @@ import java.util.Iterator;
  */
 
 public interface Group extends Principal {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the description of this group.
      */
     public String getDescription();
-
 
     /**
      * Set the description of this group.
@@ -97,13 +89,11 @@ public interface Group extends Principal {
      */
     public void setDescription(String description);
 
-
     /**
      * Return the group name of this group, which must be unique
      * within the scope of a {@link UserDatabase}.
      */
     public String getGroupname();
-
 
     /**
      * Set the group name of this group, which must be unique
@@ -113,27 +103,22 @@ public interface Group extends Principal {
      */
     public void setGroupname(String groupname);
 
-
     /**
      * Return the set of {@link Role}s assigned specifically to this group.
      */
     public Iterator getRoles();
-
 
     /**
      * Return the {@link UserDatabase} within which this Group is defined.
      */
     public UserDatabase getUserDatabase();
 
-
     /**
      * Return the set of {@link User}s that are members of this group.
      */
     public Iterator getUsers();
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a new {@link Role} to those assigned specifically to this group.
@@ -142,14 +127,12 @@ public interface Group extends Principal {
      */
     public void addRole(Role role);
 
-
     /**
      * Is this group specifically assigned the specified {@link Role}?
      *
      * @param role The role to check
      */
     public boolean isInRole(Role role);
-
 
     /**
      * Remove a {@link Role} from those assigned to this group.
@@ -158,11 +141,8 @@ public interface Group extends Principal {
      */
     public void removeRole(Role role);
 
-
     /**
      * Remove all {@link Role}s from those assigned to this group.
      */
     public void removeRoles();
-
-
 }

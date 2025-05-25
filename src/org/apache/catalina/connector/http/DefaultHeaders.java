@@ -1,6 +1,5 @@
 package org.apache.catalina.connector.http;
 
-
 /**
  * HTTP default headers and header names.
  *
@@ -10,10 +9,7 @@ package org.apache.catalina.connector.http;
  */
 
 final class DefaultHeaders {
-
-
     // -------------------------------------------------------------- Constants
-
 
     static final char[] AUTHORIZATION_NAME = "authorization".toCharArray();
     static final char[] ACCEPT_LANGUAGE_NAME = "accept-language".toCharArray();
@@ -25,31 +21,19 @@ final class DefaultHeaders {
     static final char[] CONNECTION_CLOSE_VALUE = "close".toCharArray();
     static final char[] EXPECT_NAME = "expect".toCharArray();
     static final char[] EXPECT_100_VALUE = "100-continue".toCharArray();
-    static final char[] TRANSFER_ENCODING_NAME =
-        "transfer-encoding".toCharArray();
+    static final char[] TRANSFER_ENCODING_NAME = "transfer-encoding".toCharArray();
 
-
-    static final HttpHeader CONNECTION_CLOSE =
-        new HttpHeader("connection", "close");
-    static final HttpHeader EXPECT_CONTINUE =
-        new HttpHeader("expect", "100-continue");
-    static final HttpHeader TRANSFER_ENCODING_CHUNKED =
-        new HttpHeader("transfer-encoding", "chunked");
-
+    static final HttpHeader CONNECTION_CLOSE = new HttpHeader("connection", "close");
+    static final HttpHeader EXPECT_CONTINUE = new HttpHeader("expect", "100-continue");
+    static final HttpHeader TRANSFER_ENCODING_CHUNKED = new HttpHeader("transfer-encoding", "chunked");
 
     // ----------------------------------------------------------- Constructors
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     // ------------------------------------------------------------- Properties
 
-
     // --------------------------------------------------------- Public Methods
 
-
     // --------------------------------------------------------- Object Methods
-
-
 }

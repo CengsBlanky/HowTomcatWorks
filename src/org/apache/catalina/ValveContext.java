@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ValveContext.java,v 1.3 2001/07/22 20:13:30 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:13:30 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/ValveContext.java,v 1.3 2001/07/22
+ * 20:13:30 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:13:30 $
  *
  * ====================================================================
  *
@@ -61,13 +60,10 @@
  *
  */
 
-
 package org.apache.catalina;
-
 
 import java.io.IOException;
 import javax.servlet.ServletException;
-
 
 /**
  * <p>A <b>ValveContext</b> is the mechanism by which a Valve can trigger the
@@ -88,19 +84,14 @@ import javax.servlet.ServletException;
  */
 
 public interface ValveContext {
-
-
     //-------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this ValveContext implementation.
      */
     public String getInfo();
 
-
     //---------------------------------------------------------- Public Methods
-
 
     /**
      * Cause the <code>invoke()</code> method of the next Valve that is part of
@@ -123,8 +114,5 @@ public interface ValveContext {
      * @exception ServletException if there are no further Valves configured
      *  in the Pipeline currently being processed
      */
-    public void invokeNext(Request request, Response response)
-        throws IOException, ServletException;
-
-
+    public void invokeNext(Request request, Response response) throws IOException, ServletException;
 }

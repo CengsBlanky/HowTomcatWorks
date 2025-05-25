@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardHostMapper.java,v 1.4 2002/03/14 20:58:24 remm Exp $
- * $Revision: 1.4 $
- * $Date: 2002/03/14 20:58:24 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardHostMapper.java,v 1.4
+ * 2002/03/14 20:58:24 remm Exp $ $Revision: 1.4 $ $Date: 2002/03/14 20:58:24 $
  *
  * ====================================================================
  *
@@ -61,7 +60,6 @@
  *
  */
 
-
 package org.apache.catalina.core;
 
 import org.apache.catalina.Container;
@@ -70,7 +68,6 @@ import org.apache.catalina.HttpRequest;
 import org.apache.catalina.Mapper;
 import org.apache.catalina.Request;
 import org.apache.catalina.util.StringManager;
-
 
 /**
  * Implementation of <code>Mapper</code> for a <code>Host</code>,
@@ -84,44 +81,32 @@ import org.apache.catalina.util.StringManager;
  * @version $Revision: 1.4 $ $Date: 2002/03/14 20:58:24 $
  */
 
-public class StandardHostMapper
-    implements Mapper {
-
-
+public class StandardHostMapper implements Mapper {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The Container with which this Mapper is associated.
      */
     private StandardHost host = null;
 
-
     /**
      * The protocol with which this Mapper is associated.
      */
     private String protocol = null;
 
-
     /**
      * The string manager for this package.
      */
-    private static final StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    private static final StringManager sm = StringManager.getManager(Constants.Package);
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the Container with which this Mapper is associated.
      */
     public Container getContainer() {
-
         return (host);
-
     }
-
 
     /**
      * Set the Container with which this Mapper is associated.
@@ -132,24 +117,17 @@ public class StandardHostMapper
      *  acceptable to this Mapper
      */
     public void setContainer(Container container) {
-
         if (!(container instanceof StandardHost))
-            throw new IllegalArgumentException
-                (sm.getString("httpHostMapper.container"));
+            throw new IllegalArgumentException(sm.getString("httpHostMapper.container"));
         host = (StandardHost) container;
-
     }
-
 
     /**
      * Return the protocol for which this Mapper is responsible.
      */
     public String getProtocol() {
-
         return (this.protocol);
-
     }
-
 
     /**
      * Set the protocol for which this Mapper is responsible.
@@ -157,14 +135,10 @@ public class StandardHostMapper
      * @param protocol The newly associated protocol
      */
     public void setProtocol(String protocol) {
-
         this.protocol = protocol;
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Return the child Container that should be used to process this Request,
@@ -192,8 +166,5 @@ public class StandardHostMapper
                 ((HttpRequest) request).setContextPath(null);
         }
         return (context);
-
     }
-
-
 }

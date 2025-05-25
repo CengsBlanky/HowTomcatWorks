@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/Constants.java,v 1.3 2001/07/22 20:25:06 pier Exp $
- * $Revision: 1.3 $
- * $Date: 2001/07/22 20:25:06 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/Constants.java,v 1.3
+ * 2001/07/22 20:25:06 pier Exp $ $Revision: 1.3 $ $Date: 2001/07/22 20:25:06 $
  *
  * ====================================================================
  *
@@ -61,16 +60,12 @@
  *
  */
 
-
 package org.apache.catalina.connector;
-
 
 /**
  * Static constants for this package.
  */
 
 public final class Constants {
-
     public static final String Package = "org.apache.catalina.connector";
-
 }

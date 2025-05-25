@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardContextValve.java,v 1.16 2002/03/14 20:58:24 remm Exp $
- * $Revision: 1.16 $
- * $Date: 2002/03/14 20:58:24 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/core/StandardContextValve.java,v 1.16
+ * 2002/03/14 20:58:24 remm Exp $ $Revision: 1.16 $ $Date: 2002/03/14 20:58:24 $
  *
  * ====================================================================
  *
@@ -61,9 +60,7 @@
  *
  */
 
-
 package org.apache.catalina.core;
-
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -78,7 +75,6 @@ import org.apache.catalina.Wrapper;
 import org.apache.catalina.util.StringManager;
 import org.apache.catalina.valves.ValveBase;
 
-
 /**
  * Valve that implements the default basic behavior for the
  * <code>StandardContext</code> container implementation.
@@ -90,42 +86,29 @@ import org.apache.catalina.valves.ValveBase;
  * @version $Revision: 1.16 $ $Date: 2002/03/14 20:58:24 $
  */
 
-final class StandardContextValve
-    extends ValveBase {
-
-
+final class StandardContextValve extends ValveBase {
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The descriptive information related to this implementation.
      */
-    private static final String info =
-        "org.apache.catalina.core.StandardContextValve/1.0";
-
+    private static final String info = "org.apache.catalina.core.StandardContextValve/1.0";
 
     /**
      * The string manager for this package.
      */
-    private static final StringManager sm =
-        StringManager.getManager(Constants.Package);
-
+    private static final StringManager sm = StringManager.getManager(Constants.Package);
 
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Valve implementation.
      */
     public String getInfo() {
-
         return (info);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Select the appropriate child Wrapper to process this request,
@@ -139,26 +122,21 @@ final class StandardContextValve
      * @exception IOException if an input/output error occurred
      * @exception ServletException if a servlet error occurred
      */
-    public void invoke(Request request, Response response,
-                       ValveContext valveContext)
-        throws IOException, ServletException {
-
+    public void invoke(Request request, Response response, ValveContext valveContext)
+      throws IOException, ServletException {
         // Validate the request and response object types
-        if (!(request.getRequest() instanceof HttpServletRequest) ||
-            !(response.getResponse() instanceof HttpServletResponse)) {
-            return;     // NOTE - Not much else we can do generically
+        if (!(request.getRequest() instanceof HttpServletRequest)
+          || !(response.getResponse() instanceof HttpServletResponse)) {
+            return; // NOTE - Not much else we can do generically
         }
 
         // Disallow any direct access to resources under WEB-INF or META-INF
         HttpServletRequest hreq = (HttpServletRequest) request.getRequest();
         String contextPath = hreq.getContextPath();
         String requestURI = ((HttpRequest) request).getDecodedRequestURI();
-        String relativeURI =
-            requestURI.substring(contextPath.length()).toUpperCase();
-        if (relativeURI.equals("/META-INF") ||
-            relativeURI.equals("/WEB-INF") ||
-            relativeURI.startsWith("/META-INF/") ||
-            relativeURI.startsWith("/WEB-INF/")) {
+        String relativeURI = requestURI.substring(contextPath.length()).toUpperCase();
+        if (relativeURI.equals("/META-INF") || relativeURI.equals("/WEB-INF") || relativeURI.startsWith("/META-INF/")
+          || relativeURI.startsWith("/WEB-INF/")) {
             notFound(requestURI, (HttpServletResponse) response.getResponse());
             return;
         }
@@ -170,8 +148,7 @@ final class StandardContextValve
         try {
             wrapper = (Wrapper) context.map(request, true);
         } catch (IllegalArgumentException e) {
-            badRequest(requestURI, 
-                       (HttpServletResponse) response.getResponse());
+            badRequest(requestURI, (HttpServletResponse) response.getResponse());
             return;
         }
         if (wrapper == null) {
@@ -183,12 +160,9 @@ final class StandardContextValve
         response.setContext(context);
 
         wrapper.invoke(request, response);
-
     }
 
-
     // -------------------------------------------------------- Private Methods
-
 
     /**
      * Report a "bad request" error for the specified resource.  FIXME:  We
@@ -200,7 +174,6 @@ final class StandardContextValve
      * @param response The response we are creating
      */
     private void badRequest(String requestURI, HttpServletResponse response) {
-
         try {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, requestURI);
         } catch (IllegalStateException e) {
@@ -208,7 +181,6 @@ final class StandardContextValve
         } catch (IOException e) {
             ;
         }
-
     }
 
     /**
@@ -221,7 +193,6 @@ final class StandardContextValve
      * @param response The response we are creating
      */
     private void notFound(String requestURI, HttpServletResponse response) {
-
         try {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, requestURI);
         } catch (IllegalStateException e) {
@@ -229,7 +200,5 @@ final class StandardContextValve
         } catch (IOException e) {
             ;
         }
-
     }
-
 }

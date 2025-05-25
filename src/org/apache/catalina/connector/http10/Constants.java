@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/http10/Constants.java,v 1.4 2002/03/18 07:15:40 remm Exp $
- * $Revision: 1.4 $
- * $Date: 2002/03/18 07:15:40 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/connector/http10/Constants.java,v 1.4
+ * 2002/03/18 07:15:40 remm Exp $ $Revision: 1.4 $ $Date: 2002/03/18 07:15:40 $
  *
  * ====================================================================
  *
@@ -61,20 +60,15 @@
  *
  */
 
-
 package org.apache.catalina.connector.http10;
-
 
 /**
  * Static constants for this package.
- * 
+ *
  * @deprecated
  */
 
 public final class Constants {
-
-    public static final String Package =
-        "org.apache.catalina.connector.http10";
+    public static final String Package = "org.apache.catalina.connector.http10";
     public static final int DEFAULT_CONNECTION_TIMEOUT = 30000;
-
 }

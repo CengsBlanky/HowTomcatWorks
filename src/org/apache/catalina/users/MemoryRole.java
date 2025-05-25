@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/users/MemoryRole.java,v 1.2 2002/02/10 03:20:17 craigmcc Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/10 03:20:17 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/users/MemoryRole.java,v 1.2 2002/02/10
+ * 03:20:17 craigmcc Exp $ $Revision: 1.2 $ $Date: 2002/02/10 03:20:17 $
  *
  * ====================================================================
  * The Apache Software License, Version 1.1
@@ -60,11 +59,9 @@
  *
  */
 
-
 package org.apache.catalina.users;
 
 import org.apache.catalina.UserDatabase;
-
 
 /**
  * <p>Concrete implementation of {@link Role} for the
@@ -76,10 +73,7 @@ import org.apache.catalina.UserDatabase;
  */
 
 public class MemoryRole extends AbstractRole {
-
-
     // ----------------------------------------------------------- Constructors
-
 
     /**
      * Package-private constructor used by the factory method in
@@ -89,47 +83,35 @@ public class MemoryRole extends AbstractRole {
      * @param rolename Role name of this role
      * @param description Description of this role
      */
-    MemoryRole(MemoryUserDatabase database,
-               String rolename, String description) {
-
+    MemoryRole(MemoryUserDatabase database, String rolename, String description) {
         super();
         this.database = database;
         setRolename(rolename);
         setDescription(description);
-
     }
 
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The {@link MemoryUserDatabase} that owns this role.
      */
     protected MemoryUserDatabase database = null;
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return the {@link UserDatabase} within which this role is defined.
      */
     public UserDatabase getUserDatabase() {
-
         return (this.database);
-
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * <p>Return a String representation of this role in XML format.</p>
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("<role rolename=\"");
         sb.append(rolename);
         sb.append("\"");
@@ -140,8 +122,5 @@ public class MemoryRole extends AbstractRole {
         }
         sb.append("/>");
         return (sb.toString());
-
     }
-
-
 }

@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Server.java,v 1.10 2002/03/06 06:49:10 craigmcc Exp $
- * $Revision: 1.10 $
- * $Date: 2002/03/06 06:49:10 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/Server.java,v 1.10 2002/03/06 06:49:10
+ * craigmcc Exp $ $Revision: 1.10 $ $Date: 2002/03/06 06:49:10 $
  *
  * ====================================================================
  *
@@ -61,7 +60,6 @@
  *
  */
 
-
 package org.apache.catalina;
 
 import org.apache.catalina.deploy.NamingResources;
@@ -92,10 +90,7 @@ import org.apache.catalina.deploy.NamingResources;
  */
 
 public interface Server {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Server implementation and
@@ -104,27 +99,22 @@ public interface Server {
      */
     public String getInfo();
 
-
     /**
      * Return the global naming resources.
      */
     public NamingResources getGlobalNamingResources();
 
-
     /**
      * Set the global naming resources.
-     * 
+     *
      * @param namingResources The new global naming resources
      */
-    public void setGlobalNamingResources
-        (NamingResources globalNamingResources);
-
+    public void setGlobalNamingResources(NamingResources globalNamingResources);
 
     /**
      * Return the port number we listen to for shutdown commands.
      */
     public int getPort();
-
 
     /**
      * Set the port number we listen to for shutdown commands.
@@ -133,12 +123,10 @@ public interface Server {
      */
     public void setPort(int port);
 
-
     /**
      * Return the shutdown command string we are waiting for.
      */
     public String getShutdown();
-
 
     /**
      * Set the shutdown command we are waiting for.
@@ -147,9 +135,7 @@ public interface Server {
      */
     public void setShutdown(String shutdown);
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add a new Service to the set of defined Services.
@@ -158,12 +144,10 @@ public interface Server {
      */
     public void addService(Service service);
 
-
     /**
      * Wait until a proper shutdown command is received, then return.
      */
     public void await();
-
 
     /**
      * Return the specified Service (if it exists); otherwise return
@@ -173,12 +157,10 @@ public interface Server {
      */
     public Service findService(String name);
 
-
     /**
      * Return the set of Services defined within this Server.
      */
     public Service[] findServices();
-
 
     /**
      * Remove the specified Service from the set associated from this
@@ -194,6 +176,5 @@ public interface Server {
      *
      * @exception LifecycleException If this server was already initialized.
      */
-    public void initialize()
-    throws LifecycleException;
+    public void initialize() throws LifecycleException;
 }

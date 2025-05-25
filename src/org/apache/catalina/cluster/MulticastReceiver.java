@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/cluster/MulticastReceiver.java,v 1.5 2002/01/03 08:52:56 remm Exp $
- * $Revision: 1.5 $
- * $Date: 2002/01/03 08:52:56 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/cluster/MulticastReceiver.java,v 1.5
+ * 2002/01/03 08:52:56 remm Exp $ $Revision: 1.5 $ $Date: 2002/01/03 08:52:56 $
  *
  * ====================================================================
  *
@@ -63,14 +62,13 @@
 
 package org.apache.catalina.cluster;
 
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.util.Vector;
-
 
 /**
  * This class is responsible for checking for incoming multicast
@@ -81,9 +79,7 @@ import java.util.Vector;
  * @version $Revision: 1.5 $, $Date: 2002/01/03 08:52:56 $
  */
 
-public final class MulticastReceiver
-    extends ClusterSessionBase implements ClusterReceiver {
-
+public final class MulticastReceiver extends ClusterSessionBase implements ClusterReceiver {
     // ----------------------------------------------------- Instance Variables
 
     /**
@@ -139,8 +135,8 @@ public final class MulticastReceiver
      * @param senderId The unique senderId
      * @param multicastSocket The MulticastSocket to use
      */
-    MulticastReceiver(String senderId, MulticastSocket multicastSocket,
-                    InetAddress multicastAddress, int multicastPort) {
+    MulticastReceiver(
+      String senderId, MulticastSocket multicastSocket, InetAddress multicastAddress, int multicastPort) {
         this.multicastSocket = multicastSocket;
         this.senderId = senderId;
     }
@@ -152,7 +148,7 @@ public final class MulticastReceiver
      * @return The name of the implementation
      */
     public String getName() {
-        return(this.receiverName);
+        return (this.receiverName);
     }
 
     /**
@@ -171,7 +167,7 @@ public final class MulticastReceiver
      * @return The time in seconds this Cluster sleeps
      */
     public int getCheckInterval() {
-        return(this.checkInterval);
+        return (this.checkInterval);
     }
 
     /**
@@ -208,7 +204,6 @@ public final class MulticastReceiver
         threadStop();
     }
 
-
     // -------------------------------------------------------- Private Methods
 
     /**
@@ -225,16 +220,14 @@ public final class MulticastReceiver
             multicastSocket.receive(recv);
             ips = new ByteArrayInputStream(buf, 0, buf.length);
             ois = new ObjectInputStream(ips);
-            ReplicationWrapper obj = (ReplicationWrapper)ois.readObject();
+            ReplicationWrapper obj = (ReplicationWrapper) ois.readObject();
 
-            if(obj.getSenderId().equals(this.senderId))
+            if (obj.getSenderId().equals(this.senderId))
                 stack.add(obj);
         } catch (IOException e) {
-            log("An error occurred when trying to replicate: "+
-                e.toString());
+            log("An error occurred when trying to replicate: " + e.toString());
         } catch (ClassNotFoundException e) {
-            log("An error occurred when trying to replicate: "+
-                e.toString());
+            log("An error occurred when trying to replicate: " + e.toString());
         }
     }
 
@@ -271,7 +264,7 @@ public final class MulticastReceiver
             return;
 
         threadDone = false;
-        threadName = threadName+"["+senderId+"]";
+        threadName = threadName + "[" + senderId + "]";
         thread = new Thread(this, threadName);
         thread.setDaemon(true);
         thread.start();

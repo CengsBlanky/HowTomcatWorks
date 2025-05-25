@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ResourceParams.java,v 1.4 2002/06/08 07:24:59 remm Exp $
- * $Revision: 1.4 $
- * $Date: 2002/06/08 07:24:59 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/deploy/ResourceParams.java,v 1.4
+ * 2002/06/08 07:24:59 remm Exp $ $Revision: 1.4 $ $Date: 2002/06/08 07:24:59 $
  *
  * ====================================================================
  *
@@ -61,7 +60,6 @@
  *
  */
 
-
 package org.apache.catalina.deploy;
 
 import java.util.Hashtable;
@@ -75,10 +73,7 @@ import java.util.Hashtable;
  */
 
 public final class ResourceParams {
-
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * The name of this resource parameters. Must be the name of the resource
@@ -106,12 +101,10 @@ public final class ResourceParams {
 
     // --------------------------------------------------------- Public Methods
 
-
     /**
      * Return a String representation of this object.
      */
     public String toString() {
-
         StringBuffer sb = new StringBuffer("ResourceParams[");
         sb.append("name=");
         sb.append(name);
@@ -119,12 +112,9 @@ public final class ResourceParams {
         sb.append(resourceParams.toString());
         sb.append("]");
         return (sb.toString());
-
     }
 
-
     // -------------------------------------------------------- Package Methods
-
 
     /**
      * The NamingResources with which we are associated (if any).
@@ -138,6 +128,4 @@ public final class ResourceParams {
     void setNamingResources(NamingResources resources) {
         this.resources = resources;
     }
-
-
 }

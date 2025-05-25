@@ -1,7 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/session/PersistentManager.java,v 1.10 2001/07/22 20:25:12 pier Exp $
- * $Revision: 1.10 $
- * $Date: 2001/07/22 20:25:12 $
+ * $Header: /home/cvs/jakarta-tomcat-4.0/catalina/src/share/org/apache/catalina/session/PersistentManager.java,v 1.10
+ * 2001/07/22 20:25:12 pier Exp $ $Revision: 1.10 $ $Date: 2001/07/22 20:25:12 $
  *
  * ====================================================================
  *
@@ -61,7 +60,6 @@
  *
  */
 
-
 package org.apache.catalina.session;
 
 /**
@@ -80,25 +78,19 @@ package org.apache.catalina.session;
  */
 
 public final class PersistentManager extends PersistentManagerBase {
-
-
     // ----------------------------------------------------- Instance Variables
-
 
     /**
      * The descriptive information about this implementation.
      */
     private static final String info = "PersistentManager/1.0";
 
-
     /**
      * The descriptive name of this Manager implementation (for logging).
      */
     protected static String name = "PersistentManager";
 
-
     // ------------------------------------------------------------- Properties
-
 
     /**
      * Return descriptive information about this Manager implementation and
@@ -106,18 +98,13 @@ public final class PersistentManager extends PersistentManagerBase {
      * <code>&lt;description&gt;/&lt;version&gt;</code>.
      */
     public String getInfo() {
-
         return (this.info);
-
     }
 
     /**
      * Return the descriptive short name of this Manager implementation.
      */
     public String getName() {
-
         return (name);
-
     }
- }
-
+}
